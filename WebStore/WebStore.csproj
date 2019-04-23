@@ -369,6 +369,9 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\extra.css" />
+    <Content Include="Content\extra.min.css">
+      <DependentUpon>extra.css</DependentUpon>
+    </Content>
     <Content Include="Content\font\icons.svg" />
     <Content Include="Content\img\foto.png" />
     <Content Include="Content\img\frame_1.png" />
@@ -429,7 +432,11 @@
     <Content Include="Content\bootstrap-reboot.css.map" />
     <Content Include="Content\bootstrap-grid.min.css.map" />
     <Content Include="Content\bootstrap-grid.css.map" />
-    <Content Include="Content\style.scss" />
+    <Content Include="Content\extra.scss" />
+    <None Include="compilerconfig.json" />
+    <None Include="compilerconfig.json.defaults">
+      <DependentUpon>compilerconfig.json</DependentUpon>
+    </None>
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <Content Include="Scripts\bootstrap.min.js.map" />
     <Content Include="Scripts\bootstrap.js.map" />
