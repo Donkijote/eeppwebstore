@@ -302,7 +302,7 @@
   background-color: #BDBDBD;
   border-color: #BDBDBD; }
 
-[type="checkbox"]:not(.fill-in) + label:after {
+[type="checkbox"]:not(.filled-in) + label:after {
   content: '';
   position: absolute;
   top: 0;
@@ -663,9 +663,6 @@
 .radio:disabled + label {
   color: rgba(0, 0, 0, 0.26); }
 
-/* Checkboxes
-   ========================================================================== */
-/* CUSTOM CSS CHECKBOXES */
 form p {
   margin-bottom: 10px;
   text-align: left; }

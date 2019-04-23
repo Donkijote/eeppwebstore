@@ -44,6 +44,7 @@ $colors: (
 @mixin border-radio($color) {
     border: 2px solid $color;
 }
+
 [type="checkbox"] {
     + label {
         position: relative;
@@ -265,7 +266,7 @@ $colors: (
         }
     }
 
-    &:not(.fill-in) {
+    &:not(.filled-in) {
         + label {
             &:after {
                 content: '';
@@ -502,10 +503,6 @@ $colors: (
         }
     }
 }
-
-/* Checkboxes
-   ========================================================================== */
-/* CUSTOM CSS CHECKBOXES */
 
 form {
     p {
