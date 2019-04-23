@@ -1,0 +1,99 @@
+﻿
+<section>
+    <header class="header">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                    <h1>
+                        @ViewBag.Title
+                    </h1>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                    <ul class="breadcrumbs">
+                        <li>
+                            <a href="@Url.Action("Index","Home", new { language = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName}, null)">@WebStore.Resources.Titles.Home</a>
+                        </li>
+                        <li class="separator">&nbsp;</li>
+                        <li>
+                            <a href="@Url.Action("Home","Account", new { language = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName}, null)">@WebStore.Resources.Titles.Account</a>
+                        </li>
+                        <li class="separator">&nbsp;</li>
+                        <li>
+                            <a href="@Url.Action("Tickets","Account", new { language = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName}, null)">@WebStore.Resources.Titles.Tickets</a>
+                        </li>
+                        <li class="separator">&nbsp;</li>
+                        <li>
+                            @ViewBag.Title
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </header>
+</section>
+
+@Html.Partial("~/Views/Shared/profileMenu.cshtml")
+
+<div class="container mb-5">
+    <div class="table-responsive margin-bottom-2x">
+        <table class="table margin-bottom-none">
+            <thead>
+                <tr>
+                    <th>Date Submitted</th>
+                    <th>Last Updated</th>
+                    <th>Type</th>
+                    <th>Priority</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>08/08/2017</td>
+                    <td>08/14/2017</td>
+                    <td>Website problem</td>
+                    <td><span class="text-warning">High</span></td>
+                    <td><span class="text-primary">Open</span></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="mg-comment">
+        <div class="mg-comment-author-ava">
+            <i class="mg-fo fo-donkijote fa-2x" alt="Avatar"></i>
+        </div>
+        <div class="mg-comment-body">
+            <p class="mg-comment-text">At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi.</p>
+            <div class="mg-comment-footer"><span class="mg-comment-meta">Daniel Adams</span></div>
+        </div>
+    </div>
+
+    <div class="mg-comment">
+        <div class="mg-comment-author-ava">
+            <i class="fas fa-headset fa-2x" alt="Avatar"></i>
+        </div>
+        <div class="mg-comment-body">
+            <p class="comment-text">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.</p>
+            <div class="mg-comment-footer"><span class="mg-comment-meta">Jacob Hammond, Staff</span></div>
+        </div>
+    </div>
+
+    <h5 class="mb-3 padding-top-1x">@WebStore.Resources.Titles.LMessage</h5>
+
+    <form method="post">
+        <div class="form-group">
+            <textarea class="form-control" id="review_text" rows="8" placeholder="@WebStore.Resources.Placeholder.Message" required=""></textarea>
+        </div>
+        <div class="text-right">
+            <button class="btn btn-outline-primary" type="submit">@WebStore.Resources.Buttons.Message</button>
+        </div>
+    </form>
+</div>
+
+@section Scripts{
+    <script>
+    $(function(){
+        $.AdminJs.profileMenu.activate();
+    })
+    </script>
+}

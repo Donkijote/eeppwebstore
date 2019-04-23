@@ -1,0 +1,283 @@
+﻿
+@{
+    ViewBag.Title = WebStore.Resources.Titles.Details;
+}
+
+<section>
+    <header class="header">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                    <h1>
+                        @ViewBag.Title
+                    </h1>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                    <ul class="breadcrumbs">
+                        <li>
+                            <a href="@Url.Action("Index","Home", new { language = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName}, null)">@WebStore.Resources.Titles.Home</a>
+                        </li>
+                        <li class="separator">&nbsp;</li>
+                        <li>
+                            <a href="@Url.Action("Home","Account", new { language = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName}, null)">@WebStore.Resources.Titles.Account</a>
+                        </li>
+                        <li class="separator">&nbsp;</li>
+                        <li>
+                            <a href="@Url.Action("Orders","Account", new { language = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName}, null)">@WebStore.Resources.Titles.Orders</a>
+                        </li>
+                        <li class="separator">&nbsp;</li>
+                        <li>
+                            @ViewBag.Title
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </header>
+</section>
+
+@Html.Partial("~/Views/Shared/profileMenu.cshtml")
+
+<div class="container">
+    <div class="col-md-12 mb-3">
+        <div class="row">
+            <div class="col-md-6 text-left py-2">
+                <span style="vertical-align:middle;">
+                    Pedido el 08/11/2018
+                    <span class="text-muted">|</span>
+                    Ordern # 00X-XXX-XXX
+                </span>
+            </div>
+            <div class="col-md-6 text-right">
+                <button class="btn btn-secondary btn-sm">
+                    @WebStore.Resources.Buttons.SeePrintBill
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12 mb-3">
+        <div class="card">
+            <div class="card-body row">
+                <div class="col-md-4">
+                    <h5>Dirección de Envío</h5>
+                    <ul class="list-unstyled">
+                        <li>Manuel Gonçalves Castellano</li>
+                        <li>6703 NW 7TH ST CCS36387</li>
+                        <li>MIAMI, FL 33126-6007</li>
+                        <li>United States</li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h5 class="text-center">Metodo de Pago</h5>
+                </div>
+                <div class="col-md-4">
+                    <h5 class="text-center">Resumen</h5>
+                    <div class="row">
+                        <div class="col-6 text-right">
+                            Subtotal:
+                        </div>
+                        <div class="col-6 text-center">
+                            $274.94
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6 text-right">
+                            Envío:
+                        </div>
+                        <div class="col-6 text-center">
+                            $5.48
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6 text-right">
+                            Envío Gratis:
+                        </div>
+                        <div class="col-6 text-center">
+                            -$5.48
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6 text-right">
+                            Total sin iva:
+                        </div>
+                        <div class="col-6 text-center">
+                            $274.94
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6 text-right">
+                            IVA:
+                        </div>
+                        <div class="col-6 text-center">
+                            +$1.05
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6 text-right">
+                            <strong>Total Neto:</strong>
+                        </div>
+                        <div class="col-6 text-center">
+                            <strong>$275.99</strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="accordion" id="accordion" rol="tablist">
+                <div class="card-header no-b">
+                    <a href="#card" data-toggle="collapse" class="collapsed" aria-expanded="false">
+                        Transacción
+                    </a>
+                </div>
+                <div class="collapse no-b" id="card" data-parent="#accordion" rol="tabpanel">
+                    <div class="card-body">
+                        <div class="row mt-3 mb-3">
+                            <div class="col-2">
+                                <strong>Monto</strong>
+                            </div>
+                            <div class="col-3">
+                                <strong>Metodo de Pago</strong>
+                            </div>
+                            <div class="col-4">
+                                <strong>Estatus</strong>
+                            </div>
+                            <div class="col-3"></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-2">
+                                $275.99
+                            </div>
+                            <div class="col-3">
+                                WebPay
+                            </div>
+                            <div class="col-4">
+                                Pagado el 25 Diciembre del 2018
+                            </div>
+                            <div class="col-3"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="col-md-12 mb-3">
+        <div class="card">
+            <div class="card-body">
+                <div class="row on-desktop">
+                    <div class="col-md-8">
+                        <div class="row mb-4">
+                            <div class="col-md-3 mg-order-img">
+                                <img class="img-fluid" src="http://themes.rokaux.com/unishop/v3.0/template-3/img/shop/products/01.jpg">
+                                <span class="mg-item-view-qty">
+                                    2
+                                </span>
+                            </div>
+                            <div class="col-md-9">
+                                <div class="row pb-2">
+                                    <a href="javascript:void(0);">Nombre del Producto</a>
+                                </div>
+                                <div class="row pb-2">
+                                    <span class="text-muted">Vendido por: <a href="javascript:void(0);"> Alguien</a></span>
+                                </div>
+                                <div class="row pb-2">
+                                    <span class="font-weight-bold">$83.75</span>
+                                </div>
+                                <div class="row pb-2">
+                                    <button class="btn btn-outline-primary btn-sm">@WebStore.Resources.Buttons.BuyAgain</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-4">
+                            <div class="col-md-3 mg-order-img">
+                                <img class="img-fluid" src="http://themes.rokaux.com/unishop/v3.0/template-3/img/shop/products/01.jpg">
+                                <span class="mg-item-view-qty">
+                                    2
+                                </span>
+                            </div>
+                            <div class="col-md-9">
+                                <div class="row pb-2">
+                                    <a href="javascript:void(0);">Nombre del Producto</a>
+                                </div>
+                                <div class="row pb-2">
+                                    <span class="text-muted">Vendido por: <a href="javascript:void(0);"> Alguien</a></span>
+                                </div>
+                                <div class="row pb-2">
+                                    <span class="font-weight-bold">$83.75</span>
+                                </div>
+                                <div class="row pb-2">
+                                    <button class="btn btn-outline-primary btn-sm">@WebStore.Resources.Buttons.BuyAgain</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <a class="btn btn-primary btn-block">@WebStore.Resources.Buttons.Support</a>
+                        <a class="btn btn-secondary btn-block">@WebStore.Resources.Buttons.Refounds</a>
+                        <a class="btn btn-secondary btn-block">@WebStore.Resources.Buttons.Review</a>
+                        <a class="btn btn-secondary btn-block">@WebStore.Resources.Buttons.ArchiveOrder</a>
+                    </div>
+                </div>
+                <div class="row on-mobile">
+                    <div class="col-md-8">
+                        <div class="row mb-4">
+                            <div class="col-md-3 mg-order-img">
+                                <img class="img-fluid" src="http://themes.rokaux.com/unishop/v3.0/template-3/img/shop/products/01.jpg">
+                                <span class="mg-item-view-qty">
+                                    2
+                                </span>
+                            </div>
+                            <div class="col-md-9">
+                                <div class="row pb-2">
+                                    <a href="javascript:void(0);">Nombre del Producto</a>
+                                </div>
+                                <div class="row pb-2">
+                                    <span class="text-muted">Vendido por: <a href="javascript:void(0);"> Alguien</a></span>
+                                </div>
+                                <div class="row pb-2">
+                                    <span class="font-weight-bold">$83.75</span>
+                                </div>
+                                <div class="row pb-2">
+                                    <button class="btn btn-outline-primary btn-sm">@WebStore.Resources.Buttons.BuyAgain</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-4">
+                            <div class="col-md-3 mg-order-img">
+                                <img class="img-fluid" src="http://themes.rokaux.com/unishop/v3.0/template-3/img/shop/products/01.jpg">
+                                <span class="mg-item-view-qty">
+                                    2
+                                </span>
+                            </div>
+                            <div class="col-md-9">
+                                <div class="row pb-2">
+                                    <a href="javascript:void(0);">Nombre del Producto</a>
+                                </div>
+                                <div class="row pb-2">
+                                    <span class="text-muted">Vendido por: <a href="javascript:void(0);"> Alguien</a></span>
+                                </div>
+                                <div class="row pb-2">
+                                    <span class="font-weight-bold">$83.75</span>
+                                </div>
+                                <div class="row pb-2">
+                                    <button class="btn btn-outline-primary btn-sm">@WebStore.Resources.Buttons.BuyAgain</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <a class="btn btn-secondary btn-block">@WebStore.Resources.Buttons.MoreOptions</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script>
+    $(function(){
+        $.AdminJs.profileMenu.activate();
+    })
+    </script>
+}

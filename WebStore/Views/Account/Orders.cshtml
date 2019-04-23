@@ -1,0 +1,278 @@
+﻿
+@{
+    ViewBag.Title = WebStore.Resources.Titles.Orders;
+}
+
+<section>
+    <header class="header">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                    <h1>
+                        @ViewBag.Title
+                    </h1>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                    <ul class="breadcrumbs">
+                        <li>
+                            <a href="@Url.Action("Index","Home", new { language = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName}, null)">@WebStore.Resources.Titles.Home</a>
+                        </li>
+                        <li class="separator">&nbsp;</li>
+                        <li>
+                            <a href="@Url.Action("Home","Account", new { language = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName}, null)">@WebStore.Resources.Titles.Account</a>
+                        </li>
+                        <li class="separator">&nbsp;</li>
+                        <li>
+                            @ViewBag.Title
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </header>
+</section>
+
+@Html.Partial("~/Views/Shared/profileMenu.cshtml")
+
+<div class="container mb-5">
+    <div class="mg-orders-titles on-desktop mb-3">
+        <ul class="list-unstyled mg-horizontal">
+            <li rol="tab">
+                <span class="list-item"></span>
+            </li>
+            <li class="@(ViewBag.orderType == "Order" ? "selected":"")" role="tab">
+                <span class="list-item">
+                    <a class="mg-item" href="@Url.Action("Orders","Account", new { language = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName}, null)">Ordenes</a>
+                </span>
+            </li>
+            <li class="@(ViewBag.orderType == "OpenOrders" ? "selected":"")" role="tab">
+                <span class="list-item">
+                    <a class="mg-item" href="@Url.Action("Orders","Account", new { id="op", language = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName}, null)">Ordenes Abiertas</a>
+                </span>
+            </li>
+            <li class="@(ViewBag.orderType == "NullOrders" ? "selected":"")" role="tab">
+                <span class="list-item">
+                    <a class="mg-item" href="@Url.Action("Address","Account", new { id="nu", language = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName}, null)">Ordenes Anuladas</a>
+                </span>
+            </li>
+        </ul>
+    </div>
+
+    <div class="mg-orders-filter on-desktop mb-5">
+        <div class="row">
+            <label class="col-sm-2 col-form-label"><strong>0 ordenes</strong> encontradas en</label>
+            <div class="col-sm-6">
+                <select class="form-control" name="period" id="period">
+                    <option value="30">Últimos 30 días</option>
+                    <option value="6">Pasados 6 Meses</option>
+                    <option value="2018">2018</option>
+                    <option value="2017">2017</option>
+                    <option value="2016">2016</option>
+                </select>
+            </div>
+            <div class="col-sm-4" style="display:inline-flex;">
+                <div class="form-group input-group">
+                    <input class="form-control mr-3" name="searchOrders" id="searchOrders" placeholder="Buscar en Todas las Ordenes" />
+                    <span class="input-group-addon">
+                        <i class="fas fa-search"></i>
+                    </span>
+                </div>
+                <button class="btn btn-dark btn-sm" id="sendSearchOrders" style="height:38px;">@WebStore.Resources.Buttons.Search</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="mg-order-titles on-mobile">
+        <div class="row">
+            <div class="col-xs-6">
+                <div class="form-group input-group">
+                    <input class="form-control mr-3" name="searchOrders" id="searchOrders" placeholder="Buscar en Todas las Ordenes" />
+                    <span class="input-group-addon">
+                        <i class="fas fa-search"></i>
+                    </span>
+                </div>
+            </div>
+            <div class="col-xs-6">
+                <button class="btn btn-dark btn-sm" id="sendSearchOrders" style="height:38px;">Buscar</button>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-6 text-left bg-secondary py-2">
+                <span class="font-weight-bold" id="ordersFilterDateText">2018</span>
+            </div>
+            <div class="col-6 text-right bg-secondary py-2">
+                <a class="mg-filter-orders-options" data-toggle="modal" data-target="#ordersFilters">Filtrar Ordenes <i class="fas fa-angle-double-right"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <div class="card mb-3">
+        <div class="card-header">
+            <div class="row on-desktop">
+                <div class="col-md-3 text-left">
+                    <span class="text-muted text-xsm text-uppercase">FECHA DE ORDEN</span><br>
+                    <span>Noviembre 05,2014</span>
+                </div>
+                <div class="col-md-2 text-center">
+                    <span class="text-muted text-xsm text-uppercase">TOTAL</span><br>
+                    <span>$275.99</span>
+                </div>
+                <div class="col-md-4 text-center">
+                    <span class="text-muted text-xsm text-uppercase">ENVIADO A</span><br>
+                    <div class="shipped">
+                        <a href="javascript:void(0);">Nombre de Usuario <i class="fas fa-angle-down"></i></a>
+                        <div class="card mg-shipping">
+                            <ul class="card-body">
+                                <li class="text-left font-weight-bold">Nombre del Usuario</li>
+                                <li class="text-left text-uppercase">6703 NW 7TH ST CCS36387</li>
+                                <li class="text-left text-uppercase">MIAMI, FL 33126-6007</li>
+                                <li class="text-left">United States</li>
+                                <li class="text-left">Phone: (305) 592-7754</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 text-right">
+                    <span class="text-muted text-sm text-uppercase">ORDEN # 00X-xxxxxxx-xxxxxxx</span><br>
+                    <span>
+                        <a href="@Url.Action("Details","Account", new { id="00X-XXX-XXX", language = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName}, null)">@WebStore.Resources.Buttons.OrderDetails</a>
+                        <span class="text-muted"> | </span>
+                        <a href="">@WebStore.Resources.Buttons.Bill</a>
+                    </span>
+                </div>
+            </div>
+            <div class="row on-mobile">
+                <div class="col-md-3 text-left mb-2">
+                    <span class="text-muted text-xsm text-uppercase">FECHA DE ORDEN</span><br>
+                    <span>Noviembre 05,2014</span>
+                </div>
+                <div class="col-md-2 text-left mb-2">
+                    <span class="text-muted text-xsm text-uppercase">TOTAL: </span>
+                    <span>$275.99</span>
+                </div>
+                <div class="col-md-4 text-left mb-2">
+                    <span class="text-muted text-sm text-uppercase">ORDEN # 00X-xxxxxxx-xxxxxxx</span><br>
+                </div>
+                <div class="col-md-3 text-right">
+                    <button class="btn btn-secondary btn-sm">@WebStore.Resources.Buttons.MoreOptions</button>
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="row on-desktop">
+                <div class="col-md-8">
+                    <div class="row mb-4">
+                        <div class="col-md-3 mg-order-img">
+                            <img class="img-fluid" src="http://themes.rokaux.com/unishop/v3.0/template-3/img/shop/products/01.jpg">
+                            <span class="mg-item-view-qty">
+                                2
+                            </span>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="row pb-2">
+                                <a href="javascript:void(0);">Nombre del Producto</a>
+                            </div>
+                            <div class="row pb-2">
+                                <span class="text-muted">Vendido por: <a href="javascript:void(0);"> Alguien</a></span>
+                            </div>
+                            <div class="row pb-2">
+                                <span class="font-weight-bold">$83.75</span>
+                            </div>
+                            <div class="row pb-2">
+                                <button class="btn btn-outline-primary btn-sm">@WebStore.Resources.Buttons.BuyAgain</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-4">
+                        <div class="col-md-3 mg-order-img">
+                            <img class="img-fluid" src="http://themes.rokaux.com/unishop/v3.0/template-3/img/shop/products/01.jpg">
+                            <span class="mg-item-view-qty">
+                                2
+                            </span>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="row pb-2">
+                                <a href="javascript:void(0);">Nombre del Producto</a>
+                            </div>
+                            <div class="row pb-2">
+                                <span class="text-muted">Vendido por: <a href="javascript:void(0);"> Alguien</a></span>
+                            </div>
+                            <div class="row pb-2">
+                                <span class="font-weight-bold">$83.75</span>
+                            </div>
+                            <div class="row pb-2">
+                                <button class="btn btn-outline-primary btn-sm">@WebStore.Resources.Buttons.BuyAgain</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <a class="btn btn-primary btn-block" href="@Url.Action("Traking","Account", new { language = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName}, null)">@WebStore.Resources.Buttons.TrackShipping</a>
+                    <a class="btn btn-secondary btn-block">@WebStore.Resources.Buttons.Refounds</a>
+                    <a class="btn btn-secondary btn-block">@WebStore.Resources.Buttons.Review</a>
+                    <a class="btn btn-secondary btn-block">@WebStore.Resources.Buttons.ArchiveOrder</a>
+                    <a class="btn btn-warning btn-block">@WebStore.Resources.Buttons.Support</a>
+                </div>
+            </div>
+            <div class="row on-mobile">
+                <div class="col-md-8">
+                    <div class="row mb-4">
+                        <div class="col-md-3 mg-order-img">
+                            <img class="img-fluid" src="http://themes.rokaux.com/unishop/v3.0/template-3/img/shop/products/01.jpg">
+                            <span class="mg-item-view-qty">
+                                2
+                            </span>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="row pb-2">
+                                <a href="javascript:void(0);">Nombre del Producto</a>
+                            </div>
+                            <div class="row pb-2">
+                                <span class="text-muted">Vendido por: <a href="javascript:void(0);"> Alguien</a></span>
+                            </div>
+                            <div class="row pb-2">
+                                <span class="font-weight-bold">$83.75</span>
+                            </div>
+                            <div class="row pb-2">
+                                <button class="btn btn-outline-primary btn-sm">@WebStore.Resources.Buttons.BuyAgain</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-4">
+                        <div class="col-md-3 mg-order-img">
+                            <img class="img-fluid" src="http://themes.rokaux.com/unishop/v3.0/template-3/img/shop/products/01.jpg">
+                            <span class="mg-item-view-qty">
+                                2
+                            </span>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="row pb-2">
+                                <a href="javascript:void(0);">Nombre del Producto</a>
+                            </div>
+                            <div class="row pb-2">
+                                <span class="text-muted">Vendido por: <a href="javascript:void(0);"> Alguien</a></span>
+                            </div>
+                            <div class="row pb-2">
+                                <span class="font-weight-bold">$83.75</span>
+                            </div>
+                            <div class="row pb-2">
+                                <button class="btn btn-outline-primary btn-sm">@WebStore.Resources.Buttons.BuyAgain</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <a class="btn btn-secondary btn-block">@WebStore.Resources.Buttons.MoreOptions</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script>
+        $(function () {
+            $.AdminJs.profileMenu.activate();
+        })
+    </script>
+}

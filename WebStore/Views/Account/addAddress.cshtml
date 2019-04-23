@@ -1,0 +1,317 @@
+﻿@model WebStore.Models.BindSelect
+
+@{
+    ViewBag.Title = WebStore.Resources.Titles.addAddress;
+}
+
+<section>
+    <header class="header">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                    <h1>
+                        @ViewBag.Title
+                    </h1>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                    <ul class="breadcrumbs">
+                        <li>
+                            <a href="@Url.Action("Index","Home", new { language = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName}, null)">@WebStore.Resources.Titles.Home</a>
+                        </li>
+                        <li class="separator">&nbsp;</li>
+                        <li>
+                            <a href="@Url.Action("Home","Account", new { language = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName}, null)">@WebStore.Resources.Titles.Account</a>
+                        </li>
+                        <li class="separator">&nbsp;</li>
+                        <li>
+                            <a href="@Url.Action("Address","Account", new { language = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName}, null)">@WebStore.Resources.Titles.Address</a>
+                        </li>
+                        <li class="separator">&nbsp;</li>
+                        <li>
+                            @ViewBag.Title
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </header>
+</section>
+
+@Html.Partial("~/Views/Shared/profileMenu.cshtml")
+
+<div class="container mb-5">
+    <div class="row">
+        <label class="pr-3 font-weight-bold">Seleccione tipo de dirección:</label>
+        <div class="form-group">
+            <input type="radio" class="radio with-gap radio-col-blue" name="strType" id="strNational" />
+            <label for="strNational">Nacional</label>
+            <input type="radio" class="radio with-gap radio-col-blue" name="strType" id="strInternational" />
+            <label for="strInternational">Internacional</label>
+        </div>
+    </div>
+    <div id="addInternationalAddressSecction" class="row">
+        <div class="card mx-auto w-50">
+            <form id="addNewInternationalAddress" method="post">
+                <div class="card-body">
+                    <div class="col-lg-12 mb-3">
+                        <label class="font-weight-bold pl-3">@WebStore.Resources.Placeholder.Names</label>
+                        <div class="form-group input-group">
+                            <input class="form-control" type="text" name="strNames" id="strNames" placeholder="@WebStore.Resources.Placeholder.Names" />
+                            <span class="input-group-addon">
+                                <i class="fas fa-file-signature"></i>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12 mb-3">
+                        <label class="font-weight-bold pl-3">@WebStore.Resources.Placeholder.LastNames</label>
+                        <div class="form-group input-group">
+                            <input class="form-control" type="text" name="strLastNames" id="strLastNames" placeholder="@WebStore.Resources.Placeholder.LastNames" />
+                            <span class="input-group-addon">
+                                <i class="fas fa-file-signature"></i>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12 mb-3">
+                        <label class="font-weight-bold pl-3">@WebStore.Resources.Placeholder.Country</label>
+                        <div class="form-group input-group">
+                            <select class="form-control" name="strCountry" id="strCountry">
+                                <option value="">@WebStore.Resources.Placeholder.Country</option>
+                                @foreach (var country in Model.countries)
+                                {
+                                    <option name="@Html.DisplayFor(x=> country.iso)" value="@Html.DisplayFor(x=> country.intNumCode)">@Html.DisplayFor(x => country.strPrintableName)</option>
+                                }
+                            </select>
+                            <span class="input-group-addon">
+                                <i class="fas fa-globe-americas"></i>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12 mb-3">
+                        <label class="font-weight-bold pl-3">@WebStore.Resources.Placeholder.StateRegion</label>
+                        <div class="form-group input-group">
+                            <input class="form-control" type="text" name="strStates" id="strStates" placeholder="@WebStore.Resources.Placeholder.StateRegion" />
+                            <span class="input-group-addon">
+                                <i class="fas fa-flag"></i>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12 mb-3">
+                        <label class="font-weight-bold pl-3">@WebStore.Resources.Placeholder.City</label>
+                        <div class="form-group input-group">
+                            <input class="form-control" type="text" name="strCity" id="strCity" placeholder="@WebStore.Resources.Placeholder.City" />
+                            <span class="input-group-addon">
+                                <i class="fas fa-city"></i>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12 mb-3">
+                        <label class="font-weight-bold pl-3">@WebStore.Resources.Placeholder.PostCode</label>
+                        <div class="form-group input-group">
+                            <input class="form-control" type="text" name="strPostale" id="strPostale" placeholder="@WebStore.Resources.Placeholder.PostCode" />
+                            <span class="input-group-addon">
+                                <i class="fas fa-map-marked-alt"></i>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12 mb-3">
+                        <label class="font-weight-bold pl-3">@WebStore.Resources.Placeholder.Address</label>
+                        <div class="form-group input-group">
+                            <input class="form-control" type="text" name="strAddress" id="strAddress" placeholder="@WebStore.Resources.Placeholder.Address #" />
+                            <span class="input-group-addon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12 mb-3">
+                        <label class="font-weight-bold pl-3">@WebStore.Resources.Placeholder.House</label>
+                        <div class="form-group input-group">
+                            <input class="form-control" type="text" name="strHome" id="strHome" placeholder="@WebStore.Resources.Placeholder.House" />
+                            <span class="input-group-addon">
+                                <i class="fas fa-home"></i>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12 mb-3">
+                        <label class="font-weight-bold pl-3">
+                            @WebStore.Resources.Placeholder.IdNum
+                            <small>
+                                <a href="javascript:void(0)" id="popover" data-toggle="popover" data-trigger="hover" data-placement="right" title="Número de ID" data-content="Los paquetes no serán entregados sin el número válido de identificación del cliente. Nosotros no usamos esta información para algún otro propósito. Por favor ingrese su número de identificación.">
+                                    Leer más <i class="fas fa-angle-down"></i>
+                                </a>
+                            </small>
+                        </label>
+                        <div class="form-group input-group">
+                            <input class="form-control" type="text" name="strHome" id="strHome" placeholder="@WebStore.Resources.Placeholder.IdNum" />
+                            <span class="input-group-addon">
+                                <i class="fas fa-id-card"></i>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12 mb-3">
+                        <label class="font-weight-bold pl-3">@WebStore.Resources.Placeholder.Telephone</label>
+                        <div class="form-group input-group">
+                            <input class="form-control" type="text" name="strHome" id="strHome" placeholder="@WebStore.Resources.Placeholder.Phone" />
+                            <span class="input-group-addon">
+                                <i class="fas fa-mobile-alt"></i>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12 mb-3 text-right">
+                        <button class="btn btn-primary">@WebStore.Resources.Buttons.Save</button>
+                    </div>
+
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="addNationalAddressSecction" class="row">
+        <div class="card mx-auto w-50">
+            <form id="addNewNationalAddress" method="post">
+                <div class="card-body">
+                    <div class="col-lg-12 mb-3">
+                        <label class="font-weight-bold pl-3">@WebStore.Resources.Placeholder.Names</label>
+                        <div class="form-group input-group">
+                            <input class="form-control" type="text" name="strNames" id="strNamesNationale" placeholder="@WebStore.Resources.Placeholder.Names" />
+                            <span class="input-group-addon">
+                                <i class="fas fa-file-signature"></i>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12 mb-3">
+                        <label class="font-weight-bold pl-3">@WebStore.Resources.Placeholder.LastNames</label>
+                        <div class="form-group input-group">
+                            <input class="form-control" type="text" name="strLastNames" id="strLastNamesNationale" placeholder="@WebStore.Resources.Placeholder.LastNames" />
+                            <span class="input-group-addon">
+                                <i class="fas fa-file-signature"></i>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12 mb-3">
+                        <label class="font-weight-bold pl-3">@WebStore.Resources.Placeholder.Region</label>
+                        <div class="form-group input-group">
+                            <select class="form-control" type="text" name="strStates" id="strStatesNationale" placeholder="@WebStore.Resources.Placeholder.Region">
+                                <option value="">@WebStore.Resources.Placeholder.Region</option>
+                                @foreach (var region in Model.regions)
+                                {
+                                    <option value="@Html.DisplayFor(a => region.idRegion)">@Html.DisplayFor(a => region.strNombre) @Html.DisplayFor(a => region.intNumber)</option>
+                                }
+                            </select>
+                            <span class="input-group-addon">
+                                <i class="fas fa-flag"></i>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12 mb-3">
+                        <label class="font-weight-bold pl-3">@WebStore.Resources.Placeholder.Province</label>
+                        <div class="form-group input-group">
+                            <select class="form-control" type="text" name="strProvincia" id="strProvinciaNationale" placeholder="@WebStore.Resources.Placeholder.Province">
+                                <option value="">@WebStore.Resources.Placeholder.Province</option>
+                            </select>
+                            <span class="input-group-addon">
+                                <i class="fas fa-city"></i>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12 mb-3">
+                        <label class="font-weight-bold pl-3">@WebStore.Resources.Placeholder.Comune</label>
+                        <div class="form-group input-group">
+                            <select class="form-control" type="text" name="strComuna" id="strComunaNationale" placeholder="@WebStore.Resources.Placeholder.Comune">
+                                <option value="">@WebStore.Resources.Placeholder.Comune</option>
+                            </select>
+                            <span class="input-group-addon">
+                                <i class="far fa-object-group"></i>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12 mb-3">
+                        <label class="font-weight-bold pl-3">@WebStore.Resources.Placeholder.PostCode</label>
+                        <div class="form-group input-group">
+                            <input class="form-control" type="text" name="strPostale" id="strPostaleNationale" placeholder="@WebStore.Resources.Placeholder.PostCode" />
+                            <span class="input-group-addon">
+                                <i class="fas fa-map-marked-alt"></i>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12 mb-3">
+                        <label class="font-weight-bold pl-3">@WebStore.Resources.Placeholder.Address</label>
+                        <div class="form-group input-group">
+                            <input class="form-control" type="text" name="strAddress" id="strAddressNationale" placeholder="@WebStore.Resources.Placeholder.Address #" />
+                            <span class="input-group-addon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12 mb-3">
+                        <label class="font-weight-bold pl-3">@WebStore.Resources.Placeholder.House</label>
+                        <div class="form-group input-group">
+                            <input class="form-control" type="text" name="strHome" id="strHomeNationale" placeholder="@WebStore.Resources.Placeholder.House" />
+                            <span class="input-group-addon">
+                                <i class="fas fa-home"></i>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12 mb-3">
+                        <label class="font-weight-bold pl-3">
+                            @WebStore.Resources.Placeholder.IdNum
+                            <small>
+                                <a href="javascript:void(0)" id="popover" data-toggle="popover" data-trigger="hover" data-placement="right" title="Número de ID" data-content="Los paquetes no serán entregados sin el número válido de identificación del cliente. Nosotros no usamos esta información para algún otro propósito. Por favor ingrese su número de identificación.">
+                                    Leer más <i class="fas fa-angle-down"></i>
+                                </a>
+                            </small>
+                        </label>
+                        <div class="form-group input-group">
+                            <input class="form-control" type="text" name="intIdNationale" id="intIdNationale" placeholder="@WebStore.Resources.Placeholder.IdNum" />
+                            <span class="input-group-addon">
+                                <i class="fas fa-id-card"></i>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12 mb-3">
+                        <label class="font-weight-bold pl-3">@WebStore.Resources.Placeholder.Telephone</label>
+                        <div class="form-group input-group">
+                            <input class="form-control" type="text" name="intTlf" id="intTlf" placeholder="@WebStore.Resources.Placeholder.Phone" />
+                            <span class="input-group-addon">
+                                <i class="fas fa-mobile-alt"></i>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12 mb-3 text-right">
+                        <button class="btn btn-primary">@WebStore.Resources.Buttons.Save</button>
+                    </div>
+
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script>
+            $(function () {
+                $.AdminJs.profileMenu.activate();
+                $.AdminJs.addAddress.activate();
+            })
+    </script>
+}
+

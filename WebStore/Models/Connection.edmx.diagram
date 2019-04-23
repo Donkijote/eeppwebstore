@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="bd2ef89b67eb47a4b9926d62f8e1980d" Name="Diagram1">
+        <EntityTypeShape EntityType="webstoreModel.tblCategories" Width="1.5" PointX="0.75" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="webstoreModel.tblProducts" Width="1.5" PointX="3.125" PointY="1.125" />
+        <EntityTypeShape EntityType="webstoreModel.tblUsers" Width="1.5" PointX="5.25" PointY="1" />
+        <AssociationConnector Association="webstoreModel.FK_tblProducts_tblCategories1" />
+        <EntityTypeShape EntityType="webstoreModel.tblCountry" Width="1.5" PointX="0.75" PointY="3.75" />
+        <EntityTypeShape EntityType="webstoreModel.tblComunas" Width="1.5" PointX="7.5" PointY="3.875" />
+        <EntityTypeShape EntityType="webstoreModel.tblProvincias" Width="1.5" PointX="5.25" PointY="3.75" />
+        <EntityTypeShape EntityType="webstoreModel.tblRegiones" Width="1.5" PointX="3" PointY="3.875" />
+        <AssociationConnector Association="webstoreModel.FK_tblComunas_tblProvincias" />
+        <AssociationConnector Association="webstoreModel.FK_tblProvincias_tblRegiones" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

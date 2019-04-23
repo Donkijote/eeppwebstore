@@ -1,0 +1,551 @@
+﻿
+@{
+    ViewBag.Title = WebStore.Resources.Titles.Cart;
+}
+
+<section>
+    <header class="header">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                    <h1>
+                        @ViewBag.Title
+                    </h1>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                    <ul class="breadcrumbs">
+                        <li>
+                            <a href="/">Home</a>
+                        </li>
+                        <li class="separator">&nbsp;</li>
+                        <li>
+                            @ViewBag.Title
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </header>
+</section>
+<div class="container padding-bottom-3x mb-1">
+    <div class="mg-alert mg-alert-info alert-dismissible fade show text-center" style="margin-bottom: 30px;">
+        .
+        <span class="mg-alert-close" data-dismiss="alert">
+            <i class="fas fa-times"></i>
+        </span>
+        <i class="fas fa-award"></i>
+        &nbsp;&nbsp;With this purchase you will earn <span class="text-medium">2,549</span> Reward Points.
+    </div>
+
+    <div class="table-responsive shopping-cart">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>@WebStore.Resources.Cart.Product</th>
+                    <th class="text-center">@WebStore.Resources.Cart.Quantity</th>
+                    <th class="text-center">@WebStore.Resources.Cart.Subtotal</th>
+                    <th class="text-center">@WebStore.Resources.Cart.Discount</th>
+                    <th class="text-center"><a class="btn btn-sm btn-outline-danger" href="#">@WebStore.Resources.Buttons.EmptyCart</a></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <div class="product-item">
+                            <a class="product-thumb" href="shop-single.html"><img src="http://themes.rokaux.com/unishop/v3.0/template-3/img/shop/cart/01.jpg" alt="Product"></a>
+                            <div class="product-info">
+                                <h4 class="product-title"><a href="shop-single.html">Canon EOS M50 Mirrorless Camera</a></h4><span><em>Type:</em> Mirrorless</span><span><em>Color:</em> Black</span>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="text-center">
+                        <div class="count-input">
+                            <select class="form-control">
+                                <option>1</option>
+                                <option>2</option>
+                                <option>3</option>
+                                <option>4</option>
+                                <option>5</option>
+                            </select>
+                        </div>
+                    </td>
+                    <td class="text-center text-lg">$910.00</td>
+                    <td class="text-center text-lg">$35.00</td>
+                    <td class="text-center">
+                        <a class="remove-from-cart" href="#" data-toggle="tooltip" title="" data-original-title="Quitar Artículo">
+                            <i class="fas fa-times"></i>
+                        </a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="product-item">
+                            <a class="product-thumb" href="shop-single.html"><img src="http://themes.rokaux.com/unishop/v3.0/template-3/img/shop/cart/02.jpg" alt="Product"></a>
+                            <div class="product-info">
+                                <h4 class="product-title"><a href="shop-single.html">Apple iPhone X 256 GB Space Gray</a></h4><span><em>Memory:</em> 256 GB</span><span><em>Color:</em> Space Gray</span>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="text-center">
+                        <div class="count-input">
+                            <select class="form-control">
+                                <option>1</option>
+                                <option>2</option>
+                                <option>3</option>
+                                <option>4</option>
+                                <option>5</option>
+                            </select>
+                        </div>
+                    </td>
+                    <td class="text-center text-lg">$1,450.00</td>
+                    <td class="text-center">—</td>
+                    <td class="text-center">
+                        <a class="remove-from-cart" href="#" data-toggle="tooltip" title="" data-original-title="Quitar Artículo">
+                            <i class="fas fa-times"></i>
+                        </a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="product-item">
+                            <a class="product-thumb" href="shop-single.html"><img src="http://themes.rokaux.com/unishop/v3.0/template-3/img/shop/cart/03.jpg" alt="Product"></a>
+                            <div class="product-info">
+                                <h4 class="product-title"><a href="shop-single.html">HP LaserJet Pro Laser Printer</a></h4><span><em>Type:</em> Laser</span><span><em>Color:</em> White</span>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="text-center">
+                        <div class="count-input">
+                            <select class="form-control">
+                                <option>1</option>
+                                <option>2</option>
+                                <option>3</option>
+                                <option>4</option>
+                                <option>5</option>
+                            </select>
+                        </div>
+                    </td>
+                    <td class="text-center text-lg">$188.50</td>
+                    <td class="text-center">—</td>
+                    <td class="text-center">
+                        <a class="remove-from-cart" href="#" data-toggle="tooltip" title="" data-original-title="Quitar Artículo">
+                            <i class="fas fa-times"></i>
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="shopping-cart-footer">
+        <div class="column">
+            <form class="coupon-form" method="post">
+                <input class="form-control" type="text" placeholder="@WebStore.Resources.Placeholder.Cupon" required="">
+                <button class="btn btn-outline-primary btn-sm" type="submit">@WebStore.Resources.Buttons.Cupon</button>
+            </form>
+        </div>
+        <div class="column text-lg"><span class="text-muted">@WebStore.Resources.Cart.Subtotal:&nbsp; </span><span class="text-gray-dark">$2,548.50</span></div>
+    </div>
+
+    <div class="shopping-cart-footer">
+        <div class="column">
+            <a class="btn btn-view-more" href="shop-grid-ls.html">
+                <i class="icon-arrow-left"></i>&nbsp;@WebStore.Resources.Buttons.BackShop
+            </a>
+        </div>
+        <div class="column">
+            <a class="btn btn-view-more" href="#" data-toast="" data-toast-type="success" data-toast-position="topRight" data-toast-icon="icon-check-circle" data-toast-title="Your cart" data-toast-message="is updated successfully!">@WebStore.Resources.Buttons.UpdateCart</a>
+            <a class="btn btn-primary" href="@Url.Action("CheckOut", "User", new { language = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName})">@WebStore.Resources.Buttons.Checkout</a>
+        </div>
+    </div>
+
+    <div class="container mb-1">
+        <h3 class="text-center padding-top-2x mt-2 padding-bottom-1x">@WebStore.Resources.Cart.Like</h3>
+        <div id="carouselYouMayLikeToo" class="carousel slide" data-ride="carousel" data-interval="false">
+            <ol class="carousel-indicators">
+                <li data-target="#carouselYouMayLikeToo" data-slide-to="0" class="active"></li>
+                <li data-target="#carouselYouMayLikeToo" data-slide-to="1"></li>
+                <li data-target="#carouselYouMayLikeToo" data-slide-to="2"></li>
+            </ol>
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="mg-product-card mb-3">
+                                <div class="mg-product-badge bg-danger">
+                                    Sale
+                                </div>
+                                <div class="mg-rating-stars">
+                                    <i class="fas fa-star filled"></i>
+                                    <i class="fas fa-star filled"></i>
+                                    <i class="fas fa-star filled"></i>
+                                    <i class="fas fa-star filled"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <a class="mg-product-thumb" href="Categories/Ver/Cables//">
+                                    <img class="img-fuild" src="http://themes.rokaux.com/unishop/v3.0/template-3/img/shop/products/01.jpg"
+                                         alt="Producto">
+                                </a>
+                                <div class="mg-product-card-body">
+                                    <div class="mg-product-category">
+                                        <a></a>
+                                    </div>
+                                    <h3 class="mg-product-title">
+                                        <a href="Categories/Ver/Cables/001/"></a>
+                                    </h3>
+                                    <h4 class="mg-product-price">
+                                        <del>$62.00</del>
+                                    </h4>
+                                </div>
+                                <div class="mg-product-button-group">
+                                    <a class="mg-product-button btn-wishlist" href="javascript:void(0);">
+                                        <i class="far fa-heart"></i>
+                                        <span>Lista de Deseo</span>
+                                    </a>
+                                    <a class="mg-product-button btn-compare" href="javascript:void(0);">
+                                        <i class="mg-fo fo-compare"></i>
+                                        <span>Compare</span>
+                                    </a>
+                                    <a class="mg-product-button" href="javascript:void(0);" data-toast="" data-toast-type="success"
+                                       data-toast-position="topRight" data-toast-icon="icon-check-circle" data-toast-title="Product"
+                                       data-toast-message="successfuly added to cart!">
+                                        <i class="mg-fo fo-shopping-cart"></i>
+                                        <span>To Cart</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="mg-product-card mb-3">
+                                <div class="mg-product-badge bg-danger">
+                                    Sale
+                                </div>
+                                <div class="mg-rating-stars">
+                                    <i class="fas fa-star filled"></i>
+                                    <i class="fas fa-star filled"></i>
+                                    <i class="fas fa-star filled"></i>
+                                    <i class="fas fa-star filled"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <a class="mg-product-thumb" href="Categories/Ver/Cables/">
+                                    <img class="img-fuild" src="http://themes.rokaux.com/unishop/v3.0/template-3/img/shop/products/01.jpg"
+                                         alt="Producto">
+                                </a>
+                                <div class="mg-product-card-body">
+                                    <div class="mg-product-category">
+                                        <a></a>
+                                    </div>
+                                    <h3 class="mg-product-title">
+                                        <a href="Categories/Ver/Cables/001/"></a>
+                                    </h3>
+                                    <h4 class="mg-product-price">
+                                        <del>$62.00</del>
+                                    </h4>
+                                </div>
+                                <div class="mg-product-button-group">
+                                    <a class="mg-product-button btn-wishlist" href="javascript:void(0);">
+                                        <i class="far fa-heart"></i>
+                                        <span>Lista de Deseo</span>
+                                    </a>
+                                    <a class="mg-product-button btn-compare" href="javascript:void(0);">
+                                        <i class="mg-fo fo-compare"></i>
+                                        <span>Compare</span>
+                                    </a>
+                                    <a class="mg-product-button" href="javascript:void(0);" data-toast="" data-toast-type="success"
+                                       data-toast-position="topRight" data-toast-icon="icon-check-circle" data-toast-title="Product"
+                                       data-toast-message="successfuly added to cart!">
+                                        <i class="mg-fo fo-cart"></i>
+                                        <span>To Cart</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="mg-product-card mb-3">
+                                <div class="mg-product-badge bg-danger">
+                                    Sale
+                                </div>
+                                <div class="mg-rating-stars">
+                                    <i class="fas fa-star filled"></i>
+                                    <i class="fas fa-star filled"></i>
+                                    <i class="fas fa-star filled"></i>
+                                    <i class="fas fa-star filled"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <a class="mg-product-thumb" href="Categories/Ver/Cables//">
+                                    <img class="img-fuild" src="http://themes.rokaux.com/unishop/v3.0/template-3/img/shop/products/01.jpg"
+                                         alt="Producto">
+                                </a>
+                                <div class="mg-product-card-body">
+                                    <div class="mg-product-category">
+                                        <a></a>
+                                    </div>
+                                    <h3 class="mg-product-title">
+                                        <a href="Categories/Ver/Cables/001/"></a>
+                                    </h3>
+                                    <h4 class="mg-product-price">
+                                        <del>$62.00</del>
+                                    </h4>
+                                </div>
+                                <div class="mg-product-button-group">
+                                    <a class="mg-product-button btn-wishlist" href="javascript:void(0);">
+                                        <i class="far fa-heart"></i>
+                                        <span>Lista de Deseo</span>
+                                    </a>
+                                    <a class="mg-product-button btn-compare" href="javascript:void(0);">
+                                        <i class="mg-fo fo-compare"></i>
+                                        <span>Compare</span>
+                                    </a>
+                                    <a class="mg-product-button" href="javascript:void(0);" data-toast="" data-toast-type="success"
+                                       data-toast-position="topRight" data-toast-icon="icon-check-circle" data-toast-title="Product"
+                                       data-toast-message="successfuly added to cart!">
+                                        <i class="mg-fo fo-cart"></i>
+                                        <span>To Cart</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="mg-product-card mb-3">
+                                <div class="mg-product-badge bg-danger">
+                                    Sale
+                                </div>
+                                <div class="mg-rating-stars">
+                                    <i class="fas fa-star filled"></i>
+                                    <i class="fas fa-star filled"></i>
+                                    <i class="fas fa-star filled"></i>
+                                    <i class="fas fa-star filled"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <a class="mg-product-thumb" href="Categories/Ver/Cables//">
+                                    <img class="img-fuild" src="http://themes.rokaux.com/unishop/v3.0/template-3/img/shop/products/01.jpg"
+                                         alt="Producto">
+                                </a>
+                                <div class="mg-product-card-body">
+                                    <div class="mg-product-category">
+                                        <a></a>
+                                    </div>
+                                    <h3 class="mg-product-title">
+                                        <a href="Categories/Ver/Cables/001/"></a>
+                                    </h3>
+                                    <h4 class="mg-product-price">
+                                        <del>$62.00</del>
+                                    </h4>
+                                </div>
+                                <div class="mg-product-button-group">
+                                    <a class="mg-product-button btn-wishlist" href="javascript:void(0);">
+                                        <i class="far fa-heart"></i>
+                                        <span>Lista de Deseo</span>
+                                    </a>
+                                    <a class="mg-product-button btn-compare" href="javascript:void(0);">
+                                        <i class="mg-fo fo-compare"></i>
+                                        <span>Compare</span>
+                                    </a>
+                                    <a class="mg-product-button" href="javascript:void(0);" data-toast="" data-toast-type="success"
+                                       data-toast-position="topRight" data-toast-icon="icon-check-circle" data-toast-title="Product"
+                                       data-toast-message="successfuly added to cart!">
+                                        <i class="mg-fo fo-cart"></i>
+                                        <span>To Cart</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="mg-product-card mb-3">
+                                <div class="mg-product-badge bg-danger">
+                                    Sale
+                                </div>
+                                <div class="mg-rating-stars">
+                                    <i class="fas fa-star filled"></i>
+                                    <i class="fas fa-star filled"></i>
+                                    <i class="fas fa-star filled"></i>
+                                    <i class="fas fa-star filled"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <a class="mg-product-thumb" href="Categories/Ver/Cables/>/">
+                                    <img class="img-fuild" src="http://themes.rokaux.com/unishop/v3.0/template-3/img/shop/products/01.jpg"
+                                         alt="Producto">
+                                </a>
+                                <div class="mg-product-card-body">
+                                    <div class="mg-product-category">
+                                        <a></a>
+                                    </div>
+                                    <h3 class="mg-product-title">
+                                        <a href="Categories/Ver/Cables/001/"></a>
+                                    </h3>
+                                    <h4 class="mg-product-price">
+                                        <del>$62.00</del>
+                                    </h4>
+                                </div>
+                                <div class="mg-product-button-group">
+                                    <a class="mg-product-button btn-wishlist" href="javascript:void(0);">
+                                        <i class="far fa-heart"></i>
+                                        <span>Lista de Deseo</span>
+                                    </a>
+                                    <a class="mg-product-button btn-compare" href="javascript:void(0);">
+                                        <i class="mg-fo fo-compare"></i>
+                                        <span>Compare</span>
+                                    </a>
+                                    <a class="mg-product-button" href="javascript:void(0);" data-toast="" data-toast-type="success"
+                                       data-toast-position="topRight" data-toast-icon="icon-check-circle" data-toast-title="Product"
+                                       data-toast-message="successfuly added to cart!">
+                                        <i class="mg-fo fo-cart"></i>
+                                        <span>To Cart</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="mg-product-card mb-3">
+                                <div class="mg-product-badge bg-danger">
+                                    Sale
+                                </div>
+                                <div class="mg-rating-stars">
+                                    <i class="fas fa-star filled"></i>
+                                    <i class="fas fa-star filled"></i>
+                                    <i class="fas fa-star filled"></i>
+                                    <i class="fas fa-star filled"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <a class="mg-product-thumb" href="Categories/Ver/Cables//">
+                                    <img class="img-fuild" src="http://themes.rokaux.com/unishop/v3.0/template-3/img/shop/products/01.jpg"
+                                         alt="Producto">
+                                </a>
+                                <div class="mg-product-card-body">
+                                    <div class="mg-product-category">
+                                        <a></a>
+                                    </div>
+                                    <h3 class="mg-product-title">
+                                        <a href="Categories/Ver/Cables/001/"></a>
+                                    </h3>
+                                    <h4 class="mg-product-price">
+                                        <del>$62.00</del>
+                                    </h4>
+                                </div>
+                                <div class="mg-product-button-group">
+                                    <a class="mg-product-button btn-wishlist" href="javascript:void(0);">
+                                        <i class="far fa-heart"></i>
+                                        <span>Lista de Deseo</span>
+                                    </a>
+                                    <a class="mg-product-button btn-compare" href="javascript:void(0);">
+                                        <i class="mg-fo fo-compare"></i>
+                                        <span>Compare</span>
+                                    </a>
+                                    <a class="mg-product-button" href="javascript:void(0);" data-toast="" data-toast-type="success"
+                                       data-toast-position="topRight" data-toast-icon="icon-check-circle" data-toast-title="Product"
+                                       data-toast-message="successfuly added to cart!">
+                                        <i class="mg-fo fo-cart"></i>
+                                        <span>To Cart</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="mg-product-card mb-3">
+                                <div class="mg-product-badge bg-danger">
+                                    Sale
+                                </div>
+                                <div class="mg-rating-stars">
+                                    <i class="fas fa-star filled"></i>
+                                    <i class="fas fa-star filled"></i>
+                                    <i class="fas fa-star filled"></i>
+                                    <i class="fas fa-star filled"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <a class="mg-product-thumb" href="Categories/Ver/Cables//">
+                                    <img class="img-fuild" src="http://themes.rokaux.com/unishop/v3.0/template-3/img/shop/products/01.jpg"
+                                         alt="Producto">
+                                </a>
+                                <div class="mg-product-card-body">
+                                    <div class="mg-product-category">
+                                        <a></a>
+                                    </div>
+                                    <h3 class="mg-product-title">
+                                        <a href="Categories/Ver/Cables/001/"></a>
+                                    </h3>
+                                    <h4 class="mg-product-price">
+                                        <del>$62.00</del>
+                                    </h4>
+                                </div>
+                                <div class="mg-product-button-group">
+                                    <a class="mg-product-button btn-wishlist" href="javascript:void(0);">
+                                        <i class="far fa-heart"></i>
+                                        <span>Lista de Deseo</span>
+                                    </a>
+                                    <a class="mg-product-button btn-compare" href="javascript:void(0);">
+                                        <i class="mg-fo fo-compare"></i>
+                                        <span>Compare</span>
+                                    </a>
+                                    <a class="mg-product-button" href="javascript:void(0);" data-toast="" data-toast-type="success"
+                                       data-toast-position="topRight" data-toast-icon="icon-check-circle" data-toast-title="Product"
+                                       data-toast-message="successfuly added to cart!">
+                                        <i class="mg-fo fo-cart"></i>
+                                        <span>To Cart</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="mg-product-card mb-3">
+                                <div class="mg-product-badge bg-danger">
+                                    Sale
+                                </div>
+                                <div class="mg-rating-stars">
+                                    <i class="fas fa-star filled"></i>
+                                    <i class="fas fa-star filled"></i>
+                                    <i class="fas fa-star filled"></i>
+                                    <i class="fas fa-star filled"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <a class="mg-product-thumb" href="Categories/Ver/Cables//">
+                                    <img class="img-fuild" src="http://themes.rokaux.com/unishop/v3.0/template-3/img/shop/products/01.jpg"
+                                         alt="Producto">
+                                </a>
+                                <div class="mg-product-card-body">
+                                    <div class="mg-product-category">
+                                        <a></a>
+                                    </div>
+                                    <h3 class="mg-product-title">
+                                        <a href="Categories/Ver/Cables/001/"></a>
+                                    </h3>
+                                    <h4 class="mg-product-price">
+                                        <del>$62.00</del>
+                                    </h4>
+                                </div>
+                                <div class="mg-product-button-group">
+                                    <a class="mg-product-button btn-wishlist" href="javascript:void(0);">
+                                        <i class="far fa-heart"></i>
+                                        <span>Lista de Deseo</span>
+                                    </a>
+                                    <a class="mg-product-button btn-compare" href="javascript:void(0);">
+                                        <i class="mg-fo fo-compare"></i>
+                                        <span>Compare</span>
+                                    </a>
+                                    <a class="mg-product-button" href="javascript:void(0);" data-toast="" data-toast-type="success"
+                                       data-toast-position="topRight" data-toast-icon="icon-check-circle" data-toast-title="Product"
+                                       data-toast-message="successfuly added to cart!">
+                                        <i class="mg-fo fo-cart"></i>
+                                        <span>To Cart</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <a class="carousel-control-prev" href="#carouselYouMayLikeToo" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#carouselYouMayLikeToo" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,124 @@
+﻿
+@{
+    ViewBag.Title = WebStore.Resources.Titles.LogIn;
+}
+
+<section>
+    <header class="header">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                    <h1>@ViewBag.Title</h1>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                    <ul class="breadcrumbs">
+                        <li>
+                            <a href="@Url.Action("Index","Home",new { language = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName})">@WebStore.Resources.Titles.Home</a>
+                        </li>
+                        <li class="separator">&nbsp;</li>
+                        <li>@ViewBag.Title</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </header>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 col-sm-6 col-md-6 col-xs-6 text-left mb-3">
+                <div class="col-lg-12">
+                    <form id="LogIn">
+                        <div class="col-sm-10">
+                            <div class="form-group input-group">
+                                <input type="email" name="email" class="form-control" id="staticEmail" placeholder="@WebStore.Resources.Placeholder.Email" aria-label="Email" autocomplete="off">
+                                <span class="input-group-addon">
+                                    <i class="fas fa-at"></i>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-sm-10">
+                            <div class="form-group input-group">
+                                <input type="password" name="pass" class="form-control" id="inputPassword" placeholder="@WebStore.Resources.Placeholder.Password" aria-label="Password" autocomplete="off">
+                                <span class="input-group-addon">
+                                    <i class="fas fa-key"></i>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-sm-10 text-left">
+                            <button type="submit" class="btn btn-outline-primary">@WebStore.Resources.Buttons.LogIn</button>
+                        </div>
+                    </form>
+                    <div class="col-lg-10">
+                        <h5 class="mg-section-title mg-section-title-center mb-3">
+                            <b></b>
+                            <span class="mg-section-title-main align-middle">O</span>
+                            <b></b>
+                        </h5>
+                        <div class="form-group">
+                            <button class="btn mg-facebook">
+                                <i class="fab fa-facebook-f"></i>
+                                Facebook
+                            </button>
+                        </div>
+                        <div class="form-group">
+                            <button class="btn mg-google">
+                                <i class="fab fa-google-plus-g"></i>
+                                Google+
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-6 col-sm-6 col-md-6 col-xs-6 text-left mb-3">
+                <div class="col-lg-12">
+                    <h3 class="mb-3">@WebStore.Resources.Titles.SignUp</h3>
+                    <form id="LogUp">
+                        <div class="col-sm-10">
+                            <div class="form-group input-group">
+                                <input type="text" name="name" class="form-control" id="staticName" placeholder="@WebStore.Resources.Placeholder.YouName" aria-label="Nombre" autocomplete="off">
+                                <span class="input-group-addon">
+                                    <i class="fas fa-user"></i>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-sm-10">
+                            <div class="form-group input-group">
+                                <input type="email" name="email" class="form-control" id="staticEmail" placeholder="@WebStore.Resources.Placeholder.Email" aria-label="Email" autocomplete="off">
+                                <span class="input-group-addon">
+                                    <i class="fas fa-at"></i>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-sm-10">
+                            <div class="form-group input-group">
+                                <input type="password" name="pass" class="form-control" id="inputPassword" placeholder="@WebStore.Resources.Placeholder.Password" aria-label="Password" autocomplete="off">
+                                <span class="input-group-addon">
+                                    <i class="fas fa-key"></i>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-sm-10">
+                            <div class="form-group input-group">
+                                <input type="password" name="passre" class="form-control" id="inputPasswordRe" placeholder="@WebStore.Resources.Placeholder.RePassword" aria-label="PasswordRe" autocomplete="off">
+                                <span class="input-group-addon">
+                                    <i class="fas fa-key"></i>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-lg-10 col-sm-6 col-md-6 col-xs-6">
+                            <button type="submit" class="btn btn-outline-primary">@WebStore.Resources.Buttons.SignUp</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+@section Scripts{
+<script type="text/javascript">
+	$(function(){
+		$.AdminJs.Test.activate();
+	})
+</script>
+}
+

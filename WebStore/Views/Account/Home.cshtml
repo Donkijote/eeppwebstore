@@ -1,0 +1,76 @@
+﻿
+@{
+    ViewBag.Title = WebStore.Resources.Titles.Account;
+}
+
+<section>
+    <header class="header">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                    <h1>
+                        @ViewBag.Title
+                    </h1>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                    <ul class="breadcrumbs">
+                        <li>
+                            <a href="@Url.Action("Index","Home", new { language = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName}, null)">@WebStore.Resources.Titles.Home</a>
+                        </li>
+                        <li class="separator">&nbsp;</li>
+                        <li>
+                            @ViewBag.Title
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </header>
+</section>
+
+@Html.Partial("~/Views/Shared/profileMenu.cshtml")
+
+<section class="container mb-5">
+    <div class="widget mg-widget-account">
+        <div class="row pb-3">
+            <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-3">
+                <a class="market-button orders-button" href="@Url.Action("Orders","Account", new { language = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName}, null)">
+                    <span class="mb-title">@WebStore.Resources.Titles.Orders</span>
+                    <span class="mb-subtitle">Rastrea, devuelve, o compra de nuevo</span>
+                </a>
+            </div>
+            <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-3">
+                <a class="market-button security-button" href="@Url.Action("Settings","Account", new { language = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName}, null)">
+                    <span class="mb-title">@WebStore.Resources.Titles.Settings</span>
+                    <span class="mb-subtitle">Edita inicio de sesión, nombre, y número telefónico</span>
+                </a>
+            </div>
+            <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-3">
+                <a class="market-button address-button" href="@Url.Action("Address","Account", new { language = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName}, null)">
+                    <span class="mb-title">@WebStore.Resources.Titles.Address</span>
+                    <span class="mb-subtitle">Edita tus direcciones para tus ordenes y regalos</span>
+                </a>
+            </div>
+            <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-3">
+                <a class="market-button tickets-button" href="@Url.Action("Tickets","Account", new { language = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName}, null)">
+                    <span class="mb-title">@WebStore.Resources.Titles.Tickets</span>
+                    <span class="mb-subtitle">Realiza reclamos, reporta problemas, solicita soporte</span>
+                </a>
+            </div>
+            <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-3">
+                <a class="market-button wishes-button" href="@Url.Action("WishList","Account", new { language = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName}, null)">
+                    <span class="mb-title">@WebStore.Resources.Titles.Wishes</span>
+                    <span class="mb-subtitle">Guarda, compara, productos que deseas comprar</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts{
+<script>
+    $(function(){
+        $.AdminJs.profileMenu.activate();
+    })
+</script>
+}

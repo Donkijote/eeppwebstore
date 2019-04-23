@@ -1,0 +1,126 @@
+﻿
+@{
+    ViewBag.Title = WebStore.Resources.Titles.Wishes;
+}
+
+<section>
+    <header class="header">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                    <h1>
+                        @ViewBag.Title
+                    </h1>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                    <ul class="breadcrumbs">
+                        <li>
+                            <a href="@Url.Action("Index","Home", new { language = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName}, null)">@WebStore.Resources.Titles.Home</a>
+                        </li>
+                        <li class="separator">&nbsp;</li>
+                        <li>
+                            <a href="@Url.Action("Home","Account", new { language = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName}, null)">@WebStore.Resources.Titles.Account</a>
+                        </li>
+                        <li class="separator">&nbsp;</li>
+                        <li>
+                            @ViewBag.Title
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </header>
+</section>
+
+@Html.Partial("~/Views/Shared/profileMenu.cshtml")
+
+<div class="container mb-5">
+    <div class="table-responsive shopping-cart">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Producto</th>
+
+                    <th class="text-center"><a class="btn btn-sm btn-outline-danger" href="#">@WebStore.Resources.Buttons.EmptyList</a></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <div class="product-item">
+                            <a class="product-thumb" href="shop-single.html"><img src="http://themes.rokaux.com/unishop/v3.0/template-3/img/shop/cart/01.jpg" alt="Product"></a>
+                            <div class="product-info">
+                                <h4 class="product-title">
+                                    <a href="shop-single.html">Canon EOS M50 Mirrorless Camera</a>
+                                </h4>
+                                <div class="text-lg mb-1">$910.00</div>
+                                <div class="text-sm">
+                                    Disponibilidad:
+                                    <div class="d-inline text-success">En Stock</div>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="text-center">
+                        <a class="remove-from-cart" href="#" data-toggle="tooltip" title="" data-original-title="Quitar Artículo">
+                            <i class="fas fa-times"></i>
+                        </a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="product-item">
+                            <a class="product-thumb" href="shop-single.html"><img src="http://themes.rokaux.com/unishop/v3.0/template-3/img/shop/cart/02.jpg" alt="Product"></a>
+                            <div class="product-info">
+                                <h4 class="product-title"><a href="shop-single.html">Apple iPhone X 256 GB Space Gray</a></h4>
+                                <div class="text-lg mb-1">$1,450.00</div>
+                                <div class="text-sm">
+                                    Disponibilidad:
+                                    <div class="d-inline text-warning">2 - 3 Semanas</div>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="text-center">
+                        <a class="remove-from-cart" href="#" data-toggle="tooltip" title="" data-original-title="Quitar Artículo">
+                            <i class="fas fa-times"></i>
+                        </a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="product-item">
+                            <a class="product-thumb" href="shop-single.html"><img src="http://themes.rokaux.com/unishop/v3.0/template-3/img/shop/cart/03.jpg" alt="Product"></a>
+                            <div class="product-info">
+                                <h4 class="product-title"><a href="shop-single.html">HP LaserJet Pro Laser Printer</a></h4>
+                                <div class="text-lg mb-1">$188.50</div>
+                                <div class="text-sm">
+                                    Disponibilidad:
+                                    <div class="d-inline text-success">En Stock</div>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="text-center">
+                        <a class="remove-from-cart" href="#" data-toggle="tooltip" title="" data-original-title="Quitar Artículo">
+                            <i class="fas fa-times"></i>
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="custom-control custom-checkbox">
+        <input class="filled-in chk-col-blue" type="checkbox" id="inform_me" checked="">
+        <label for="inform_me">Infórmame when los Productos de mi lista de desos estén disponibles</label>
+    </div>
+</div>
+
+@section Scripts{
+    <script>
+        $(function () {
+            $.AdminJs.profileMenu.activate();
+        })
+    </script>
+}

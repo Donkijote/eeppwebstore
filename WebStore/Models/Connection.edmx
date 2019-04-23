@@ -1,0 +1,357 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="webstoreModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="tblCategories">
+          <Key>
+            <PropertyRef Name="idCategoria" />
+          </Key>
+          <Property Name="idCategoria" Type="int" Nullable="false" />
+          <Property Name="strNombre" Type="nchar" MaxLength="20" />
+          <Property Name="intActivo" Type="bit" />
+        </EntityType>
+        <EntityType Name="tblComunas">
+          <Key>
+            <PropertyRef Name="idComuna" />
+          </Key>
+          <Property Name="idComuna" Type="int" Nullable="false" />
+          <Property Name="strNombre" Type="nvarchar" MaxLength="70" />
+          <Property Name="refProvincia" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblCountry">
+          <Key>
+            <PropertyRef Name="iso" />
+          </Key>
+          <Property Name="iso" Type="nchar" MaxLength="2" Nullable="false" />
+          <Property Name="strName" Type="nvarchar" MaxLength="80" Nullable="false" />
+          <Property Name="strPrintableName" Type="nvarchar" MaxLength="80" Nullable="false" />
+          <Property Name="iso3" Type="nchar" MaxLength="3" Nullable="false" />
+          <Property Name="intNumCode" Type="smallint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblProducts">
+          <Key>
+            <PropertyRef Name="idProdcuto" />
+          </Key>
+          <Property Name="idProdcuto" Type="int" Nullable="false" />
+          <Property Name="strNombre" Type="varchar" MaxLength="50" />
+          <Property Name="strCodigo" Type="varchar" MaxLength="50" />
+          <Property Name="intPrecio" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="refCategoria" Type="int" />
+        </EntityType>
+        <EntityType Name="tblProvincias">
+          <Key>
+            <PropertyRef Name="idProvincia" />
+          </Key>
+          <Property Name="idProvincia" Type="int" Nullable="false" />
+          <Property Name="strNombre" Type="nvarchar" MaxLength="70" Nullable="false" />
+          <Property Name="refRegion" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblRegiones">
+          <Key>
+            <PropertyRef Name="idRegion" />
+          </Key>
+          <Property Name="idRegion" Type="int" Nullable="false" />
+          <Property Name="strNombre" Type="nvarchar" MaxLength="70" Nullable="false" />
+          <Property Name="intNumber" Type="nvarchar" MaxLength="4" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblUsers">
+          <Key>
+            <PropertyRef Name="idUser" />
+          </Key>
+          <Property Name="idUser" Type="int" Nullable="false" />
+          <Property Name="strNames" Type="nchar" MaxLength="20" />
+          <Property Name="strLastNames" Type="nchar" MaxLength="20" />
+          <Property Name="strEmail" Type="nchar" MaxLength="30" />
+          <Property Name="strPassword" Type="nchar" MaxLength="20" />
+          <Property Name="intLevel" Type="int" />
+        </EntityType>
+        <Association Name="FK_tblComunas_tblProvincias">
+          <End Role="tblProvincias" Type="Self.tblProvincias" Multiplicity="1" />
+          <End Role="tblComunas" Type="Self.tblComunas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblProvincias">
+              <PropertyRef Name="idProvincia" />
+            </Principal>
+            <Dependent Role="tblComunas">
+              <PropertyRef Name="refProvincia" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblProducts_tblCategories">
+          <End Role="tblCategories" Type="Self.tblCategories" Multiplicity="0..1" />
+          <End Role="tblProducts" Type="Self.tblProducts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblCategories">
+              <PropertyRef Name="idCategoria" />
+            </Principal>
+            <Dependent Role="tblProducts">
+              <PropertyRef Name="refCategoria" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblProvincias_tblRegiones">
+          <End Role="tblRegiones" Type="Self.tblRegiones" Multiplicity="1" />
+          <End Role="tblProvincias" Type="Self.tblProvincias" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblRegiones">
+              <PropertyRef Name="idRegion" />
+            </Principal>
+            <Dependent Role="tblProvincias">
+              <PropertyRef Name="refRegion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="webstoreModelStoreContainer">
+          <EntitySet Name="tblCategories" EntityType="Self.tblCategories" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblComunas" EntityType="Self.tblComunas" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblCountry" EntityType="Self.tblCountry" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblProducts" EntityType="Self.tblProducts" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblProvincias" EntityType="Self.tblProvincias" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblRegiones" EntityType="Self.tblRegiones" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblUsers" EntityType="Self.tblUsers" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_tblComunas_tblProvincias" Association="Self.FK_tblComunas_tblProvincias">
+            <End Role="tblProvincias" EntitySet="tblProvincias" />
+            <End Role="tblComunas" EntitySet="tblComunas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblProducts_tblCategories" Association="Self.FK_tblProducts_tblCategories">
+            <End Role="tblCategories" EntitySet="tblCategories" />
+            <End Role="tblProducts" EntitySet="tblProducts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblProvincias_tblRegiones" Association="Self.FK_tblProvincias_tblRegiones">
+            <End Role="tblRegiones" EntitySet="tblRegiones" />
+            <End Role="tblProvincias" EntitySet="tblProvincias" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="webstoreModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="tblCategories">
+          <Key>
+            <PropertyRef Name="idCategoria" />
+          </Key>
+          <Property Name="idCategoria" Type="Int32" Nullable="false" />
+          <Property Name="strNombre" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
+          <Property Name="intActivo" Type="Boolean" />
+          <NavigationProperty Name="tblProducts" Relationship="webstoreModel.FK_tblProducts_tblCategories1" FromRole="tblCategories" ToRole="tblProducts" />
+        </EntityType>
+        <EntityContainer Name="webstoreEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="tblCategories" EntityType="Self.tblCategories" />
+          <EntitySet Name="tblProducts" EntityType="webstoreModel.tblProducts" />
+          <EntitySet Name="tblUsers" EntityType="webstoreModel.tblUsers" />
+          <AssociationSet Name="FK_tblProducts_tblCategories1" Association="webstoreModel.FK_tblProducts_tblCategories1">
+            <End Role="tblCategories" EntitySet="tblCategories" />
+            <End Role="tblProducts" EntitySet="tblProducts" />
+          </AssociationSet>
+          <EntitySet Name="tblCountry" EntityType="webstoreModel.tblCountry" />
+          <EntitySet Name="tblComunas" EntityType="webstoreModel.tblComunas" />
+          <EntitySet Name="tblProvincias" EntityType="webstoreModel.tblProvincias" />
+          <EntitySet Name="tblRegiones" EntityType="webstoreModel.tblRegiones" />
+          <AssociationSet Name="FK_tblComunas_tblProvincias" Association="webstoreModel.FK_tblComunas_tblProvincias">
+            <End Role="tblProvincias" EntitySet="tblProvincias" />
+            <End Role="tblComunas" EntitySet="tblComunas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblProvincias_tblRegiones" Association="webstoreModel.FK_tblProvincias_tblRegiones">
+            <End Role="tblRegiones" EntitySet="tblRegiones" />
+            <End Role="tblProvincias" EntitySet="tblProvincias" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="tblProducts">
+          <Key>
+            <PropertyRef Name="idProdcuto" />
+          </Key>
+          <Property Name="idProdcuto" Type="Int32" Nullable="false" />
+          <Property Name="strNombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="strCodigo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="intPrecio" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="refCategoria" Type="Int32" />
+          <NavigationProperty Name="tblCategories" Relationship="webstoreModel.FK_tblProducts_tblCategories1" FromRole="tblProducts" ToRole="tblCategories" />
+        </EntityType>
+        <EntityType Name="tblUsers">
+          <Key>
+            <PropertyRef Name="idUser" />
+          </Key>
+          <Property Name="idUser" Type="Int32" Nullable="false" />
+          <Property Name="strNames" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
+          <Property Name="strLastNames" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
+          <Property Name="strEmail" Type="String" MaxLength="30" FixedLength="true" Unicode="true" />
+          <Property Name="strPassword" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
+          <Property Name="intLevel" Type="Int32" />
+        </EntityType>
+        <Association Name="FK_tblProducts_tblCategories1">
+          <End Type="webstoreModel.tblCategories" Role="tblCategories" Multiplicity="0..1" />
+          <End Type="webstoreModel.tblProducts" Role="tblProducts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblCategories">
+              <PropertyRef Name="idCategoria" />
+            </Principal>
+            <Dependent Role="tblProducts">
+              <PropertyRef Name="refCategoria" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="tblCountry">
+          <Key>
+            <PropertyRef Name="iso" />
+          </Key>
+          <Property Name="iso" Type="String" Nullable="false" MaxLength="2" FixedLength="true" Unicode="true" />
+          <Property Name="strName" Type="String" Nullable="false" MaxLength="80" FixedLength="false" Unicode="true" />
+          <Property Name="strPrintableName" Type="String" Nullable="false" MaxLength="80" FixedLength="false" Unicode="true" />
+          <Property Name="iso3" Type="String" Nullable="false" MaxLength="3" FixedLength="true" Unicode="true" />
+          <Property Name="intNumCode" Type="Int16" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblComunas">
+          <Key>
+            <PropertyRef Name="idComuna" />
+          </Key>
+          <Property Name="idComuna" Type="Int32" Nullable="false" />
+          <Property Name="strNombre" Type="String" MaxLength="70" FixedLength="false" Unicode="true" />
+          <Property Name="refProvincia" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="tblProvincias" Relationship="webstoreModel.FK_tblComunas_tblProvincias" FromRole="tblComunas" ToRole="tblProvincias" />
+        </EntityType>
+        <EntityType Name="tblProvincias">
+          <Key>
+            <PropertyRef Name="idProvincia" />
+          </Key>
+          <Property Name="idProvincia" Type="Int32" Nullable="false" />
+          <Property Name="strNombre" Type="String" Nullable="false" MaxLength="70" FixedLength="false" Unicode="true" />
+          <Property Name="refRegion" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="tblComunas" Relationship="webstoreModel.FK_tblComunas_tblProvincias" FromRole="tblProvincias" ToRole="tblComunas" />
+          <NavigationProperty Name="tblRegiones" Relationship="webstoreModel.FK_tblProvincias_tblRegiones" FromRole="tblProvincias" ToRole="tblRegiones" />
+        </EntityType>
+        <EntityType Name="tblRegiones">
+          <Key>
+            <PropertyRef Name="idRegion" />
+          </Key>
+          <Property Name="idRegion" Type="Int32" Nullable="false" />
+          <Property Name="strNombre" Type="String" Nullable="false" MaxLength="70" FixedLength="false" Unicode="true" />
+          <Property Name="intNumber" Type="String" Nullable="false" MaxLength="4" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="tblProvincias" Relationship="webstoreModel.FK_tblProvincias_tblRegiones" FromRole="tblRegiones" ToRole="tblProvincias" />
+        </EntityType>
+        <Association Name="FK_tblComunas_tblProvincias">
+          <End Type="webstoreModel.tblProvincias" Role="tblProvincias" Multiplicity="1" />
+          <End Type="webstoreModel.tblComunas" Role="tblComunas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblProvincias">
+              <PropertyRef Name="idProvincia" />
+            </Principal>
+            <Dependent Role="tblComunas">
+              <PropertyRef Name="refProvincia" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblProvincias_tblRegiones">
+          <End Type="webstoreModel.tblRegiones" Role="tblRegiones" Multiplicity="1" />
+          <End Type="webstoreModel.tblProvincias" Role="tblProvincias" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblRegiones">
+              <PropertyRef Name="idRegion" />
+            </Principal>
+            <Dependent Role="tblProvincias">
+              <PropertyRef Name="refRegion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="webstoreModelStoreContainer" CdmEntityContainer="webstoreEntities">
+          <EntitySetMapping Name="tblCategories">
+            <EntityTypeMapping TypeName="webstoreModel.tblCategories">
+              <MappingFragment StoreEntitySet="tblCategories">
+                <ScalarProperty Name="idCategoria" ColumnName="idCategoria" />
+                <ScalarProperty Name="strNombre" ColumnName="strNombre" />
+                <ScalarProperty Name="intActivo" ColumnName="intActivo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblProducts">
+            <EntityTypeMapping TypeName="webstoreModel.tblProducts">
+              <MappingFragment StoreEntitySet="tblProducts">
+                <ScalarProperty Name="refCategoria" ColumnName="refCategoria" />
+                <ScalarProperty Name="intPrecio" ColumnName="intPrecio" />
+                <ScalarProperty Name="strCodigo" ColumnName="strCodigo" />
+                <ScalarProperty Name="strNombre" ColumnName="strNombre" />
+                <ScalarProperty Name="idProdcuto" ColumnName="idProdcuto" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblUsers">
+            <EntityTypeMapping TypeName="webstoreModel.tblUsers">
+              <MappingFragment StoreEntitySet="tblUsers">
+                <ScalarProperty Name="intLevel" ColumnName="intLevel" />
+                <ScalarProperty Name="strPassword" ColumnName="strPassword" />
+                <ScalarProperty Name="strEmail" ColumnName="strEmail" />
+                <ScalarProperty Name="strLastNames" ColumnName="strLastNames" />
+                <ScalarProperty Name="strNames" ColumnName="strNames" />
+                <ScalarProperty Name="idUser" ColumnName="idUser" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblCountry">
+            <EntityTypeMapping TypeName="webstoreModel.tblCountry">
+              <MappingFragment StoreEntitySet="tblCountry">
+                <ScalarProperty Name="intNumCode" ColumnName="intNumCode" />
+                <ScalarProperty Name="iso3" ColumnName="iso3" />
+                <ScalarProperty Name="strPrintableName" ColumnName="strPrintableName" />
+                <ScalarProperty Name="strName" ColumnName="strName" />
+                <ScalarProperty Name="iso" ColumnName="iso" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblComunas">
+            <EntityTypeMapping TypeName="webstoreModel.tblComunas">
+              <MappingFragment StoreEntitySet="tblComunas">
+                <ScalarProperty Name="refProvincia" ColumnName="refProvincia" />
+                <ScalarProperty Name="strNombre" ColumnName="strNombre" />
+                <ScalarProperty Name="idComuna" ColumnName="idComuna" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblProvincias">
+            <EntityTypeMapping TypeName="webstoreModel.tblProvincias">
+              <MappingFragment StoreEntitySet="tblProvincias">
+                <ScalarProperty Name="refRegion" ColumnName="refRegion" />
+                <ScalarProperty Name="strNombre" ColumnName="strNombre" />
+                <ScalarProperty Name="idProvincia" ColumnName="idProvincia" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblRegiones">
+            <EntityTypeMapping TypeName="webstoreModel.tblRegiones">
+              <MappingFragment StoreEntitySet="tblRegiones">
+                <ScalarProperty Name="intNumber" ColumnName="intNumber" />
+                <ScalarProperty Name="strNombre" ColumnName="strNombre" />
+                <ScalarProperty Name="idRegion" ColumnName="idRegion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

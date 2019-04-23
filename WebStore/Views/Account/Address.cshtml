@@ -1,0 +1,81 @@
+﻿
+@{
+    ViewBag.Title = WebStore.Resources.Titles.Address;
+}
+
+<section>
+    <header class="header">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                    <h1>
+                        @ViewBag.Title
+                    </h1>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                    <ul class="breadcrumbs">
+                        <li>
+                            <a href="@Url.Action("Index","Home", new { language = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName}, null)">@WebStore.Resources.Titles.Home</a>
+                        </li>
+                        <li class="separator">&nbsp;</li>
+                        <li>
+                            <a href="@Url.Action("Home","Account", new { language = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName}, null)">@WebStore.Resources.Titles.Account</a>
+                        </li>
+                        <li class="separator">&nbsp;</li>
+                        <li>
+                            @ViewBag.Title
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </header>
+</section>
+
+@Html.Partial("~/Views/Shared/profileMenu.cshtml")
+
+<div class="container mb-3">
+    <div class="row">
+        <div class="col-md-4 mb-3">
+            <a href="@Url.Action("Address","Account", new { id="Add", language = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName}, null)" class="mg-add-address">
+                <div class="card mg-card-dashed">
+                    <div class="card-body">
+                        <i class="fas fa-plus text-muted pb-2"></i>
+                        <h2 class="text-muted">@WebStore.Resources.Buttons.AddAdress</h2>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="col-md-4 mb-3">
+            <div class="card mg-card-address">
+                <div class="card-body">
+                    <ul class="list-unstyled">
+                        <li><strong>Manoel Gonçalves</strong></li>
+                        <li>Pasaje fuentesrabia # 3946</li>
+                        <li>Casa</li>
+                        <li>Santiago, Conchalí 8540000</li>
+                        <li>Chile</li>
+                        <li>Phone number: +56967976036</li>
+                    </ul>
+                </div>
+                <div class="card-footer">
+                    <a href="@Url.Action("Address","Account", new { id="Edit", language = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName}, null)" class="btn btn-warning btn-xs">@WebStore.Resources.Buttons.Edit</a>
+                    <a class="btn btn-danger btn-xs">@WebStore.Resources.Buttons.Delete</a>
+                    <a class="btn btn-primary btn-xs">@WebStore.Resources.Buttons.Default</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-3">
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script>
+    $(function(){
+        $.AdminJs.profileMenu.activate();
+    })
+    </script>
+}
+
+

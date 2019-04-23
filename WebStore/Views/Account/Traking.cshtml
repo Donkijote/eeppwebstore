@@ -1,0 +1,182 @@
+﻿
+@{
+    ViewBag.Title = WebStore.Resources.Titles.Traking;
+}
+
+
+<section>
+    <header class="header">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                    <h1>
+                        @ViewBag.Title
+                    </h1>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                    <ul class="breadcrumbs">
+                        <li>
+                            <a href="@Url.Action("Index","Home", new { language = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName}, null)">@WebStore.Resources.Titles.Home</a>
+                        </li>
+                        <li class="separator">&nbsp;</li>
+                        <li>
+                            <a href="@Url.Action("Home","Account", new { language = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName}, null)">@WebStore.Resources.Titles.Account</a>
+                        </li>
+                        <li class="separator">&nbsp;</li>
+                        <li>
+                            <a href="@Url.Action("Orders","Account", new { language = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName}, null)">@WebStore.Resources.Titles.Orders</a>
+                        </li>
+                        <li class="separator">&nbsp;</li>
+                        <li>
+                            @ViewBag.Title
+
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </header>
+</section>
+
+@Html.Partial("~/Views/Shared/profileMenu.cshtml")
+
+<div class="container mb-5">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card mb-3 mg-card-traking">
+                <div class="p-4 card-header bg-dark text-center text-uppercase text-white">
+                    <h6>Número de Rastreo de Orden - <span class="text-medium">321654987</span></h6>
+                </div>
+                <div class="d-flex flex-wrap flex-sm-nowrap justify-content-between py-3 px-2 bg-secondary">
+                    <div class="w-100 text-center py-1 px-2"><span class="text-medium">Envíado por:</span> UPS Ground</div>
+                    <div class="w-100 text-center py-1 px-2"><span class="text-medium">Estatus:</span> Processing Order</div>
+                    <div class="w-100 text-center py-1 px-2"><span class="text-medium">Fecha de entrega aproximada:</span> Feb 26, 2018</div>
+                </div>
+                <div class="card-body">
+                    <div class="steps flex-sm-nowrap padding-top-1x padding-bottom-1x on-desktop">
+                        <div class="step ready">
+                            <i class="fas fa-shopping-bag"></i>
+                            <h4 class="step-title">Orden Confirmada</h4>
+                        </div>
+                        <div class="step active">
+                            <i class="fas fa-cog"></i>
+                            <h4 class="step-title">Procesando Orden</h4>
+                        </div>
+                        <div class="step">
+                            <i class="fas fa-award"></i>
+                            <h4 class="step-title">Control de Calidad</h4>
+                        </div>
+                        <div class="step">
+                            <i class="fas fa-truck"></i>
+                            <h4 class="step-title">Producto Despachado</h4>
+                        </div>
+                        <div class="step">
+                            <i class="fas fa-home"></i>
+                            <h4 class="step-title">Producto Entregado</h4>
+                        </div>
+                    </div>
+                    <div class="steps flex-sm-nowrap padding-top-1x padding-bottom-1x on-mobile">
+                        <div class="step ready">
+                        </div>
+                        <div class="step active">
+                        </div>
+                        <div class="step">
+                        </div>
+                        <div class="step">
+                        </div>
+                        <div class="step">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="d-flex flex-wrap flex-md-nowrap justify-content-center justify-content-sm-between align-items-center">
+                <div class="custom-control custom-checkbox mr-3">
+                    <input class="filled-in chk-col-blue" type="checkbox" id="notify_me" checked="">
+                    <label for="notify_me">Notíficame cuando el paquete sea entregado</label>
+                </div>
+                <div class="text-left text-sm-right">
+                    <a class="btn btn-primary btn-sm" href="orderDetails" data-toggle="modal" data-target="#orderDetails">@WebStore.Resources.Buttons.SeeOrderDetails</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="orderDetails" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Order No  - 34VB5540K83</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+            </div>
+            <div class="modal-body">
+                <div class="table-responsive shopping-cart mb-0">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Nombre del Producto</th>
+                                <th class="text-center">Subtotal</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div class="product-item">
+                                        <a class="product-thumb" href="shop-single.html">
+                                            <img class="img-fuild" src="http://themes.rokaux.com/unishop/v3.0/template-3/img/shop/cart/01.jpg" alt="Product">
+                                        </a>
+                                        <div class="product-info">
+                                            <h4 class="product-title"><a href="shop-single.html">Canon EOS M50 Mirrorless Camera<small>x 1</small></a></h4><span><em>Type:</em> Mirrorless</span><span><em>Color:</em> Black</span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="text-center text-lg">$910.00</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="product-item">
+                                        <a class="product-thumb" href="shop-single.html">
+                                            <img class="img-fuild" src="http://themes.rokaux.com/unishop/v3.0/template-3/img/shop/cart/02.jpg" alt="Product">
+                                        </a>
+                                        <div class="product-info">
+                                            <h4 class="product-title"><a href="shop-single.html">Apple iPhone X 256 GB Space Gray<small>x 1</small></a></h4><span><em>Memory:</em> 256 GB</span><span><em>Color:</em> Space Gray</span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="text-center text-lg">$1,450.00</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="product-item">
+                                        <a class="product-thumb" href="shop-single.html">
+                                            <img class="img-fuild" src="http://themes.rokaux.com/unishop/v3.0/template-3/img/shop/cart/03.jpg" alt="Product">
+                                        </a>
+                                        <div class="product-info">
+                                            <h4 class="product-title"><a href="shop-single.html">HP LaserJet Pro Laser Printer<small>x 1</small></a></h4><span><em>Type:</em> Laser</span><span><em>Color:</em> White</span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="text-center text-lg">$188.50</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <hr class="mb-3">
+                <div class="d-flex flex-wrap justify-content-between align-items-center pb-2">
+                    <div class="px-2 py-1"><span class="text-muted">Subtotal:</span> <span class="text-gray-dark">$2,548.50</span></div>
+                    <div class="px-2 py-1"><span class="text-muted">Shipping:</span> <span class="text-gray-dark">$26.50</span></div>
+                    <div class="px-2 py-1"><span class="text-muted">Tax:</span> <span class="text-gray-dark">$9.72</span></div>
+                    <div class="text-lg px-2 py-1"><span class="text-muted">Total:</span> <span class="text-gray-dark">$2,584.72</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script>
+        $(function () {
+            $.AdminJs.profileMenu.activate();
+        })
+    </script>
+}

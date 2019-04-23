@@ -1,0 +1,218 @@
+﻿
+@{
+    ViewBag.Title = WebStore.Resources.Titles.Settings;
+}
+
+<section>
+    <header class="header">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                    <h1>
+                        @ViewBag.Title
+                    </h1>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                    <ul class="breadcrumbs">
+                        <li>
+                            <a href="@Url.Action("Index","Home", new { language = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName}, null)">@WebStore.Resources.Titles.Home</a>
+                        </li>
+                        <li class="separator">&nbsp;</li>
+                        <li>
+                            <a href="@Url.Action("Home","Account", new { language = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName}, null)">@WebStore.Resources.Titles.Account</a>
+                        </li>
+                        <li class="separator">&nbsp;</li>
+                        <li>
+                            @ViewBag.Title
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </header>
+</section>
+
+@Html.Partial("~/Views/Shared/profileMenu.cshtml")
+
+<div class="container mb-5">
+    <div class="row">
+        <div class="col-lg-6">
+            <h4>@WebStore.Resources.Titles.Profile</h4>
+            <hr class="padding-bottom-1x">
+            <aside class="user-info-wrapper">
+                <div class="user-cover" style="background-image: url(http://themes.rokaux.com/unishop/v3.0/template-3/img/account/user-cover-img.jpg);">
+                    <div class="info-label" data-toggle="tooltip" data-placement="top" title="" data-original-title="You currently have 290 Reward Points to spend">
+                        <i class="fas fa-award"></i>290 points
+                    </div>
+                </div>
+                <div class="user-info">
+                    <div class="user-avatar">
+                        <a class="edit-avatar" href="AvatarModal" data-toggle="modal" data-target="#AvatarModal"></a>
+                        <img class="img-fluid" src="https://s.w.org/images/core/emoji/2.3/svg/1f620.svg" alt="User">
+                    </div>
+                    <div class="user-data">
+                        <h4 class="h5">Manoel Gonçalves</h4><span>Ingreso 06 Febrero, 2017</span>
+                    </div>
+                </div>
+            </aside>
+            <form method="post" id="perfilUpdate">
+
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="form-group input-group">
+                            <input class="form-control" type="text" name="strNames" id="strNames" placeholder="@WebStore.Resources.Placeholder.Names" />
+                            <span class="input-group-addon">
+                                <i class="fas fa-file-signature"></i>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="form-group input-group">
+                            <input class="form-control" type="text" name="strLastNames" id="strLastNames" placeholder="@WebStore.Resources.Placeholder.LastNames" />
+                            <span class="input-group-addon">
+                                <i class="fas fa-file-signature"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="form-group input-group">
+                            <input class="form-control" type="text" name="strId" id="strId" placeholder="@WebStore.Resources.Placeholder.Id" />
+                            <span class="input-group-addon">
+                                <i class="far fa-id-card"></i>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="form-group input-group">
+                            <input class="form-control" type="text" name="strTLf" id="strTLf" placeholder="@WebStore.Resources.Placeholder.Phone" />
+                            <span class="input-group-addon">
+                                <i class="fas fa-mobile-alt"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="form-group input-group">
+                            <input class="form-control" type="text" name="strCountry" id="strCountry" placeholder="@WebStore.Resources.Placeholder.Country" />
+                            <span class="input-group-addon">
+                                <i class="fas fa-globe-americas"></i>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="form-group input-group">
+                            <input class="form-control" type="text" name="strStates" id="strStates" placeholder="@WebStore.Resources.Placeholder.Region" />
+                            <span class="input-group-addon">
+                                <i class="fas fa-flag"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="form-group input-group">
+                            <input class="form-control" type="text" name="strCity" id="strCity" placeholder="@WebStore.Resources.Placeholder.City" />
+                            <span class="input-group-addon">
+                                <i class="fas fa-city"></i>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="form-group input-group">
+                            <input class="form-control" type="text" name="strPostale" id="strPostale" placeholder="@WebStore.Resources.Placeholder.PostCode" />
+                            <span class="input-group-addon">
+                                <i class="fas fa-map-marked-alt"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="form-group input-group">
+                            <input class="form-control" type="text" name="strAddress" id="strAddress" placeholder="@WebStore.Resources.Placeholder.Address" />
+                            <span class="input-group-addon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="form-group input-group">
+                            <input class="form-control" type="text" name="strHome" id="strHome" placeholder="@WebStore.Resources.Placeholder.House" />
+                            <span class="input-group-addon">
+                                <i class="fas fa-home"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="btn btn-primary float-right">@WebStore.Resources.Buttons.Save</button>
+            </form>
+        </div>
+        <div class="col-lg-6">
+            <h4>@WebStore.Resources.Titles.Security</h4>
+            <hr class="padding-bottom-1x">
+            <form method="post" id="securityEditEmail">
+                <div class="row mb-3">
+                    <div class="col-lg-6">
+                        <span style="font-weight:600;">Email:</span><br />
+                        <span>xxxx@xxxx.com</span>
+                    </div>
+                    <div class="col-lg-6 text-right">
+                        <button type="submit" class="btn btn-warning btn-sm">@WebStore.Resources.Buttons.Edit</button>
+                    </div>
+                </div>
+            </form>
+
+            <form method="post" id="securityEditPassword">
+                <div class="row mb-3">
+                    <div class="col-lg-6">
+                        <span style="font-weight:600;">Contraseña:</span><br />
+                        <span>********</span>
+                    </div>
+                    <div class="col-lg-6 text-right">
+                        <button type="submit" class="btn btn-warning btn-sm">@WebStore.Resources.Buttons.Edit</button>
+                    </div>
+                </div>
+            </form>
+
+            <form method="post" id="securityEditSecondNumber">
+                <div class="row mb-3">
+                    <div class="col-lg-6">
+                        <span style="font-weight:600;">Teléfono de Confianza:</span><br />
+                        <span>+56 9 xxxx xxxx</span>
+                    </div>
+                    <div class="col-lg-6 text-right">
+                        <button type="submit" class="btn btn-warning btn-sm">@WebStore.Resources.Buttons.Edit</button>
+                    </div>
+                </div>
+            </form>
+
+            <form method="post" id="securityEditMoreSetings">
+                <div class="row mb-3">
+                    <div class="col-lg-8">
+                        <span style="font-weight:600;">Seguridad Avanzada:</span><br />
+                        <span class="text-muted">Selecciona como y cuando recibir códigos de seguridad</span>
+                    </div>
+                    <div class="col-lg-4 text-right">
+                        <button type="submit" class="btn btn-warning btn-sm">@WebStore.Resources.Buttons.Edit</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script>
+    $(function(){
+        $.AdminJs.profileMenu.activate();
+    })
+    </script>
+}
