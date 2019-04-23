@@ -368,10 +368,7 @@
     <Content Include="Content\bootstrap-reboot.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="Content\extra.css" />
-    <Content Include="Content\extra.min.css">
-      <DependentUpon>extra.css</DependentUpon>
-    </Content>
+    <Content Include="Content\_extra.css" />
     <Content Include="Content\font\icons.svg" />
     <Content Include="Content\img\foto.png" />
     <Content Include="Content\img\frame_1.png" />
@@ -385,6 +382,13 @@
     <Content Include="Content\img\frame_9.png" />
     <Content Include="Content\jquery.steps.css" />
     <Content Include="Content\PagedList.css" />
+    <Content Include="Content\Style.css" />
+    <Content Include="Content\Style.min.css">
+      <DependentUpon>Style.css</DependentUpon>
+    </Content>
+    <Content Include="Content\_extra.min.css">
+      <DependentUpon>_extra.css</DependentUpon>
+    </Content>
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
@@ -432,11 +436,12 @@
     <Content Include="Content\bootstrap-reboot.css.map" />
     <Content Include="Content\bootstrap-grid.min.css.map" />
     <Content Include="Content\bootstrap-grid.css.map" />
-    <Content Include="Content\extra.scss" />
+    <Content Include="Content\_extra.scss" />
     <None Include="compilerconfig.json" />
     <None Include="compilerconfig.json.defaults">
       <DependentUpon>compilerconfig.json</DependentUpon>
     </None>
+    <Content Include="Content\Style.scss" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <Content Include="Scripts\bootstrap.min.js.map" />
     <Content Include="Scripts\bootstrap.js.map" />

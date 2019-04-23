@@ -1,6 +1,10 @@
 ﻿[
   {
-    "outputFile": "Content/extra.css",
-    "inputFile": "Content/extra.scss"
+    "outputFile": "Content/_extra.css",
+    "inputFile": "Content/_extra.scss"
+  },
+  {
+    "outputFile": "Content/Style.css",
+    "inputFile": "Content/Style.scss"
   }
 ]
