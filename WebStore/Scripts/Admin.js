@@ -190,7 +190,7 @@ $.AdminJs.navBar = {
 			var $img = $(".navbar-brand");
 			$nav.toggleClass('scrolled', $(this).scrollTop() > 40);
 			$nav.toggleClass('navbar-stuck', $(this).scrollTop() > 40);
-			$img.toggleClass('scrolled', $(this).scrollTop() > 40);
+			//$img.toggleClass('scrolled', $(this).scrollTop() > 40);
 		});
 		jQuery.fn.clickToggle = function (a, b) {
 			function cb() { [b, a][this._tog ^= 1].call(this); }

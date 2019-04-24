@@ -131,13 +131,13 @@
                                             <span>Lista de Deseo</span>
                                         </a>
                                         <a class="mg-product-button btn-compare" href="javascript:void(0);">
-                                            <i class="mg-fo fo-compare"></i>
+                                            <i class="fos fas fo-compare"></i>
                                             <span>Compare</span>
                                         </a>
                                         <a class="mg-product-button" href="javascript:void(0);" data-toast="" data-toast-type="success"
                                            data-toast-position="topRight" data-toast-icon="icon-check-circle" data-toast-title="Product"
                                            data-toast-message="successfuly added to cart!">
-                                            <i class="mg-fo fo-shopping-cart"></i>
+                                            <i class="fas fa-shopping-cart"></i>
                                             <span>To Cart</span>
                                         </a>
                                     </div>
@@ -165,7 +165,7 @@
                                     <i class="fas fa-star filled"></i>
                                     <i class="fas fa-star"></i>
                                 </div>
-                                <a class="mg-product-thumb" href="/Categories/s/Cables/@Html.DisplayFor(modelItem => item.strCodigo)">
+                                <a class="mg-product-thumb" href="@Url.Action("s","Categories", new { id = "Cables", idp = Html.DisplayFor(modelItem => item.strCodigo), language=System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName })">
                                     <img class="img-fuild" src="https://eepp.cl/images/productos/Z1-K-BLANCO.jpg"
                                          alt="Producto">
                                 </a>
@@ -174,7 +174,7 @@
                                         <a>@Html.DisplayFor(modelItem => item.strCodigo)</a>
                                     </div>
                                     <h3 class="mg-product-title">
-                                        <a href="/Categories/s/Cables/@Html.DisplayFor(modelItem => item.strCodigo)">@Html.DisplayFor(modelItem => item.strNombre)</a>
+                                        <a href="@Url.Action("s","Categories", new { id = "Cables", idp = Html.DisplayFor(modelItem => item.strCodigo), language=System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName })">@Html.DisplayFor(modelItem => item.strNombre)</a>
                                     </h3>
                                     <h4 class="mg-product-price">
                                         <del>$62.00</del>@Html.DisplayFor(modelItem => item.intPrecio)
@@ -187,13 +187,13 @@
                                         <span>Lista de Deseo</span>
                                     </a>
                                     <a class="mg-product-button btn-compare" href="javascript:void(0);">
-                                        <i class="mg-fo fo-compare"></i>
+                                        <i class="fos fas fo-compare"></i>
                                         <span>Compare</span>
                                     </a>
                                     <a class="mg-product-button" href="javascript:void(0);" data-toast="" data-toast-type="success"
                                        data-toast-position="topRight" data-toast-icon="icon-check-circle" data-toast-title="Product"
                                        data-toast-message="successfuly added to cart!">
-                                        <i class="mg-fo fo-cart"></i>
+                                        <i class="fas fa-shopping-cart"></i>
                                         <span>To Cart</span>
                                     </a>
                                 </div>

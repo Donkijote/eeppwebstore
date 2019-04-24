@@ -28,10 +28,11 @@
                 <a class="navbar-brand" href="/">
                     <div class="mg-logo-wrapper">
                         <span class="mg-logo-img">
-                            <img src="https://demo.gridgum.com/templates/free-themes/computer-service/assets/images/discover-mobile-350x350-53.png"
-                                 class="d-inline-block align-top" alt="">
+                            <i class="fos fas fo-logo"></i>
                         </span>
-                        <span class="mg-logo-title">MG SOLUTIONS</span>
+                        <span class="mg-logo-title text-left">
+                            <i class="fos fas fo-logo-text"></i>
+                        </span>
                     </div>
                 </a>
             </div>
@@ -376,7 +377,7 @@
                         </li>
 
                         @{
-                            bool var = true;
+                            bool var = false;
                             if (var)
                             {
 
@@ -556,12 +557,12 @@
         </div>
     </nav>
 
-    <nav class="navbar navbar-expand-lg mg-mobile-menu">
+    <nav class="navbar navbar-expand-lg navbar-sticky mg-mobile-menu">
         <div class="container align-middle mg-header-mobile-menu">
             <div class="mg-mobile-menu-wrapper mx-auto">
-                <div class="mg-mobile-menu-wrapper-item" style="padding:0;">
-                    <a class="navbar-item navbar-toggler" href="/">
-                        <img class="img-fuild d-inline-block align-top" src="https://demo.gridgum.com/templates/free-themes/computer-service/assets/images/discover-mobile-350x350-53.png" alt="" style="width:65px;">
+                <div class="mg-mobile-menu-wrapper-item">
+                    <a class="navbar-item navbar-toggler mg-logo-img" href="/">
+                        <i class="fos fas fo-logo"></i>
                     </a>
                 </div>
                 <div class="mg-mobile-menu-wrapper-item">
@@ -863,7 +864,7 @@
                         </section>
                     </div>
                 </div>
-                <hr class="hr-light mt-2 margin-bottom-2x hidden-md-down">
+                <hr class="hr-light mt-5 mb-5 hidden-md-down">
                 <div class="row">
                     <div class="col-lg-3 col-md-6">
                         <!-- Contact Info-->
@@ -881,16 +882,16 @@
                             <p>
                                 <a class="navi-link-light" href="#">@WebStore.Resources.Footer.Support</a>
                             </p>
-                            <a class="social-button shape-circle sb-facebook sb-light-skin" href="#">
+                            <a class="social-button shape-circle sb-facebook" href="#">
                                 <i class="fab fa-facebook-f"></i>
                             </a>
-                            <a class="social-button shape-circle sb-twitter sb-light-skin" href="#">
+                            <a class="social-button shape-circle sb-twitter" href="#">
                                 <i class="fab fa-twitter"></i>
                             </a>
-                            <a class="social-button shape-circle sb-instagram sb-light-skin" href="#">
+                            <a class="social-button shape-circle sb-instagram" href="#">
                                 <i class="fab fa-instagram"></i>
                             </a>
-                            <a class="social-button shape-circle sb-google-plus sb-light-skin" href="#">
+                            <a class="social-button shape-circle sb-google-plus" href="#">
                                 <i class="fab fa-google-plus-g"></i>
                             </a>
                         </section>
@@ -899,9 +900,9 @@
                         <!-- Mobile App Buttons-->
                         <section class="widget mg-widget-light-skin">
                             <h3 class="mg-widget-title">@WebStore.Resources.Footer.Apps</h3>
-                            <a class="market-button apple-button mb-light-skin" href="#"><span class="mb-subtitle">@WebStore.Resources.Buttons.Download</span><span class="mb-title">@WebStore.Resources.Buttons.App</span></a>
-                            <a class="market-button google-button mb-light-skin" href="#"><span class="mb-subtitle">@WebStore.Resources.Buttons.Download</span><span class="mb-title">@WebStore.Resources.Buttons.Google</span></a>
-                            <a class="market-button windows-button mb-light-skin" href="#"><span class="mb-subtitle">@WebStore.Resources.Buttons.Download</span><span class="mb-title">@WebStore.Resources.Buttons.Windows</span></a>
+                            <a class="market-button apple-button" href="#"><span class="mb-subtitle">@WebStore.Resources.Buttons.Download</span><span class="mb-title">@WebStore.Resources.Buttons.App</span></a>
+                            <a class="market-button google-button" href="#"><span class="mb-subtitle">@WebStore.Resources.Buttons.Download</span><span class="mb-title">@WebStore.Resources.Buttons.Google</span></a>
+                            <a class="market-button windows-button" href="#"><span class="mb-subtitle">@WebStore.Resources.Buttons.Download</span><span class="mb-title">@WebStore.Resources.Buttons.Windows</span></a>
                         </section>
                     </div>
                     <div class="col-lg-6">
@@ -933,7 +934,7 @@
                 <!-- Copyright-->
                 <p class="footer-copyright">
                     &copy; @DateTime.Now.Year All rights reserved. Made by &nbsp;
-                    <i class="fos fas fo-donkijote fo-2x"></i>
+                    <i class="fos fas fo-donkijote-spanish fo-2x"></i>
                     <a href="" target="_blank"> &nbsp;Donkijote</a>
                 </p>
             </div>
