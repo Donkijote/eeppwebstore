@@ -557,30 +557,55 @@
         </div>
     </nav>
 
-    <nav class="navbar navbar-expand-lg navbar-sticky mg-mobile-menu">
+    <nav class="navbar navbar-expand-lg mg-mobile-menu" data-nav-status="toggle" id="navbar">
         <div class="container align-middle mg-header-mobile-menu">
             <div class="mg-mobile-menu-wrapper mx-auto">
                 <div class="mg-mobile-menu-wrapper-item">
-                    <a class="navbar-item navbar-toggler mg-logo-img" href="/">
-                        <i class="fos fas fo-logo"></i>
+                    <a class="navbar-item navbar-toggler" href="/">
+                        <i class="fas fa-home"></i>
                     </a>
                 </div>
                 <div class="mg-mobile-menu-wrapper-item">
                     <a class="navbar-item navbar-toggler mobile-menu-toggle">
-                        <span class="fas fa-bars"></span>
+                        <i class="fas fa-bars"></i>
+                    </a>
+                </div>
+                <div class="mg-mobile-menu-wrapper-item">
+                    <a class="navbar-item navbar-toggler" href="@Url.Action("All","Categories", new { language = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName})">
+                        <i class="fas fa-th-large"></i>
                     </a>
                 </div>
                 <div class="mg-mobile-menu-wrapper-item">
                     <a class="navbar-item navbar-toggler" href="@Url.Action("Cart","User", new { language = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName})">
                         <span class="mg-navbar-cart">
                             <i class="fas fa-shopping-cart"></i>
-                            <span class="mg-count-label">3</span>
                         </span>
                     </a>
+                </div>
+                <div class="mg-mobile-menu-wrapper-item">
+                    @{
+                        bool userLog = true;
+
+                        if (userLog)
+                        {
+                            <a class="navbar-item navbar-toggler" id="mg-profile-toggle">
+                                <i class="fas fa-user"></i>
+                            </a>
+                        }
+                        else
+                        {
+                            <a class="navbar-item navbar-toggler" href="@Url.Action("LogIn","User", new { language = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName})">
+                                <i class="fas fa-user"></i>
+                            </a>
+                        }
+                    }
                 </div>
             </div>
         </div>
         <div class="menu" id="navbarResponsiveMobile">
+            <div class="mg-logo-img">
+                <img class="img-fluid" src="https://eepp.cl/images/home/logoeepp.png" />
+            </div>
             <div class="mg-mobile-search">
                 <form method="get">
                     <div class=" form-group input-group">
@@ -690,7 +715,7 @@
                 </div>
             </div>
             <nav class="mg-slide-menu">
-                <ul class="mg-slide-menu-wrapper" data-initial-height="204">
+                <ul class="mg-slide-menu-wrapper" data-initial-height="414" style="height:414px;">
                     <li class="has-children">
                         <span>
                             <a href="index.html">@WebStore.Resources.Menu.left</a>
@@ -698,7 +723,7 @@
                         </span>
                         <ul class="slideable-submenu">
                             <li class="back-btn">
-                                <a href=@WebStore.Resources.Buttons.Back></a>
+                                <a href="#">@WebStore.Resources.Buttons.Back</a>
                             </li>
                             <li>
                                 <a href="index.html">Hero Slider</a>
@@ -745,7 +770,7 @@
                     </li>
                     <li class="has-children">
                         <span>
-                            <a href="index.html">@WebStore.Resources.Menu.right</a>
+                            <a href="#">@WebStore.Resources.Menu.right</a>
                             <span class="sub-menu-toggle"></span>
                         </span>
                         <ul class="slideable-submenu">
@@ -760,9 +785,40 @@
                             </li>
                         </ul>
                     </li>
+                    <li>
+                        <span>
+                            <a href="#">@WebStore.Resources.Footer.Returns</a>
+                        </span>
+                    </li>
+                    <li>
+                        <span>
+                            <a href="#">@WebStore.Resources.Footer.Conditions</a>
+                        </span>
+                    </li>
+                    <li>
+                        <span>
+                            <a href="#">@WebStore.Resources.Footer.ShippingTerms</a>
+                        </span>
+                    </li>
+                    <li>
+                        <span>
+                            <a href="#">@WebStore.Resources.Footer.Help</a>
+                        </span>
+                    </li>
+                    <li>
+                        <span>
+                            <a href="#">@WebStore.Resources.Footer.Security</a>
+                        </span>
+                    </li>
+                    <li>
+                        <span>
+                            <a href="#">@WebStore.Resources.Footer.FAQ</a>
+                        </span>
+                    </li>
                 </ul>
             </nav>
         </div>
+        @Html.Partial("~/Views/Shared/profileMenuMobile.cshtml")
     </nav>
 
     <div class="body-content">

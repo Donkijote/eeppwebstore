@@ -177,40 +177,60 @@ $(function () {
 });
 
 $.AdminJs.navBar = {
-	activate: function () {
-		var $nav = $(".navbar-sticky");
-		var $img = $(".navbar-brand");
+    activate: function () {
+        var _this = this;
+        var $nav = $(".navbar-sticky.mg-big-screen");
+        var prevScrollpos = window.pageYOffset;
 		if ($nav.offset().top > 40) {
 			$nav.toggleClass('scrolled');
 			$nav.toggleClass('navbar-stuck');
-			$img.toggleClass('scrolled');
 		}
 		$(document).scroll(function () {
-			var $nav = $(".navbar-sticky");
-			var $img = $(".navbar-brand");
+            var $nav = $(".navbar-sticky.mg-big-screen");
 			$nav.toggleClass('scrolled', $(this).scrollTop() > 40);
-			$nav.toggleClass('navbar-stuck', $(this).scrollTop() > 40);
-			//$img.toggleClass('scrolled', $(this).scrollTop() > 40);
-		});
+            $nav.toggleClass('navbar-stuck', $(this).scrollTop() > 40);
+
+            
+
+            var currentScrollPos = window.pageYOffset;
+            if (prevScrollpos > currentScrollPos) {
+                document.getElementById("navbar").style.bottom = "0";
+            } else {
+                document.getElementById("navbar").style.bottom = "-100px";
+            }
+            prevScrollpos = currentScrollPos;
+        });
+
 		jQuery.fn.clickToggle = function (a, b) {
 			function cb() { [b, a][this._tog ^= 1].call(this); }
 			return this.on("click", cb);
-		};
+        };
+
 		$('.mg-fix-bugg').clickToggle(function () {
 			$('.mg-search-overlay').show();
 			$('.mg-search').addClass('off-view');
 			$('.mg-site-search').addClass('in-view');
 			$('.icon-default').addClass('icon-default-hover');
 			$('.icon-hover').addClass('icon-hover-hover');
-		}, function () {
+        },
+            function () {
 			$('.mg-site-search').removeClass('in-view');
 			$('.mg-search').removeClass('off-view');
 			$('.icon-default').removeClass('icon-default-hover');
 			$('.icon-hover').removeClass('icon-hover-hover');
 			$('.mg-search-overlay').hide();
-		});
+            });
 
-	}
+        $('#mg-profile-toggle').on('click', function () {
+            $('#profileMenuMobile').toggleClass('open');
+        })
+    },
+    hideNav: function () {
+        $("[data-nav-status='toggle']").removeClass("is-visible").addClass("is-hidden");
+    },
+    showNav: function () {
+        $("[data-nav-status='toggle']").removeClass("is-hidden").addClass("is-visible");
+    }
 }
 
 $.AdminJs.animateLinks = {
@@ -281,7 +301,7 @@ $.AdminJs.mobile = {
 			e.preventDefault();
 			$(this).parents('.mg-slide-menu-wrapper').addClass('off-view');
 			var x = $(this).parents('li').find('.slideable-submenu');
-			$('.mg-slide-menu-wrapper.off-view').css('height', x.height());
+			//$('.mg-slide-menu-wrapper.off-view').css('height', x.height());
 			x.addClass('in-view');
 		});
 		$('.back-btn').on('click', function (e) {
@@ -301,6 +321,7 @@ $.AdminJs.mobile = {
         $('.mobile-menu-toggle').on('click', function (e) {
             e.preventDefault();
             $('#navbarResponsiveMobile').toggleClass('shown');
+            $('body').toggleClass('modal-open');
         })
         $('#on-mobile-language-dropdown').on('click', function () {
             $(this).toggleClass('bg-secondary');

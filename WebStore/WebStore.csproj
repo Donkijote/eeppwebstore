@@ -515,6 +515,7 @@
     <Content Include="Views\Account\Tickets.cshtml" />
     <Content Include="Views\Account\detailsTickets.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Shared\profileMenuMobile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
