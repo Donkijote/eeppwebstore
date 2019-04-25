@@ -26,10 +26,8 @@ namespace WebStore.Controllers
 
         public ActionResult Orders(string id = null)
         {
-            string url = Request.RawUrl;
-            string[] location = url.Split('/');
 
-            ViewBag.url = location[2];
+            ViewBag.url = "Orders";
 
             if (String.IsNullOrWhiteSpace(id))
             {
@@ -51,10 +49,8 @@ namespace WebStore.Controllers
 
         public ActionResult Traking()
         {
-            string url = Request.RawUrl;
-            string[] location = url.Split('/');
 
-            ViewBag.url = location[2];
+            ViewBag.url = "Traking";
 
             return View();
         }
@@ -66,10 +62,8 @@ namespace WebStore.Controllers
 
         public ActionResult Address(string id = null)
         {
-            string url = Request.RawUrl;
-            string[] location = url.Split('/');
 
-            ViewBag.url = location[2];
+            ViewBag.url = "Address";
             if (String.IsNullOrWhiteSpace(id))
             {
                 return View();
@@ -127,30 +121,24 @@ namespace WebStore.Controllers
 
         public ActionResult Settings()
         {
-            string url = Request.RawUrl;
-            string[] location = url.Split('/');
 
-            ViewBag.url = location[2];
+            ViewBag.url = "Settings";
 
             return View();
         }
 
         public ActionResult WishList()
         {
-            string url = Request.RawUrl;
-            string[] location = url.Split('/');
 
-            ViewBag.url = location[2];
+            ViewBag.url = "WishList";
 
             return View();
         }
 
         public ActionResult Tickets(int id = 0 )
         {
-            string url = Request.RawUrl;
-            string[] location = url.Split('/');
 
-            ViewBag.url = location[2];
+            ViewBag.url = "Tickets";
 
             if (id == 0)
             {
