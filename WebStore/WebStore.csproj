@@ -368,6 +368,9 @@
     <Content Include="Content\bootstrap-reboot.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\jquery.steps.min.css">
+      <DependentUpon>jquery.steps.css</DependentUpon>
+    </Content>
     <Content Include="Content\_extra.css" />
     <Content Include="Content\font\icons.svg" />
     <Content Include="Content\img\foto.png" />
@@ -442,6 +445,7 @@
       <DependentUpon>compilerconfig.json</DependentUpon>
     </None>
     <Content Include="Content\Style.scss" />
+    <Content Include="Content\jquery.steps.scss" />
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <Content Include="Scripts\bootstrap.min.js.map" />

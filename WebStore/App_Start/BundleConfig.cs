@@ -22,7 +22,7 @@ namespace WebStore
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/Style.min.css",
-                      "~/Content/jquery.steps.css"));
+                      "~/Content/jquery.steps.min.css"));
         }
     }
 }

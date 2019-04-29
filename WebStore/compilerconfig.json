@@ -6,5 +6,9 @@
   {
     "outputFile": "Content/Style.css",
     "inputFile": "Content/Style.scss"
+  },
+  {
+    "outputFile": "Content/jquery.steps.css",
+    "inputFile": "Content/jquery.steps.scss"
   }
 ]
