@@ -980,11 +980,11 @@ html * {
 /*#region Headers*/
 .header {
     width: 100%;
-    margin-top: 35px;
+    margin-top: 0;
     margin-bottom: 60px;
     padding: 36px 0;
     background-color: #fff;
-    box-shadow: 0 7px 30px -6px rgba(0, 0, 0, 0.12);
+    box-shadow: 0 25px 30px -14px rgba(0, 0, 0, 0.12);
 
     h1,h2,h3 {
         margin: 0;
@@ -4821,6 +4821,10 @@ button.bg-secondary:focus, button.bg-secondary:hover {
 
     .mg-mobile-menu .mg-profile {
         display: none !important;
+    }
+
+    .mg-mobile-menu{
+        display: none;
     }
 }
 

@@ -223,6 +223,7 @@ $.AdminJs.navBar = {
 
         $('#mg-profile-toggle').on('click', function () {
             $('#profileMenuMobile').toggleClass('open');
+            $('body').toggleClass('modal-open');
         })
     },
     hideNav: function () {
