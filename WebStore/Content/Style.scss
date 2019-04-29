@@ -1,4 +1,6 @@
 ﻿$Icons: ( donkijote-spanish: "\e800", compare: "\e801", shopping-cart: "\e802", archive: "\e803", archive-alt: "\e80a", cable-line: "\e804", cables: "\e80b", bolt: "\e805", home: "\e806", lamp-post: "\e807", lightbulb: "\e808", plug: "\e809", tubes: "\e80c", donkijote-british: "\e80d", logo: "\e80e", logo-text: "\e80f");
+$orangeredHover: #e43f00;
+$greyBlack: #343a40 ;
 @import '_extra.scss';
 
 @mixin navbar-mobile($d) {
@@ -147,7 +149,7 @@ html * {
 
                 &:hover {
                     a {
-                        color: #007bff;
+                        color: orangered;
                     }
 
                     .mg-link-menu {
@@ -163,7 +165,7 @@ html * {
                         display: block;
                         width: 0;
                         height: 2px;
-                        background: #007bff;
+                        background: orangered;
                         transition: width .3s;
                     }
                 }
@@ -189,6 +191,9 @@ html * {
                     .mg-sub-menu-user {
                         > li {
                             > a {
+                                &:hover{
+                                    color: orangered !important;
+                                }
                                 > i {
                                     position: relative !important;
                                 }
@@ -259,7 +264,7 @@ html * {
                             color: #343a40 !important;
 
                             &:hover {
-                                color: #007bff !important;
+                                color: orangered !important;
                                 padding-left: 0.5em;
                                 font-size: 1.2em;
                             }
@@ -382,7 +387,7 @@ html * {
                     i {
                         height: 65px;
                         font-size: 65px;
-                        color: darkorange;
+                        color: #ff7f40;
                         -webkit-transition: all 300ms ease-in-out 0s;
                         -o-transition: all 300ms ease-in-out 0s;
                         transition: all 300ms ease-in-out 0s;
@@ -878,20 +883,31 @@ html * {
         &.scrolled {
             top: 0;
             border-bottom: 0px;
-            background-color: #343a40;
+            background-color: #ff7f40;
 
             .navbar-nav {
-
                 .nav-item {
                     background-color: transparent;
 
                     a {
-                        color: rgba(255, 255, 255, .8);
+                        color: rgb(255, 255, 255);
+
+                        h6 {
+                            color: orangered !important;
+                        }
+
+                        &.text-orangered {
+                            color: orangered !important;
+
+                            &:hover {
+                                color: $orangeredHover !important;
+                            }
+                        }
                     }
 
                     &:hover {
                         a {
-                            color: grey;
+                            color: rgba(255, 255, 255, 0.7);
                         }
 
                         .mg-link-menu {
@@ -907,7 +923,7 @@ html * {
                             display: block;
                             width: 0;
                             height: 2px;
-                            background: grey;
+                            background: rgba(255, 255, 255, 0.7);
                             transition: width .3s;
                         }
                     }
@@ -925,11 +941,12 @@ html * {
                         i {
                             height: 40px;
                             font-size: 40px;
+                            color: #FFFFFF;
                         }
                     }
 
                     .mg-logo-title {
-                        color: rgba(255, 255, 255, .8);
+                        color: rgb(255, 255, 255);
 
                         @media(max-width: 768px) {
                             .mg-logo-title {
@@ -940,7 +957,7 @@ html * {
                         i {
                             height: 30px;
                             font-size: 30px;
-                            color: rgba(255, 255, 255, .8);
+                            color: rgb(255, 255, 255);
                         }
                     }
                 }
@@ -1047,7 +1064,7 @@ html * {
             text-decoration: none;
 
             &:hover {
-                color: #007bff;
+                color: orangered;
             }
         }
     }
@@ -1254,7 +1271,8 @@ button {
     &.btn-success,
     &.btn-info,
     &.btn-warning,
-    &.btn-danger {
+    &.btn-danger,
+    &.btn-orangered {
         color: #fff !important;
 
         &:hover {
@@ -1276,6 +1294,23 @@ button {
 
     &.btn-warning {
         background-color: #ffa000 !important;
+    }
+
+    &.btn-orangered {
+        background-color: #ff7f40;
+        &:hover{
+            background-color:orangered;
+        }
+    }
+
+    &.btn-outline-orangered {
+        color: #ff7f40;
+        border-color: #ff7f40;
+
+        &:hover {
+            color: #FFFFFF;
+            background-color: #ff7f40;
+        }
     }
 
     &.btn-block {
@@ -1542,7 +1577,7 @@ button {
             left: 0;
             width: 90px;
             height: 1px;
-            background-color: #007bff;
+            background-color: orangered;
             content: '';
         }
     }
@@ -2104,6 +2139,10 @@ button {
             background-color: #fff;
             padding-top: 0;
         }
+    }
+
+    &.mg-bg-secondary {
+        background-color: #f5f5f5
     }
 }
 
@@ -3040,6 +3079,11 @@ button {
 
             li {
                 padding: 5px;
+                a{
+                    &:hover{
+                        color: orangered !important;
+                    }
+                }
             }
         }
     }
@@ -3160,8 +3204,8 @@ button {
                 border: 0;
 
                 &.mg-card-header-primary {
-                    box-shadow: 0 5px 20px 0 rgba(0,0,0,.2), 0 13px 24px -11px rgba(226, 59, 255, 0.6);
-                    background: linear-gradient(60deg,#e760ff,#c132ff);
+                    box-shadow: 0 5px 20px 0 rgba(0,0,0,.2), 0 13px 24px -11px rgba(65, 65, 65, 0.6);
+                    background: linear-gradient(60deg,#c8c8c8,#787878);
                 }
 
                 &.mg-card-header-secondary {
@@ -3170,8 +3214,8 @@ button {
                 }
 
                 &.mg-card-header-tertiary {
-                    box-shadow: 0 5px 20px 0 rgba(0,0,0,.2), 0 13px 24px -11px rgba(55, 176, 39, 0.6);
-                    background: linear-gradient(60deg,#4bbc47,#2aa21f);
+                    box-shadow: 0 5px 20px 0 rgba(0,0,0,.2), 0 13px 24px -11px rgba(255, 125, 0, 0.95);
+                    background: linear-gradient(60deg,#ff7f40,#ff4500);
                 }
 
                 .mg-card-tittle-pricing {
@@ -3946,7 +3990,7 @@ button {
     }
 
     &:hover {
-        background-color: #007bff;
+        background-color: #ff7f40;
 
         i, p {
             color: #ffffff;
@@ -4548,6 +4592,14 @@ a {
             background-color: #f5f5f5 !important;
         }
     }
+
+    &.text-orangered {
+        color: orangered !important;
+
+        &:hover {
+            color: $orangeredHover !important;
+        }
+    }
 }
 
 .b-bottom-1p {
@@ -4563,7 +4615,7 @@ a {
 }
 
 .block-separator {
-    min-height: 100px;
+    min-height: 20px;
 }
 
 #addInternationalAddressSecction, #addNationalAddressSecction {

@@ -828,7 +828,7 @@ html * {
         .navbar.mg-big-screen .navbar-nav .nav-item a i {
           font-size: 1.3em; }
       .navbar.mg-big-screen .navbar-nav .nav-item:hover a {
-        color: #007bff; }
+        color: orangered; }
       .navbar.mg-big-screen .navbar-nav .nav-item:hover .mg-link-menu::after {
         width: 100%; }
       .navbar.mg-big-screen .navbar-nav .nav-item .mg-link-menu::after {
@@ -836,7 +836,7 @@ html * {
         display: block;
         width: 0;
         height: 2px;
-        background: #007bff;
+        background: orangered;
         transition: width .3s; }
       .navbar.mg-big-screen .navbar-nav .nav-item.mg-li-social a {
         text-decoration: none; }
@@ -849,6 +849,8 @@ html * {
             width: 30px;
             vertical-align: middle;
             position: relative; }
+      .navbar.mg-big-screen .navbar-nav .nav-item.mg-li-social .mg-sub-menu-user > li > a:hover {
+        color: orangered !important; }
       .navbar.mg-big-screen .navbar-nav .nav-item.mg-li-social .mg-sub-menu-user > li > a > i {
         position: relative !important; }
       .navbar.mg-big-screen .navbar-nav .nav-item.mg-li-social .dropdown-menu {
@@ -896,7 +898,7 @@ html * {
             transition: all 0.5s;
             color: #343a40 !important; }
             .navbar.mg-big-screen .navbar-nav .nav-item .mg-sub-menu-categories .mg-menu-subcategories > a:hover {
-              color: #007bff !important;
+              color: orangered !important;
               padding-left: 0.5em;
               font-size: 1.2em; }
         .navbar.mg-big-screen .navbar-nav .nav-item .mg-sub-menu-categories .mg-submenu-item {
@@ -971,7 +973,7 @@ html * {
         .navbar.mg-big-screen .mg-container-logo .navbar-brand .mg-logo-img i {
           height: 65px;
           font-size: 65px;
-          color: darkorange;
+          color: #ff7f40;
           -webkit-transition: all 300ms ease-in-out 0s;
           -o-transition: all 300ms ease-in-out 0s;
           transition: all 300ms ease-in-out 0s; }
@@ -1328,7 +1330,7 @@ html * {
   .navbar.navbar-sticky.scrolled {
     top: 0;
     border-bottom: 0px;
-    background-color: #343a40;
+    background-color: #ff7f40;
     /**
             .mg-site-search {
                 bottom: 6px;
@@ -1353,9 +1355,15 @@ html * {
     .navbar.navbar-sticky.scrolled .navbar-nav .nav-item {
       background-color: transparent; }
       .navbar.navbar-sticky.scrolled .navbar-nav .nav-item a {
-        color: rgba(255, 255, 255, 0.8); }
+        color: white; }
+        .navbar.navbar-sticky.scrolled .navbar-nav .nav-item a h6 {
+          color: orangered !important; }
+        .navbar.navbar-sticky.scrolled .navbar-nav .nav-item a.text-orangered {
+          color: orangered !important; }
+          .navbar.navbar-sticky.scrolled .navbar-nav .nav-item a.text-orangered:hover {
+            color: #e43f00 !important; }
       .navbar.navbar-sticky.scrolled .navbar-nav .nav-item:hover a {
-        color: grey; }
+        color: rgba(255, 255, 255, 0.7); }
       .navbar.navbar-sticky.scrolled .navbar-nav .nav-item:hover .mg-link-menu::after {
         width: 100%; }
       .navbar.navbar-sticky.scrolled .navbar-nav .nav-item .mg-link-menu::after {
@@ -1363,22 +1371,23 @@ html * {
         display: block;
         width: 0;
         height: 2px;
-        background: grey;
+        background: rgba(255, 255, 255, 0.7);
         transition: width .3s; }
     .navbar.navbar-sticky.scrolled .mg-container-logo .navbar-brand .mg-logo-img img {
       height: 40px; }
     .navbar.navbar-sticky.scrolled .mg-container-logo .navbar-brand .mg-logo-img i {
       height: 40px;
-      font-size: 40px; }
+      font-size: 40px;
+      color: #FFFFFF; }
     .navbar.navbar-sticky.scrolled .mg-container-logo .navbar-brand .mg-logo-title {
-      color: rgba(255, 255, 255, 0.8); }
+      color: white; }
       @media (max-width: 768px) {
         .navbar.navbar-sticky.scrolled .mg-container-logo .navbar-brand .mg-logo-title .mg-logo-title {
           display: none; } }
       .navbar.navbar-sticky.scrolled .mg-container-logo .navbar-brand .mg-logo-title i {
         height: 30px;
         font-size: 30px;
-        color: rgba(255, 255, 255, 0.8); }
+        color: white; }
     .navbar.navbar-sticky.scrolled .navbar-toggler {
       color: rgba(255, 255, 255, 0.5);
       font-size: 25px;
@@ -1440,7 +1449,7 @@ html * {
       color: #505050;
       text-decoration: none; }
       .breadcrumbs > li > a:hover {
-        color: #007bff; }
+        color: orangered; }
 
 /*#endregion*/
 /*#region Images */
@@ -1575,9 +1584,9 @@ button {
     font-size: 12px;
     line-height: 28px;
     text-transform: none; }
-  .btn.btn-primary, .btn.btn-success, .btn.btn-info, .btn.btn-warning, .btn.btn-danger {
+  .btn.btn-primary, .btn.btn-success, .btn.btn-info, .btn.btn-warning, .btn.btn-danger, .btn.btn-orangered {
     color: #fff !important; }
-    .btn.btn-primary:hover, .btn.btn-success:hover, .btn.btn-info:hover, .btn.btn-warning:hover, .btn.btn-danger:hover {
+    .btn.btn-primary:hover, .btn.btn-success:hover, .btn.btn-info:hover, .btn.btn-warning:hover, .btn.btn-danger:hover, .btn.btn-orangered:hover {
       color: #fff; }
   .btn.btn-secondary {
     border-color: #e5e5e5;
@@ -1589,6 +1598,16 @@ button {
       background-color: #ebebeb !important; }
   .btn.btn-warning {
     background-color: #ffa000 !important; }
+  .btn.btn-orangered {
+    background-color: #ff7f40; }
+    .btn.btn-orangered:hover {
+      background-color: orangered; }
+  .btn.btn-outline-orangered {
+    color: #ff7f40;
+    border-color: #ff7f40; }
+    .btn.btn-outline-orangered:hover {
+      color: #FFFFFF;
+      background-color: #ff7f40; }
   .btn.btn-block {
     display: block;
     width: 100%;
@@ -1765,7 +1784,7 @@ button {
     left: 0;
     width: 90px;
     height: 1px;
-    background-color: #007bff;
+    background-color: orangered;
     content: ''; }
 
 .widget.mg-widget-featured-products > .entry, .mg-widget.mg-widget-featured-products > .entry {
@@ -2131,6 +2150,9 @@ button {
     border: 0;
     background-color: #fff;
     padding-top: 0; }
+
+.card.mg-bg-secondary {
+  background-color: #f5f5f5; }
 
 .mg-add-address {
   text-decoration: none !important; }
@@ -2766,6 +2788,8 @@ button {
     width: 150px; }
     .mg-lang .mg-toolbar-dropdown.mg-lang-dropdown li {
       padding: 5px; }
+      .mg-lang .mg-toolbar-dropdown.mg-lang-dropdown li a:hover {
+        color: orangered !important; }
 
 .mg-lang:hover .mg-toolbar-dropdown {
   display: block; }
@@ -2856,14 +2880,14 @@ button {
     border-radius: 3px;
     border: 0; }
     .mg-pricing .mg-card.mg-card-pricing .mg-card-header-pricing.mg-card-header-primary {
-      box-shadow: 0 5px 20px 0 rgba(0, 0, 0, 0.2), 0 13px 24px -11px rgba(226, 59, 255, 0.6);
-      background: linear-gradient(60deg, #e760ff, #c132ff); }
+      box-shadow: 0 5px 20px 0 rgba(0, 0, 0, 0.2), 0 13px 24px -11px rgba(65, 65, 65, 0.6);
+      background: linear-gradient(60deg, #c8c8c8, #787878); }
     .mg-pricing .mg-card.mg-card-pricing .mg-card-header-pricing.mg-card-header-secondary {
       box-shadow: 0 5px 20px 0 rgba(0, 0, 0, 0.2), 0 13px 24px -11px rgba(39, 60, 176, 0.6);
       background: linear-gradient(60deg, #3898ff, #007bff); }
     .mg-pricing .mg-card.mg-card-pricing .mg-card-header-pricing.mg-card-header-tertiary {
-      box-shadow: 0 5px 20px 0 rgba(0, 0, 0, 0.2), 0 13px 24px -11px rgba(55, 176, 39, 0.6);
-      background: linear-gradient(60deg, #4bbc47, #2aa21f); }
+      box-shadow: 0 5px 20px 0 rgba(0, 0, 0, 0.2), 0 13px 24px -11px rgba(255, 125, 0, 0.95);
+      background: linear-gradient(60deg, #ff7f40, #ff4500); }
     .mg-pricing .mg-card.mg-card-pricing .mg-card-header-pricing .mg-card-tittle-pricing {
       margin-top: 10px;
       color: #fff; }
@@ -3404,7 +3428,7 @@ button {
   .mg-cate-thumbnail:nth-child(4n+0) {
     border-right: 0px; }
   .mg-cate-thumbnail:hover {
-    background-color: #007bff; }
+    background-color: #ff7f40; }
     .mg-cate-thumbnail:hover i, .mg-cate-thumbnail:hover p {
       color: #ffffff; }
   .mg-cate-thumbnail a {
@@ -3825,6 +3849,11 @@ a.card {
 a.bg-secondary:focus, a.bg-secondary:hover {
   background-color: #f5f5f5 !important; }
 
+a.text-orangered {
+  color: orangered !important; }
+  a.text-orangered:hover {
+    color: #e43f00 !important; }
+
 .b-bottom-1p {
   border-bottom: 1px solid #e5e5e5; }
 
@@ -3835,7 +3864,7 @@ a.bg-secondary:focus, a.bg-secondary:hover {
   text-decoration: none !important; }
 
 .block-separator {
-  min-height: 100px; }
+  min-height: 20px; }
 
 #addInternationalAddressSecction, #addNationalAddressSecction {
   display: none; }
