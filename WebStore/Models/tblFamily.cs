@@ -12,12 +12,19 @@ namespace WebStore.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class tblCountry
+    public partial class tblFamily
     {
-        public string iso { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public tblFamily()
+        {
+            this.tblCategories = new HashSet<tblCategories>();
+        }
+    
+        public int idFamily { get; set; }
         public string strName { get; set; }
-        public string strPrintableName { get; set; }
-        public string iso3 { get; set; }
-        public short intNumCode { get; set; }
+        public Nullable<int> intOrder { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tblCategories> tblCategories { get; set; }
     }
 }

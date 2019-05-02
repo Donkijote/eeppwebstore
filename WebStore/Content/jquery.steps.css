@@ -59,12 +59,14 @@
       color: #aaa;
       cursor: default; }
     .wizard .steps ul li.current a {
-      background: #ff7f40;
+      background: #007bff;
       color: #fff;
-      cursor: default; }
+      cursor: default;
+      border-color: #007bff; }
     .wizard .steps ul li.done a {
-      background: orangered;
-      color: #fff; }
+      background: #28a745;
+      color: #fff;
+      border-color: #28a745; }
     .wizard .steps ul li.error a {
       background: #ff3111;
       color: #fff; }

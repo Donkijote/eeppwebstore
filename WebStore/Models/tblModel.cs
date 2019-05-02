@@ -12,19 +12,21 @@ namespace WebStore.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class tblRegiones
+    public partial class tblModel
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public tblRegiones()
+        public tblModel()
         {
-            this.tblProvincias = new HashSet<tblProvincias>();
+            this.tblModelDetail = new HashSet<tblModelDetail>();
+            this.tblProducts = new HashSet<tblProducts>();
         }
     
-        public int idRegion { get; set; }
-        public string strNombre { get; set; }
-        public string intNumber { get; set; }
+        public int idModel { get; set; }
+        public string strName { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tblProvincias> tblProvincias { get; set; }
+        public virtual ICollection<tblModelDetail> tblModelDetail { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tblProducts> tblProducts { get; set; }
     }
 }

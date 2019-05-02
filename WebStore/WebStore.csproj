@@ -223,13 +223,28 @@
     </Compile>
     <Compile Include="Models\Country.cs" />
     <Compile Include="Models\Products.cs" />
+    <Compile Include="Models\tblBrand.cs">
+      <DependentUpon>Connection.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\tblCategories.cs">
+      <DependentUpon>Connection.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tblCategoryRelation.cs">
       <DependentUpon>Connection.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tblComunas.cs">
       <DependentUpon>Connection.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tblCountry.cs">
+      <DependentUpon>Connection.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tblFamily.cs">
+      <DependentUpon>Connection.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tblModel.cs">
+      <DependentUpon>Connection.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tblModelDetail.cs">
       <DependentUpon>Connection.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tblProducts.cs">
@@ -521,6 +536,7 @@
     <Content Include="Views\Account\detailsTickets.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\profileMenuMobile.cshtml" />
+    <Content Include="Views\Shared\verticalNavBar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

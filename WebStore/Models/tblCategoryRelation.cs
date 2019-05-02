@@ -12,12 +12,15 @@ namespace WebStore.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class tblCountry
+    public partial class tblCategoryRelation
     {
-        public string iso { get; set; }
-        public string strName { get; set; }
-        public string strPrintableName { get; set; }
-        public string iso3 { get; set; }
-        public short intNumCode { get; set; }
+        public int idCategoryRelation { get; set; }
+        public Nullable<int> refCategoryOne { get; set; }
+        public Nullable<int> refCategoryTwo { get; set; }
+        public Nullable<int> refCategoryThree { get; set; }
+    
+        public virtual tblCategories tblCategories { get; set; }
+        public virtual tblCategories tblCategories1 { get; set; }
+        public virtual tblCategories tblCategories2 { get; set; }
     }
 }

@@ -82,16 +82,18 @@
 
                 &.current {
                     a {
-                        background: #ff7f40;
+                        background: #007bff;
                         color: #fff;
                         cursor: default;
+                        border-color: #007bff;
                     }
                 }
 
                 &.done {
                     a {
-                        background: orangered;
+                        background: #28a745;
                         color: #fff;
+                        border-color: #28a745;
                     }
                 }
 

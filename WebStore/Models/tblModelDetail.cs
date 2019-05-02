@@ -12,12 +12,13 @@ namespace WebStore.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class tblCountry
+    public partial class tblModelDetail
     {
-        public string iso { get; set; }
+        public int idModelDetail { get; set; }
         public string strName { get; set; }
-        public string strPrintableName { get; set; }
-        public string iso3 { get; set; }
-        public short intNumCode { get; set; }
+        public Nullable<int> intMain { get; set; }
+        public Nullable<int> refModel { get; set; }
+    
+        public virtual tblModel tblModel { get; set; }
     }
 }
