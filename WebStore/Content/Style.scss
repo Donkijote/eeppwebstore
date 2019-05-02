@@ -1232,6 +1232,13 @@ html * {
         }
     }
 }
+
+.mg-index-rota-img {
+    right: 250px;
+    top: -500px;
+    position: absolute;
+    max-width: 215px;
+}
 /*#endregion */
 
 /*#region Buttons */
@@ -2085,6 +2092,34 @@ button {
             display: table-cell;
             vertical-align: top;
             text-align: left;
+        }
+    }
+}
+/*#endregion*/
+
+/*#region Counter */
+.mg-countdown {
+    display: inline-block;
+
+    .item {
+        display: block;
+        margin: 7px;
+        float: left;
+        text-align: center;
+
+        .days, .hours, .minutes, .seconds {
+            width: 48px;
+            height: 48px;
+            margin-bottom: 5px;
+            border: 1px solid dimgrey;
+            border-radius: 0px;
+            font-size: 22px;
+            line-height: 46px;
+        }
+
+        .days_ref, .hours_ref, .minutes_ref, .seconds_ref {
+            font-size: 12px;
+            text-transform: uppercase;
         }
     }
 }
@@ -4671,15 +4706,17 @@ button.bg-secondary:focus, button.bg-secondary:hover {
     right: 15px;
     padding: 10px 15px;
     background-color: #343a40;
+    border: 1px solid #343a40;
     color: white !important;
     position: fixed;
     z-index: 2147483647;
     display: block;
+    cursor: pointer;
 
     &:hover {
         color: white;
-        background-color: #007bff;
-        border: 1px solid #007bff;
+        background-color: $orangeredHover;
+        border: 1px solid $orangeredHover;
         text-decoration: none;
     }
 }

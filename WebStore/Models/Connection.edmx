@@ -59,6 +59,46 @@
           <Property Name="strName" Type="varchar" MaxLength="20" />
           <Property Name="intOrder" Type="int" />
         </EntityType>
+        <EntityType Name="tblFicha">
+          <Key>
+            <PropertyRef Name="idFicha" />
+          </Key>
+          <Property Name="idFicha" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="strPotencia" Type="int" />
+          <Property Name="intColorTemp" Type="int" />
+          <Property Name="intLumWatts" Type="int" />
+          <Property Name="strLifespan" Type="varchar" MaxLength="50" />
+          <Property Name="intVoltage" Type="int" />
+          <Property Name="intWeight" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="strLHM" Type="varchar" MaxLength="50" />
+          <Property Name="strCertification" Type="varchar" MaxLength="100" />
+          <Property Name="intIp" Type="int" />
+          <Property Name="intIk" Type="int" />
+          <Property Name="intLightAngle" Type="int" />
+          <Property Name="strLightType" Type="varchar" MaxLength="50" />
+          <Property Name="strSolarPanel" Type="varchar" MaxLength="50" />
+          <Property Name="strBatery" Type="varchar" MaxLength="50" />
+          <Property Name="intPir" Type="bit" />
+          <Property Name="strWarranty" Type="varchar" MaxLength="50" />
+          <Property Name="strAutonomy" Type="varchar" MaxLength="50" />
+          <Property Name="strColor" Type="varchar" MaxLength="50" />
+          <Property Name="strInstalation" Type="varchar" MaxLength="50" />
+          <Property Name="intAmpers" Type="int" />
+          <Property Name="intPF" Type="decimal" Precision="5" Scale="2" />
+          <Property Name="strSocket" Type="varchar" MaxLength="50" />
+          <Property Name="intCRI" Type="int" />
+          <Property Name="strPoles" Type="varchar" MaxLength="50" />
+          <Property Name="intModule" Type="int" />
+          <Property Name="strBody" Type="varchar" MaxLength="50" />
+          <Property Name="strBodyCovert" Type="varchar" MaxLength="50" />
+          <Property Name="intDiameter" Type="int" />
+          <Property Name="strType" Type="varchar" MaxLength="50" />
+          <Property Name="strCountry" Type="varchar" MaxLength="50" />
+          <Property Name="intWorkTemp" Type="int" />
+          <Property Name="intCircuitBreakTemp" Type="int" />
+          <Property Name="strInclude" Type="varchar" MaxLength="50" />
+          <Property Name="strNoInclude" Type="varchar" MaxLength="50" />
+        </EntityType>
         <EntityType Name="tblModel">
           <Key>
             <PropertyRef Name="idModel" />
@@ -74,6 +114,21 @@
           <Property Name="strName" Type="varchar" MaxLength="50" />
           <Property Name="intMain" Type="int" />
           <Property Name="refModel" Type="int" />
+        </EntityType>
+        <EntityType Name="tblOffert">
+          <Key>
+            <PropertyRef Name="idOffert" />
+          </Key>
+          <Property Name="idOffert" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="intPercentage" Type="int" />
+        </EntityType>
+        <EntityType Name="tblOffertTime">
+          <Key>
+            <PropertyRef Name="idOffertTime" />
+          </Key>
+          <Property Name="idOffertTime" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="intPercentageTime" Type="int" />
+          <Property Name="strTime" Type="date" />
         </EntityType>
         <EntityType Name="tblProducts">
           <Key>
@@ -94,6 +149,9 @@
           <Property Name="refModel" Type="int" />
           <Property Name="refCategoryRelation" Type="int" />
           <Property Name="refBrand" Type="int" />
+          <Property Name="refFicha" Type="int" />
+          <Property Name="refOffert" Type="int" />
+          <Property Name="refOfferTime" Type="int" />
         </EntityType>
         <EntityType Name="tblProvincias">
           <Key>
@@ -218,6 +276,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_tblProducts_tblFicha">
+          <End Role="tblFicha" Type="Self.tblFicha" Multiplicity="0..1" />
+          <End Role="tblProducts" Type="Self.tblProducts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblFicha">
+              <PropertyRef Name="idFicha" />
+            </Principal>
+            <Dependent Role="tblProducts">
+              <PropertyRef Name="refFicha" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_tblProducts_tblModel">
           <End Role="tblModel" Type="Self.tblModel" Multiplicity="0..1" />
           <End Role="tblProducts" Type="Self.tblProducts" Multiplicity="*" />
@@ -227,6 +297,30 @@
             </Principal>
             <Dependent Role="tblProducts">
               <PropertyRef Name="refModel" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblProducts_tblOffert">
+          <End Role="tblOffert" Type="Self.tblOffert" Multiplicity="0..1" />
+          <End Role="tblProducts" Type="Self.tblProducts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblOffert">
+              <PropertyRef Name="idOffert" />
+            </Principal>
+            <Dependent Role="tblProducts">
+              <PropertyRef Name="refOffert" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblProducts_tblOffertTime">
+          <End Role="tblOffertTime" Type="Self.tblOffertTime" Multiplicity="0..1" />
+          <End Role="tblProducts" Type="Self.tblProducts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblOffertTime">
+              <PropertyRef Name="idOffertTime" />
+            </Principal>
+            <Dependent Role="tblProducts">
+              <PropertyRef Name="refOfferTime" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -249,8 +343,11 @@
           <EntitySet Name="tblComunas" EntityType="Self.tblComunas" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblCountry" EntityType="Self.tblCountry" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblFamily" EntityType="Self.tblFamily" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblFicha" EntityType="Self.tblFicha" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblModel" EntityType="Self.tblModel" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblModelDetail" EntityType="Self.tblModelDetail" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblOffert" EntityType="Self.tblOffert" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblOffertTime" EntityType="Self.tblOffertTime" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblProducts" EntityType="Self.tblProducts" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblProvincias" EntityType="Self.tblProvincias" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblRegiones" EntityType="Self.tblRegiones" Schema="dbo" store:Type="Tables" />
@@ -287,8 +384,20 @@
             <End Role="tblCategories" EntitySet="tblCategories" />
             <End Role="tblProducts" EntitySet="tblProducts" />
           </AssociationSet>
+          <AssociationSet Name="FK_tblProducts_tblFicha" Association="Self.FK_tblProducts_tblFicha">
+            <End Role="tblFicha" EntitySet="tblFicha" />
+            <End Role="tblProducts" EntitySet="tblProducts" />
+          </AssociationSet>
           <AssociationSet Name="FK_tblProducts_tblModel" Association="Self.FK_tblProducts_tblModel">
             <End Role="tblModel" EntitySet="tblModel" />
+            <End Role="tblProducts" EntitySet="tblProducts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblProducts_tblOffert" Association="Self.FK_tblProducts_tblOffert">
+            <End Role="tblOffert" EntitySet="tblOffert" />
+            <End Role="tblProducts" EntitySet="tblProducts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblProducts_tblOffertTime" Association="Self.FK_tblProducts_tblOffertTime">
+            <End Role="tblOffertTime" EntitySet="tblOffertTime" />
             <End Role="tblProducts" EntitySet="tblProducts" />
           </AssociationSet>
           <AssociationSet Name="FK_tblProvincias_tblRegiones" Association="Self.FK_tblProvincias_tblRegiones">
@@ -368,6 +477,21 @@
             <End Role="tblBrand" EntitySet="tblBrand" />
             <End Role="tblProducts" EntitySet="tblProducts" />
           </AssociationSet>
+          <EntitySet Name="tblFicha" EntityType="webstoreModel.tblFicha" />
+          <EntitySet Name="tblOffert" EntityType="webstoreModel.tblOffert" />
+          <EntitySet Name="tblOffertTime" EntityType="webstoreModel.tblOffertTime" />
+          <AssociationSet Name="FK_tblProducts_tblFicha" Association="webstoreModel.FK_tblProducts_tblFicha">
+            <End Role="tblFicha" EntitySet="tblFicha" />
+            <End Role="tblProducts" EntitySet="tblProducts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblProducts_tblOffert" Association="webstoreModel.FK_tblProducts_tblOffert">
+            <End Role="tblOffert" EntitySet="tblOffert" />
+            <End Role="tblProducts" EntitySet="tblProducts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblProducts_tblOffertTime" Association="webstoreModel.FK_tblProducts_tblOffertTime">
+            <End Role="tblOffertTime" EntitySet="tblOffertTime" />
+            <End Role="tblProducts" EntitySet="tblProducts" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="tblProducts">
           <Key>
@@ -391,6 +515,12 @@
           <Property Name="refBrand" Type="Int32" />
           <NavigationProperty Name="tblModel" Relationship="webstoreModel.FK_tblProducts_tblModel" FromRole="tblProducts" ToRole="tblModel" />
           <NavigationProperty Name="tblBrand" Relationship="webstoreModel.FK_tblProducts_tblBrand" FromRole="tblProducts" ToRole="tblBrand" />
+          <Property Name="refFicha" Type="Int32" />
+          <Property Name="refOffert" Type="Int32" />
+          <Property Name="refOfferTime" Type="Int32" />
+          <NavigationProperty Name="tblFicha" Relationship="webstoreModel.FK_tblProducts_tblFicha" FromRole="tblProducts" ToRole="tblFicha" />
+          <NavigationProperty Name="tblOffert" Relationship="webstoreModel.FK_tblProducts_tblOffert" FromRole="tblProducts" ToRole="tblOffert" />
+          <NavigationProperty Name="tblOffertTime" Relationship="webstoreModel.FK_tblProducts_tblOffertTime" FromRole="tblProducts" ToRole="tblOffertTime" />
         </EntityType>
         <EntityType Name="tblUsers">
           <Key>
@@ -611,6 +741,100 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="tblFicha">
+          <Key>
+            <PropertyRef Name="idFicha" />
+          </Key>
+          <Property Name="idFicha" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="strPotencia" Type="Int32" />
+          <Property Name="intColorTemp" Type="Int32" />
+          <Property Name="intLumWatts" Type="Int32" />
+          <Property Name="strLifespan" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="intVoltage" Type="Int32" />
+          <Property Name="intWeight" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="strLHM" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="strCertification" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="intIp" Type="Int32" />
+          <Property Name="intIk" Type="Int32" />
+          <Property Name="intLightAngle" Type="Int32" />
+          <Property Name="strLightType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="strSolarPanel" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="strBatery" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="intPir" Type="Boolean" />
+          <Property Name="strWarranty" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="strAutonomy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="strColor" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="strInstalation" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="intAmpers" Type="Int32" />
+          <Property Name="intPF" Type="Decimal" Precision="5" Scale="2" />
+          <Property Name="strSocket" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="intCRI" Type="Int32" />
+          <Property Name="strPoles" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="intModule" Type="Int32" />
+          <Property Name="strBody" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="strBodyCovert" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="intDiameter" Type="Int32" />
+          <Property Name="strType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="strCountry" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="intWorkTemp" Type="Int32" />
+          <Property Name="intCircuitBreakTemp" Type="Int32" />
+          <Property Name="strInclude" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="strNoInclude" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tblProducts" Relationship="webstoreModel.FK_tblProducts_tblFicha" FromRole="tblFicha" ToRole="tblProducts" />
+        </EntityType>
+        <EntityType Name="tblOffert">
+          <Key>
+            <PropertyRef Name="idOffert" />
+          </Key>
+          <Property Name="idOffert" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="intPercentage" Type="Int32" />
+          <NavigationProperty Name="tblProducts" Relationship="webstoreModel.FK_tblProducts_tblOffert" FromRole="tblOffert" ToRole="tblProducts" />
+        </EntityType>
+        <EntityType Name="tblOffertTime">
+          <Key>
+            <PropertyRef Name="idOffertTime" />
+          </Key>
+          <Property Name="idOffertTime" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="intPercentageTime" Type="Int32" />
+          <Property Name="strTime" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="tblProducts" Relationship="webstoreModel.FK_tblProducts_tblOffertTime" FromRole="tblOffertTime" ToRole="tblProducts" />
+        </EntityType>
+        <Association Name="FK_tblProducts_tblFicha">
+          <End Type="webstoreModel.tblFicha" Role="tblFicha" Multiplicity="0..1" />
+          <End Type="webstoreModel.tblProducts" Role="tblProducts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblFicha">
+              <PropertyRef Name="idFicha" />
+            </Principal>
+            <Dependent Role="tblProducts">
+              <PropertyRef Name="refFicha" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblProducts_tblOffert">
+          <End Type="webstoreModel.tblOffert" Role="tblOffert" Multiplicity="0..1" />
+          <End Type="webstoreModel.tblProducts" Role="tblProducts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblOffert">
+              <PropertyRef Name="idOffert" />
+            </Principal>
+            <Dependent Role="tblProducts">
+              <PropertyRef Name="refOffert" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblProducts_tblOffertTime">
+          <End Type="webstoreModel.tblOffertTime" Role="tblOffertTime" Multiplicity="0..1" />
+          <End Type="webstoreModel.tblProducts" Role="tblProducts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblOffertTime">
+              <PropertyRef Name="idOffertTime" />
+            </Principal>
+            <Dependent Role="tblProducts">
+              <PropertyRef Name="refOfferTime" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -631,6 +855,9 @@
           <EntitySetMapping Name="tblProducts">
             <EntityTypeMapping TypeName="webstoreModel.tblProducts">
               <MappingFragment StoreEntitySet="tblProducts">
+                <ScalarProperty Name="refOfferTime" ColumnName="refOfferTime" />
+                <ScalarProperty Name="refOffert" ColumnName="refOffert" />
+                <ScalarProperty Name="refFicha" ColumnName="refFicha" />
                 <ScalarProperty Name="refBrand" ColumnName="refBrand" />
                 <ScalarProperty Name="refCategoryRelation" ColumnName="refCategoryRelation" />
                 <ScalarProperty Name="refModel" ColumnName="refModel" />
@@ -743,6 +970,64 @@
                 <ScalarProperty Name="strImg" ColumnName="strImg" />
                 <ScalarProperty Name="strName" ColumnName="strName" />
                 <ScalarProperty Name="idBrand" ColumnName="idBrand" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblFicha">
+            <EntityTypeMapping TypeName="webstoreModel.tblFicha">
+              <MappingFragment StoreEntitySet="tblFicha">
+                <ScalarProperty Name="strNoInclude" ColumnName="strNoInclude" />
+                <ScalarProperty Name="strInclude" ColumnName="strInclude" />
+                <ScalarProperty Name="intCircuitBreakTemp" ColumnName="intCircuitBreakTemp" />
+                <ScalarProperty Name="intWorkTemp" ColumnName="intWorkTemp" />
+                <ScalarProperty Name="strCountry" ColumnName="strCountry" />
+                <ScalarProperty Name="strType" ColumnName="strType" />
+                <ScalarProperty Name="intDiameter" ColumnName="intDiameter" />
+                <ScalarProperty Name="strBodyCovert" ColumnName="strBodyCovert" />
+                <ScalarProperty Name="strBody" ColumnName="strBody" />
+                <ScalarProperty Name="intModule" ColumnName="intModule" />
+                <ScalarProperty Name="strPoles" ColumnName="strPoles" />
+                <ScalarProperty Name="intCRI" ColumnName="intCRI" />
+                <ScalarProperty Name="strSocket" ColumnName="strSocket" />
+                <ScalarProperty Name="intPF" ColumnName="intPF" />
+                <ScalarProperty Name="intAmpers" ColumnName="intAmpers" />
+                <ScalarProperty Name="strInstalation" ColumnName="strInstalation" />
+                <ScalarProperty Name="strColor" ColumnName="strColor" />
+                <ScalarProperty Name="strAutonomy" ColumnName="strAutonomy" />
+                <ScalarProperty Name="strWarranty" ColumnName="strWarranty" />
+                <ScalarProperty Name="intPir" ColumnName="intPir" />
+                <ScalarProperty Name="strBatery" ColumnName="strBatery" />
+                <ScalarProperty Name="strSolarPanel" ColumnName="strSolarPanel" />
+                <ScalarProperty Name="strLightType" ColumnName="strLightType" />
+                <ScalarProperty Name="intLightAngle" ColumnName="intLightAngle" />
+                <ScalarProperty Name="intIk" ColumnName="intIk" />
+                <ScalarProperty Name="intIp" ColumnName="intIp" />
+                <ScalarProperty Name="strCertification" ColumnName="strCertification" />
+                <ScalarProperty Name="strLHM" ColumnName="strLHM" />
+                <ScalarProperty Name="intWeight" ColumnName="intWeight" />
+                <ScalarProperty Name="intVoltage" ColumnName="intVoltage" />
+                <ScalarProperty Name="strLifespan" ColumnName="strLifespan" />
+                <ScalarProperty Name="intLumWatts" ColumnName="intLumWatts" />
+                <ScalarProperty Name="intColorTemp" ColumnName="intColorTemp" />
+                <ScalarProperty Name="strPotencia" ColumnName="strPotencia" />
+                <ScalarProperty Name="idFicha" ColumnName="idFicha" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblOffert">
+            <EntityTypeMapping TypeName="webstoreModel.tblOffert">
+              <MappingFragment StoreEntitySet="tblOffert">
+                <ScalarProperty Name="intPercentage" ColumnName="intPercentage" />
+                <ScalarProperty Name="idOffert" ColumnName="idOffert" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblOffertTime">
+            <EntityTypeMapping TypeName="webstoreModel.tblOffertTime">
+              <MappingFragment StoreEntitySet="tblOffertTime">
+                <ScalarProperty Name="strTime" ColumnName="strTime" />
+                <ScalarProperty Name="intPercentageTime" ColumnName="intPercentageTime" />
+                <ScalarProperty Name="idOffertTime" ColumnName="idOffertTime" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

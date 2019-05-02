@@ -269,37 +269,6 @@
 /*#endregion */
 
 /*#region Counter */
-.mg-countdown {
-    display: inline-block;
-}
-
-    .mg-countdown .item {
-        display: block;
-        margin: 7px;
-        float: left;
-        text-align: center;
-    }
-
-        .mg-countdown .item .days,
-        .mg-countdown .item .hours,
-        .mg-countdown .item .minutes,
-        .mg-countdown .item .seconds {
-            width: 48px;
-            height: 48px;
-            margin-bottom: 5px;
-            border: 1px solid dimgrey;
-            border-radius: 0px;
-            font-size: 22px;
-            line-height: 46px;
-        }
-
-        .mg-countdown .item .days_ref,
-        .mg-countdown .item .hours_ref,
-        .mg-countdown .item .minutes_ref,
-        .mg-countdown .item .seconds_ref {
-            font-size: 12px;
-            text-transform: uppercase;
-        }
 
 .mg-product-badge {
     position: absolute;
@@ -316,7 +285,7 @@
 
 .mg-bg-counter {
     border-radius: 0px !important;
-    background-color: rgb(255, 255, 255, 0.2) !important;
+    background-color: rgba(255, 255, 255, 0.2) !important;
 }
 
 /*#endregion */

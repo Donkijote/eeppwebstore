@@ -241,10 +241,19 @@
     <Compile Include="Models\tblFamily.cs">
       <DependentUpon>Connection.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\tblFicha.cs">
+      <DependentUpon>Connection.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\tblModel.cs">
       <DependentUpon>Connection.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tblModelDetail.cs">
+      <DependentUpon>Connection.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tblOffert.cs">
+      <DependentUpon>Connection.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tblOffertTime.cs">
       <DependentUpon>Connection.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tblProducts.cs">

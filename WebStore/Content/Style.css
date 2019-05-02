@@ -1556,6 +1556,12 @@ html * {
         .mg-box .mg-box__magnet .mg-arrow.mg-arrow--floating .mg-section__container .mg-arrow__link:focus, .mg-box .mg-box__magnet .mg-arrow.mg-arrow--floating .mg-section__container .mg-arrow__link:hover {
           color: #fff; }
 
+.mg-index-rota-img {
+  right: 250px;
+  top: -500px;
+  position: absolute;
+  max-width: 215px; }
+
 /*#endregion */
 /*#region Buttons */
 button {
@@ -2113,6 +2119,27 @@ button {
     display: table-cell;
     vertical-align: top;
     text-align: left; }
+
+/*#endregion*/
+/*#region Counter */
+.mg-countdown {
+  display: inline-block; }
+  .mg-countdown .item {
+    display: block;
+    margin: 7px;
+    float: left;
+    text-align: center; }
+    .mg-countdown .item .days, .mg-countdown .item .hours, .mg-countdown .item .minutes, .mg-countdown .item .seconds {
+      width: 48px;
+      height: 48px;
+      margin-bottom: 5px;
+      border: 1px solid dimgrey;
+      border-radius: 0px;
+      font-size: 22px;
+      line-height: 46px; }
+    .mg-countdown .item .days_ref, .mg-countdown .item .hours_ref, .mg-countdown .item .minutes_ref, .mg-countdown .item .seconds_ref {
+      font-size: 12px;
+      text-transform: uppercase; }
 
 /*#endregion*/
 /*#region Card*/
@@ -3902,14 +3929,16 @@ button.bg-secondary:focus, button.bg-secondary:hover {
   right: 15px;
   padding: 10px 15px;
   background-color: #343a40;
+  border: 1px solid #343a40;
   color: white !important;
   position: fixed;
   z-index: 2147483647;
-  display: block; }
+  display: block;
+  cursor: pointer; }
   .totop:hover {
     color: white;
-    background-color: #007bff;
-    border: 1px solid #007bff;
+    background-color: #e43f00;
+    border: 1px solid #e43f00;
     text-decoration: none; }
 
 .mg-section-title {
