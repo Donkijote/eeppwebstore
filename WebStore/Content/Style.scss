@@ -2434,6 +2434,13 @@ button {
         img {
             display: block;
             width: 100%;
+
+            &.img-sec {
+                position: absolute;
+                width: 100px;
+                left: 25px;
+                top: 25px;
+            }
         }
     }
 
@@ -2483,7 +2490,7 @@ button {
             label {
                 margin-bottom: 0px;
                 color: #28a745;
-                font-size:14px;
+                font-size: 14px;
             }
         }
     }

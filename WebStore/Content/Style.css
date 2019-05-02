@@ -2351,6 +2351,11 @@ button {
     .mg-product-card .mg-product-thumb img {
       display: block;
       width: 100%; }
+      .mg-product-card .mg-product-thumb img.img-sec {
+        position: absolute;
+        width: 100px;
+        left: 25px;
+        top: 25px; }
   .mg-product-card .mg-product-card-body {
     padding: 18px;
     padding-top: 15px;
