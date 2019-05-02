@@ -42,7 +42,7 @@ $.AdminJs.LogUp = {
 
 $.AdminJs.compare = {
 	activate: function () {
-		$('.btn-wishlist').on('click', function () {
+        $('.mg-product-wish').on('click', function () {
 			if ($(this).hasClass('active')) {
 				$(this).removeClass('active');
 				var data = {
