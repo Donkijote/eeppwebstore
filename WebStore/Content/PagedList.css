@@ -18,6 +18,8 @@
       .pagination li a:hover, .pagination li a:focus, .pagination li span:hover, .pagination li span:focus {
         background-color: #eeeeee;
         color: orangered !important; }
+      .pagination li a:focus, .pagination li span:focus {
+        box-shadow: 0 0 0 0.2rem rgba(228, 63, 0, 0.25); }
     .pagination li:first-child a, .pagination li:first-child span {
       margin-left: 0;
       border-bottom-left-radius: 4px;

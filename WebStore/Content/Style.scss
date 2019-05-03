@@ -1285,11 +1285,6 @@ button {
         &:hover {
             color: #fff;
         }
-
-        &:focus {
-            outline: 0;
-            box-shadow: 0 0 0 0.2rem rgba(228, 63, 0,.25);
-        }
     }
 
     &.btn-secondary {
@@ -1314,6 +1309,11 @@ button {
         &:hover {
             background-color: orangered;
         }
+
+        &:focus {
+            outline: 0;
+            box-shadow: 0 0 0 0.2rem rgba(228, 63, 0,.25);
+        }
     }
 
     &.btn-outline-orangered {
@@ -1323,6 +1323,11 @@ button {
         &:hover {
             color: #FFFFFF;
             background-color: #ff7f40;
+        }
+
+        &:focus {
+            outline: 0;
+            box-shadow: 0 0 0 0.2rem rgba(228, 63, 0,.25);
         }
     }
 
@@ -2351,6 +2356,13 @@ button {
     border: 1px solid #e5e5e5;
     border-radius: 5px;
     background-color: #fff;
+    -webkit-box-shadow: 0 1px 1px 0 rgba(0,0,0,.1), 0 -1px 2px 0 rgba(0,0,0,.1);
+    box-shadow: 0 1px 1px 0 rgba(0,0,0,.1), 0 -1px 2px 0 rgba(0,0,0,.1);
+
+    a {
+        text-decoration: none;
+        color: #343a40;
+    }
 
     .mg-product-badge {
         position: absolute;
@@ -2381,7 +2393,6 @@ button {
         color: #dc3545;
         cursor: pointer;
         text-decoration: none;
-
 
         i {
             &::before {
@@ -2612,6 +2623,11 @@ button {
     }
 
     &:hover {
+        -webkit-box-shadow: 0 25px 20px 0 rgba(0,0,0,.16), 0 -1px 2px 0 rgba(0,0,0,.1);
+        box-shadow: 0 25px 20px 0 rgba(0,0,0,.16), 0 -1px 2px 0 rgba(0,0,0,.1);
+        -webkit-transition: opacity .2s ease-out;
+        transition: opacity .2s ease-out;
+
         .mg-product-wish {
             display: block;
         }

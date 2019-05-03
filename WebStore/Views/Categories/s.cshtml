@@ -49,7 +49,7 @@
                     <i class="far fa-clock" style="font-size: 33px; margin-top: -5px;"></i>
                     &nbsp;&nbsp;Check our Limited Offers. Save up to 50%&nbsp;&nbsp;&nbsp;
                     <div class="mt-3 hidden-xl-up"></div>
-                    <a class="btn btn-primary" href="#">View Offers</a>
+                    <a class="btn btn-orangered" href="#">View Offers</a>
                 </div>
             </div>
             <div class="mg-shop-toolbar padding-bottom-1x mb-2">
@@ -102,9 +102,9 @@
                         {
                             <div class="col-md-4 col-sm-6 col-6">
                                 <div class="mg-product-card mb-3">
-                                    <a class="mg-product-wish bg-secondary" href="javascript:void(0);">
+                                    <div class="mg-product-wish bg-secondary" href="javascript:void(0);">
                                         <i></i>
-                                    </a>
+                                    </div>
                                     <div class="mg-rating-stars">
                                         <i class="fas fa-star filled"></i>
                                         <i class="fas fa-star filled"></i>
@@ -116,21 +116,21 @@
                                         <img class="img-fuild" src="https://eepp.cl/images/productos/Z1-K-BLANCO.jpg"
                                              alt="Producto">
                                         <img class="img-fuild img-sec" src="https://eepp.cl/images/home/sec.png">
-                                    </a>
-                                    <div class="mg-product-card-body">
-                                        <h4 class="mg-product-price">
-                                            <del>$15.062,00</del><br />
-                                            $ @Html.DisplayFor(modelItem => item.intPrecio)
-                                            <label class="off">50% OFF</label>
-                                        </h4>
-                                        <div class="mg-product-category">
-                                            SKU: @Html.DisplayFor(modelItem => item.strCodigo)
-                                        </div>
-                                        <h3 class="mg-product-title">
-                                            <a href="@Url.Action("s","Categories", new { id = "Cables", idp = Html.DisplayFor(modelItem => item.strCodigo), language=System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName })">@Html.DisplayFor(modelItem => item.strNombre)</a>
-                                        </h3>
 
-                                    </div>
+                                        <div class="mg-product-card-body">
+                                            <h4 class="mg-product-price">
+                                                <del>$15.062,00</del><br />
+                                                $ @Html.DisplayFor(modelItem => item.intPrecio)
+                                                <label class="off">50% OFF</label>
+                                            </h4>
+                                            <div class="mg-product-category">
+                                                SKU: @Html.DisplayFor(modelItem => item.strCodigo)
+                                            </div>
+                                            <h3 class="mg-product-title">
+                                                @Html.DisplayFor(modelItem => item.strNombre)
+                                            </h3>
+                                        </div>
+                                    </a>
                                 </div>
                             </div>
                         }

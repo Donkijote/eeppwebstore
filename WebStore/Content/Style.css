@@ -1594,9 +1594,6 @@ button {
     color: #fff !important; }
     .btn.btn-primary:hover, .btn.btn-success:hover, .btn.btn-info:hover, .btn.btn-warning:hover, .btn.btn-danger:hover, .btn.btn-orangered:hover {
       color: #fff; }
-    .btn.btn-primary:focus, .btn.btn-success:focus, .btn.btn-info:focus, .btn.btn-warning:focus, .btn.btn-danger:focus, .btn.btn-orangered:focus {
-      outline: 0;
-      box-shadow: 0 0 0 0.2rem rgba(228, 63, 0, 0.25); }
   .btn.btn-secondary {
     border-color: #e5e5e5;
     background-color: #f5f5f5;
@@ -1611,12 +1608,18 @@ button {
     background-color: #ff7f40; }
     .btn.btn-orangered:hover {
       background-color: orangered; }
+    .btn.btn-orangered:focus {
+      outline: 0;
+      box-shadow: 0 0 0 0.2rem rgba(228, 63, 0, 0.25); }
   .btn.btn-outline-orangered {
     color: #ff7f40;
     border-color: #ff7f40; }
     .btn.btn-outline-orangered:hover {
       color: #FFFFFF;
       background-color: #ff7f40; }
+    .btn.btn-outline-orangered:focus {
+      outline: 0;
+      box-shadow: 0 0 0 0.2rem rgba(228, 63, 0, 0.25); }
   .btn.btn-block {
     display: block;
     width: 100%;
@@ -2290,7 +2293,12 @@ button {
   width: 100%;
   border: 1px solid #e5e5e5;
   border-radius: 5px;
-  background-color: #fff; }
+  background-color: #fff;
+  -webkit-box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.1), 0 -1px 2px 0 rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.1), 0 -1px 2px 0 rgba(0, 0, 0, 0.1); }
+  .mg-product-card a {
+    text-decoration: none;
+    color: #343a40; }
   .mg-product-card .mg-product-badge {
     position: absolute;
     height: 24px;
@@ -2470,10 +2478,15 @@ button {
       .mg-product-card.mg-product-list .mg-product-card-body {
         padding: 32px 22px 18px;
         text-align: left; } }
-  .mg-product-card:hover .mg-product-wish {
-    display: block; }
-  .mg-product-card:hover .mg-rating-stars {
-    display: block; }
+  .mg-product-card:hover {
+    -webkit-box-shadow: 0 25px 20px 0 rgba(0, 0, 0, 0.16), 0 -1px 2px 0 rgba(0, 0, 0, 0.1);
+    box-shadow: 0 25px 20px 0 rgba(0, 0, 0, 0.16), 0 -1px 2px 0 rgba(0, 0, 0, 0.1);
+    -webkit-transition: opacity .2s ease-out;
+    transition: opacity .2s ease-out; }
+    .mg-product-card:hover .mg-product-wish {
+      display: block; }
+    .mg-product-card:hover .mg-rating-stars {
+      display: block; }
 
 .mg-product-gallery {
   position: relative;
