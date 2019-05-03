@@ -395,6 +395,14 @@
     <Content Include="Content\jquery.steps.min.css">
       <DependentUpon>jquery.steps.css</DependentUpon>
     </Content>
+    <Content Include="Content\OwlCarousel\ajax-loader.gif" />
+    <Content Include="Content\OwlCarousel\owl.carousel.css" />
+    <Content Include="Content\OwlCarousel\owl.carousel.min.css" />
+    <Content Include="Content\OwlCarousel\owl.theme.default.css" />
+    <Content Include="Content\OwlCarousel\owl.theme.default.min.css" />
+    <Content Include="Content\OwlCarousel\owl.theme.green.css" />
+    <Content Include="Content\OwlCarousel\owl.theme.green.min.css" />
+    <Content Include="Content\OwlCarousel\owl.video.play.png" />
     <Content Include="Content\PagedList.min.css">
       <DependentUpon>PagedList.css</DependentUpon>
     </Content>
@@ -497,6 +505,9 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\OwlCarousel\owl.carousel.js" />
+    <Content Include="Scripts\OwlCarousel\owl.carousel.min.js" />
+    <Content Include="Scripts\OwlCarousel\owl.carousel2.thumbs.min.js" />
     <Content Include="Scripts\popper-utils.js" />
     <Content Include="Scripts\popper-utils.min.js" />
     <Content Include="Scripts\popper.js" />

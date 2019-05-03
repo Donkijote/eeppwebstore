@@ -9,7 +9,7 @@ namespace WebStore.Models
     {
         public string strNombre { get; set; }
         public string strCodigo { get; set; }
-        public decimal intPrecio { get; set; }
+        public string intPrecio { get; set; }
         public int refCategoria { get; set; }
         public string categoryName { get; set; }
     }

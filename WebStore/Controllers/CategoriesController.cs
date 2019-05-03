@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -23,12 +24,14 @@ namespace WebStore.Controllers
         {
             if (String.IsNullOrWhiteSpace(idp))
             {
-                using (WebStore.Models.webstoreEntities db = new WebStore.Models.webstoreEntities())
+                using (webstoreEntities db = new webstoreEntities())
                 {
                     var v = db.tblCategories.Where(a => a.strNombre == id).FirstOrDefault();
-                    var s = from a in db.tblProducts
+                    var s = (from a in db.tblProducts
                             where a.refCategoria == 1
-                            select new Products { strNombre = a.strNombre, strCodigo = a.strCodigo, intPrecio = a.intPrecio };
+                            select new { strNombre = a.strNombre, strCodigo = a.strCodigo, intPrecio = a.intPrecio })
+                            .AsEnumerable()
+                            .Select( x => new Products { strNombre = Truncate(x.strNombre, 60), strCodigo = x.strCodigo, intPrecio = FormatNumber(x.intPrecio) }).ToList();
 
                     string url = Request.RawUrl;
                     string query = Request.Url.Query;
@@ -52,25 +55,37 @@ namespace WebStore.Controllers
                     ViewBag.type = isAllowed;
                     ViewBag.p = id;
                     ViewBag.Title = id;
-                    return View("s",s.ToList().ToPagedList(page ?? 1, 3));
+                    return View("s",s.ToPagedList(page ?? 1, 3));
                 }
             }
             else
             {
-                using (WebStore.Models.webstoreEntities db = new WebStore.Models.webstoreEntities())
+                using (webstoreEntities db = new webstoreEntities())
                 {
-                    var x = from a in db.tblProducts
+                    var x = (from a in db.tblProducts
                             where a.strCodigo == idp
-                            select new Products { strNombre = a.strNombre, strCodigo = a.strCodigo, intPrecio = a.intPrecio};
+                            select new { strNombre = a.strNombre, strCodigo = a.strCodigo, intPrecio = a.intPrecio})
+                            .AsEnumerable()
+                            .Select(p => new Products { strNombre = p.strNombre, strCodigo = p.strCodigo, intPrecio = FormatNumber(p.intPrecio)});
                     ViewBag.Category = id;
                     
                     foreach(var a in x)
                     {
-                        ViewBag.Title = WebStore.Resources.Titles.Product +" #"+ a.strCodigo;
+                        ViewBag.Title = Resources.Titles.Product +" #"+ a.strCodigo;
                     }
                     return View("Product", x.ToList());
                 }
             }
+        }
+
+        private static string Truncate(string value, int maxChars)
+        {
+            return value.Length <= maxChars ? value : value.Substring(0, maxChars) + "...";
+        }
+
+        private static string FormatNumber(decimal number)
+        {
+            return number.ToString("N", CultureInfo.GetCultureInfo("es-CL"));
         }
     }
 }

@@ -147,45 +147,34 @@
                         foreach (var item in Model)
                         {
                             <div class="mg-product-card mg-product-list mb-3">
-                                <div class="mg-product-badge bg-danger">Sale </div>
-                                <div class="mg-rating-stars">
-                                    <i class="fas fa-star filled"></i>
-                                    <i class="fas fa-star filled"></i>
-                                    <i class="fas fa-star filled"></i>
-                                    <i class="fas fa-star filled"></i>
-                                    <i class="fas fa-star"></i>
+                                <div class="mg-product-wish bg-secondary" href="javascript:void(0);">
+                                    <i></i>
                                 </div>
                                 <a class="mg-product-thumb" href="@Url.Action("s","Categories", new { id = "Cables", idp = Html.DisplayFor(modelItem => item.strCodigo), language=System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName })">
                                     <img class="img-fuild" src="https://eepp.cl/images/productos/Z1-K-BLANCO.jpg"
                                          alt="Producto">
+                                    <img class="img-fuild img-sec" src="https://eepp.cl/images/home/sec.png">
                                 </a>
                                 <div class="mg-product-card-body">
+                                    <div class="mg-rating-stars on-list">
+                                        <i class="fas fa-star filled"></i>
+                                        <i class="fas fa-star filled"></i>
+                                        <i class="fas fa-star filled"></i>
+                                        <i class="fas fa-star filled"></i>
+                                        <i class="fas fa-star"></i>
+                                    </div>
+                                    <h4 class="mg-product-price">
+                                        <del>$62.00</del><br />
+                                        $ @Html.DisplayFor(modelItem => item.intPrecio)
+                                        <label class="off">50% OFF</label>
+                                    </h4>
                                     <div class="mg-product-category">
-                                        <a>@Html.DisplayFor(modelItem => item.strCodigo)</a>
+                                        SKU: @Html.DisplayFor(modelItem => item.strCodigo)
                                     </div>
                                     <h3 class="mg-product-title">
                                         <a href="@Url.Action("s","Categories", new { id = "Cables", idp = Html.DisplayFor(modelItem => item.strCodigo), language=System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName })">@Html.DisplayFor(modelItem => item.strNombre)</a>
                                     </h3>
-                                    <h4 class="mg-product-price">
-                                        <del>$62.00</del>@Html.DisplayFor(modelItem => item.intPrecio)
-                                    </h4>
                                     <p class="text-sm text-muted hidden-xs-down my-1">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tempore odit officiis illo perferendis deserunt, ipsam dolor ad dolorem eaque veritatis.</p>
-                                </div>
-                                <div class="mg-product-button-group">
-                                    <a class="mg-product-button btn-wishlist" href="javascript:void(0);">
-                                        <i class="far fa-heart"></i>
-                                        <span>Lista de Deseo</span>
-                                    </a>
-                                    <a class="mg-product-button btn-compare" href="javascript:void(0);">
-                                        <i class="fos fas fo-compare"></i>
-                                        <span>Compare</span>
-                                    </a>
-                                    <a class="mg-product-button" href="javascript:void(0);" data-toast="" data-toast-type="success"
-                                       data-toast-position="topRight" data-toast-icon="icon-check-circle" data-toast-title="Product"
-                                       data-toast-message="successfuly added to cart!">
-                                        <i class="fas fa-shopping-cart"></i>
-                                        <span>To Cart</span>
-                                    </a>
                                 </div>
                             </div>
                         }
@@ -203,7 +192,7 @@
                 LiElementClasses = new string[] { "page-item" },
                 PageClasses = new string[] { "page-link" },
                 ContainerDivClasses = new string[] { "pagination-container on-desktop" },
-                UlElementClasses = new string[] { "pagination pagination-lg justify-content-center" },
+                UlElementClasses = new string[] { "pagination" },
                 DisplayLinkToFirstPage = X.PagedList.Mvc.Common.PagedListDisplayMode.IfNeeded,
                 DisplayLinkToLastPage = X.PagedList.Mvc.Common.PagedListDisplayMode.IfNeeded,
                 LinkToFirstPageFormat = WebStore.Resources.Links.First,
@@ -222,7 +211,7 @@
                 LiElementClasses = new string[] { "page-item" },
                 PageClasses = new string[] { "page-link" },
                 ContainerDivClasses = new string[] { "pagination-container on-mobile" },
-                UlElementClasses = new string[] { "pagination justify-content-center" },
+                UlElementClasses = new string[] { "pagination" },
                 DisplayLinkToFirstPage = X.PagedList.Mvc.Common.PagedListDisplayMode.IfNeeded,
                 DisplayLinkToLastPage = X.PagedList.Mvc.Common.PagedListDisplayMode.IfNeeded,
                 LinkToFirstPageFormat = "",
