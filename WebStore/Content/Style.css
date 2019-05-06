@@ -817,7 +817,7 @@ html * {
     .navbar.mg-big-screen.navbar-stuck {
       position: fixed;
       box-shadow: 0 3px 25px 0 rgba(47, 56, 68, 0.22);
-      z-index: 5; }
+      z-index: 20; }
     .navbar.mg-big-screen .navbar-nav .nav-item {
       padding: 20px;
       cursor: pointer;

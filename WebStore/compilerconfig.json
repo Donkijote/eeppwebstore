@@ -14,5 +14,9 @@
   {
     "outputFile": "Content/PagedList.css",
     "inputFile": "Content/PagedList.scss"
+  },
+  {
+    "outputFile": "Content/Countdown/Countdown.css",
+    "inputFile": "Content/Countdown/Countdown.scss"
   }
 ]

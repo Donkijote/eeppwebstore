@@ -4,5 +4,17 @@
     "inputFiles": [
       "Scripts/Admin.js"
     ]
+  },
+  {
+    "outputFileName": "Countdown/Countdown.min.js",
+    "inputFiles": [
+      "Countdown/Countdown.js"
+    ]
+  },
+  {
+    "outputFileName": "Scripts/Countdown/Countdown.min.js",
+    "inputFiles": [
+      "Scripts/Countdown/Countdown.js"
+    ]
   }
 ]

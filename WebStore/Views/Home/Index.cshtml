@@ -22,7 +22,7 @@
                                             <h2 class="display-2 text-bold mb-2 animated fadeInDown">Ampolleta Led</h2>
                                             <h4 class="text-normal mb-4 animated fadeInDown">Precios de Descuentos!</h4>
                                             <div class="mg-countdown mb-3 animated fadeInLeft" data-date-time="07/30/2018 12:00:00">
-                                                <div class="item">
+                                                <!--<div class="item">
                                                     <div class="days">00</div><span class="days_ref">Días</span>
                                                 </div>
                                                 <div class="item">
@@ -33,7 +33,8 @@
                                                 </div>
                                                 <div class="item">
                                                     <div class="seconds">00</div><span class="seconds_ref">Seg</span>
-                                                </div>
+                                                </div>-->
+                                                <div class="countdown" style="height:80px;" data-time="@ViewBag.Datetime"></div>
                                             </div><br><a class="mg-buttons__btn btn btn-lg animated fadeInRight delay-3s btn-orangered" href="#">@WebStore.Resources.Buttons.ViewOffers</a>
                                         </div>
                                     </div>
@@ -778,6 +779,7 @@
             $("#i3d").interactive_3d({
                 frames: 8
             });
+            $.AdminJs.Countdown.activate();
         });
     </script>
 }

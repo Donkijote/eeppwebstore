@@ -68,6 +68,13 @@ namespace WebStore.Controllers
                             .AsEnumerable()
                             .Select(p => new Products { strNombre = p.strNombre, strCodigo = p.strCodigo, intPrecio = FormatNumber(p.intPrecio)});
                     ViewBag.Category = id;
+
+                    DateTime currentDate = DateTime.Now;
+                    DateTime nextDate = new DateTime(2019, 5, 6, 15, 0, 0, 0);
+
+                    TimeSpan timeDiff = nextDate - currentDate;
+
+                    ViewBag.Datetime = string.Format("{0:D2}:{1:D2}:{2:D2}:{3:D2}", timeDiff.Days, timeDiff.Hours, timeDiff.Minutes, timeDiff.Seconds); ;
                     
                     foreach(var a in x)
                     {
