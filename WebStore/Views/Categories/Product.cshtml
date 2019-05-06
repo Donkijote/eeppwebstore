@@ -82,13 +82,30 @@
                     </div>
                 </div>
             </div>
+
             <div class="col-md-6">
                 <div class="row">
                     <div class="col-md-12 col-sm-12 col-xs-12">
                         <div class="mg-sp-categories pb-3">
-                            <i class="fas fa-tags"></i>
-                            <a href="#">Drones,</a>
-                            <a href="#">Action cameras</a>
+                            <ul class="breadcrumbs">
+                                <li>
+                                    <a href="@Url.Action("Index","Home",new { language = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName})">@WebStore.Resources.Titles.Home</a>
+                                </li>
+                                <li class="separator">&nbsp;</li>
+                                <li>
+                                    <a href="@Url.Action("All","Categories",new { language = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName})">@WebStore.Resources.Titles.Categories</a>
+                                </li>
+                                <li class="separator">&nbsp;</li>
+                                <li>
+                                    <a href="@Url.Action("s","Categories",new { id = @ViewBag.Category,language = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName})">
+                                        @ViewBag.Category
+                                    </a>
+                                </li>
+                                <li class="separator">&nbsp;</li>
+                                <li>
+                                    @ViewBag.Title
+                                </li>
+                            </ul>
                         </div>
                         <div class="container-countdown bg-secondary">
                             <h1 class="text-danger">OFERTA LIMITADA</h1>
@@ -98,7 +115,10 @@
                             @Html.DisplayFor(x => item.strNombre)
                         </h5>
                         <h2 class="d-block">
-                            <del class="text-muted" style="font-size:18px;">$958.00</del><br />@Html.DisplayFor(x => item.intPrecio)
+                            <del class="text-muted" style="font-size:18px;">$958.00</del><br />
+                            @Html.DisplayFor(x => item.intPrecio)
+                            <span class="text-muted" style="font-size:18px;">+iva</span>
+                            <label class="off text-success" style="font-size:24px;">50% OFF</label>
                         </h2>
                     </div>
                 </div>
@@ -109,27 +129,43 @@
                 </p>
 
                 <div class="row margin-top-1x">
-                    <div class="col-sm-6">
-                        <div class="form-group">
-                            <label class="mg-form-label" for="size">Choose color</label>
-                            <select class="form-control" id="size">
-                                <option>White/Gray/Black</option>
-                                <option>Black</option>
-                                <option>Black/White/Red</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-sm-6">
-                        <div class="form-group">
-                            <label class="mg-form-label" for="color">Battery capacity</label>
-                            <select class="form-control" id="color">
-                                <option>5100 mAh</option>
-                                <option>6200 mAh</option>
-                                <option>8000 mAh</option>
-                            </select>
+                    <div class="col-sm-12">
+                        <span class="text-muted">watts: <span class="text-dark">10w</span></span>
+                        <div class="form-group mt-2">
+                            <a class="btn btn-view-more btn-sm" href="javascript:void(0);">
+                                10w
+                            </a>
+
+                            <a class="btn btn-view-more btn-sm" href="javascript:void(0);">
+                                20w
+                            </a>
+
+                            <a class="btn btn-view-more btn-sm active" href="javascript:void(0);">
+                                30w
+                            </a>
                         </div>
                     </div>
                 </div>
+
+                <div class="row margin-top-1x">
+                    <div class="col-sm-12">
+                        <span class="text-muted">CCT°: <span class="text-dark">3000°K</span></span>
+                        <div class="form-group mt-2">
+                            <a class="btn btn-view-more btn-sm" href="javascript:void(0);">
+                                3000°Kk
+                            </a>
+
+                            <a class="btn btn-view-more btn-sm" href="javascript:void(0);">
+                                4000°K
+                            </a>
+
+                            <a class="btn btn-view-more btn-sm active" href="javascript:void(0);">
+                                6000°K
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="row align-items-end pb-4">
                     <div class="col-sm-4">
                         <div class="form-group mb-0">
@@ -143,29 +179,29 @@
                             </select>
                         </div>
                     </div>
+
                     <div class="col-sm-8">
                         <div class="pt-4 hidden-sm-up"></div>
-                        <button class="btn btn-primary btn-block m-0" data-toast="" data-toast-type="success"
+                        <button class="btn btn-orangered btn-block m-0" data-toast="" data-toast-type="success"
                                 data-toast-position="topRight" data-toast-icon="icon-check-circle" data-toast-title="Product"
                                 data-toast-message="successfuly added to cart!">
-                            <i class="icon-bag"></i> Add to Cart
+                            <i class="icon-bag"></i> Añadir al carro
                         </button>
                     </div>
                 </div>
+
                 <div class="pt-1 mb-4">
-                    <span class="text-medium">SKU:</span> #@Html.DisplayFor(x => item.strCodigo)
+                    <span><span class="text-medium">SKU:</span> #@Html.DisplayFor(x => item.strCodigo)</span>
+                    <span class="text-success pl-3 font-weight-bolder">En Stock</span>
                 </div>
 
                 <hr class="mb-2">
                 <div class="d-flex flex-wrap justify-content-between">
                     <div class="mt-2 mb-2">
-                        <div class="btn btn-view-more btn-sm btn-wishlist">
+                        <a class="btn btn-view-more btn-sm btn-wishlist" href="javascript:void(0);">
                             <i class="far fa-heart"></i>
                             &nbsp;To Wishlist
-                        </div>
-                        <div class="btn btn-view-more btn-sm btn-compare">
-                            <i class="mg-fo fo-compare"></i>&nbsp;Compare
-                        </div>
+                        </a>
                     </div>
                     <div class="mt-2 mb-2">
                         <span class="text-muted">Share:&nbsp;&nbsp;</span>
@@ -194,43 +230,43 @@
     </div>
 }
 
-    
-
 <div class="bg-secondary padding-top-3x padding-bottom-2x mb-3" id="details">
     <div class="container">
         <div class="row">
             <div class="col-md-6">
-                <h3 class="h4">Details</h3>
+                <h3 class="h4">Detalles y Uso</h3>
                 <p class="mb-4">
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
                     incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
                     ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
                     voluptate velit esse cillum dolore eu fugiat.
                 </p>
-                <h3 class="h4">Features</h3>
+                <h3 class="h4">Garantía</h3>
                 <ul class="list-icon mb-4">
-                    <li><i class="fas fa-check text-success"></i>Capture 4K30 Video and 12MP Photos</li>
-                    <li><i class="fas fa-check text-success"></i>Game-Style Controller with Touchscreen</li>
-                    <li><i class="fas fa-check text-success"></i>View Live Camera Feed</li>
-                    <li><i class="fas fa-check text-success"></i>Full Control of HERO6 Black</li>
-                    <li><i class="fas fa-check text-success"></i>Use App for Dedicated Camera Operation</li>
+                    <li><i class="fas fa-check text-success"></i>Marca Gewiss</li>
+                    <li><i class="fas fa-check text-success"></i>Garantía 5 años</li>
+                    <li><i class="fas fa-check text-success"></i>Certificación CE, Crx, Rosh</li>
                 </ul>
             </div>
+
             <div class="col-md-6">
-                <h3 class="h4">Specifications</h3>
+                <h3 class="h4">Especificaciones</h3>
                 <ul class="list-unstyled mb-4">
-                    <li><strong>Weight:</strong> 35.5oz (1006g)</li>
-                    <li><strong>Maximum Speed:</strong> 35 mph (15 m/s)</li>
-                    <li><strong>Maximum Distance:</strong> Up to 9,840ft (3,000m)</li>
-                    <li><strong>Operating Frequency:</strong> 2.4GHz</li>
-                    <li><strong>Manufacturer:</strong> GoPro, USA</li>
+                    <li><strong>Potencia:</strong> 50w</li>
+                    <li><strong>Temperatura de Luz (CCT°):</strong> 3000 °K</li>
+                    <li><strong>Lúmenes:</strong> 800Lm </li>
+                    <li><strong>Vida útil:</strong> > 25.000 horas</li>
+                    <li><strong>Voltaje:</strong> 120V </li>
+                    <li><strong>Índice de protección:</strong> IP 65 </li>
+                    <li><strong>Resistencia a impactos:</strong> IK 10</li>
+                    <li><strong>Ángulo de luz:</strong> 120° </li>
+                    <li><strong>Instalación:</strong> Sobrepuesto </li>
+                    <li><strong>Tipo:</strong> Opcional</li>
                 </ul>
-                <h3 class="h4">Shipping Options:</h3>
+                <h3 class="h4">Información del envío</h3>
                 <ul class="list-unstyled mb-4">
-                    <li><strong>Courier:</strong> 2 - 4 days, $22.50</li>
-                    <li><strong>Local Shipping:</strong> up to one week, $10.00</li>
-                    <li><strong>UPS Ground Shipping:</strong> 4 - 6 days, $18.00</li>
-                    <li><strong>Unishop Global Export:</strong> 3 - 4 days, $25.00</li>
+                    <li><strong>Peso:</strong> 20kg </li>
+                    <li><strong>Dimenciones:</strong> 5L x 5H x 5W</li>
                 </ul>
             </div>
         </div>
@@ -346,391 +382,177 @@
 </div>
 
 <div class="container padding-bottom-3x mb-1">
-    <h3 class="text-center padding-top-2x mt-2 padding-bottom-1x">También Puderan Interesarte</h3>
-    <div id="carouselYouMayLikeToo" class="carousel slide" data-ride="carousel" data-interval="false">
-        <ol class="carousel-indicators">
-            <li data-target="#carouselYouMayLikeToo" data-slide-to="0" class="active"></li>
-            <li data-target="#carouselYouMayLikeToo" data-slide-to="1"></li>
-            <li data-target="#carouselYouMayLikeToo" data-slide-to="2"></li>
-        </ol>
-        <div class="carousel-inner">
-            <div class="carousel-item active">
-                <div class="row">
-                    <div class="col-md-3">
-                        <div class="mg-product-card mb-3">
-                            <div class="mg-product-badge bg-danger">
-                                Sale
-                            </div>
-                            <div class="mg-rating-stars">
-                                <i class="fas fa-star filled"></i>
-                                <i class="fas fa-star filled"></i>
-                                <i class="fas fa-star filled"></i>
-                                <i class="fas fa-star filled"></i>
-                                <i class="fas fa-star"></i>
-                            </div>
-                            <a class="mg-product-thumb" href="Categories/Ver/Cables/<?php echo $value['strCodigo']; ?>/">
-                                <img class="img-fuild" src="http://themes.rokaux.com/unishop/v3.0/template-3/img/shop/products/01.jpg"
-                                     alt="Producto">
-                            </a>
+    <h3 class="text-center padding-top-2x mt-2 padding-bottom-1x">También Pudieran Interesarte</h3>
+    <div id="carouselYouMayLikeToo" class="owl-carousel owl-animated-in owl-grab owl-loaded" data-ride="carousel" data-interval="false">
+        <div class="owl-stage-outer">
+            <div class="owl-stage">
+                <div class="owl-item">
+                    <div class="mg-product-card mb-3">
+                        <div class="mg-product-wish bg-secondary" href="javascript:void(0);">
+                            <i></i>
+                        </div>
+                        <div class="mg-rating-stars">
+                            <i class="fas fa-star filled"></i>
+                            <i class="fas fa-star filled"></i>
+                            <i class="fas fa-star filled"></i>
+                            <i class="fas fa-star filled"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <a class="mg-product-thumb" href="javascript:void(0);">
+                            <img class="img-fuild" src="https://eepp.cl/images/productos/Z1-K-BLANCO.jpg"
+                                 alt="Producto">
+                            <img class="img-fuild img-sec" src="https://eepp.cl/images/home/sec.png">
+
                             <div class="mg-product-card-body">
+                                <h4 class="mg-product-price">
+                                    <del>$15.062,00</del><br />
+                                    $ 10.125,00
+                                    <label class="off">50% OFF</label>
+                                </h4>
                                 <div class="mg-product-category">
-                                    <a><?php echo $value['strCodigo']; ?></a>
+                                    SKU: 01245478
                                 </div>
                                 <h3 class="mg-product-title">
-                                    <a href="Categories/Ver/Cables/001/"><?php echo $value['strNombre']; ?></a>
+                                    algo va aquí
                                 </h3>
-                                <h4 class="mg-product-price">
-                                    <del>$62.00</del><?php echo $value['intPrecio']; ?>
-                                </h4>
                             </div>
-                            <div class="mg-product-button-group">
-                                <a class="mg-product-button btn-wishlist" href="javascript:void(0);">
-                                    <i class="far fa-heart"></i>
-                                    <span>Lista de Deseo</span>
-                                </a>
-                                <a class="mg-product-button btn-compare" href="javascript:void(0);">
-                                    <i class="mg-fo fo-compare"></i>
-                                    <span>Compare</span>
-                                </a>
-                                <a class="mg-product-button" href="javascript:void(0);" data-toast="" data-toast-type="success"
-                                   data-toast-position="topRight" data-toast-icon="icon-check-circle" data-toast-title="Product"
-                                   data-toast-message="successfuly added to cart!">
-                                    <i class="mg-fo fo-cart"></i>
-                                    <span>To Cart</span>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="mg-product-card mb-3">
-                            <div class="mg-product-badge bg-danger">
-                                Sale
-                            </div>
-                            <div class="mg-rating-stars">
-                                <i class="fas fa-star filled"></i>
-                                <i class="fas fa-star filled"></i>
-                                <i class="fas fa-star filled"></i>
-                                <i class="fas fa-star filled"></i>
-                                <i class="fas fa-star"></i>
-                            </div>
-                            <a class="mg-product-thumb" href="Categories/Ver/Cables/<?php echo $value['strCodigo']; ?>/">
-                                <img class="img-fuild" src="http://themes.rokaux.com/unishop/v3.0/template-3/img/shop/products/01.jpg"
-                                     alt="Producto">
-                            </a>
-                            <div class="mg-product-card-body">
-                                <div class="mg-product-category">
-                                    <a><?php echo $value['strCodigo']; ?></a>
-                                </div>
-                                <h3 class="mg-product-title">
-                                    <a href="Categories/Ver/Cables/001/"><?php echo $value['strNombre']; ?></a>
-                                </h3>
-                                <h4 class="mg-product-price">
-                                    <del>$62.00</del><?php echo $value['intPrecio']; ?>
-                                </h4>
-                            </div>
-                            <div class="mg-product-button-group">
-                                <a class="mg-product-button btn-wishlist" href="javascript:void(0);">
-                                    <i class="far fa-heart"></i>
-                                    <span>Lista de Deseo</span>
-                                </a>
-                                <a class="mg-product-button btn-compare" href="javascript:void(0);">
-                                    <i class="mg-fo fo-compare"></i>
-                                    <span>Compare</span>
-                                </a>
-                                <a class="mg-product-button" href="javascript:void(0);" data-toast="" data-toast-type="success"
-                                   data-toast-position="topRight" data-toast-icon="icon-check-circle" data-toast-title="Product"
-                                   data-toast-message="successfuly added to cart!">
-                                    <i class="mg-fo fo-cart"></i>
-                                    <span>To Cart</span>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="mg-product-card mb-3">
-                            <div class="mg-product-badge bg-danger">
-                                Sale
-                            </div>
-                            <div class="mg-rating-stars">
-                                <i class="fas fa-star filled"></i>
-                                <i class="fas fa-star filled"></i>
-                                <i class="fas fa-star filled"></i>
-                                <i class="fas fa-star filled"></i>
-                                <i class="fas fa-star"></i>
-                            </div>
-                            <a class="mg-product-thumb" href="Categories/Ver/Cables/<?php echo $value['strCodigo']; ?>/">
-                                <img class="img-fuild" src="http://themes.rokaux.com/unishop/v3.0/template-3/img/shop/products/01.jpg"
-                                     alt="Producto">
-                            </a>
-                            <div class="mg-product-card-body">
-                                <div class="mg-product-category">
-                                    <a><?php echo $value['strCodigo']; ?></a>
-                                </div>
-                                <h3 class="mg-product-title">
-                                    <a href="Categories/Ver/Cables/001/"><?php echo $value['strNombre']; ?></a>
-                                </h3>
-                                <h4 class="mg-product-price">
-                                    <del>$62.00</del><?php echo $value['intPrecio']; ?>
-                                </h4>
-                            </div>
-                            <div class="mg-product-button-group">
-                                <a class="mg-product-button btn-wishlist" href="javascript:void(0);">
-                                    <i class="far fa-heart"></i>
-                                    <span>Lista de Deseo</span>
-                                </a>
-                                <a class="mg-product-button btn-compare" href="javascript:void(0);">
-                                    <i class="mg-fo fo-compare"></i>
-                                    <span>Compare</span>
-                                </a>
-                                <a class="mg-product-button" href="javascript:void(0);" data-toast="" data-toast-type="success"
-                                   data-toast-position="topRight" data-toast-icon="icon-check-circle" data-toast-title="Product"
-                                   data-toast-message="successfuly added to cart!">
-                                    <i class="mg-fo fo-cart"></i>
-                                    <span>To Cart</span>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="mg-product-card mb-3">
-                            <div class="mg-product-badge bg-danger">
-                                Sale
-                            </div>
-                            <div class="mg-rating-stars">
-                                <i class="fas fa-star filled"></i>
-                                <i class="fas fa-star filled"></i>
-                                <i class="fas fa-star filled"></i>
-                                <i class="fas fa-star filled"></i>
-                                <i class="fas fa-star"></i>
-                            </div>
-                            <a class="mg-product-thumb" href="Categories/Ver/Cables/<?php echo $value['strCodigo']; ?>/">
-                                <img class="img-fuild" src="http://themes.rokaux.com/unishop/v3.0/template-3/img/shop/products/01.jpg"
-                                     alt="Producto">
-                            </a>
-                            <div class="mg-product-card-body">
-                                <div class="mg-product-category">
-                                    <a><?php echo $value['strCodigo']; ?></a>
-                                </div>
-                                <h3 class="mg-product-title">
-                                    <a href="Categories/Ver/Cables/001/"><?php echo $value['strNombre']; ?></a>
-                                </h3>
-                                <h4 class="mg-product-price">
-                                    <del>$62.00</del><?php echo $value['intPrecio']; ?>
-                                </h4>
-                            </div>
-                            <div class="mg-product-button-group">
-                                <a class="mg-product-button btn-wishlist" href="javascript:void(0);">
-                                    <i class="far fa-heart"></i>
-                                    <span>Lista de Deseo</span>
-                                </a>
-                                <a class="mg-product-button btn-compare" href="javascript:void(0);">
-                                    <i class="mg-fo fo-compare"></i>
-                                    <span>Compare</span>
-                                </a>
-                                <a class="mg-product-button" href="javascript:void(0);" data-toast="" data-toast-type="success"
-                                   data-toast-position="topRight" data-toast-icon="icon-check-circle" data-toast-title="Product"
-                                   data-toast-message="successfuly added to cart!">
-                                    <i class="mg-fo fo-cart"></i>
-                                    <span>To Cart</span>
-                                </a>
-                            </div>
-                        </div>
+                        </a>
                     </div>
                 </div>
-            </div>
-            <div class="carousel-item">
-                <div class="row">
-                    <div class="col-md-3">
-                        <div class="mg-product-card mb-3">
-                            <div class="mg-product-badge bg-danger">
-                                Sale
-                            </div>
-                            <div class="mg-rating-stars">
-                                <i class="fas fa-star filled"></i>
-                                <i class="fas fa-star filled"></i>
-                                <i class="fas fa-star filled"></i>
-                                <i class="fas fa-star filled"></i>
-                                <i class="fas fa-star"></i>
-                            </div>
-                            <a class="mg-product-thumb" href="Categories/Ver/Cables/<?php echo $value['strCodigo']; ?>/">
-                                <img class="img-fuild" src="http://themes.rokaux.com/unishop/v3.0/template-3/img/shop/products/01.jpg"
-                                     alt="Producto">
-                            </a>
+                <div class="owl-item">
+                    <div class="mg-product-card mb-3">
+                        <div class="mg-product-wish bg-secondary" href="javascript:void(0);">
+                            <i></i>
+                        </div>
+                        <div class="mg-rating-stars">
+                            <i class="fas fa-star filled"></i>
+                            <i class="fas fa-star filled"></i>
+                            <i class="fas fa-star filled"></i>
+                            <i class="fas fa-star filled"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <a class="mg-product-thumb" href="javascript:void(0);">
+                            <img class="img-fuild" src="https://eepp.cl/images/productos/Z1-K-BLANCO.jpg"
+                                 alt="Producto">
+                            <img class="img-fuild img-sec" src="https://eepp.cl/images/home/sec.png">
+
                             <div class="mg-product-card-body">
+                                <h4 class="mg-product-price">
+                                    <del>$15.062,00</del><br />
+                                    $ 10.125,00
+                                    <label class="off">50% OFF</label>
+                                </h4>
                                 <div class="mg-product-category">
-                                    <a><?php echo $value['strCodigo']; ?></a>
+                                    SKU: 01245478
                                 </div>
                                 <h3 class="mg-product-title">
-                                    <a href="Categories/Ver/Cables/001/"><?php echo $value['strNombre']; ?></a>
+                                    algo va aquí
                                 </h3>
-                                <h4 class="mg-product-price">
-                                    <del>$62.00</del><?php echo $value['intPrecio']; ?>
-                                </h4>
                             </div>
-                            <div class="mg-product-button-group">
-                                <a class="mg-product-button btn-wishlist" href="javascript:void(0);">
-                                    <i class="far fa-heart"></i>
-                                    <span>Lista de Deseo</span>
-                                </a>
-                                <a class="mg-product-button btn-compare" href="javascript:void(0);">
-                                    <i class="mg-fo fo-compare"></i>
-                                    <span>Compare</span>
-                                </a>
-                                <a class="mg-product-button" href="javascript:void(0);" data-toast="" data-toast-type="success"
-                                   data-toast-position="topRight" data-toast-icon="icon-check-circle" data-toast-title="Product"
-                                   data-toast-message="successfuly added to cart!">
-                                    <i class="mg-fo fo-cart"></i>
-                                    <span>To Cart</span>
-                                </a>
-                            </div>
-                        </div>
+                        </a>
                     </div>
-                    <div class="col-md-3">
-                        <div class="mg-product-card mb-3">
-                            <div class="mg-product-badge bg-danger">
-                                Sale
-                            </div>
-                            <div class="mg-rating-stars">
-                                <i class="fas fa-star filled"></i>
-                                <i class="fas fa-star filled"></i>
-                                <i class="fas fa-star filled"></i>
-                                <i class="fas fa-star filled"></i>
-                                <i class="fas fa-star"></i>
-                            </div>
-                            <a class="mg-product-thumb" href="Categories/Ver/Cables/<?php echo $value['strCodigo']; ?>/">
-                                <img class="img-fuild" src="http://themes.rokaux.com/unishop/v3.0/template-3/img/shop/products/01.jpg"
-                                     alt="Producto">
-                            </a>
+                </div>
+                <div class="owl-item">
+                    <div class="mg-product-card mb-3">
+                        <div class="mg-product-wish bg-secondary" href="javascript:void(0);">
+                            <i></i>
+                        </div>
+                        <div class="mg-rating-stars">
+                            <i class="fas fa-star filled"></i>
+                            <i class="fas fa-star filled"></i>
+                            <i class="fas fa-star filled"></i>
+                            <i class="fas fa-star filled"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <a class="mg-product-thumb" href="javascript:void(0);">
+                            <img class="img-fuild" src="https://eepp.cl/images/productos/Z1-K-BLANCO.jpg"
+                                 alt="Producto">
+                            <img class="img-fuild img-sec" src="https://eepp.cl/images/home/sec.png">
+
                             <div class="mg-product-card-body">
+                                <h4 class="mg-product-price">
+                                    <del>$15.062,00</del><br />
+                                    $ 10.125,00
+                                    <label class="off">50% OFF</label>
+                                </h4>
                                 <div class="mg-product-category">
-                                    <a><?php echo $value['strCodigo']; ?></a>
+                                    SKU: 01245478
                                 </div>
                                 <h3 class="mg-product-title">
-                                    <a href="Categories/Ver/Cables/001/"><?php echo $value['strNombre']; ?></a>
+                                    algo va aquí
                                 </h3>
-                                <h4 class="mg-product-price">
-                                    <del>$62.00</del><?php echo $value['intPrecio']; ?>
-                                </h4>
                             </div>
-                            <div class="mg-product-button-group">
-                                <a class="mg-product-button btn-wishlist" href="javascript:void(0);">
-                                    <i class="far fa-heart"></i>
-                                    <span>Lista de Deseo</span>
-                                </a>
-                                <a class="mg-product-button btn-compare" href="javascript:void(0);">
-                                    <i class="mg-fo fo-compare"></i>
-                                    <span>Compare</span>
-                                </a>
-                                <a class="mg-product-button" href="javascript:void(0);" data-toast="" data-toast-type="success"
-                                   data-toast-position="topRight" data-toast-icon="icon-check-circle" data-toast-title="Product"
-                                   data-toast-message="successfuly added to cart!">
-                                    <i class="mg-fo fo-cart"></i>
-                                    <span>To Cart</span>
-                                </a>
-                            </div>
-                        </div>
+                        </a>
                     </div>
-                    <div class="col-md-3">
-                        <div class="mg-product-card mb-3">
-                            <div class="mg-product-badge bg-danger">
-                                Sale
-                            </div>
-                            <div class="mg-rating-stars">
-                                <i class="fas fa-star filled"></i>
-                                <i class="fas fa-star filled"></i>
-                                <i class="fas fa-star filled"></i>
-                                <i class="fas fa-star filled"></i>
-                                <i class="fas fa-star"></i>
-                            </div>
-                            <a class="mg-product-thumb" href="Categories/Ver/Cables/<?php echo $value['strCodigo']; ?>/">
-                                <img class="img-fuild" src="http://themes.rokaux.com/unishop/v3.0/template-3/img/shop/products/01.jpg"
-                                     alt="Producto">
-                            </a>
+                </div>
+                <div class="owl-item">
+                    <div class="mg-product-card mb-3">
+                        <div class="mg-product-wish bg-secondary" href="javascript:void(0);">
+                            <i></i>
+                        </div>
+                        <div class="mg-rating-stars">
+                            <i class="fas fa-star filled"></i>
+                            <i class="fas fa-star filled"></i>
+                            <i class="fas fa-star filled"></i>
+                            <i class="fas fa-star filled"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <a class="mg-product-thumb" href="javascript:void(0);">
+                            <img class="img-fuild" src="https://eepp.cl/images/productos/Z1-K-BLANCO.jpg"
+                                 alt="Producto">
+                            <img class="img-fuild img-sec" src="https://eepp.cl/images/home/sec.png">
+
                             <div class="mg-product-card-body">
+                                <h4 class="mg-product-price">
+                                    <del>$15.062,00</del><br />
+                                    $ 10.125,00
+                                    <label class="off">50% OFF</label>
+                                </h4>
                                 <div class="mg-product-category">
-                                    <a><?php echo $value['strCodigo']; ?></a>
+                                    SKU: 01245478
                                 </div>
                                 <h3 class="mg-product-title">
-                                    <a href="Categories/Ver/Cables/001/"><?php echo $value['strNombre']; ?></a>
+                                    algo va aquí
                                 </h3>
-                                <h4 class="mg-product-price">
-                                    <del>$62.00</del><?php echo $value['intPrecio']; ?>
-                                </h4>
                             </div>
-                            <div class="mg-product-button-group">
-                                <a class="mg-product-button btn-wishlist" href="javascript:void(0);">
-                                    <i class="far fa-heart"></i>
-                                    <span>Lista de Deseo</span>
-                                </a>
-                                <a class="mg-product-button btn-compare" href="javascript:void(0);">
-                                    <i class="mg-fo fo-compare"></i>
-                                    <span>Compare</span>
-                                </a>
-                                <a class="mg-product-button" href="javascript:void(0);" data-toast="" data-toast-type="success"
-                                   data-toast-position="topRight" data-toast-icon="icon-check-circle" data-toast-title="Product"
-                                   data-toast-message="successfuly added to cart!">
-                                    <i class="mg-fo fo-cart"></i>
-                                    <span>To Cart</span>
-                                </a>
-                            </div>
-                        </div>
+                        </a>
                     </div>
-                    <div class="col-md-3">
-                        <div class="mg-product-card mb-3">
-                            <div class="mg-product-badge bg-danger">
-                                Sale
-                            </div>
-                            <div class="mg-rating-stars">
-                                <i class="fas fa-star filled"></i>
-                                <i class="fas fa-star filled"></i>
-                                <i class="fas fa-star filled"></i>
-                                <i class="fas fa-star filled"></i>
-                                <i class="fas fa-star"></i>
-                            </div>
-                            <a class="mg-product-thumb" href="Categories/Ver/Cables/<?php echo $value['strCodigo']; ?>/">
-                                <img class="img-fuild" src="http://themes.rokaux.com/unishop/v3.0/template-3/img/shop/products/01.jpg"
-                                     alt="Producto">
-                            </a>
+                </div>
+                <div class="owl-item">
+                    <div class="mg-product-card mb-3">
+                        <div class="mg-product-wish bg-secondary" href="javascript:void(0);">
+                            <i></i>
+                        </div>
+                        <div class="mg-rating-stars">
+                            <i class="fas fa-star filled"></i>
+                            <i class="fas fa-star filled"></i>
+                            <i class="fas fa-star filled"></i>
+                            <i class="fas fa-star filled"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <a class="mg-product-thumb" href="javascript:void(0);">
+                            <img class="img-fuild" src="https://eepp.cl/images/productos/Z1-K-BLANCO.jpg"
+                                 alt="Producto">
+                            <img class="img-fuild img-sec" src="https://eepp.cl/images/home/sec.png">
+
                             <div class="mg-product-card-body">
+                                <h4 class="mg-product-price">
+                                    <del>$15.062,00</del><br />
+                                    $ 10.125,00
+                                    <label class="off">50% OFF</label>
+                                </h4>
                                 <div class="mg-product-category">
-                                    <a><?php echo $value['strCodigo']; ?></a>
+                                    SKU: 01245478
                                 </div>
                                 <h3 class="mg-product-title">
-                                    <a href="Categories/Ver/Cables/001/"><?php echo $value['strNombre']; ?></a>
+                                    algo va aquí
                                 </h3>
-                                <h4 class="mg-product-price">
-                                    <del>$62.00</del><?php echo $value['intPrecio']; ?>
-                                </h4>
                             </div>
-                            <div class="mg-product-button-group">
-                                <a class="mg-product-button btn-wishlist" href="javascript:void(0);">
-                                    <i class="far fa-heart"></i>
-                                    <span>Lista de Deseo</span>
-                                </a>
-                                <a class="mg-product-button btn-compare" href="javascript:void(0);">
-                                    <i class="mg-fo fo-compare"></i>
-                                    <span>Compare</span>
-                                </a>
-                                <a class="mg-product-button" href="javascript:void(0);" data-toast="" data-toast-type="success"
-                                   data-toast-position="topRight" data-toast-icon="icon-check-circle" data-toast-title="Product"
-                                   data-toast-message="successfuly added to cart!">
-                                    <i class="mg-fo fo-cart"></i>
-                                    <span>To Cart</span>
-                                </a>
-                            </div>
-                        </div>
+                        </a>
                     </div>
                 </div>
             </div>
         </div>
-        <a class="carousel-control-prev" href="#carouselYouMayLikeToo" role="button" data-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="sr-only">Previous</span>
-        </a>
-        <a class="carousel-control-next" href="#carouselYouMayLikeToo" role="button" data-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="sr-only">Next</span>
-        </a>
     </div>
 </div>
 
@@ -742,6 +564,7 @@
             loop: true,
             margin: 10,
             nav: false,
+            dots: false,
             responsiveClass: true,
             thumbs: true,
             thumbImage: false,
@@ -757,6 +580,26 @@
                 },
                 1000: {
                     items: 1
+                }
+            }
+        });
+        $("#carouselYouMayLikeToo").owlCarousel({
+            items: 4,
+            nav: true,
+            dots: true,
+            navText: ["<i class='fas fa-angle-left fa-2x'></i>", "<i class='fas fa-angle-right fa-2x'></i>"],
+            loop: true,
+            margin: 10,
+            responsiveClass: true,
+            responsive: {
+                0: {
+                    items: 1
+                },
+                600: {
+                    items: 2
+                },
+                1000: {
+                    items: 4
                 }
             }
         });

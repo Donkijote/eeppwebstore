@@ -1244,6 +1244,10 @@ html * {
 /*#region Buttons */
 button {
     background-color: transparent;
+
+    &:focus {
+        outline: none !important;
+    }
 }
 
 .btn {
@@ -1344,11 +1348,21 @@ button {
 
     &.btn-view-more {
         border-color: #e5e5e5;
+        background-color: #f5f5f5;
         color: #505050;
 
         &:hover {
             color: #505050;
-            background-color: #f5f5f5 !important;
+            background-color: #ebebeb !important;
+        }
+
+        &:focus {
+            box-shadow: none;
+        }
+
+        &.active {
+            border-color: orangered;
+            font-weight: 900;
         }
     }
 
@@ -1781,6 +1795,10 @@ button {
             &.shape-circle, &.shape-rounded, &.shape-square {
                 border-color: rgba(255, 255, 255, 0.13);
             }
+
+            &:hover,&:focus{
+                color: #ffffff !important;
+            }
         }
 
         .market-button {
@@ -1857,35 +1875,6 @@ button {
                     opacity: 0.5;
                 }
             }
-        }
-    }
-
-    .social-button {
-        display: inline-block;
-        margin-top: 5px;
-        margin-right: 18px;
-        margin-bottom: 5px;
-        transition: color .3s;
-        color: #505050;
-        font-size: 12px;
-        text-decoration: none;
-        vertical-align: middle;
-
-        &.shape-circle {
-            border-radius: 50%;
-        }
-
-        &.shape-circle, &.shape-rounded, &.shape-square {
-            width: 36px;
-            height: 36px;
-            margin-right: 8px;
-            border: 1px solid #e5e5e5;
-            line-height: 35px;
-            text-align: center;
-        }
-
-        &:hover {
-            background-color: rgba(255, 255, 255, 0.2) !important;
         }
     }
 
@@ -2198,6 +2187,79 @@ button {
 /*#endregion*/
 
 /*#region Carousel */
+.owl-carousel {
+    .owl-dots {
+        display: block;
+        width: 100%;
+        margin-top: 18px;
+        text-align: center;
+
+        .owl-dot {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            margin: 0 6px;
+            transition: opacity .25s;
+            border-radius: 50%;
+            background-color: #505050;
+            opacity: .33;
+            cursor: pointer;
+            cursor: hand;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+
+            &.active {
+                opacity: 1;
+            }
+
+            &.square-dot {
+                width: 5%;
+                height: 5px;
+                border-radius: 0px;
+            }
+        }
+    }
+
+    .owl-nav {
+        .owl-prev, .owl-next {
+            display: block;
+            position: absolute;
+            top: 50%;
+            width: 46px;
+            height: 46px;
+            margin-top: -43px;
+            transition: opacity .3s;
+            border: 1px solid #e5e5e5 !important;
+            border-radius: 5px;
+            background-color: #fff !important;
+            color: #232323 !important;
+            line-height: 55px !important;
+            text-align: center;
+            opacity: .75;
+            cursor: pointer;
+            cursor: hand;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+
+            &:hover{
+                opacity: 1;
+            }
+        }
+
+        .owl-prev {
+            left: 20px;
+        }
+
+        .owl-next {
+            right: 20px;
+        }
+    }
+}
+
 #carouselPopularBrands {
     .carousel-indicators {
         bottom: -30%;
@@ -2212,16 +2274,17 @@ button {
         }
     }
 
-    .carousel-inner {
-        .carousel-item {
-            .row {
-                div {
-                    text-align: center;
+    .owl-stage-outer {
+        .owl-stage {
+            .owl-item {
 
-                    img {
-                        max-width: 150px;
-                    }
+                text-align: center;
+
+                img {
+                    width: 110px;
+                    opacity: 0.75;
                 }
+
             }
         }
     }
@@ -2297,6 +2360,7 @@ button {
         bottom: 50px !important;
     }
 }
+
 @media(max-width: 768px) {
     .carousel-control-prev,
     .carousel-control-next {
@@ -4731,6 +4795,59 @@ a {
 
         &:hover {
             color: $orangeredHover !important;
+        }
+    }
+
+    &.social-button {
+        display: inline-block;
+        margin-top: 5px;
+        margin-right: 18px;
+        margin-bottom: 5px;
+        transition: color .3s;
+        color: #505050;
+        font-size: 12px;
+        text-decoration: none;
+        vertical-align: middle;
+
+        &.shape-circle {
+            border-radius: 50%;
+        }
+
+        &.shape-circle, &.shape-rounded, &.shape-square {
+            width: 36px;
+            height: 36px;
+            margin-right: 8px;
+            border: 1px solid #e5e5e5;
+            line-height: 35px;
+            text-align: center;
+        }
+
+        &:hover {
+            background-color: rgba(255, 255, 255, 0.2) !important;
+        }
+
+        &.sb-facebook {
+            &:hover, &:focus {
+                color: #3b5998 !important;
+            }
+        }
+
+        &.sb-twitter {
+            &:hover, &:focus {
+                color: #55acee !important;
+            }
+        }
+
+        &.sb-instagram {
+            &:hover, &:focus {
+                color: #3f729b !important;
+            }
+        }
+
+        &.sb-google-plus {
+            &:hover, &:focus {
+                color: #dd4b39 !important;
+            }
         }
     }
 }
