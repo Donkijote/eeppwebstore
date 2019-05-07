@@ -29,8 +29,14 @@ namespace WebStore.Controllers
 
             TimeSpan timeDiff = nextDate - currentDate;
 
-            ViewBag.Datetime = string.Format("{0:D2}:{1:D2}:{2:D2}:{3:D2}", timeDiff.Days, timeDiff.Hours, timeDiff.Minutes, timeDiff.Seconds); ;
-
+            if (timeDiff.Hours < 0 || timeDiff.Minutes < 0 || timeDiff.Seconds < 0)
+            {
+                ViewBag.Datime = "00:00:00:00";
+            }
+            else
+            {
+                ViewBag.Datetime = string.Format("{0:D2}:{1:D2}:{2:D2}:{3:D2}", timeDiff.Days, timeDiff.Hours, timeDiff.Minutes, timeDiff.Seconds);
+            }
             return View();
         }
 

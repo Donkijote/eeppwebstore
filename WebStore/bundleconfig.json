@@ -16,5 +16,11 @@
     "inputFiles": [
       "Scripts/Countdown/Countdown.js"
     ]
+  },
+  {
+    "outputFileName": "Scripts/OwlCarousel/Carousels.min.js",
+    "inputFiles": [
+      "Scripts/OwlCarousel/Carousels.js"
+    ]
   }
 ]
