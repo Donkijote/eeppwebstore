@@ -142,7 +142,7 @@
     <value>Comprar de nuevo</value>
   </data>
   <data name="BuyNow" xml:space="preserve">
-    <value>Comprar Ahora</value>
+    <value>Ver Detalles</value>
   </data>
   <data name="Checkout" xml:space="preserve">
     <value>Pagar</value>

@@ -18,10 +18,10 @@
                                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                                     <div class="rounded mg-bg-counter position-relative pt-5 pb-5">
                                         <div class="text-center">
-                                            <h3 class="h2 text-normal mb-1 text-danger animated fadeInDown">OFERTA LIMITADA</h3>
-                                            <h2 class="display-2 text-bold mb-2 animated fadeInDown">Ampolleta Led</h2>
-                                            <h4 class="text-normal mb-4 animated fadeInDown">Precios de Descuentos!</h4>
-                                            <div class="mg-countdown mb-3 animated fadeInLeft" data-date-time="07/30/2018 12:00:00">
+                                            <h3 class="h2 text-normal mb-1 text-danger wow fadeInDown">OFERTA LIMITADA</h3>
+                                            <h2 class="display-2 text-bold mb-2 wow fadeInDown">Ampolleta Led</h2>
+                                            <h4 class="text-normal mb-4 wow fadeInDown">Precios de Descuentos!</h4>
+                                            <div class="mg-countdown mb-3 wow fadeInLeft" data-date-time="07/30/2018 12:00:00">
                                                 <!--<div class="item">
                                                     <div class="days">00</div><span class="days_ref">Días</span>
                                                 </div>
@@ -35,7 +35,7 @@
                                                     <div class="seconds">00</div><span class="seconds_ref">Seg</span>
                                                 </div>-->
                                                 <div class="countdown" style="height:80px;" data-time="@ViewBag.Datetime"></div>
-                                            </div><br><a class="mg-buttons__btn btn btn-lg animated fadeInRight delay-3s btn-orangered" href="#">@WebStore.Resources.Buttons.ViewOffers</a>
+                                            </div><br><a class="mg-buttons__btn btn btn-lg animated fadeInRight delay-3s btn-outline-orangered" href="#">@WebStore.Resources.Buttons.ViewOffers</a>
                                         </div>
                                     </div>
                                 </div>
@@ -55,7 +55,7 @@
         </section>
         <div class="d-block position-relative text-right" style="z-index:3;">
             <div class="mg-index-rota-img" id="i3d">
-                <img class="img-fluid animated fadeInRight d-block w-100" src="~/Content/img/frame_1.png">
+                <img class="img-fluid wow fadeInRight d-block w-100" src="~/Content/img/frame_1.png">
             </div>
         </div>
 
@@ -195,57 +195,64 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
-                <div class="card border-0 mg-bg-secondary mb-5">
-                    <div class="card-body d-table w-100 mg-card-body">
-                        <div class="d-table-cell align-middle">
-                            <img class="img-fluid d-block w-100" src="https://eepp.cl/images/productos/brownbear-Series-1.jpg"
-                                 alt="Image">
-                        </div>
-                        <div class="d-table-cell align-middle pl-2">
-                            <h3 class="h6 text-thin">Tablets, Smartphones <br><strong>And more...</strong></h3>
-                            <h4 class="h6 d-table w-100 text-thin">
-                                <span class="d-table-cell align-bottom" style="line-height: 1.2;">UP<br>TO&nbsp;</span><span class="d-table-cell align-bottom h1 text-medium">50%</span><span class="d-table-cell align-bottom">&nbsp;off</span>
-                            </h4>
-                            <a class="text-decoration-none text-orangered" href="shop-grid-ls.html">@WebStore.Resources.Buttons.BuyNow&nbsp;<i class="fas fa-angle-right d-inline-block align-middle text-lg"></i></a>
+                <a class="text-decoration-none text-dark" href="shop-grid-ls.html">
+                    <div class="card border-0 mg-bg-secondary mb-5 card-offers wow fadeInLeft" data-wow-duration="2s">
+                        <div class="card-body d-table w-100 mg-card-body">
+                            <div class="d-table-cell align-middle">
+                                <img class="img-fluid d-block w-100" src="~/Content/img/products/img_one.png" alt="Image">
+                            </div>
+                            <div class="d-table-cell align-middle pl-2">
+                                <h3 class="h6 text-thin">Mickey Mouse <br><strong>KHJ...</strong></h3>
+                                <h4 class="h6 d-table w-100 text-thin">
+                                    <span class="d-table-cell align-top text-right" style="line-height: 1.2;">&nbsp;<br></span><span class="d-table-cell align-bottom h1 text-medium text-success">50%</span><span class="d-table-cell align-bottom text-success">&nbsp;off</span>
+                                </h4>
+                                <label class="text-orangered">@WebStore.Resources.Buttons.BuyNow&nbsp;<i class="fas fa-angle-right d-inline-block align-middle text-lg"></i></label>
+                            </div>
                         </div>
                     </div>
-                </div>
+                </a>
             </div>
+
             <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
-                <div class="card border-0 mg-bg-secondary mb-5">
-                    <div class="card-body d-table w-100 mg-card-body">
-                        <div class="d-table-cell align-middle">
-                            <img class="img-fluid d-block w-100" src="https://eepp.cl/images/productos/tree-1.jpg"
-                                 alt="Image">
-                        </div>
-                        <div class="d-table-cell align-middle pl-2">
-                            <h3 class="h6 text-thin">DJ Phantom <span style="white-space: nowrap;">HD Video Drone</span> <br><strong>Arrives</strong></h3>
-                            <h4 class="h6 d-table w-100 text-thin">
-                                <span class="d-table-cell align-top text-right" style="line-height: 1.2;">From&nbsp;<br><strong>$&nbsp;</strong></span><span class="d-table-cell align-top h1 text-medium">990</span>
-                            </h4>
-                            <a class="text-decoration-none text-orangered" href="shop-grid-ls.html">
-                                @WebStore.Resources.Buttons.BuyNow&nbsp;<i class="fas fa-angle-right d-inline-block align-middle text-lg"></i>
-                            </a>
+                <a class="text-decoration-none text-dark" href="shop-grid-ls.html">
+                    <div class="card border-0 mg-bg-secondary mb-5 card-offers wow fadeInUp" data-wow-duration="2s">
+                        <div class="card-body d-table w-100 mg-card-body">
+                            <div class="d-table-cell align-middle">
+                                <img class="img-fluid d-block w-100" src="~/Content/img/products/img_one.png" alt="Image">
+                            </div>
+                            <div class="d-table-cell align-middle pl-2">
+                                <h3 class="h6 text-thin">DJ Phantom HD Video Drone <br><strong>Arrives</strong></h3>
+                                <h4 class="h6 d-table w-100 text-thin">
+                                    <span class="d-table-cell align-top text-right" style="line-height: 1.2;">&nbsp;<br></span><span class="d-table-cell align-bottom h1 text-medium text-success">40%</span><span class="d-table-cell align-bottom text-success">&nbsp;off</span>
+                                </h4>
+                                <label class="text-orangered">
+                                    @WebStore.Resources.Buttons.BuyNow&nbsp;<i class="fas fa-angle-right d-inline-block align-middle text-lg"></i>
+                                </label>
+                            </div>
                         </div>
                     </div>
-                </div>
+                </a>
             </div>
+
             <div class="col-lg-4 col-md-8 col-sm-6 col-xs-12 mx-auto">
-                <div class="card border-0 mg-bg-secondary mb-5">
-                    <div class="card-body d-table w-100 mg-card-body">
-                        <div class="d-table-cell align-middle">
-                            <img class="img-fluid d-block w-100" src="https://eepp.cl/images/productos/polarbear-1.jpg"
-                                 alt="Image">
-                        </div>
-                        <div class="d-table-cell align-middle pl-2">
-                            <h3 class="h6 text-thin">Watches, Fitness Bands <br><strong>And more...</strong></h3>
-                            <h4 class="h6 d-table w-100 text-thin">
-                                <span class="d-table-cell align-bottom" style="line-height: 1.2;">UP<br>TO&nbsp;</span><span class="d-table-cell align-bottom h1 text-medium">39%</span><span class="d-table-cell align-bottom">&nbsp;off</span>
-                            </h4>
-                            <a class="text-decoration-none text-orangered" href="shop-grid-ls.html">@WebStore.Resources.Buttons.BuyNow&nbsp;<i class="fas fa-angle-right d-inline-block align-middle text-lg"></i></a>
+                <a class="text-decoration-none text-dark" href="shop-grid-ls.html">
+                    <div class="card border-0 mg-bg-secondary mb-5 card-offers wow fadeInRight" data-wow-duration="2s">
+                        <div class="card-body d-table w-100 mg-card-body">
+                            <div class="d-table-cell align-middle">
+                                <img class="img-fluid d-block w-100" src="~/Content/img/products/img_one.png" alt="Image">
+                            </div>
+                            <div class="d-table-cell align-middle pl-2">
+                                <h3 class="h6 text-thin">Watches, Fitness Bands <br><strong>And more...</strong></h3>
+                                <h4 class="h6 d-table w-100 text-thin">
+                                    <span class="d-table-cell align-bottom" style="line-height: 1.2;"><br>&nbsp;</span><span class="d-table-cell align-bottom h1 text-medium text-success">30%</span><span class="d-table-cell align-bottom text-success">&nbsp;off</span>
+                                </h4>
+                                <label class="text-orangered">
+                                    @WebStore.Resources.Buttons.BuyNow&nbsp;<i class="fas fa-angle-right d-inline-block align-middle text-lg"></i>
+                                </label>
+                            </div>
                         </div>
                     </div>
-                </div>
+                </a>
             </div>
             <div id="resp"></div>
         </div>
@@ -268,7 +275,11 @@
                         </a>
                     </div>
                     <div class="entry-content">
-                        <h4 class="entry-title"><a href="shop-single.html">GoPro Hero4 Silver</a></h4><span class="entry-meta">$287.99</span>
+                        <h4 class="entry-title">
+                            <a href="shop-single.html">GoPro Hero4 Silver</a>
+                        </h4>
+                        <span class="entry-meta d-inline-block text-dark" style="font-size:18px;">$287.99</span>
+                        <label class="text-success">50% off</label>
                     </div>
                 </div>
                 <!-- Entry-->

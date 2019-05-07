@@ -2,6 +2,7 @@ if (typeof jQuery === "undefined") {
 	throw new Error("jQuery plugins need to be before this file");
 }
 $.AdminJs = {};
+
 $.AdminJs.Test = {
 	activate: function () {
 		$('#Test').on('submit', function (e) {
@@ -22,6 +23,7 @@ $.AdminJs.Test = {
 		});
 	}
 }
+
 $.AdminJs.LogUp = {
 	activate: function () {
 		$('#LogUp').on('submit', function (e) {
@@ -174,6 +176,8 @@ $(function () {
     
     $('[data-toggle="tooltip"]').tooltip();
     $('[data-toggle="popover"]').popover();
+
+    new WOW().init();
 });
 
 $.AdminJs.navBar = {

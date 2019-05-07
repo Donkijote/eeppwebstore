@@ -142,7 +142,7 @@
     <value>Buy Again</value>
   </data>
   <data name="BuyNow" xml:space="preserve">
-    <value>Buy Now</value>
+    <value>See Details</value>
   </data>
   <data name="Checkout" xml:space="preserve">
     <value>Check out</value>

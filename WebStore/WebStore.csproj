@@ -396,6 +396,7 @@
     <Content Include="Content\Countdown\Countdown.min.css">
       <DependentUpon>Countdown.css</DependentUpon>
     </Content>
+    <Content Include="Content\img\products\img_one.png" />
     <Content Include="Content\jquery.steps.min.css">
       <DependentUpon>jquery.steps.css</DependentUpon>
     </Content>
@@ -451,6 +452,7 @@
     <Content Include="Scripts\Admin.min.js">
       <DependentUpon>Admin.js</DependentUpon>
     </Content>
+    <Content Include="Scripts\Animation\wow.min.js" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.js" />
