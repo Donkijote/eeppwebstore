@@ -1557,10 +1557,10 @@ html * {
           color: #fff; }
 
 .mg-index-rota-img {
-  right: 250px;
-  top: -500px;
+  right: 0;
+  top: -700px;
   position: absolute;
-  max-width: 215px; }
+  max-width: 800px; }
 
 /*#endregion */
 /*#region Buttons */
