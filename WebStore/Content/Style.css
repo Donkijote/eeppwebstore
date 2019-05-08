@@ -1561,6 +1561,10 @@ html * {
   top: -700px;
   position: absolute;
   max-width: 800px; }
+  .mg-index-rota-img.draggable {
+    cursor: grabbing !important;
+    cursor: -moz-grabbing !important;
+    cursor: -webkit-grabbing !important; }
 
 /*#endregion */
 /*#region Buttons */
@@ -3374,13 +3378,13 @@ button {
         right: -1px;
         width: 2px;
         height: 100%;
-        background-color: #007bff;
+        background-color: orangered;
         content: '';
         opacity: 0; }
       .mg-profile .mg-profile-body .list-group .list-group-item.active {
         border-color: #e5e5e5;
         background-color: #fff;
-        color: #007bff;
+        color: orangered;
         cursor: default;
         pointer-events: none; }
         .mg-profile .mg-profile-body .list-group .list-group-item.active::before {
@@ -3398,7 +3402,7 @@ button {
       .mg-profile .mg-profile-body .list-group .list-group-item span {
         font-weight: normal !important; }
       .mg-profile .mg-profile-body .list-group .list-group-item:hover {
-        color: #007bff; }
+        color: orangered; }
 
 .user-info-wrapper {
   position: relative;
@@ -4071,6 +4075,9 @@ label.text-orangered {
 
 .w-90 {
   width: 90px !important; }
+
+.h-90 {
+  height: 90px !important; }
 
 .open {
   display: block !important; }

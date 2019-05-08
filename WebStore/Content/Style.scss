@@ -1238,6 +1238,12 @@ html * {
     top: -700px;
     position: absolute;
     max-width: 800px;
+
+    &.draggable {
+        cursor: grabbing !important;
+        cursor: -moz-grabbing !important;
+        cursor: -webkit-grabbing !important;
+    }
 }
 /*#endregion */
 
@@ -3926,7 +3932,7 @@ button {
                     right: -1px;
                     width: 2px;
                     height: 100%;
-                    background-color: #007bff;
+                    background-color: orangered;
                     content: '';
                     opacity: 0;
                 }
@@ -3934,7 +3940,7 @@ button {
                 &.active {
                     border-color: #e5e5e5;
                     background-color: #fff;
-                    color: #007bff;
+                    color: orangered;
                     cursor: default;
                     pointer-events: none;
 
@@ -3962,7 +3968,7 @@ button {
                 }
 
                 &:hover {
-                    color: #007bff;
+                    color: orangered;
                 }
             }
         }
@@ -4928,6 +4934,10 @@ label {
 
 .w-90 {
     width: 90px !important;
+}
+
+.h-90{
+    height: 90px !important;
 }
 
 .open {
