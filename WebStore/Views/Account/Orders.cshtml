@@ -42,17 +42,17 @@
             </li>
             <li class="@(ViewBag.orderType == "Order" ? "selected":"")" role="tab">
                 <span class="list-item">
-                    <a class="mg-item" href="@Url.Action("Orders","Account", new { language = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName}, null)">Ordenes</a>
+                    <a class="mg-item text-orangered" href="@Url.Action("Orders","Account", new { language = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName}, null)">Ordenes</a>
                 </span>
             </li>
             <li class="@(ViewBag.orderType == "OpenOrders" ? "selected":"")" role="tab">
                 <span class="list-item">
-                    <a class="mg-item" href="@Url.Action("Orders","Account", new { id="op", language = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName}, null)">Ordenes Abiertas</a>
+                    <a class="mg-item text-orangered" href="@Url.Action("Orders","Account", new { id="op", language = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName}, null)">Ordenes Abiertas</a>
                 </span>
             </li>
             <li class="@(ViewBag.orderType == "NullOrders" ? "selected":"")" role="tab">
                 <span class="list-item">
-                    <a class="mg-item" href="@Url.Action("Address","Account", new { id="nu", language = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName}, null)">Ordenes Anuladas</a>
+                    <a class="mg-item text-orangered" href="@Url.Action("Orders","Account", new { id="nu", language = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName}, null)">Ordenes Anuladas</a>
                 </span>
             </li>
         </ul>
@@ -120,7 +120,7 @@
                 <div class="col-md-4 text-center">
                     <span class="text-muted text-xsm text-uppercase">ENVIADO A</span><br>
                     <div class="shipped">
-                        <a href="javascript:void(0);">Nombre de Usuario <i class="fas fa-angle-down"></i></a>
+                        <a href="javascript:void(0);" class="text-orangered">Nombre de Usuario <i class="fas fa-angle-down"></i></a>
                         <div class="card mg-shipping">
                             <ul class="card-body">
                                 <li class="text-left font-weight-bold">Nombre del Usuario</li>
@@ -135,12 +135,13 @@
                 <div class="col-md-3 text-right">
                     <span class="text-muted text-sm text-uppercase">ORDEN # 00X-xxxxxxx-xxxxxxx</span><br>
                     <span>
-                        <a href="@Url.Action("Details","Account", new { id="00X-XXX-XXX", language = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName}, null)">@WebStore.Resources.Buttons.OrderDetails</a>
+                        <a href="@Url.Action("Details","Account", new { id="00X-XXX-XXX", language = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName}, null)" class="text-orangered">@WebStore.Resources.Buttons.OrderDetails</a>
                         <span class="text-muted"> | </span>
-                        <a href="">@WebStore.Resources.Buttons.Bill</a>
+                        <a href="" class="text-orangered">@WebStore.Resources.Buttons.Bill</a>
                     </span>
                 </div>
             </div>
+
             <div class="row on-mobile">
                 <div class="col-md-3 text-left mb-2">
                     <span class="text-muted text-xsm text-uppercase">FECHA DE ORDEN</span><br>
@@ -170,16 +171,16 @@
                         </div>
                         <div class="col-md-9">
                             <div class="row pb-2">
-                                <a href="javascript:void(0);">Nombre del Producto</a>
+                                <a href="javascript:void(0);" class="text-orangered">Nombre del Producto</a>
                             </div>
                             <div class="row pb-2">
-                                <span class="text-muted">Vendido por: <a href="javascript:void(0);"> Alguien</a></span>
+                                <span class="text-muted">Vendido por: <a href="javascript:void(0);" class="text-orangered"> Alguien</a></span>
                             </div>
                             <div class="row pb-2">
                                 <span class="font-weight-bold">$83.75</span>
                             </div>
                             <div class="row pb-2">
-                                <button class="btn btn-outline-primary btn-sm">@WebStore.Resources.Buttons.BuyAgain</button>
+                                <button class="btn btn-outline-orangered btn-sm">@WebStore.Resources.Buttons.BuyAgain</button>
                             </div>
                         </div>
                     </div>
@@ -192,28 +193,29 @@
                         </div>
                         <div class="col-md-9">
                             <div class="row pb-2">
-                                <a href="javascript:void(0);">Nombre del Producto</a>
+                                <a href="javascript:void(0);" class="text-orangered">Nombre del Producto</a>
                             </div>
                             <div class="row pb-2">
-                                <span class="text-muted">Vendido por: <a href="javascript:void(0);"> Alguien</a></span>
+                                <span class="text-muted">Vendido por: <a href="javascript:void(0);" class="text-orangered"> Alguien</a></span>
                             </div>
                             <div class="row pb-2">
                                 <span class="font-weight-bold">$83.75</span>
                             </div>
                             <div class="row pb-2">
-                                <button class="btn btn-outline-primary btn-sm">@WebStore.Resources.Buttons.BuyAgain</button>
+                                <button class="btn btn-outline-orangered btn-sm">@WebStore.Resources.Buttons.BuyAgain</button>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <a class="btn btn-primary btn-block" href="@Url.Action("Traking","Account", new { language = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName}, null)">@WebStore.Resources.Buttons.TrackShipping</a>
+                    <a class="btn btn-orangered btn-block" href="@Url.Action("Traking","Account", new { language = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName}, null)">@WebStore.Resources.Buttons.TrackShipping</a>
                     <a class="btn btn-secondary btn-block">@WebStore.Resources.Buttons.Refounds</a>
                     <a class="btn btn-secondary btn-block">@WebStore.Resources.Buttons.Review</a>
                     <a class="btn btn-secondary btn-block">@WebStore.Resources.Buttons.ArchiveOrder</a>
                     <a class="btn btn-warning btn-block">@WebStore.Resources.Buttons.Support</a>
                 </div>
             </div>
+
             <div class="row on-mobile">
                 <div class="col-md-8">
                     <div class="row mb-4">
@@ -225,16 +227,16 @@
                         </div>
                         <div class="col-md-9">
                             <div class="row pb-2">
-                                <a href="javascript:void(0);">Nombre del Producto</a>
+                                <a href="javascript:void(0);" class="text-orangered">Nombre del Producto</a>
                             </div>
                             <div class="row pb-2">
-                                <span class="text-muted">Vendido por: <a href="javascript:void(0);"> Alguien</a></span>
+                                <span class="text-muted">Vendido por: <a href="javascript:void(0);" class="text-orangered"> Alguien</a></span>
                             </div>
                             <div class="row pb-2">
                                 <span class="font-weight-bold">$83.75</span>
                             </div>
                             <div class="row pb-2">
-                                <button class="btn btn-outline-primary btn-sm">@WebStore.Resources.Buttons.BuyAgain</button>
+                                <button class="btn btn-outline-orangered btn-sm">@WebStore.Resources.Buttons.BuyAgain</button>
                             </div>
                         </div>
                     </div>
@@ -247,16 +249,16 @@
                         </div>
                         <div class="col-md-9">
                             <div class="row pb-2">
-                                <a href="javascript:void(0);">Nombre del Producto</a>
+                                <a href="javascript:void(0);" class="text-orangered">Nombre del Producto</a>
                             </div>
                             <div class="row pb-2">
-                                <span class="text-muted">Vendido por: <a href="javascript:void(0);"> Alguien</a></span>
+                                <span class="text-muted">Vendido por: <a href="javascript:void(0);" class="text-orangered"> Alguien</a></span>
                             </div>
                             <div class="row pb-2">
                                 <span class="font-weight-bold">$83.75</span>
                             </div>
                             <div class="row pb-2">
-                                <button class="btn btn-outline-primary btn-sm">@WebStore.Resources.Buttons.BuyAgain</button>
+                                <button class="btn btn-outline-orangered btn-sm">@WebStore.Resources.Buttons.BuyAgain</button>
                             </div>
                         </div>
                     </div>

@@ -3560,14 +3560,14 @@ button {
                     .list-item {
                         a {
                             &:hover {
-                                color: #0066d3 !important;
+                                color: $orangeredHover !important;
                             }
                         }
                     }
                 }
 
                 &.selected {
-                    border-bottom-color: #05f;
+                    border-bottom-color: orangered;
                     font-weight: 700;
                 }
             }
@@ -4814,6 +4814,7 @@ a {
 
     &.text-orangered {
         color: orangered !important;
+        text-decoration: none;
 
         &:hover {
             color: $orangeredHover !important;
