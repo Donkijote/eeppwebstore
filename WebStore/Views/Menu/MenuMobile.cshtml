@@ -1,0 +1,247 @@
+﻿@model WebStore.Models.BindingCateogyFamilyChild
+<nav class="navbar navbar-expand-lg mg-mobile-menu" data-nav-status="toggle" id="navbar">
+    <div class="container align-middle mg-header-mobile-menu">
+        <div class="mg-mobile-menu-wrapper mx-auto">
+            <div class="mg-mobile-menu-wrapper-item">
+                <a class="navbar-item navbar-toggler" href="/">
+                    <i class="fas fa-home"></i>
+                </a>
+            </div>
+            <div class="mg-mobile-menu-wrapper-item">
+                <a class="navbar-item navbar-toggler mobile-menu-toggle">
+                    <i class="fas fa-bars"></i>
+                </a>
+            </div>
+            <div class="mg-mobile-menu-wrapper-item">
+                <a class="navbar-item navbar-toggler" href="@Url.Action("All","Categories", new { language = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName})">
+                    <i class="fas fa-th-large"></i>
+                </a>
+            </div>
+            <div class="mg-mobile-menu-wrapper-item">
+                <a class="navbar-item navbar-toggler" href="@Url.Action("Cart","User", new { language = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName})">
+                    <span class="mg-navbar-cart">
+                        <i class="fas fa-shopping-cart"></i>
+                    </span>
+                </a>
+            </div>
+            <div class="mg-mobile-menu-wrapper-item">
+                @{
+                    bool userLog = true;
+
+                    if (userLog)
+                    {
+                        <a class="navbar-item navbar-toggler" id="mg-profile-toggle">
+                            <i class="fas fa-user"></i>
+                        </a>
+                    }
+                    else
+                    {
+                        <a class="navbar-item navbar-toggler" href="@Url.Action("LogIn","User", new { language = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName})">
+                            <i class="fas fa-user"></i>
+                        </a>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+    <div class="menu" id="navbarResponsiveMobile">
+        <div class="mg-logo-img">
+            <img class="img-fluid" src="https://eepp.cl/images/home/logoeepp.png" />
+        </div>
+        <div class="mg-mobile-search">
+            <form method="get">
+                <div class=" form-group input-group">
+                    <input type="text" class="form-control" placeholder="Buscar..." aria-label="Username" aria-describedby="basic-addon1"
+                           autocomplete="off" name="search" id="search">
+                    <span class="input-group-addon">
+                        <i class="fas fa-search"></i>
+                    </span>
+                </div>
+            </form>
+        </div>
+        <div class="toolbar">
+            <div class="toolbar-item">
+                <a href="#" id="on-mobile-language-dropdown">
+                    <div>
+                        <i class="fas">
+                            @{
+                                string currentLang = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName;
+
+                                if (currentLang == "es")
+                                {
+                                    <img class="img-fluid" src="https://www.worldatlas.com/r/w728-h425-c728x425/upload/23/08/01/shutterstock-104644850.jpg" alt="Español">
+                                }
+                                else if (currentLang == "en")
+                                {
+                                    <img class="img-fluid" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSFAf8vH6x8unZQXqmX0lhPtXhFnu9Q6KBqN3im8qutd26Ea7TLQg" alt="English">
+                                }
+                                else
+                                {
+                                    <img class="img-fluid" src="https://www.worldatlas.com/r/w728-h425-c728x425/upload/2d/d4/a7/untitled-design-153.jpg" alt="日本語">
+                                }
+                            }
+                        </i>
+                        @{
+                            if (currentLang == "es")
+                            {
+                                <span class="text-label">
+                                    Español
+                                </span>
+                            }
+                            else if (currentLang == "en")
+                            {
+                                <span class="text-label">
+                                    English
+                                </span>
+                            }
+                            else
+                            {
+                                <span class="text-label">
+                                    日本語
+                                </span>
+                            }
+                        }
+
+                    </div>
+                </a>
+                <ul class="mg-toolbar-dropdown lang-dropdown w-100" id="on-mobile-language">
+                    <li class="px-3 pt-1 pb-2">
+                        <select class="form-control form-control-sm">
+                            <option value="usd">$ USD</option>
+                            <option value="usd">€ EUR</option>
+                            <option value="usd">£ UKP</option>
+                            <option value="usd">¥ JPY</option>
+                        </select>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("ChangeCulture","Language", new { language = "en"}, null)">
+                            <i class="flag-icon">
+                                <img class="img-fluid" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSFAf8vH6x8unZQXqmX0lhPtXhFnu9Q6KBqN3im8qutd26Ea7TLQg" alt="English">
+                            </i>&nbsp;English
+                        </a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("ChangeCulture","Language", new { language = "es"}, null)">
+                            <i class="flag-icon">
+                                <img class="img-fluid" src="https://www.worldatlas.com/r/w728-h425-c728x425/upload/23/08/01/shutterstock-104644850.jpg" alt="Español">
+                            </i>&nbsp;Español
+                        </a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("ChangeCulture","Language", new { language = "ja"}, null)">
+                            <i class="flag-icon">
+                                <img class="img-fluid" src="https://www.worldatlas.com/r/w728-h425-c728x425/upload/2d/d4/a7/untitled-design-153.jpg" alt="日本語">
+                            </i>&nbsp;日本語
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="toolbar-item">
+                <a href="product-comparison.html">
+                    <div>
+                        <span class="mg-navbar-compare">
+                            <i class="fos fas fo-compare"></i>
+                            <span class="mg-count-label">3</span>
+                        </span>
+                        <span class="text-label">@WebStore.Resources.Buttons.Compare</span>
+                    </div>
+                </a>
+            </div>
+            <div class="toolbar-item">
+                <a href="@Url.Action("LogIn","User", new { language = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName})">
+                    <div>
+                        <i class="fas fa-user"></i>
+                        <span class="text-label">@WebStore.Resources.Titles.LogIn</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <nav class="mg-slide-menu">
+            <ul class="mg-slide-menu-wrapper" data-initial-height="414" style="height:414px;">
+                <li class="has-children">
+                    <span>
+                        <a href="index.html">@WebStore.Resources.Menu.left</a>
+                        <span class="sub-menu-toggle"></span>
+                    </span>
+                    <ul class="slideable-submenu">
+                        <li class="back-btn">
+                            <a href="#">@WebStore.Resources.Buttons.Back</a>
+                        </li>
+                        <li>
+                            <a href="index.html">Hero Slider</a>
+                        </li>
+                        <li>
+                            <a href="home-featured-categories.html">Categories Grid</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="has-children">
+                    <span>
+                        <a href="index.html">@WebStore.Resources.Menu.middle</a>
+                        <span class="sub-menu-toggle"></span>
+                    </span>
+                    <ul class="slideable-submenu">
+                        <li class="back-btn">
+                            <a href="#">@WebStore.Resources.Buttons.Back</a>
+                        </li>
+                        @foreach (var i in Model.family)
+                        {
+                            <li>
+                                <a href="javascript:void(0);">@WebStore.Resources.Categories.ResourceManager.GetString(i.strName)</a>
+                            </li>
+                        }
+                    </ul>
+                </li>
+                <li class="has-children">
+                    <span>
+                        <a href="#">@WebStore.Resources.Menu.right</a>
+                        <span class="sub-menu-toggle"></span>
+                    </span>
+                    <ul class="slideable-submenu">
+                        <li class="back-btn">
+                            <a href="#">@WebStore.Resources.Buttons.Back</a>
+                        </li>
+                        <li>
+                            <a href="index.html">Hero Slider</a>
+                        </li>
+                        <li>
+                            <a href="home-featured-categories.html">Categories Grid</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <span>
+                        <a href="#">@WebStore.Resources.Footer.Returns</a>
+                    </span>
+                </li>
+                <li>
+                    <span>
+                        <a href="#">@WebStore.Resources.Footer.Conditions</a>
+                    </span>
+                </li>
+                <li>
+                    <span>
+                        <a href="#">@WebStore.Resources.Footer.ShippingTerms</a>
+                    </span>
+                </li>
+                <li>
+                    <span>
+                        <a href="#">@WebStore.Resources.Footer.Help</a>
+                    </span>
+                </li>
+                <li>
+                    <span>
+                        <a href="#">@WebStore.Resources.Footer.Security</a>
+                    </span>
+                </li>
+                <li>
+                    <span>
+                        <a href="#">@WebStore.Resources.Footer.FAQ</a>
+                    </span>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+    @Html.Partial("~/Views/Shared/profileMenuMobile.cshtml")
+</nav>

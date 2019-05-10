@@ -11,4 +11,10 @@ namespace WebStore.Models
 
         public bool intActivo { get; set; }
     }
+
+    public class BindingCateogyFamilyChild
+    {
+        public IEnumerable<tblFamily> family { get; set; }
+        public IEnumerable<tblCategories> category { get; set; }
+    }
 }

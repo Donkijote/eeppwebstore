@@ -197,8 +197,10 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CategoriesController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
+    <Compile Include="Controllers\FooterController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LanguageController.cs" />
+    <Compile Include="Controllers\MenuController.cs" />
     <Compile Include="Controllers\PromotionsController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
@@ -582,6 +584,9 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\profileMenuMobile.cshtml" />
     <Content Include="Views\Shared\verticalNavBar.cshtml" />
+    <Content Include="Views\Menu\MenuBig.cshtml" />
+    <Content Include="Views\Menu\MenuMobile.cshtml" />
+    <Content Include="Views\Footer\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

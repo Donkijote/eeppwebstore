@@ -71,6 +71,11 @@ namespace System.Web.Routing
             foreach (KeyValuePair<string, object> pair in this.RouteValueTranslationProviders)
             {
                 IRouteValueTranslationProvider translationProvider = pair.Value as IRouteValueTranslationProvider;
+                if (values.ContainsKey("childAction") &&
+                    (bool)values["childAction"] == true)
+                {
+                    return base.GetVirtualPath(requestContext, values);
+                }
                 if (translationProvider != null
                     && translatedValues.ContainsKey(pair.Key))
                 {

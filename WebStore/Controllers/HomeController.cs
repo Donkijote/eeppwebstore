@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Threading;
 using System.Globalization;
+using WebStore.Models;
 
 namespace WebStore.Controllers
 {
@@ -22,6 +23,7 @@ namespace WebStore.Controllers
                 return RedirectToAction("Index", "Home", new { language = lang });
             }
         }
+
         public ActionResult Index()
         {
             DateTime currentDate = DateTime.Now;

@@ -117,133 +117,142 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Accessories" xml:space="preserve">
-    <value>Accesorios</value>
-  </data>
-  <data name="Adapters" xml:space="preserve">
-    <value>Adaptadores</value>
-  </data>
   <data name="Atex" xml:space="preserve">
-    <value>Atex</value>
+    <value>Atmóferas explosivas</value>
   </data>
-  <data name="BoxBoards" xml:space="preserve">
-    <value>Cajas y Tableros</value>
+  <data name="Boards" xml:space="preserve">
+    <value>Tableros</value>
   </data>
-  <data name="Breaker" xml:space="preserve">
+  <data name="Bottons" xml:space="preserve">
+    <value>Botoneras</value>
+  </data>
+  <data name="BPD" xml:space="preserve">
+    <value>Interruptores, tomas y dimmers</value>
+  </data>
+  <data name="Breakers" xml:space="preserve">
     <value>Interruptores</value>
   </data>
-  <data name="CableGland" xml:space="preserve">
-    <value>Prensas</value>
+  <data name="CablePress" xml:space="preserve">
+    <value>Prensa cables</value>
   </data>
   <data name="Cables" xml:space="preserve">
-    <value>Conductores Eléctricos</value>
+    <value>Cables</value>
   </data>
-  <data name="CableTie" xml:space="preserve">
-    <value>Amarras</value>
+  <data name="ContactorRele" xml:space="preserve">
+    <value>Contactor y relé térmico</value>
   </data>
-  <data name="Control" xml:space="preserve">
-    <value>Control y Comando</value>
+  <data name="ControlCommand" xml:space="preserve">
+    <value>CONTROL Y COMANDO</value>
+  </data>
+  <data name="Cordons" xml:space="preserve">
+    <value>Cordones</value>
   </data>
   <data name="Differentials" xml:space="preserve">
     <value>Diferenciales</value>
   </data>
-  <data name="Dimers" xml:space="preserve">
-    <value>Dimers</value>
+  <data name="DistributionBoxes" xml:space="preserve">
+    <value>Cajas de distribución</value>
   </data>
   <data name="Distributors" xml:space="preserve">
     <value>Repartidores</value>
   </data>
-  <data name="ElectricMaterials" xml:space="preserve">
-    <value>Materiales Eléctricos</value>
+  <data name="ElectricCanalization" xml:space="preserve">
+    <value>CANALIZACIÓN ELÉCTRICA</value>
   </data>
-  <data name="ElectricTubes" xml:space="preserve">
-    <value>Canalización Eléctrica</value>
+  <data name="ElectricConductor" xml:space="preserve">
+    <value>CONDUCTORES ELÉCTRICOS</value>
+  </data>
+  <data name="ElectricHardware" xml:space="preserve">
+    <value>FERRETERÍA ELÉCTRICA</value>
   </data>
   <data name="Emergency" xml:space="preserve">
     <value>Emergencia</value>
   </data>
-  <data name="Extensions" xml:space="preserve">
-    <value>Alargadores</value>
-  </data>
   <data name="Faena" xml:space="preserve">
-    <value>Tableros Faena</value>
+    <value>Tableros de Faena</value>
   </data>
-  <data name="FemalePlugs" xml:space="preserve">
-    <value>Enchufes Hembras</value>
+  <data name="Females" xml:space="preserve">
+    <value>Hembras</value>
   </data>
-  <data name="FiberTray" xml:space="preserve">
-    <value>Bandeja de Fibra</value>
-  </data>
-  <data name="Fuses" xml:space="preserve">
-    <value>Fusibles</value>
-  </data>
-  <data name="GalvaTray" xml:space="preserve">
-    <value>Bandeja Galvanizada</value>
+  <data name="Frequency" xml:space="preserve">
+    <value>Variador de frecuencia</value>
   </data>
   <data name="Garden" xml:space="preserve">
     <value>Jardín</value>
   </data>
+  <data name="Hermetics" xml:space="preserve">
+    <value>Heméticas</value>
+  </data>
   <data name="Home" xml:space="preserve">
     <value>Hogar</value>
   </data>
-  <data name="Hose" xml:space="preserve">
-    <value>Manguitos</value>
+  <data name="HomeLights" xml:space="preserve">
+    <value>ILUMINACIÓN HOGAR</value>
   </data>
-  <data name="IndustrialFemale" xml:space="preserve">
-    <value>Industrial Hembra</value>
+  <data name="Industral" xml:space="preserve">
+    <value>Industrial</value>
   </data>
-  <data name="IndustrialMale" xml:space="preserve">
-    <value>Industrial Macho</value>
+  <data name="IndustryLights" xml:space="preserve">
+    <value>ILUMINACIÓN INDUSTRIAL</value>
+  </data>
+  <data name="IndustryPlugs" xml:space="preserve">
+    <value>ENCHUFES INDUSTRIALES</value>
   </data>
   <data name="Ladders" xml:space="preserve">
     <value>Escalerillas</value>
   </data>
-  <data name="Lights" xml:space="preserve">
-    <value>Iluminación</value>
+  <data name="LightbulbsTubes" xml:space="preserve">
+    <value>Ampolletas y tubos</value>
   </data>
-  <data name="MalePlugs" xml:space="preserve">
-    <value>Enchufes Machos</value>
+  <data name="Males" xml:space="preserve">
+    <value>Machos</value>
+  </data>
+  <data name="Motor" xml:space="preserve">
+    <value>Guarda motor</value>
   </data>
   <data name="Others" xml:space="preserve">
     <value>Otros</value>
   </data>
-  <data name="Parallel" xml:space="preserve">
-    <value>Paralelos</value>
-  </data>
   <data name="Plates" xml:space="preserve">
     <value>Placas</value>
-  </data>
-  <data name="Plugs" xml:space="preserve">
-    <value>Enchufes y Adaptadores</value>
   </data>
   <data name="Posts" xml:space="preserve">
     <value>Postes</value>
   </data>
-  <data name="Power" xml:space="preserve">
-    <value>Tomas</value>
-  </data>
   <data name="Public" xml:space="preserve">
-    <value>Ornamental</value>
+    <value>Pública</value>
   </data>
-  <data name="Push" xml:space="preserve">
+  <data name="Pushes" xml:space="preserve">
     <value>Pulsadores</value>
   </data>
   <data name="PVC" xml:space="preserve">
     <value>PVC</value>
   </data>
-  <data name="QDIN" xml:space="preserve">
-    <value>Tableros Q-DIN</value>
+  <data name="Qdin" xml:space="preserve">
+    <value>Tableros Q-din</value>
   </data>
   <data name="Residential" xml:space="preserve">
-    <value>Residencial</value>
+    <value>RESIDENCIAL</value>
   </data>
-  <data name="Street" xml:space="preserve">
-    <value>Vial</value>
+  <data name="SoftBreaker" xml:space="preserve">
+    <value>Partidores suaves</value>
   </data>
-  <data name="Tubes" xml:space="preserve">
-    <value>Tuberías</value>
+  <data name="Stadium" xml:space="preserve">
+    <value>Stadium</value>
+  </data>
+  <data name="StomaPress" xml:space="preserve">
+    <value>Prensa estopa</value>
   </data>
   <data name="Sun" xml:space="preserve">
     <value>Solar</value>
+  </data>
+  <data name="Trays" xml:space="preserve">
+    <value>Bandejas</value>
+  </data>
+  <data name="Tubes" xml:space="preserve">
+    <value>Tubos</value>
+  </data>
+  <data name="Wires" xml:space="preserve">
+    <value>Alambres</value>
   </data>
 </root>

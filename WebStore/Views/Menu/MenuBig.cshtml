@@ -1,0 +1,310 @@
+﻿@model WebStore.Models.BindingCateogyFamilyChild
+<nav class="navbar navbar-expand-lg navbar-sticky mg-big-screen">
+    <div class="mg-search-overlay"></div>
+    <div class="container align-middle">
+
+        <div class="mg-container-logo mx-auto text-center">
+            <a class="navbar-brand" href="/">
+                <div class="mg-logo-wrapper">
+                    <span class="mg-logo-img">
+                        <i class="fos fas fo-logo"></i>
+                    </span>
+                    <span class="mg-logo-title text-left">
+                        <i class="fos fas fo-logo-text"></i>
+                    </span>
+                </div>
+            </a>
+        </div>
+        <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+                aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="fas fa-bars"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <div class="text-center" style="width:100%;">
+                <div class="mg-search">
+                    <ul class="navbar-nav">
+                        <li class="nav-item mg-li-menu" style="margin-left:auto;">
+                            <a class="nav-link mg-link-menu" href="javascript:void(0);">
+                                @Html.DisplayName(WebStore.Resources.Menu.left)
+                            </a>
+                        </li>
+                        <li class="nav-item mg-li-menu mg-has-submenu">
+                            <a class="nav-link mg-link-menu" href="javascript:void(0);">
+                                @Html.DisplayName(WebStore.Resources.Menu.middle)
+                            </a>
+                            <ul class="mg-sub-menu-categories">
+                                <div class="container">
+                                    <div class="row pt-3">
+
+                                        @foreach (var i in Model.family)
+                                        {
+                                            <div class="col-lg-3 mb-3">
+                                                <a href="javascript:void(0);" class="text-decoration-none">
+                                                    <h6 class="text-left text-orangered">
+                                                        @WebStore.Resources.Categories.ResourceManager.GetString(i.strName)
+                                                    </h6>
+                                                </a>
+                                                <hr>
+                                                <ul class="list-unstyled">
+                                                    @foreach (var j in Model.category)
+                                                    {
+                                                        if (j.refFamily == i.idFamily)
+                                                        {
+                                                            <li class="list-item text-left mg-menu-subcategories">
+                                                                <a>@WebStore.Resources.Categories.ResourceManager.GetString(j.strNombre)</a>
+                                                            </li>
+                                                        }
+                                                    }
+                                                </ul>
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                            </ul>
+                        </li>
+                        <li class="nav-item mg-li-menu" style="margin-right:auto;">
+                            <a class="nav-link mg-link-menu" href="javascript:void(0);">
+                                @Html.DisplayName(WebStore.Resources.Menu.right) <span class="icon-dot"></span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="mg-search-wrapper">
+                    <form class="mg-site-search" method="get">
+                        <input class="form-control" type="text" name="search" placeholder="@WebStore.Resources.Placeholder.Search...">
+                        <div class="mg-search-tools">
+                            <span class="mg-clear-search">@WebStore.Resources.Placeholder.Clear</span>
+                            <span class="mg-close-search">
+
+                            </span>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="text-right">
+                <ul class="navbar-nav text-center">
+                    <li class="nav-item mg-li-social mg-fix-bugg">
+                        <a class="nav-link" href="javascript:void(0);">
+                            <i class="fab fa-sistrix icon-default mg-open-search"></i>
+                            <i class="fas fa-times icon-hover mg-close-search text-dark"></i>
+                        </a>
+                    </li>
+
+                    <li class="nav-item mg-li-social mg-lang dropdown">
+                        <a class="nav-link" href="javascript:void(0);">
+                            <i class="far fa-flag"></i>
+                        </a>
+                        <ul class="mg-toolbar-dropdown mg-lang-dropdown animated fadeIn list-unstyled">
+                            <li class="px-3 pt-1 pb-2">
+                                <select class="form-control form-control-sm">
+                                    <option value="usd">$ USD</option>
+                                    <option value="usd">€ EUR</option>
+                                    <option value="usd">£ UKP</option>
+                                    <option value="usd">¥ JPY</option>
+                                </select>
+                            </li>
+                            <li>
+                                <a href="@Url.Action("ChangeCulture", "Language", new { language = "en" }, null)" class="text-dark">
+                                    <i class="flag-icon">
+                                        <img class="img-fluid" src="http://themes.rokaux.com/unishop/v3.0/template-3/img/flags/EN.png" alt="English">
+                                    </i>&nbsp;English
+                                </a>
+                            </li>
+                            <li>
+                                <a href="@Url.Action("ChangeCulture", "Language", new { language = "es" }, null)" class="text-dark">
+                                    <i class="flag-icon">
+                                        <img class="img-fluid" src="https://www.worldatlas.com/r/w728-h425-c728x425/upload/23/08/01/shutterstock-104644850.jpg" alt="Español">
+                                    </i>&nbsp;Español
+                                </a>
+                            </li>
+                            <li>
+                                <a href="@Url.Action("ChangeCulture", "Language", new { language = "ja" }, null)" class="text-dark">
+                                    <i class="flag-icon">
+                                        <img class="img-fluid" src="https://www.worldatlas.com/r/w728-h425-c728x425/upload/2d/d4/a7/untitled-design-153.jpg" alt="日本語">
+                                    </i>&nbsp;日本語
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    @{
+                        bool var = false;
+                        if (var)
+                        {
+
+                            <li class="nav-item mg-li-social dropdown">
+                                <a class="nav-link" href="javascript:void(0);" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="far fa-user"></i>
+                                </a>
+                                <ul class="dropdown-menu mg-dropdown animated fadeIn" role="menu" aria-labelledby="dropdownMenuLink">
+                                    <div class="col-lg-12">
+                                        <div class="text-center mb-3 mt-3">
+                                            <h3 style="font-weight: normal;">@WebStore.Resources.Titles.Start</h3>
+                                            <hr>
+                                        </div>
+                                        <form id="ajax-login-form" action="" method="post" role="form"
+                                              autocomplete="off">
+                                            <div class=" form-group input-group">
+                                                <input type="text" class="form-control" placeholder="@WebStore.Resources.Placeholder.Email" aria-label="Username"
+                                                       aria-describedby="basic-addon1" autocomplete="off" name="user" id="user">
+                                                <span class="input-group-addon">
+                                                    <i class="fas fa-at"></i>
+                                                </span>
+                                            </div>
+
+                                            <div class=" form-group input-group">
+                                                <input type="password" class="form-control" placeholder="@WebStore.Resources.Placeholder.Password" aria-label="Password"
+                                                       aria-describedby="basic-addon1" autocomplete="off" name="pass" id="pass">
+                                                <span class="input-group-addon">
+                                                    <i class="fas fa-key"></i>
+                                                </span>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <div class="col-xs-5 pull-right">
+                                                    <input type="submit" name="login-submit" id="login-submit" tabindex="4" class="btn btn-success mg-login-btn"
+                                                           value="@WebStore.Resources.Buttons.LogIn">
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <div class="row pb-3">
+                                                    <div class="col-lg-12">
+                                                        <div class="text-center">
+                                                            <a href="r" tabindex="5" class="mg-forgot-password">
+                                                                ¿Olvidó su
+                                                                contraseña?
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="col-lg-12">
+                                                        <div class="text-center">
+                                                            <a href="@Url.Action("LogIn", "User", new { language = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName }, null)" tabindex="5" class="mg-forgot-password">
+                                                                Regístrate si no tienes cuenta
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <input type="hidden" class="hide" name="token" id="token" value="a465a2791ae0bae853cf4bf485dbe1b6">
+                                        </form>
+                                        <h5 class="mg-section-title mg-section-title-center mb-3">
+                                            <b></b>
+                                            <span class="mg-section-title-main align-middle">O</span>
+                                            <b></b>
+                                        </h5>
+                                        <div class="form-group">
+                                            <div class="col-xs-5 pull-right">
+                                                <button type="submit" name="login-submit" id="login-submit" tabindex="4" class="btn mg-google">
+                                                    <i class="fab fa-google-plus-g"></i> Google
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-xs-5 pull-right">
+                                                <button type="submit" name="login-submit" id="login-submit" tabindex="4" class="btn mg-facebook">
+                                                    <i class="fab fa-facebook-f"></i> Facebook
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </ul>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item mg-li-social mg-li-menu mg-has-submenu-user dropdown">
+                                <a class="nav-link" href="javascript:void(0);">
+                                    <i class="far fa-user"></i>
+                                </a>
+                                <ul class="mg-sub-menu-user animated bounceIn">
+                                    <li class="mg-submenu-item-user">
+                                        <div class="user-ava">
+                                            <i class="fos fo-donkijote-british fo-2x"></i>
+                                        </div>
+                                        <div class="user-info">
+                                            <h6 class="user-name">Manoel Gonçalves</h6>
+                                            <span class="text-xs text-muted">290 Reward points</span>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <a href="@Url.Action("Home", "Account", new { language = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName }, null)">@WebStore.Resources.Titles.Account</a>
+                                    </li>
+                                    <li>
+                                        <a href="@Url.Action("Orders", "Account", new { language = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName }, null)">@WebStore.Resources.Titles.Orders</a>
+                                    </li>
+                                    <li>
+                                        <a href="@Url.Action("WishList", "Account", new { language = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName }, null)">@WebStore.Resources.Titles.Wishes</a>
+                                    </li>
+                                    <li class="mg-submenu-separator"></li>
+                                    <li>
+                                        <a href="javascript:void(0);">
+                                            <i class="fas fa-unlock"></i>
+                                            @WebStore.Resources.Buttons.Exit
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        }
+                    }
+                    <li class="nav-item mg-li-social dropdown">
+                        <a class="nav-link" href="@Url.Action("Wishlist", "Account", new { language = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName }, null)">
+                            <i class="far fa-heart"></i>
+                            <span class="mg-navbar-compare">
+                                <span class="mg-count-label">3</span>
+                            </span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item mg-li-social mg-shopping-cart dropdown">
+                        <a class="nav-link" href="@Url.Action("Cart", "User", new { language = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName }, null)">
+                            <i class="fas fa-shopping-cart"></i>
+                            <span class="mg-navbar-cart">
+                                <span class="mg-count-label">3</span>
+                            </span>
+                        </a>
+                        <div class="mg-toolbar-dropdown mg-cart-dropdown mg-widget-cart mg-hidden-on-mobile">
+                            <div class="entry">
+                                <div class="entry-thumb">
+                                    <a href="shop-single.html">
+                                        <img src="http://themes.rokaux.com/unishop/v3.0/template-3/img/shop/widget/04.jpg" alt="Product">
+                                    </a>
+                                </div>
+                                <div class="entry-content">
+                                    <h4 class="entry-title">
+                                        <a href="shop-single.html">Canon EOS M50 Mirrorless Camera</a>
+                                    </h4>
+                                    <span class="entry-meta">1 x $910.00</span>
+                                </div>
+                                <div class="entry-delete">
+                                    <i class="fas fa-times"></i>
+                                </div>
+                            </div>
+                            <div class="text-right">
+                                <p class="text-gray-dark py-2 mb-0">
+                                    <span class="text-muted">Subtotal:</span> &nbsp;$2,548.50
+                                </p>
+                            </div>
+                            <div class="d-flex">
+                                <div class="pr-2 w-50">
+                                    <a href="@Url.Action("Cart", "User", new { language = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName })" style="text-decoration:none;">
+                                        <div class="btn btn-secondary btn-sm btn-block mb-0" href="cart.html">@WebStore.Resources.Buttons.ShowCart</div>
+                                    </a>
+                                </div>
+                                <div class="pl-2 w-50">
+                                    <a href="@Url.Action("CheckOut", "User", new { language = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName })" style="text-decoration:none;">
+                                        <div class="btn btn-orangered btn-sm btn-block mb-0">@WebStore.Resources.Buttons.Checkout</div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</nav>

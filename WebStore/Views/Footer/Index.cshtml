@@ -1,0 +1,150 @@
+﻿@model WebStore.Models.BindingCateogyFamilyChild
+<footer class="py-5 mg-site-footer" style="background-image: url(http://themes.rokaux.com/unishop/v3.0/template-3/img/footer-bg.png);">
+    <div class="container pt-5">
+        <div class="row">
+            <div class="col-lg-6">
+                <!-- Categories-->
+                <section class="widget mg-widget-links mg-widget-light-skin">
+                    <h3 class="mg-widget-title">@WebStore.Resources.Footer.Departments</h3>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <ul>
+                                @foreach (var i in Model.family)
+                                {
+                                    <li>
+                                        <a href="#">@WebStore.Resources.Categories.ResourceManager.GetString(i.strName)</a>
+                                    </li>
+                                }
+                            </ul>
+                        </div>
+                    </div>
+</section>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <!-- About Us-->
+                <section class="widget mg-widget-links mg-widget-light-skin">
+                    <h3 class="mg-widget-title">@WebStore.Resources.Footer.About</h3>
+                    <ul>
+                        <li>
+                            <a href="#">@WebStore.Resources.Footer.Returns</a>
+                        </li>
+                        <li>
+                            <a href="#">@WebStore.Resources.Footer.Conditions</a>
+                        </li>
+                        <li>
+                            <a href="#">@WebStore.Resources.Footer.ShippingTerms</a>
+                        </li>
+                        <li>
+                            <a href="#">@WebStore.Resources.Footer.Help</a>
+                        </li>
+                        <li>
+                            <a href="#">@WebStore.Resources.Footer.Security</a>
+                        </li>
+                        <li>
+                            <a href="#">@WebStore.Resources.Footer.FAQ</a>
+                        </li>
+                    </ul>
+                </section>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <!-- Account / Shipping Info-->
+                <section class="widget mg-widget-links mg-widget-light-skin">
+                    <h3 class="mg-widget-title">@WebStore.Resources.Footer.AccountOther</h3>
+                    <ul>
+                        <li>
+                            <a href="@Url.Action("Home", "Account", new { language = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName })">@WebStore.Resources.Footer.AccountOther</a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("Orders", "Account", new { language = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName })">@WebStore.Resources.Footer.Orders</a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("WishList", "Account", new { language = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName })">@WebStore.Resources.Footer.Wishes</a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("Address", "Account", new { language = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName })">@WebStore.Resources.Footer.Address</a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("Settings", "Account", new { language = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName })">@WebStore.Resources.Footer.Profile</a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("Tickets", "Account", new { language = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName })">@WebStore.Resources.Footer.Tickets</a>
+                        </li>
+                    </ul>
+                </section>
+            </div>
+        </div>
+        <hr class="hr-light mt-5 mb-5 hidden-md-down">
+        <div class="row">
+            <div class="col-lg-3 col-md-6">
+                <!-- Contact Info-->
+                <section class="widget mg-widget-light-skin">
+                    <h3 class="mg-widget-title">@WebStore.Resources.Footer.Touch</h3>
+                    <p class="text-white">@WebStore.Resources.Footer.Phone: +1 (900) 33 169 7720</p>
+                    <ul class="list-unstyled text-sm text-white">
+                        <li>
+                            <span class="opacity-50">@WebStore.Resources.Footer.MF:&nbsp;</span>9.00 am - 8.00 pm
+                        </li>
+                        <li>
+                            <span class="opacity-50">@WebStore.Resources.Footer.Saturday:&nbsp;</span>10.00 am - 6.00 pm
+                        </li>
+                    </ul>
+                    <p>
+                        <a class="navi-link-light" href="#">@WebStore.Resources.Footer.Support</a>
+                    </p>
+                    <a class="social-button shape-circle sb-facebook" href="#">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a class="social-button shape-circle sb-twitter" href="#">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a class="social-button shape-circle sb-instagram" href="#">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a class="social-button shape-circle sb-google-plus" href="#">
+                        <i class="fab fa-google-plus-g"></i>
+                    </a>
+                </section>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <!-- Mobile App Buttons-->
+                <section class="widget mg-widget-light-skin">
+                    <h3 class="mg-widget-title">@WebStore.Resources.Footer.Apps</h3>
+                    <a class="market-button apple-button" href="#"><span class="mb-subtitle">@WebStore.Resources.Buttons.Download</span><span class="mb-title">@WebStore.Resources.Buttons.App</span></a>
+                    <a class="market-button google-button" href="#"><span class="mb-subtitle">@WebStore.Resources.Buttons.Download</span><span class="mb-title">@WebStore.Resources.Buttons.Google</span></a>
+                    <a class="market-button windows-button" href="#"><span class="mb-subtitle">@WebStore.Resources.Buttons.Download</span><span class="mb-title">@WebStore.Resources.Buttons.Windows</span></a>
+                </section>
+            </div>
+            <div class="col-lg-6">
+                <!-- Subscription-->
+                <section class="widget mg-widget-light-skin">
+                    <h3 class="mg-widget-title">@WebStore.Resources.Footer.Subs</h3>
+                    <form class="row" action="//rokaux.us12.list-manage.com/subscribe/post?u=c7103e2c981361a6639545bd5&amp;amp;id=1194bb7544" method="post" target="_blank" novalidate="">
+                        <div class="col-sm-8">
+                            <div class="input-group input-light">
+                                <input class="form-control" type="email" name="EMAIL" placeholder="Your e-mail">
+                                <span class="input-group-addon"><i class="fas fa-envelope"></i></span>
+                            </div>
+                            <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+                            <div style="position: absolute; left: -5000px;" aria-hidden="true">
+                                <input type="text" name="b_c7103e2c981361a6639545bd5_1194bb7544" tabindex="-1">
+                            </div>
+                            <p class="form-text text-sm text-white opacity-50 pt-2">@WebStore.Resources.Footer.extra</p>
+                        </div>
+                        <div class="col-sm-3">
+                            <button class="btn btn-orangered mt-0" type="submit">@WebStore.Resources.Buttons.Subs</button>
+                        </div>
+                    </form>
+                    <div class="pt-3 margin-bottom-1x" style="max-width: 615px;">
+                        <img class="img-fluid" src="http://themes.rokaux.com/unishop/v3.0/template-1/img/payment_methods.png" alt="Payment Methods">
+                    </div>
+                </section>
+            </div>
+        </div>
+        <!-- Copyright-->
+        <p class="footer-copyright">
+            &copy; @DateTime.Now.Year All rights reserved. Made by &nbsp;
+            <i class="fos fas fo-donkijote-spanish fo-2x"></i>
+            <a href="" target="_blank"> &nbsp;Donkijote</a>
+        </p>
+    </div>
+</footer>
