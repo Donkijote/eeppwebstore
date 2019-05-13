@@ -4,11 +4,14 @@
   padding: 2rem; }
 
 .countdown {
-  height: 80%;
+  height: 80px;
   /* Reset */
   /* Skeleton */
   /* Colon Seperator - IE */
   /* Colon Seperator */ }
+  @media only screen and (max-width: 540px) {
+    .countdown {
+      height: 50px; } }
   .countdown * {
     margin: 0;
     padding: 0;
@@ -54,7 +57,7 @@
       .countdown ul.flip li {
         line-height: 37px !important; }
       .countdown ul.flip:nth-child(2n+2):not(:last-child):after {
-        top: -24% !important; } }
+        top: -20% !important; } }
   @media only screen and (max-width: 440px) {
     .countdown ul.flip {
       width: 22px !important;

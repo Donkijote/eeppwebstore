@@ -23,8 +23,11 @@ $ci-color-dark: #dc3545;
     padding: 2rem;
 }
 .countdown {
-    height: 80%;
+    height: 80px;
 
+    @include respond-to(false, 540) {
+        height: 50px;
+    }
     /* Reset */
     * {
         margin: 0;
@@ -91,7 +94,7 @@ $ci-color-dark: #dc3545;
             }
 
             &:nth-child(2n+2):not(:last-child):after {
-                top: -24% !important;
+                top: -20% !important;
             }
         }
     }

@@ -4367,10 +4367,10 @@ button.bg-secondary:focus, button.bg-secondary:hover {
   .mg-card.mg-card-pricing {
     width: 300px; }
   .mg-index-rota-img {
-    max-width: 100px;
-    top: -100px;
-    right: 50%;
-    transform: translateX(50%); }
+    max-width: 300px;
+    top: -150px;
+    right: 25%;
+    transform: translateX(25%); }
   .mg-product-card {
     border-radius: 0px; }
     .mg-product-card .mg-product-badge {
