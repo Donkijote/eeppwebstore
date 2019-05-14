@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Threading;
 using System.Globalization;
+using WebStore.Routing;
 
 namespace WebStore.Controllers
 {
@@ -17,64 +18,15 @@ namespace WebStore.Controllers
             {
                 if (System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName == "es" && language == "en")
                 {
-                    var es = new Dictionary<string, string>
-                    {
-                        { "Inicio", "Home" },
-                        { "Index", "Index" },
-                        { "Nosotros", "About" },
-                        { "Contactos", "Contact" },
-                        { "Cuenta", "Account" },
-                        { "Ordenes", "Orders" },
-                        { "Rastreo", "Traking" },
-                        { "Detalles", "Details" },
-                        { "Direcciones", "Address" },
-                        { "Configuracion", "Settings" },
-                        { "Deseos", "WishList" },
-                        { "Categorias", "Categories" },
-                        { "Usuario", "User" },
-                        { "Carrito", "Cart" },
-                        { "Pagar", "CheckOut" },
-                        { "Iniciar", "LogIn" },
-                        { "Promociones", "Promotions" },
-                        { "Todas", "All" },
-                        { "CambiarIdioma", "ChangeCulture" },
-                        { "Idioma", "Language" },
-                        { "Añadir", "Add" },
-                        { "Editar", "Edit" },
-                        { "Tickets", "Tickets" }
+                    Translate enObj = new Translate();
+                    var en = enObj.En();
 
-                    };
-
-                    Change(Request.UrlReferrer.ToString(), language, es);
+                    Change(Request.UrlReferrer.ToString(), language, en);
                 }
                 else if (System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName == "en" && language == "es")
                 {
-                    var es = new Dictionary<string, string>
-                    {
-                        { "Home", "Inicio" },
-                        { "Index", "Index" },
-                        { "About", "Nosotros" },
-                        { "Contact", "Contactos" },
-                        { "Account", "Cuenta" },
-                        { "Orders", "Ordenes" },
-                        { "Traking", "Rastreo" },
-                        { "Details", "Detalles" },
-                        { "Address", "Direcciones" },
-                        { "Settings", "Configuracion" },
-                        { "WishList", "Deseos" },
-                        { "Categories", "Categorias" },
-                        { "User", "Usuario" },
-                        { "Cart", "Carrito" },
-                        { "CheckOut", "Pagar" },
-                        { "LogIn", "Iniciar" },
-                        { "Promotions", "Promociones" },
-                        { "All", "Todas" },
-                        { "ChangeCulture", "CambiarIdioma" },
-                        { "Language", "Idioma" },
-                        { "Add", "Añadir" },
-                        { "Edit", "Editar" },
-                        { "Tickets", "Tickets" }
-                    };
+                    Translate esObj = new Translate();
+                    var es = esObj.Es();
 
                     Change(Request.UrlReferrer.ToString(), language, es);
                 }
@@ -120,6 +72,7 @@ namespace WebStore.Controllers
                 }
             }
         }
+
         private void Change(string url, string lang, Dictionary<string,string> dir)
         {
             string[] parts = url.Split('/');
@@ -132,8 +85,37 @@ namespace WebStore.Controllers
 
             var y = dir[action];
 
-            string newUrl = lang + "/" + x + "/" + y;
+            if (parts.Length == 7)
+            {
+                var id = parts[6];
+                Translate translate = new Translate();
+                var translation = translate.getCategoriesToTranslate(Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName, lang);
+                var z = translation[id];
+                setCultureChanges(lang);
+                Response.RedirectToRoute(new { controller = x, action = y, language = lang, id = z });
 
+            }
+            else if (parts.Length == 8)
+            {
+                var id = parts[6];
+                var idp = parts[7];
+                Translate translate = new Translate();
+                var translation = translate.getCategoriesToTranslate(Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName, lang);
+                var z = translation[id];
+                var w = translation[idp];
+                setCultureChanges(lang);
+                Response.RedirectToRoute(new { controller = x, action = y, language = lang, id = z, idp = w });
+
+            }
+            else
+            {
+                setCultureChanges(lang);
+                Response.RedirectToRoute(new { controller = x, action = y, language = lang });
+            }
+        }
+
+        private void setCultureChanges(string lang)
+        {
             Response.Cookies.Remove("CultureInfo");
 
             HttpCookie languageCookie = System.Web.HttpContext.Current.Request.Cookies["CultureInfo"];
@@ -149,8 +131,6 @@ namespace WebStore.Controllers
 
             Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(lang);
             Thread.CurrentThread.CurrentUICulture = new CultureInfo(lang);
-
-            Response.RedirectToRoute(new { controller = x, action = y, language = lang });
         }
     }
 }

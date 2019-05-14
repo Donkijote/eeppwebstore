@@ -18,11 +18,12 @@
           <Key>
             <PropertyRef Name="idCategoria" />
           </Key>
-          <Property Name="idCategoria" Type="int" Nullable="false" />
+          <Property Name="idCategoria" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="strNombre" Type="varchar" MaxLength="20" />
           <Property Name="intOrder" Type="int" />
           <Property Name="intActivo" Type="bit" />
           <Property Name="refFamily" Type="int" />
+          <Property Name="strSeo" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="tblCategoryRelation">
           <Key>
@@ -129,13 +130,15 @@
           <Property Name="idOffertTime" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="intPercentageTime" Type="int" />
           <Property Name="strTime" Type="date" />
+          <Property Name="strName" Type="varchar" MaxLength="50" />
+          <Property Name="strDescription" Type="varchar" MaxLength="100" />
         </EntityType>
         <EntityType Name="tblProducts">
           <Key>
             <PropertyRef Name="idProdcuto" />
           </Key>
           <Property Name="idProdcuto" Type="int" Nullable="false" />
-          <Property Name="strNombre" Type="varchar" MaxLength="50" />
+          <Property Name="strNombre" Type="varchar" MaxLength="150" />
           <Property Name="strCodigo" Type="varchar" MaxLength="50" />
           <Property Name="intPrecio" Type="decimal" Precision="18" Scale="2" Nullable="false" />
           <Property Name="intPrecioTwo" Type="decimal" Precision="18" Scale="2" />
@@ -423,6 +426,7 @@
           <NavigationProperty Name="tblCategoryRelation" Relationship="webstoreModel.FK_tblCategoryRelation_tblCategories_One" FromRole="tblCategories" ToRole="tblCategoryRelation" />
           <NavigationProperty Name="tblCategoryRelation1" Relationship="webstoreModel.FK_tblCategoryRelation_tblCategories_Three" FromRole="tblCategories" ToRole="tblCategoryRelation" />
           <NavigationProperty Name="tblCategoryRelation2" Relationship="webstoreModel.FK_tblCategoryRelation_tblCategories_Two" FromRole="tblCategories" ToRole="tblCategoryRelation" />
+          <Property Name="strSeo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityContainer Name="webstoreEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="tblCategories" EntityType="Self.tblCategories" />
@@ -498,7 +502,7 @@
             <PropertyRef Name="idProdcuto" />
           </Key>
           <Property Name="idProdcuto" Type="Int32" Nullable="false" />
-          <Property Name="strNombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="strNombre" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
           <Property Name="strCodigo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="intPrecio" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
           <Property Name="refCategoria" Type="Int32" />
@@ -798,6 +802,8 @@
           <Property Name="intPercentageTime" Type="Int32" />
           <Property Name="strTime" Type="DateTime" Precision="0" />
           <NavigationProperty Name="tblProducts" Relationship="webstoreModel.FK_tblProducts_tblOffertTime" FromRole="tblOffertTime" ToRole="tblProducts" />
+          <Property Name="strName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="strDescription" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
         </EntityType>
         <Association Name="FK_tblProducts_tblFicha">
           <End Type="webstoreModel.tblFicha" Role="tblFicha" Multiplicity="0..1" />
@@ -844,6 +850,7 @@
           <EntitySetMapping Name="tblCategories">
             <EntityTypeMapping TypeName="webstoreModel.tblCategories">
               <MappingFragment StoreEntitySet="tblCategories">
+                <ScalarProperty Name="strSeo" ColumnName="strSeo" />
                 <ScalarProperty Name="refFamily" ColumnName="refFamily" />
                 <ScalarProperty Name="intOrder" ColumnName="intOrder" />
                 <ScalarProperty Name="idCategoria" ColumnName="idCategoria" />
@@ -1025,6 +1032,8 @@
           <EntitySetMapping Name="tblOffertTime">
             <EntityTypeMapping TypeName="webstoreModel.tblOffertTime">
               <MappingFragment StoreEntitySet="tblOffertTime">
+                <ScalarProperty Name="strDescription" ColumnName="strDescription" />
+                <ScalarProperty Name="strName" ColumnName="strName" />
                 <ScalarProperty Name="strTime" ColumnName="strTime" />
                 <ScalarProperty Name="intPercentageTime" ColumnName="intPercentageTime" />
                 <ScalarProperty Name="idOffertTime" ColumnName="idOffertTime" />

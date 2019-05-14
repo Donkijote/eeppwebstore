@@ -896,7 +896,8 @@ html * {
           list-style: none; }
           .navbar.mg-big-screen .navbar-nav .nav-item .mg-sub-menu-categories .mg-menu-subcategories > a {
             transition: all 0.5s;
-            color: #343a40 !important; }
+            color: #343a40 !important;
+            text-decoration: none; }
             .navbar.mg-big-screen .navbar-nav .nav-item .mg-sub-menu-categories .mg-menu-subcategories > a:hover {
               color: orangered !important;
               padding-left: 0.5em;

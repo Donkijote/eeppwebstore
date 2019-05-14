@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using WebStore.Models;
 using X.PagedList;
 using X.PagedList.Mvc;
+using WebStore.Routing;
 
 namespace WebStore.Controllers
 {
@@ -26,9 +27,17 @@ namespace WebStore.Controllers
             {
                 using (webstoreEntities db = new webstoreEntities())
                 {
-                    var v = db.tblCategories.Where(a => a.strNombre == id).FirstOrDefault();
+                    string culture = CultureInfo.CurrentUICulture.TwoLetterISOLanguageName;
+                    string translatedId = "";
+                    if( culture != "en")
+                    {
+                        Translate dir = new Translate();
+                        translatedId = dir.Translation(id, "es", "en");
+                    }
+
+                    var v = db.tblCategories.Where(a => a.strSeo == (culture != "en" ? translatedId : id)).FirstOrDefault();
                     var s = (from a in db.tblProducts
-                            where a.refCategoria == 1
+                            where a.refCategoria == v.idCategoria
                             select new { strNombre = a.strNombre, strCodigo = a.strCodigo, intPrecio = a.intPrecio })
                             .AsEnumerable()
                             .Select( x => new Products { strNombre = Truncate(x.strNombre, 60), strCodigo = x.strCodigo, intPrecio = FormatNumber(x.intPrecio) }).ToList();

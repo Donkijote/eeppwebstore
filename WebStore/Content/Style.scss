@@ -262,6 +262,7 @@ html * {
                         > a {
                             transition: all 0.5s;
                             color: #343a40 !important;
+                            text-decoration: none;
 
                             &:hover {
                                 color: orangered !important;

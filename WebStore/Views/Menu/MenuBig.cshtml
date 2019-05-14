@@ -51,7 +51,7 @@
                                                         if (j.refFamily == i.idFamily)
                                                         {
                                                             <li class="list-item text-left mg-menu-subcategories">
-                                                                <a>@WebStore.Resources.Categories.ResourceManager.GetString(j.strNombre)</a>
+                                                                <a href="@Url.Action("s","Categories", new { language = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName, id = WebStore.Resources.Seo.ResourceManager.GetString(j.strNombre) }, null)">@WebStore.Resources.Categories.ResourceManager.GetString(j.strNombre)</a>
                                                             </li>
                                                         }
                                                     }

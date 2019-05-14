@@ -118,187 +118,187 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Atex" xml:space="preserve">
-    <value>Explosive Atmospheres</value>
-    <comment>explosive-atmospheres</comment>
+    <value>atmoferas-explosivas</value>
+    <comment>atmoferas-explosivas</comment>
   </data>
   <data name="Boards" xml:space="preserve">
-    <value>Boards</value>
-    <comment>boards</comment>
+    <value>tableros</value>
+    <comment>tableros</comment>
   </data>
   <data name="Bottons" xml:space="preserve">
-    <value>Bottons</value>
-    <comment>bottons</comment>
+    <value>botoneras</value>
+    <comment>botoneras</comment>
   </data>
   <data name="BPD" xml:space="preserve">
-    <value>Breakers, power points and dimmers</value>
-    <comment>breakers-power-points-and-dimmers</comment>
+    <value>interruptores-tomas-y-dimmers</value>
+    <comment>interruptores-tomas-y-dimmers</comment>
   </data>
   <data name="Breakers" xml:space="preserve">
-    <value>Breakers</value>
-    <comment>breakers</comment>
+    <value>interruptores</value>
+    <comment>interruptores</comment>
   </data>
   <data name="CablePress" xml:space="preserve">
-    <value>Cable press</value>
-    <comment>cables-press</comment>
+    <value>prensa-cables</value>
+    <comment>prensa-cables</comment>
   </data>
   <data name="Cables" xml:space="preserve">
-    <value>Cables</value>
+    <value>cables</value>
     <comment>cables</comment>
   </data>
   <data name="ContactorRele" xml:space="preserve">
-    <value>Contactor and thermic rele</value>
-    <comment>contactor-and-thermic-rele</comment>
+    <value>contactor-y-rele-termico</value>
+    <comment>contactor-y-rele-termico</comment>
   </data>
   <data name="ControlCommand" xml:space="preserve">
-    <value>CONTROL AND COMMAND</value>
-    <comment>control-and-command</comment>
+    <value>control-y-comando</value>
+    <comment>control-y-comando</comment>
   </data>
   <data name="Cordons" xml:space="preserve">
-    <value>Cordons</value>
-    <comment>cordons</comment>
+    <value>cordones</value>
+    <comment>cordones</comment>
   </data>
   <data name="Differentials" xml:space="preserve">
-    <value>Differentials</value>
-    <comment>differentials</comment>
+    <value>diferenciales</value>
+    <comment>diferenciales</comment>
   </data>
   <data name="DistributionBoxes" xml:space="preserve">
-    <value>Distribution Boxes</value>
-    <comment>distribution-boxes</comment>
+    <value>cajas-de-distribucion</value>
+    <comment>cajas-de-distribucion</comment>
   </data>
   <data name="Distributors" xml:space="preserve">
-    <value>Distributors</value>
-    <comment>distributors</comment>
+    <value>repartidores</value>
+    <comment>repartidores</comment>
   </data>
   <data name="ElectricCanalization" xml:space="preserve">
-    <value>ELECTRICAL CANALIZATION</value>
-    <comment>electrical-canalization</comment>
+    <value>canalizacion-electrica</value>
+    <comment>canalizacion-electrica</comment>
   </data>
   <data name="ElectricConductor" xml:space="preserve">
-    <value>ELECTRICAL CONDUCTOR</value>
-    <comment>electrical-conductor</comment>
+    <value>conductores-electricos</value>
+    <comment>conductores-electricos</comment>
   </data>
   <data name="ElectricHardware" xml:space="preserve">
-    <value>ELECTRICAL HARDWARE STORE</value>
-    <comment>electrical-hardware-store</comment>
+    <value>ferreteria-electrica</value>
+    <comment>ferreteria-electrica</comment>
   </data>
   <data name="Emergency" xml:space="preserve">
-    <value>Emergency</value>
-    <comment>emrgency</comment>
+    <value>emergencia</value>
+    <comment>emergencia</comment>
   </data>
   <data name="Faena" xml:space="preserve">
-    <value>Faena boards</value>
-    <comment>faena-boards</comment>
+    <value>tableros-de-faena</value>
+    <comment>tableros-de-faena</comment>
   </data>
   <data name="Females" xml:space="preserve">
-    <value>Females</value>
-    <comment>females</comment>
+    <value>hermbras</value>
+    <comment>hermbras</comment>
   </data>
   <data name="Frequency" xml:space="preserve">
-    <value>Frequency variator</value>
-    <comment>frequency-variator</comment>
+    <value>variador-de-frecuencia</value>
+    <comment>variador-de-frecuencia</comment>
   </data>
   <data name="Garden" xml:space="preserve">
-    <value>Garden</value>
-    <comment>garden</comment>
+    <value>jardin</value>
+    <comment>jardin</comment>
   </data>
   <data name="Hermetics" xml:space="preserve">
-    <value>Hermetics</value>
-    <comment>hermetics</comment>
+    <value>hermeticas</value>
+    <comment>hermeticas</comment>
   </data>
   <data name="Home" xml:space="preserve">
-    <value>Home</value>
-    <comment>home</comment>
+    <value>hogar</value>
+    <comment>hogar</comment>
   </data>
   <data name="HomeLights" xml:space="preserve">
-    <value>HOME LIGHTS</value>
-    <comment>home-lights</comment>
+    <value>iluminacion-hogar</value>
+    <comment>iluminacion-hogar</comment>
   </data>
   <data name="Industral" xml:space="preserve">
-    <value>Industrial</value>
+    <value>industrial</value>
     <comment>industrial</comment>
   </data>
   <data name="IndustryLights" xml:space="preserve">
-    <value>INDUSTRY LIGHTS</value>
-    <comment>indutrial-lights</comment>
+    <value>iluminacion-industrial</value>
+    <comment>iluminacion-industrial</comment>
   </data>
   <data name="IndustryPlugs" xml:space="preserve">
-    <value>INDUSTRY PLUGS</value>
-    <comment>industrial-plugs</comment>
+    <value>enchufes-industriales</value>
+    <comment>enchufes-industriales</comment>
   </data>
   <data name="Ladders" xml:space="preserve">
-    <value>Ladders</value>
-    <comment>ladders</comment>
+    <value>escalerillas</value>
+    <comment>escalerillas</comment>
   </data>
   <data name="LightbulbsTubes" xml:space="preserve">
-    <value>Lightbulbs and tubes</value>
-    <comment>lightbulbs-and-tubes</comment>
+    <value>ampolletas-y-tubos</value>
+    <comment>ampolletas-y-tubos</comment>
   </data>
   <data name="Males" xml:space="preserve">
-    <value>Males</value>
-    <comment>males</comment>
+    <value>machos</value>
+    <comment>machos</comment>
   </data>
   <data name="Motor" xml:space="preserve">
-    <value>Motor safer</value>
-    <comment>motor-safer</comment>
+    <value>guarda-motor</value>
+    <comment>guarda-motor</comment>
   </data>
   <data name="Others" xml:space="preserve">
-    <value>Others</value>
-    <comment>others</comment>
+    <value>otros</value>
+    <comment>otros</comment>
   </data>
   <data name="Plates" xml:space="preserve">
-    <value>Plates</value>
-    <comment>plates</comment>
+    <value>placas</value>
+    <comment>placas</comment>
   </data>
   <data name="Posts" xml:space="preserve">
-    <value>Posts</value>
-    <comment>posts</comment>
+    <value>postes</value>
+    <comment>postes</comment>
   </data>
   <data name="Public" xml:space="preserve">
-    <value>Public</value>
-    <comment>public</comment>
+    <value>publica</value>
+    <comment>publica</comment>
   </data>
   <data name="Pushes" xml:space="preserve">
-    <value>Pushes</value>
-    <comment>pushes</comment>
+    <value>pulsadores</value>
+    <comment>pulsadores</comment>
   </data>
   <data name="PVC" xml:space="preserve">
-    <value>PVC</value>
+    <value>pvc</value>
     <comment>pvc</comment>
   </data>
   <data name="Qdin" xml:space="preserve">
-    <value>Q-din boards</value>
-    <comment>q-din-boards</comment>
+    <value>tableros-q-din</value>
+    <comment>tableros-q-din</comment>
   </data>
   <data name="Residential" xml:space="preserve">
-    <value>RESIDENTIAL</value>
-    <comment>residential</comment>
+    <value>residencial</value>
+    <comment>residencial</comment>
   </data>
   <data name="SoftBreaker" xml:space="preserve">
-    <value>Soft-breaker</value>
-    <comment>soft-breaker</comment>
+    <value>partidores-suaves</value>
+    <comment>partidores-suaves</comment>
   </data>
   <data name="Stadium" xml:space="preserve">
-    <value>Stadium</value>
+    <value>stadium</value>
     <comment>stadium</comment>
   </data>
   <data name="StomaPress" xml:space="preserve">
-    <value>Stoma press</value>
-    <comment>stoma-press</comment>
+    <value>prensa-estopa</value>
+    <comment>prensa-estopa</comment>
   </data>
   <data name="Sun" xml:space="preserve">
-    <value>Solar</value>
+    <value>solar</value>
     <comment>solar</comment>
   </data>
   <data name="Trays" xml:space="preserve">
-    <value>Trays</value>
-    <comment>trays</comment>
+    <value>bandejas</value>
+    <comment>bandejas</comment>
   </data>
   <data name="Tubes" xml:space="preserve">
-    <value>Tubes</value>
-    <comment>tubes</comment>
+    <value>tubos</value>
+    <comment>tubos</comment>
   </data>
   <data name="Wires" xml:space="preserve">
-    <value>Wires</value>
-    <comment>wires</comment>
+    <value>alambres</value>
+    <comment>alambres</comment>
   </data>
 </root>

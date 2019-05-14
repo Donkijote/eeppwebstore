@@ -291,6 +291,16 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Cart.resx</DependentUpon>
     </Compile>
+    <Compile Include="Resources\Seo.es.Designer.cs">
+      <DependentUpon>Seo.es.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Resources\Seo.Designer.cs">
+      <DependentUpon>Seo.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="Resources\Categories.es.Designer.cs">
       <DependentUpon>Categories.es.resx</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -384,6 +394,7 @@
     <Compile Include="Routing\DictionaryRouteValueTranslationProvider.cs" />
     <Compile Include="Routing\IRouteValueTranslationProvider.cs" />
     <Compile Include="Routing\RouteValueTranslation.cs" />
+    <Compile Include="Routing\Translate.cs" />
     <Compile Include="Routing\TranslatedRoute.cs" />
     <Compile Include="Routing\TranslatedRouteCollectionExtensions.cs" />
   </ItemGroup>
@@ -561,7 +572,7 @@
     <Content Include="Scripts\popper-utils.js.map" />
     <Content Include="Views\Error\Http404.cshtml" />
     <Content Include="Views\Categories\All.cshtml" />
-    <Content Include="Views\Shared\LeftMenu.cshtml" />
+    <Content Include="Views\Menu\LeftMenu.cshtml" />
     <Content Include="Views\Promotions\All.cshtml" />
     <Content Include="Views\Account\Home.cshtml" />
     <Content Include="Views\Account\Orders.cshtml" />
@@ -618,6 +629,14 @@
     <EmbeddedResource Include="Resources\Cart.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Cart.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Seo.es.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Seo.es.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Seo.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Seo.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Categories.es.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

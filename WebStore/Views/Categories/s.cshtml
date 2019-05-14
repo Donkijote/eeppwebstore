@@ -40,7 +40,7 @@
 <section name="categories" class="container mb-5">
     <div class="row">
         <div class="col-lg-3">
-            @Html.Partial("~/Views/Shared/LeftMenu.cshtml")
+            @{ Html.RenderAction("LeftMenu", "Menu", new { childAction = true });}
         </div>
         <div class="col-lg-9">
             <div class="mg-alert alert-image-bg alert-dismissible fade show text-center mb-4" style="background-image: url(http://themes.rokaux.com/unishop/v3.0/template-1/img/banners/alert-bg.jpg);">

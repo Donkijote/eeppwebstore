@@ -28,6 +28,7 @@ namespace WebStore.Models
         public Nullable<bool> intActivo { get; set; }
         public Nullable<int> intOrder { get; set; }
         public Nullable<int> refFamily { get; set; }
+        public string strSeo { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblProducts> tblProducts { get; set; }
