@@ -1,5 +1,9 @@
 ﻿@model IEnumerable<WebStore.Models.Products>
 
+@section MetaContent{
+    <meta name="keywords" content="shop, e-commerce, modern, flat style, responsive, online store, business, mobile, blog, bootstrap 4, html5, css3, jquery, js, gallery, slider, touch, creative, clean">
+}
+
 <section>
     <header class="header d-none">
         <div class="container d-none">
@@ -557,9 +561,9 @@
 </div>
 
 @section Scripts{
-<script type="text/javascript">
-    $(function () {
-        $.AdminJs.Countdown.activate();
-    })
-</script>
+    <script type="text/javascript">
+        $(function () {
+            $.AdminJs.Countdown.activate();
+        })
+    </script>
 }

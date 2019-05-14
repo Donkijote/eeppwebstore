@@ -14,13 +14,11 @@ namespace WebStore.Controllers
     public class CategoriesController : Controller
     {
         // GET: Categories
-        [HttpGet]
         public ActionResult All()
         {
             return View();
         }
 
-        [HttpGet]
         public ActionResult s(string id, string idp, int? page)
         {
             if (String.IsNullOrWhiteSpace(idp))
@@ -37,10 +35,12 @@ namespace WebStore.Controllers
 
                     var v = db.tblCategories.Where(a => a.strSeo == (culture != "en" ? translatedId : id)).FirstOrDefault();
                     var s = (from a in db.tblProducts
-                            where a.refCategoria == v.idCategoria
-                            select new { strNombre = a.strNombre, strCodigo = a.strCodigo, intPrecio = a.intPrecio })
-                            .AsEnumerable()
-                            .Select( x => new Products { strNombre = Truncate(x.strNombre, 60), strCodigo = x.strCodigo, intPrecio = FormatNumber(x.intPrecio) }).ToList();
+                             join b in db.tblCategories
+                             on a.refCategoria equals b.idCategoria
+                             where a.refCategoria == v.idCategoria
+                             select new { strNombre = a.strNombre, strCodigo = a.strCodigo, intPrecio = a.intPrecio, strSeo = b.strSeo })
+                             .AsEnumerable()
+                             .Select( x => new Products { strNombre = Truncate(x.strNombre, 60), strCodigo = x.strCodigo, intPrecio = FormatNumber(x.intPrecio), categorySeo = x.strSeo }).ToList();
 
                     string url = Request.RawUrl;
                     string query = Request.Url.Query;

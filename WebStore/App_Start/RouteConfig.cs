@@ -71,7 +71,7 @@ namespace WebStore
             routes.MapTranslatedRoute(
                 "TranslatedRoute",
                 "{language}/{controller}/{action}/{id}/{idp}",
-                new { language = System.Threading.Thread.CurrentThread.CurrentUICulture.Name, controller = "Home", action = "Lang", id = "", idp = "" },
+                new { language = System.Threading.Thread.CurrentThread.CurrentUICulture.Name, controller = "Home", action = "Lang", id = UrlParameter.Optional, idp = UrlParameter.Optional },
                 new { controller = translationProvider, action = translationProvider },
                 true
             );
@@ -79,7 +79,7 @@ namespace WebStore
             routes.MapRoute(
                 name: "Default",
                 url: "{language}/{controller}/{action}/{id}/{idp}",
-                defaults: new { language = System.Threading.Thread.CurrentThread.CurrentUICulture.Name, controller = "Home", action = "Lang", id = "", idp = "" }
+                defaults: new { language = System.Threading.Thread.CurrentThread.CurrentUICulture.Name, controller = "Home", action = "Lang", id = UrlParameter.Optional, idp = UrlParameter.Optional }
             );
 
         }
