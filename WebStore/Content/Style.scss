@@ -1707,7 +1707,11 @@ button {
                 &.has-children {
                     a {
                         &:hover {
-                            color: #007bff;
+                            color: $orangeredHover;
+                        }
+
+                        &.active{
+                            color: orangered;
                         }
                     }
 
@@ -2279,6 +2283,23 @@ button {
 
         .owl-next {
             right: 20px;
+        }
+
+        &.outside-nav{
+            .owl-prev{
+                left: -60px;
+            }
+
+            .owl-next{
+                right: -60px;
+            }
+        }
+
+        &.dark-theme{
+            .owl-prev, .owl-next{
+                background-color: darkgray !important;
+                color: #ffffff !important;
+            }
         }
     }
 }

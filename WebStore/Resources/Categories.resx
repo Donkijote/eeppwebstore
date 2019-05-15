@@ -150,7 +150,7 @@
     <comment>contactor-and-thermic-rele</comment>
   </data>
   <data name="ControlCommand" xml:space="preserve">
-    <value>CONTROL AND COMMAND</value>
+    <value>Control and command</value>
     <comment>control-and-command</comment>
   </data>
   <data name="Cordons" xml:space="preserve">
@@ -170,15 +170,15 @@
     <comment>distributors</comment>
   </data>
   <data name="ElectricCanalization" xml:space="preserve">
-    <value>ELECTRICAL CANALIZATION</value>
+    <value>Electrical canalization</value>
     <comment>electrical-canalization</comment>
   </data>
   <data name="ElectricConductor" xml:space="preserve">
-    <value>ELECTRICAL CONDUCTOR</value>
+    <value>Electrical conductor</value>
     <comment>electrical-conductor</comment>
   </data>
   <data name="ElectricHardware" xml:space="preserve">
-    <value>ELECTRICAL HARDWARE STORE</value>
+    <value>Electrical hardware store</value>
     <comment>electrical-hardware-store</comment>
   </data>
   <data name="Emergency" xml:space="preserve">
@@ -210,7 +210,7 @@
     <comment>home</comment>
   </data>
   <data name="HomeLights" xml:space="preserve">
-    <value>HOME LIGHTS</value>
+    <value>Home lights</value>
     <comment>home-lights</comment>
   </data>
   <data name="Industral" xml:space="preserve">
@@ -218,11 +218,11 @@
     <comment>industrial</comment>
   </data>
   <data name="IndustryLights" xml:space="preserve">
-    <value>INDUSTRY LIGHTS</value>
-    <comment>indutrial-lights</comment>
+    <value>Industrial lights</value>
+    <comment>industrial-lights</comment>
   </data>
   <data name="IndustryPlugs" xml:space="preserve">
-    <value>INDUSTRY PLUGS</value>
+    <value>Industrial plugs</value>
     <comment>industrial-plugs</comment>
   </data>
   <data name="Ladders" xml:space="preserve">
@@ -270,7 +270,7 @@
     <comment>q-din-boards</comment>
   </data>
   <data name="Residential" xml:space="preserve">
-    <value>RESIDENTIAL</value>
+    <value>Residential</value>
     <comment>residential</comment>
   </data>
   <data name="SoftBreaker" xml:space="preserve">

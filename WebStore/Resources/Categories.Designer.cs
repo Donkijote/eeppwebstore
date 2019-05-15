@@ -133,7 +133,7 @@ namespace WebStore.Resources {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a CONTROL AND COMMAND.
+        ///   Busca una cadena traducida similar a Control and command.
         /// </summary>
         public static string ControlCommand {
             get {
@@ -178,7 +178,7 @@ namespace WebStore.Resources {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a ELECTRICAL CANALIZATION.
+        ///   Busca una cadena traducida similar a Electrical canalization.
         /// </summary>
         public static string ElectricCanalization {
             get {
@@ -187,7 +187,7 @@ namespace WebStore.Resources {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a ELECTRICAL CONDUCTOR.
+        ///   Busca una cadena traducida similar a Electrical conductor.
         /// </summary>
         public static string ElectricConductor {
             get {
@@ -196,7 +196,7 @@ namespace WebStore.Resources {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a ELECTRICAL HARDWARE STORE.
+        ///   Busca una cadena traducida similar a Electrical hardware store.
         /// </summary>
         public static string ElectricHardware {
             get {
@@ -268,7 +268,7 @@ namespace WebStore.Resources {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a HOME LIGHTS.
+        ///   Busca una cadena traducida similar a Home lights.
         /// </summary>
         public static string HomeLights {
             get {
@@ -286,7 +286,7 @@ namespace WebStore.Resources {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a INDUSTRY LIGHTS.
+        ///   Busca una cadena traducida similar a Industrial lights.
         /// </summary>
         public static string IndustryLights {
             get {
@@ -295,7 +295,7 @@ namespace WebStore.Resources {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a INDUSTRY PLUGS.
+        ///   Busca una cadena traducida similar a Industrial plugs.
         /// </summary>
         public static string IndustryPlugs {
             get {
@@ -403,7 +403,7 @@ namespace WebStore.Resources {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a RESIDENTIAL.
+        ///   Busca una cadena traducida similar a Residential.
         /// </summary>
         public static string Residential {
             get {

@@ -33,14 +33,10 @@ namespace WebStore.Controllers
                         translatedId = dir.Translation(id, "es", "en");
                     }
 
-                    var v = db.tblCategories.Where(a => a.strSeo == (culture != "en" ? translatedId : id)).FirstOrDefault();
-                    var s = (from a in db.tblProducts
-                             join b in db.tblCategories
-                             on a.refCategoria equals b.idCategoria
-                             where a.refCategoria == v.idCategoria
-                             select new { strNombre = a.strNombre, strCodigo = a.strCodigo, intPrecio = a.intPrecio, strSeo = b.strSeo })
-                             .AsEnumerable()
-                             .Select( x => new Products { strNombre = Truncate(x.strNombre, 60), strCodigo = x.strCodigo, intPrecio = FormatNumber(x.intPrecio), categorySeo = x.strSeo }).ToList();
+                    int v = db.tblCategories.Where(a => a.strSeo == (culture != "en" ? translatedId : id))
+                            .Select(i => i.idCategoria).FirstOrDefault();
+
+                    var s = FamilyOrCategory((culture != "en" ? translatedId : id), v);
 
                     string url = Request.RawUrl;
                     string query = Request.Url.Query;
@@ -62,8 +58,8 @@ namespace WebStore.Controllers
                     }
 
                     ViewBag.type = isAllowed;
-                    ViewBag.p = id;
-                    ViewBag.Title = id;
+                    ViewBag.active = getTitle((culture != "en" ? translatedId : id));
+                    ViewBag.Title = Resources.Categories.ResourceManager.GetString(getTitle((culture != "en" ? translatedId : id)));
                     return View("s",s.ToPagedList(page ?? 1, 3));
                 }
             }
@@ -101,6 +97,38 @@ namespace WebStore.Controllers
             }
         }
 
+        private List<Products> FamilyOrCategory(string id, int? v)
+        {
+            using(webstoreEntities db = new webstoreEntities())
+            {
+                if (v == null)
+                {
+                    var family = db.tblFamily.Where(a => a.strSeo == id).FirstOrDefault();
+                    var s = (from a in db.tblProducts
+                             join b in db.tblCategories
+                             on a.refCategoria equals b.idCategoria
+                             join c in db.tblFamily
+                             on b.refFamily equals c.idFamily
+                             where a.refCategoria == b.idCategoria && b.refFamily == family.idFamily
+                             select new { strNombre = a.strNombre, strCodigo = a.strCodigo, intPrecio = a.intPrecio, strSeo = b.strSeo })
+                            .AsEnumerable()
+                            .Select(x => new Products { strNombre = Truncate(x.strNombre, 60), strCodigo = x.strCodigo, intPrecio = FormatNumber(x.intPrecio), categorySeo = x.strSeo }).ToList();
+                    return s;
+                }
+                else
+                {
+                    var s = (from a in db.tblProducts
+                             join b in db.tblCategories
+                             on a.refCategoria equals b.idCategoria
+                             where a.refCategoria == v
+                             select new { strNombre = a.strNombre, strCodigo = a.strCodigo, intPrecio = a.intPrecio, strSeo = b.strSeo })
+                            .AsEnumerable()
+                            .Select(x => new Products { strNombre = Truncate(x.strNombre, 60), strCodigo = x.strCodigo, intPrecio = FormatNumber(x.intPrecio), categorySeo = x.strSeo }).ToList();
+                    return s;
+                }
+            }
+        }
+
         private static string Truncate(string value, int maxChars)
         {
             return value.Length <= maxChars ? value : value.Substring(0, maxChars) + "...";
@@ -109,6 +137,34 @@ namespace WebStore.Controllers
         private static string FormatNumber(decimal number)
         {
             return number.ToString("N", CultureInfo.GetCultureInfo("es-CL"));
+        }
+
+        private String getTitle(string id)
+        {
+            using(webstoreEntities db = new webstoreEntities())
+            {
+                var f = db.tblFamily.Where(a => a.strSeo == id)
+                        .Select(x => x)
+                        .FirstOrDefault();
+                if(f == null)
+                {
+                    var c = db.tblCategories.Where(a => a.strSeo == id)
+                            .Select(x => x)
+                            .FirstOrDefault();
+                    if(c == null)
+                    {
+                        return "Error";
+                    }
+                    else
+                    {
+                        return c.strNombre;
+                    }
+                }
+                else
+                {
+                    return f.strName;
+                }
+            }
         }
     }
 }

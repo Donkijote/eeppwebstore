@@ -1870,7 +1870,9 @@ button {
       font-size: 14px;
       text-decoration: none; }
     .widget.mg-widget-categories ul li.has-children a:hover, .mg-widget.mg-widget-categories ul li.has-children a:hover {
-      color: #007bff; }
+      color: #e43f00; }
+    .widget.mg-widget-categories ul li.has-children a.active, .mg-widget.mg-widget-categories ul li.has-children a.active {
+      color: orangered; }
     .widget.mg-widget-categories ul li.has-children ul, .mg-widget.mg-widget-categories ul li.has-children ul {
       max-height: 0;
       transition: max-height .6s;
@@ -2252,6 +2254,16 @@ button {
 
 .owl-carousel .owl-nav .owl-next {
   right: 20px; }
+
+.owl-carousel .owl-nav.outside-nav .owl-prev {
+  left: -60px; }
+
+.owl-carousel .owl-nav.outside-nav .owl-next {
+  right: -60px; }
+
+.owl-carousel .owl-nav.dark-theme .owl-prev, .owl-carousel .owl-nav.dark-theme .owl-next {
+  background-color: darkgray !important;
+  color: #ffffff !important; }
 
 #carouselPopularBrands .carousel-indicators {
   bottom: -30%;

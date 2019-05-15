@@ -23,6 +23,7 @@ namespace WebStore.Models
         public int idFamily { get; set; }
         public string strName { get; set; }
         public Nullable<int> intOrder { get; set; }
+        public string strSeo { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblCategories> tblCategories { get; set; }

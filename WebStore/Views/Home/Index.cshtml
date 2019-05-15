@@ -1,4 +1,5 @@
-﻿@{
+﻿@model WebStore.Models.BindingCateogyFamilyChild
+@{
     ViewBag.Title = WebStore.Resources.Titles.Home;
 }
 
@@ -396,77 +397,41 @@
     <div class="block-separator"></div>
 </section>
 
-<section id="top-categories" data-name="categories" class="container mg-content">
+<section id="top-categories" data-name="categories" class="mg-content">
     <div class="block-separator"></div>
-    <h3 class="text-center mb-3 wow fadeInRight" data-wow-duration="2s">@WebStore.Resources.Titles.TopCate</h3>
-    <div class="row">
-        <div class="col-md-4 col-sm-6">
-            <div class="mg-card mb-3 wow fadeInRight" data-wow-duration="2s">
-                <a class="mg-card-img-tiles">
-                    <div class="mg-inner">
-                        <div class="mg-main-img">
-                            <img class="img-fuild" src="https://eepp.cl/images/productos/Z1-K-NEGRO.jpg">
+    <div class="container pb-5">
+        <h3 class="text-center mb-5 wow fadeInRight" data-wow-duration="2s">@WebStore.Resources.Titles.TopCate</h3>
+        <div id="carouselCategories" class="owl-carousel owl-grab owl-animated-in owl-loaded">
+            <div class="owl-stage-outer">
+                <div class="owl-stage">
+                    @foreach(var i in Model.family)
+                    {
+                        <div class="owl-item">
+                            <div class="mg-card mb-3 wow fadeInRight" data-wow-duration="2s">
+                                    <a class="mg-card-img-tiles">
+                                        <div class="mg-inner">
+                                            <div class="mg-main-img">
+                                                <img class="img-fuild" src="https://eepp.cl/images/productos/Z1-K-NEGRO.jpg">
+                                            </div>
+                                            <div class="mg-thumblist">
+                                                <img class="img-fuild" src="https://eepp.cl/images/productos/JK-3002076-WEB.jpg">
+                                                <img class="img-fuild" src="https://eepp.cl/images/productos/CALECO-2X.jpg">
+                                            </div>
+                                        </div>
+                                    </a>
+                                    <div class="card-body text-center">
+                                        <h4 class="card-title">
+                                            @WebStore.Resources.Categories.ResourceManager.GetString(i.strName)
+                                        </h4>
+                                        <p class="text-muted">desde 50.00$ </p>
+                                        <a class="btn btn-outline-orangered btn-sm" href="@Url.Action("s", "Categories", new { id = WebStore.Resources.Seo.ResourceManager.GetString(i.strName), language = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName }, null)">@WebStore.Resources.Buttons.ViewProducts</a>
+                                    </div>
+                                </div>
                         </div>
-                        <div class="mg-thumblist">
-                            <img class="img-fuild" src="https://eepp.cl/images/productos/JK-3002076-WEB.jpg">
-                            <img class="img-fuild" src="https://eepp.cl/images/productos/CALECO-2X.jpg">
-                        </div>
-                    </div>
-                </a>
-                <div class="card-body text-center">
-                    <h4 class="card-title">@WebStore.Resources.Categories.Cables</h4>
-                    <p class="text-muted">desde 50.00$ </p>
-                    <a class="btn btn-outline-orangered btn-sm" href="@Url.Action("s", "Categories", new { id="Cables", language=System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName}, null)">@WebStore.Resources.Buttons.ViewProducts</a>
+                    }
                 </div>
             </div>
         </div>
-
-        <div class="col-md-4 col-sm-6">
-            <div class="mg-card mb-3 wow fadeInRight" data-wow-duration="2s" data-wow-delay="1s">
-                <a class="mg-card-img-tiles">
-                    <div class="mg-inner">
-                        <div class="mg-main-img">
-                            <img class="img-fuild" src="https://eepp.cl/images/productos/eco-17117.jpg">
-                        </div>
-                        <div class="mg-thumblist">
-                            <img class="img-fuild" src="https://eepp.cl/images/productos/ECO-13838-WEB.jpg">
-                            <img class="img-fuild" src="https://eepp.cl/images/productos/str-100205.jpg">
-                        </div>
-                    </div>
-                </a>
-                <div class="card-body text-center">
-                    <h4 class="card-title">@WebStore.Resources.Categories.HomeLights</h4>
-                    <p class="text-muted">desde 50.00$ </p>
-                    <a class="btn btn-outline-orangered btn-sm" href="@Url.Action("s", "Categories", new { id="Cables", language=System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName}, null)">@WebStore.Resources.Buttons.ViewProducts</a>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-4 col-sm-6">
-            <div class="mg-card mb-3 wow fadeInRight" data-wow-duration="2s" data-wow-delay="2s">
-                <a class="mg-card-img-tiles">
-                    <div class="mg-inner">
-                        <div class="mg-main-img">
-                            <img class="img-fuild" src="https://eepp.cl/images/productos/SSW-07.jpg">
-                        </div>
-                        <div class="mg-thumblist">
-                            <img class="img-fuild" src="https://eepp.cl/images/productos/SN12705-WEB.jpg">
-                            <img class="img-fuild" src="https://eepp.cl/images/productos/GW64027-WEB.jpg">
-                        </div>
-                    </div>
-                </a>
-                <div class="card-body text-center">
-                    <h4 class="card-title">@WebStore.Resources.Categories.ControlCommand</h4>
-                    <p class="text-muted">desde 50.00$ </p>
-                    <a class="btn btn-outline-orangered btn-sm" href="@Url.Action("s", "Categories", new { id="Cables", language=System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName}, null)">@WebStore.Resources.Buttons.ViewProducts</a>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="text-center pt-3 pb-5">
-        <a class="btn btn-view-more" href="@Url.Action("All", "Categories", new {language=System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName}, null)">
-            @WebStore.Resources.Buttons.AllCate
-        </a>
     </div>
 </section>
 

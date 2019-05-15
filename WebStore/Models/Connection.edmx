@@ -59,6 +59,7 @@
           <Property Name="idFamily" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="strName" Type="varchar" MaxLength="20" />
           <Property Name="intOrder" Type="int" />
+          <Property Name="strSeo" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="tblFicha">
           <Key>
@@ -619,6 +620,7 @@
           <Property Name="strName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="intOrder" Type="Int32" />
           <NavigationProperty Name="tblCategories" Relationship="webstoreModel.FK_tblCategories_tblFamily" FromRole="tblFamily" ToRole="tblCategories" />
+          <Property Name="strSeo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <Association Name="FK_tblCategories_tblFamily">
           <End Type="webstoreModel.tblFamily" Role="tblFamily" Multiplicity="0..1" />
@@ -936,6 +938,7 @@
           <EntitySetMapping Name="tblFamily">
             <EntityTypeMapping TypeName="webstoreModel.tblFamily">
               <MappingFragment StoreEntitySet="tblFamily">
+                <ScalarProperty Name="strSeo" ColumnName="strSeo" />
                 <ScalarProperty Name="intOrder" ColumnName="intOrder" />
                 <ScalarProperty Name="strName" ColumnName="strName" />
                 <ScalarProperty Name="idFamily" ColumnName="idFamily" />

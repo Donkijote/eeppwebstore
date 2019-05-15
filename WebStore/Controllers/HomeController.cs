@@ -39,7 +39,15 @@ namespace WebStore.Controllers
             {
                 ViewBag.Datetime = string.Format("{0:D2}:{1:D2}:{2:D2}:{3:D2}", timeDiff.Days, timeDiff.Hours, timeDiff.Minutes, timeDiff.Seconds);
             }
-            return View();
+
+            var viewModel = new BindingCateogyFamilyChild();
+
+            using (webstoreEntities db = new webstoreEntities())
+            {
+                viewModel.family = db.tblFamily.Select(x => x).OrderBy(y => y.intOrder).ToList();
+                viewModel.category = db.tblCategories.Select(x => x).ToList();
+            }
+            return View(viewModel);
         }
 
         public ActionResult About()

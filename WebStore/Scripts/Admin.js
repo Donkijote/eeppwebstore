@@ -277,7 +277,13 @@ $.AdminJs.leftMenu = {
 			} else {
 				p.addClass('expanded');
 			}
-		})
+        })
+
+        $('.has-children-list a').each(function () {
+            if ($(this).hasClass('active')) {
+                $(this).parents('.has-children').addClass('expanded');
+            }
+        })
 	}
 }
 

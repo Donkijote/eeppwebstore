@@ -65,4 +65,26 @@
             }
         }
     });
+
+    $("#carouselCategories").owlCarousel({
+        items: 3,
+        nav: true,
+        dots: false,
+        navContainerClass: "owl-nav outside-nav dark-theme",
+        navText: ["<i class='fas fa-angle-left fa-2x'></i>", "<i class='fas fa-angle-right fa-2x'></i>"],
+        loop: true,
+        margin: 10,
+        responsiveClass: true,
+        responsive: {
+            0: {
+                items: 1
+            },
+            600: {
+                items: 1
+            },
+            1000: {
+                items: 3
+            }
+        }
+    });
 })
