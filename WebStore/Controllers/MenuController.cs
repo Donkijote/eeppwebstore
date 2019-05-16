@@ -34,23 +34,30 @@ namespace WebStore.Controllers
             return PartialView(viewModel);
         }
 
-        public ActionResult LeftMenu(string active)
+        public ActionResult LeftMenu(string active, string SeoLocation, string minPrice, string maxPrice)
         {
-            var viewModel = new BindingCateogyFamilyChild();
+            var viewModel = new LeftMenu();
 
             using (webstoreEntities db = new webstoreEntities())
             {
-                viewModel.family = db.tblFamily.Select(x => x).OrderBy(y => y.intOrder).ToList();
-                viewModel.category = db.tblCategories.Select(x => x).ToList();
-                viewModel.categoryTotal = categoryTotal();
-                viewModel.familyTotal = familyTotal();
+                viewModel.Family = db.tblFamily.Select(x => x).OrderBy(y => y.intOrder).ToList();
+                viewModel.Category = db.tblCategories.Select(x => x).ToList();
+                viewModel.CategoryTotal = CategoryTotal();
+                viewModel.FamilyTotal = FamilyTotal();
+
+                if(SeoLocation != null || SeoLocation != "")
+                {
+                    viewModel.BrandTotal = BrandTotal(SeoLocation);
+                }
             }
 
             ViewBag.active = active;
+            ViewBag.minPrice = minPrice;
+            ViewBag.maxPrice = maxPrice;
             return PartialView(viewModel);
         }
 
-        private static List<TotalProductByCategory> categoryTotal()
+        private static List<TotalProductByCategory> CategoryTotal()
         {
             using(webstoreEntities db = new webstoreEntities())
             {
@@ -67,7 +74,7 @@ namespace WebStore.Controllers
             }
         }
 
-        private static List<TotalProductByFamily> familyTotal()
+        private static List<TotalProductByFamily> FamilyTotal()
         {
             using (webstoreEntities db = new webstoreEntities())
             {
@@ -81,6 +88,44 @@ namespace WebStore.Controllers
                          .Select(x => new TotalProductByFamily { TotalProducts = x.Count(), FamilyId = x.Key })
                          .ToList();
                 return s;
+            }
+        }
+
+        private static List<TotalProductByBrand> BrandTotal(string seo)
+        {
+            using (webstoreEntities db = new webstoreEntities())
+            {
+                var ca = (from a in db.tblProducts
+                         join b in db.tblCategories
+                         on a.refCategoria equals b.idCategoria
+                         join d in db.tblBrand
+                         on a.refBrand equals d.idBrand
+                         where b.strSeo == seo
+                         select new { products = a.idProdcuto, category = b.idCategoria, brand = d.strName })
+                         .GroupBy(q => q.brand)
+                         .Select(x => new TotalProductByBrand { TotalProducts = x.Count(), BrandName = x.Key })
+                         .ToList();
+                if(ca.Any())
+                {
+                    return ca;
+                }
+                else
+                {
+                    
+                    var f = (from a in db.tblProducts
+                             join b in db.tblCategories
+                             on a.refCategoria equals b.idCategoria
+                             join c in db.tblFamily
+                             on b.refFamily equals c.idFamily
+                             join d in db.tblBrand
+                             on a.refBrand equals d.idBrand
+                             where c.strSeo == seo
+                             select new { products = a.idProdcuto, category = b.idCategoria, brand = d.strName })
+                             .GroupBy(q => q.brand)
+                             .Select(x => new TotalProductByBrand { TotalProducts = x.Count(), BrandName = x.Key })
+                             .ToList();
+                    return f;
+                }
             }
         }
     }

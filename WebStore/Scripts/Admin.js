@@ -391,7 +391,7 @@ $.AdminJs.slider = {
         $(".ui-range-slider").slider({
             range: true,
             min: 0,
-            max: 1000,
+            max: $('.mg-price-range-slider').data('start-max'),
             values: [$('.mg-price-range-slider').data('start-min'), $('.mg-price-range-slider').data('start-max')],
             slide: function (event, ui) {
                 $(".ui-range-value-min").text("$" + ui.values[0] + " - ");

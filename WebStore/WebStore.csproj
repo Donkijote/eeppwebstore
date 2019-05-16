@@ -291,6 +291,16 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Cart.resx</DependentUpon>
     </Compile>
+    <Compile Include="Resources\Filter.es.Designer.cs">
+      <DependentUpon>Filter.es.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Resources\Filter.Designer.cs">
+      <DependentUpon>Filter.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="Resources\Seo.es.Designer.cs">
       <DependentUpon>Seo.es.resx</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -629,6 +639,14 @@
     <EmbeddedResource Include="Resources\Cart.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Cart.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Filter.es.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Filter.es.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Filter.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Filter.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Seo.es.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

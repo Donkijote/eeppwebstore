@@ -60,6 +60,8 @@ namespace WebStore.Controllers
                     ViewBag.type = isAllowed;
                     ViewBag.active = getTitle((culture != "en" ? translatedId : id));
                     ViewBag.Title = Resources.Categories.ResourceManager.GetString(getTitle((culture != "en" ? translatedId : id)));
+                    ViewBag.SeoLocation = culture != "en" ? translatedId : id;
+                    ViewBag.category = v;
                     return View("s",s.ToPagedList(page ?? 1, 3));
                 }
             }
@@ -97,11 +99,11 @@ namespace WebStore.Controllers
             }
         }
 
-        private List<Products> FamilyOrCategory(string id, int? v)
+        private List<Products> FamilyOrCategory(string id, int v)
         {
             using(webstoreEntities db = new webstoreEntities())
             {
-                if (v == null)
+                if (v == 0)
                 {
                     var family = db.tblFamily.Where(a => a.strSeo == id).FirstOrDefault();
                     var s = (from a in db.tblProducts
@@ -109,10 +111,12 @@ namespace WebStore.Controllers
                              on a.refCategoria equals b.idCategoria
                              join c in db.tblFamily
                              on b.refFamily equals c.idFamily
-                             where a.refCategoria == b.idCategoria && b.refFamily == family.idFamily
+                             where b.refFamily == family.idFamily
                              select new { strNombre = a.strNombre, strCodigo = a.strCodigo, intPrecio = a.intPrecio, strSeo = b.strSeo })
                             .AsEnumerable()
                             .Select(x => new Products { strNombre = Truncate(x.strNombre, 60), strCodigo = x.strCodigo, intPrecio = FormatNumber(x.intPrecio), categorySeo = x.strSeo }).ToList();
+                    ViewBag.minPrice = s.Min(x => Math.Round(Decimal.Parse(x.intPrecio), 0));
+                    ViewBag.maxPrice = s.Max(x => Math.Round(Decimal.Parse(x.intPrecio), 0));
                     return s;
                 }
                 else
@@ -139,7 +143,7 @@ namespace WebStore.Controllers
             return number.ToString("N", CultureInfo.GetCultureInfo("es-CL"));
         }
 
-        private String getTitle(string id)
+        private string getTitle(string id)
         {
             using(webstoreEntities db = new webstoreEntities())
             {

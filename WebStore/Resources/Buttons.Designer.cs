@@ -439,7 +439,7 @@ namespace WebStore.Resources {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a View Offers.
+        ///   Busca una cadena traducida similar a View Offer.
         /// </summary>
         public static string ViewOffers {
             get {

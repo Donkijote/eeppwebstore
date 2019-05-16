@@ -16,8 +16,16 @@ namespace WebStore.Models
     {
         public IEnumerable<tblFamily> family { get; set; }
         public IEnumerable<tblCategories> category { get; set; }
-        public IEnumerable<TotalProductByFamily> familyTotal { get; set; }
-        public IEnumerable<TotalProductByCategory> categoryTotal { get; set; }
+    }
+
+    public class LeftMenu
+    {
+        public IEnumerable<tblFamily> Family { get; set; }
+        public IEnumerable<tblCategories> Category { get; set; }
+        public IEnumerable<TotalProductByFamily> FamilyTotal { get; set; }
+        public IEnumerable<TotalProductByCategory> CategoryTotal { get; set; }
+        public IEnumerable<TotalProductByBrand> BrandTotal { get; set; }
+        public List<RangePrice> PriceRange { get; set; }
     }
 
     public class TotalProductByCategory
@@ -30,5 +38,18 @@ namespace WebStore.Models
     {
         public int FamilyId { get; set; }
         public int TotalProducts { get; set; }
+    }
+
+    public class TotalProductByBrand
+    {
+        public int BrandId { get; set; }
+        public string BrandName { get; set; }
+        public int TotalProducts { get; set; }
+    }
+
+    public class RangePrice
+    {
+        public string minPrice { get; set; }
+        public string maxPrice { get; set; }
     }
 }

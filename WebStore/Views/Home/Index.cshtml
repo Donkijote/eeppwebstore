@@ -19,9 +19,9 @@
                                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                                     <div class="rounded mg-bg-counter position-relative pt-5 pb-5">
                                         <div class="text-center">
-                                            <h3 class="h2 text-normal mb-1 text-danger wow fadeInDown">OFERTA LIMITADA</h3>
-                                            <h2 class="display-2 text-bold mb-2 wow fadeInDown">Ampolleta Led</h2>
-                                            <h4 class="text-normal mb-4 wow fadeInDown">Precios de Descuentos!</h4>
+                                            <h3 class="h2 text-normal mb-1 text-danger wow fadeInDown">¡OFERTA LIMITADA!</h3>
+                                            <h2 class="display-2 text-bold mb-2 wow fadeInDown">Caja Combi</h2>
+                                            <h4 class="text-normal mb-4 wow fadeInDown">Serie 35 Hydro</h4>
                                             <div class="mg-countdown mb-3 wow fadeInLeft" data-date-time="07/30/2018 12:00:00">
                                                 <!--<div class="item">
                                                     <div class="days">00</div><span class="days_ref">Días</span>
@@ -54,6 +54,7 @@
                 </div>
             </div>
         </section>
+        
         <div class="d-block position-relative text-right" style="z-index:3;">
             <div class="mg-index-rota-img" id="i3d">
                 <img class="img-fluid wow fadeInRight d-block w-100" src="~/Content/img/frame_1.png">
@@ -351,7 +352,7 @@
                 </div><a class="btn btn-view-more btn-sm mb-0" href="shop-grid-ls.html">@WebStore.Resources.Buttons.ViewMore</a>
             </div>
         </div>
-        
+
         <div class="col-md-4 col-sm-6 mb-3">
             <div class="widget mg-widget-featured-products wow fadeInUp" data-wow-duration="2s">
                 <h3 class="mg-widget-title">Mejores Calificados</h3>
@@ -404,29 +405,29 @@
         <div id="carouselCategories" class="owl-carousel owl-grab owl-animated-in owl-loaded">
             <div class="owl-stage-outer">
                 <div class="owl-stage">
-                    @foreach(var i in Model.family)
+                    @foreach (var i in Model.family)
                     {
                         <div class="owl-item">
                             <div class="mg-card mb-3 wow fadeInRight" data-wow-duration="2s">
-                                    <a class="mg-card-img-tiles">
-                                        <div class="mg-inner">
-                                            <div class="mg-main-img">
-                                                <img class="img-fuild" src="https://eepp.cl/images/productos/Z1-K-NEGRO.jpg">
-                                            </div>
-                                            <div class="mg-thumblist">
-                                                <img class="img-fuild" src="https://eepp.cl/images/productos/JK-3002076-WEB.jpg">
-                                                <img class="img-fuild" src="https://eepp.cl/images/productos/CALECO-2X.jpg">
-                                            </div>
+                                <a class="mg-card-img-tiles">
+                                    <div class="mg-inner">
+                                        <div class="mg-main-img">
+                                            <img class="img-fuild" src="https://eepp.cl/images/productos/Z1-K-NEGRO.jpg">
                                         </div>
-                                    </a>
-                                    <div class="card-body text-center">
-                                        <h4 class="card-title">
-                                            @WebStore.Resources.Categories.ResourceManager.GetString(i.strName)
-                                        </h4>
-                                        <p class="text-muted">desde 50.00$ </p>
-                                        <a class="btn btn-outline-orangered btn-sm" href="@Url.Action("s", "Categories", new { id = WebStore.Resources.Seo.ResourceManager.GetString(i.strName), language = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName }, null)">@WebStore.Resources.Buttons.ViewProducts</a>
+                                        <div class="mg-thumblist">
+                                            <img class="img-fuild" src="https://eepp.cl/images/productos/JK-3002076-WEB.jpg">
+                                            <img class="img-fuild" src="https://eepp.cl/images/productos/CALECO-2X.jpg">
+                                        </div>
                                     </div>
+                                </a>
+                                <div class="card-body text-center">
+                                    <h4 class="card-title">
+                                        @WebStore.Resources.Categories.ResourceManager.GetString(i.strName)
+                                    </h4>
+                                    <p class="text-muted">desde 50.00$ </p>
+                                    <a class="btn btn-outline-orangered btn-sm" href="@Url.Action("s", "Categories", new { id = WebStore.Resources.Seo.ResourceManager.GetString(i.strName), language = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName }, null)">@WebStore.Resources.Buttons.ViewProducts</a>
                                 </div>
+                            </div>
                         </div>
                     }
                 </div>
@@ -681,4 +682,14 @@
             $.AdminJs.Countdown.activate();
         });
     </script>
+}
+
+@section MetaContent{
+    <meta property="og:title" content="Electro Productos SA, Proyectos LED" />
+    <meta property="og:image" content="https://eeppwebstore.ddns.net/favicon.ico" />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="@Request.RawUrl"/>
+    <meta property="og:description" content="Es especialista en el rubro de importación y exportación de materiales eléctricos y productos de iluminación por más de 20 años, dirige sus actividades a las áreas de celulosa, forestal, minería, pesquera, construcción y retail." />
+    <meta name="description" content="Es especialista en el rubro de importación y exportación de materiales eléctricos y productos de iluminación por más de 20 años, dirige sus actividades a las áreas de celulosa, forestal, minería, pesquera, construcción y retail.">
+    <meta name="keywords" content="Iluminación, Iluminación LED, Iluminación hogar, Iluminación industrial, Paneles, Interior, Exterior, Luminaria solar, Iluminación solar, solar, Paneles solares, Ampolletas, Tubos, Iluminación urbana, Proyectores LED, Herméticas, Herméticas LED, Estanco, Señaleticas LED, Campanas LED, UFOs LED, Iluminación emergencia, Emergencia LED, Minería LED, Iluminarias para atmóferas extremas, Materiales eléctricas, Control y comando, drivers, Conductores eléctricos, Iluminación jardín"/>
 }

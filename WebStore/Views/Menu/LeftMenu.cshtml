@@ -1,4 +1,4 @@
-﻿@model WebStore.Models.BindingCateogyFamilyChild
+﻿@model WebStore.Models.LeftMenu
 <div class="mg-sidebar-toggle position-left">
     <i class="fas fa-filter"></i>
 </div>
@@ -7,13 +7,13 @@
         <i class="fas fa-times"></i>
     </span>
     <section class="mg-widget mg-widget-categories">
-        <h3 class="mg-widget-title">Shop Categories</h3>
+        <h3 class="mg-widget-title">@WebStore.Resources.Filter.Shop</h3>
         <ul>
-            @foreach (var i in Model.family)
+            @foreach (var i in Model.Family)
             {
                 <li class="has-children">
                     <a href="#" class=@(ViewBag.active == i.strName ? "active":"")>@WebStore.Resources.Categories.ResourceManager.GetString(i.strName)</a>
-                    @foreach(var j in Model.familyTotal)
+                    @foreach(var j in Model.FamilyTotal)
                     {
                         if(i.idFamily == j.FamilyId)
                         {
@@ -21,13 +21,13 @@
                         }
                     }
                     <ul class="has-children-list">
-                        @foreach (var k in Model.category)
+                        @foreach (var k in Model.Category)
                         {
                             if (k.refFamily == i.idFamily)
                             {
                                 <li>
                                     <a href="#" class=@(ViewBag.active == k.strNombre ? "active":"")>@WebStore.Resources.Categories.ResourceManager.GetString(k.strNombre)</a>
-                                    @foreach (var l in Model.categoryTotal)
+                                    @foreach (var l in Model.CategoryTotal)
                                     {
                                         if (k.idCategoria == l.CategoryId)
                                         {
@@ -44,8 +44,8 @@
     </section>
 
     <section class="mg-widget mg-widget-categories">
-        <h3 class="mg-widget-title">Price Range</h3>
-        <form class="mg-price-range-slider" method="post" data-start-min="250" data-start-max="650" data-min="0" data-max="1000" data-step="1">
+        <h3 class="mg-widget-title">@WebStore.Resources.Filter.Price</h3>
+        <form class="mg-price-range-slider" method="post" data-start-min="@ViewBag.minPrice" data-start-max="@ViewBag.maxPrice" data-min="0" data-max="1000" data-step="1">
             <div class="ui-range-slider mt-3"></div>
             <footer class="ui-range-slider-footer">
                 <div class="column">
@@ -54,12 +54,12 @@
                 <div class="column">
                     <div class="ui-range-values">
                         <div class="ui-range-value-min">
-                            $<span>250</span>&nbsp;-&nbsp;
-                            <input type="hidden" value="250">
+                            $<span>@ViewBag.minPrice</span>&nbsp;-&nbsp;
+                            <input type="hidden" value="@ViewBag.minPrice">
                         </div>
                         <div class="ui-range-value-max">
-                            $<span>650</span>
-                            <input type="hidden" value="650">
+                            $<span>@ViewBag.maxPrice</span>
+                            <input type="hidden" value="@ViewBag.maxPrice">
                         </div>
                     </div>
                 </div>
@@ -68,7 +68,7 @@
     </section>
 
     <section class="mg-widget">
-        <h3 class="mg-widget-title">Filter by Price</h3>
+        <h3 class="mg-widget-title">@WebStore.Resources.Filter.PriceF</h3>
         <div class="custom-control custom-checkbox">
             <input class="chk-col-deep-orange filled-in" type="checkbox" id="low">
             <label for="low">$50 - $100L&nbsp;<span class="text-muted">(208)</span></label>
@@ -88,43 +88,14 @@
     </section>
 
     <section class="mg-widget">
-        <h3 class="mg-widget-title">Filter by Brand</h3>
-        <div class="custom-control custom-checkbox">
-            <input class="chk-col-deep-orange filled-in" type="checkbox" id="apple">
-            <label for="apple">Apple&nbsp;<span class="text-muted">(254)</span></label>
-        </div>
-        <div class="custom-control custom-checkbox">
-            <input class="chk-col-deep-orange filled-in" type="checkbox" id="bosh">
-            <label for="bosh">Bosh&nbsp;<span class="text-muted">(39)</span></label>
-        </div>
-        <div class="custom-control custom-checkbox">
-            <input class="chk-col-deep-orange filled-in" type="checkbox" id="canon">
-            <label for="canon">Canon Inc.&nbsp;<span class="text-muted">(128)</span></label>
-        </div>
-        <div class="custom-control custom-checkbox">
-            <input class="chk-col-deep-orange filled-in" type="checkbox" id="dell">
-            <label for="dell">Dell&nbsp;<span class="text-muted">(310)</span></label>
-        </div>
-        <div class="custom-control custom-checkbox">
-            <input class="chk-col-deep-orange filled-in" type="checkbox" id="hewlet">
-            <label for="hewlet">Hewlett-Packard&nbsp;<span class="text-muted">(42)</span></label>
-        </div>
-        <div class="custom-control custom-checkbox">
-            <input class="chk-col-deep-orange filled-in" type="checkbox" id="hitachi">
-            <label for="hitachi">Hitachi&nbsp;<span class="text-muted">(217)</span></label>
-        </div>
-        <div class="custom-control custom-checkbox">
-            <input class="chk-col-deep-orange filled-in" type="checkbox" id="lg">
-            <label for="lg">LG Electronics&nbsp;<span class="text-muted">(310)</span></label>
-        </div>
-        <div class="custom-control custom-checkbox">
-            <input class="chk-col-deep-orange filled-in" type="checkbox" id="panasonic">
-            <label for="panasonic">Panasonic&nbsp;<span class="text-muted">(74)</span></label>
-        </div>
-        <div class="custom-control custom-checkbox">
-            <input class="chk-col-deep-orange filled-in" type="checkbox" id="siemens">
-            <label for="siemens">Siemens&nbsp;<span class="text-muted">(86)</span></label>
-        </div>
+        <h3 class="mg-widget-title">@WebStore.Resources.Filter.BrandF</h3>
+        @foreach (var b in Model.BrandTotal)
+        {
+            <div class="custom-control custom-checkbox">
+                <input class="chk-col-deep-orange filled-in" type="checkbox" id="apple">
+                <label for="apple">@b.BrandName&nbsp;<span class="text-muted">(@b.TotalProducts)</span></label>
+            </div>
+        }
     </section>
 </aside>
 @section Scripts{
