@@ -226,7 +226,6 @@
             $('#sort-by-button-group').on('change', function () {
                 var sortValue = $(this).find(':selected').attr('data-sort-value');
                 var Ascending = $(this).find(':selected').attr('data-ascending');
-                console.log(Ascending);
                 if (Ascending == "true") {
                     $grid.isotope({ sortBy: sortValue, sortAscending: true });
                 } else {
