@@ -187,7 +187,7 @@
                         @foreach (var i in Model.family)
                         {
                             <li>
-                                <a href="javascript:void(0);">@WebStore.Resources.Categories.ResourceManager.GetString(i.strName)</a>
+                                <a href="@Url.Action("s","Categories", new { language = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName, id = WebStore.Resources.Seo.ResourceManager.GetString(i.strName)})">@WebStore.Resources.Categories.ResourceManager.GetString(i.strName)</a>
                             </li>
                         }
                     </ul>

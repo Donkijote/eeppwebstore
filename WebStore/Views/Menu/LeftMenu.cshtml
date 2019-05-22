@@ -69,22 +69,37 @@
 
     <section class="mg-widget">
         <h3 class="mg-widget-title">@WebStore.Resources.Filter.PriceF</h3>
-        <div class="custom-control custom-checkbox">
-            <input class="chk-col-deep-orange filled-in" type="checkbox" id="low">
-            <label for="low">$50 - $100L&nbsp;<span class="text-muted">(208)</span></label>
-        </div>
-        <div class="custom-control custom-checkbox">
-            <input class="chk-col-deep-orange filled-in" type="checkbox" id="middle">
-            <label for="middle">$100L - $500&nbsp;<span class="text-muted">(311)</span></label>
-        </div>
-        <div class="custom-control custom-checkbox">
-            <input class="chk-col-deep-orange filled-in" type="checkbox" id="high">
-            <label for="high">$500 - $1,000&nbsp;<span class="text-muted">(485)</span></label>
-        </div>
-        <div class="custom-control custom-checkbox">
-            <input class="chk-col-deep-orange filled-in" type="checkbox" id="top">
-            <label for="top">$1,000 - $5,000&nbsp;<span class="text-muted">(213)</span></label>
-        </div>
+        @foreach (var p in Model.BetweenPrices)
+        {
+            <div class="custom-control custom-checkbox">
+                <input class="chk-col-deep-orange filled-in" type="checkbox" id="lower">
+                <label for="lower">Hasta $10.000&nbsp;<span class="text-muted">(@p.lower)</span></label>
+            </div>
+            <div class="custom-control custom-checkbox">
+                <input class="chk-col-deep-orange filled-in" type="checkbox" id="low">
+                <label for="low">$10.000 - $50.000&nbsp;<span class="text-muted">(@p.low)</span></label>
+            </div>
+            <div class="custom-control custom-checkbox">
+                <input class="chk-col-deep-orange filled-in" type="checkbox" id="middle">
+                <label for="middle">$50.000 - $100.000&nbsp;<span class="text-muted">(@p.middle)</span></label>
+            </div>
+            <div class="custom-control custom-checkbox">
+                <input class="chk-col-deep-orange filled-in" type="checkbox" id="high">
+                <label for="high">$100.000 - $200.000&nbsp;<span class="text-muted">(@p.high)</span></label>
+            </div>
+            <div class="custom-control custom-checkbox">
+                <input class="chk-col-deep-orange filled-in" type="checkbox" id="higher">
+                <label for="higher">$200.000 - $300.000&nbsp;<span class="text-muted">(@p.higher)</span></label>
+            </div>
+            <div class="custom-control custom-checkbox">
+                <input class="chk-col-deep-orange filled-in" type="checkbox" id="highest">
+                <label for="highest">$300.000 - $500.000&nbsp;<span class="text-muted">(@p.highest)</span></label>
+            </div>
+            <div class="custom-control custom-checkbox">
+                <input class="chk-col-deep-orange filled-in" type="checkbox" id="top">
+                <label for="top">Desde $500.000 &nbsp;<span class="text-muted">(@p.top)</span></label>
+            </div>
+        }
     </section>
 
     <section class="mg-widget">
@@ -92,8 +107,8 @@
         @foreach (var b in Model.BrandTotal)
         {
             <div class="custom-control custom-checkbox">
-                <input class="chk-col-deep-orange filled-in" type="checkbox" id="apple">
-                <label for="apple">@b.BrandName&nbsp;<span class="text-muted">(@b.TotalProducts)</span></label>
+                <input class="chk-col-deep-orange filled-in" type="checkbox" id="@b.BrandName">
+                <label for="@b.BrandName">@b.BrandName&nbsp;<span class="text-muted">(@b.TotalProducts)</span></label>
             </div>
         }
     </section>

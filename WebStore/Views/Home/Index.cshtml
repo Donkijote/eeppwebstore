@@ -412,11 +412,11 @@
                                 <a class="mg-card-img-tiles">
                                     <div class="mg-inner">
                                         <div class="mg-main-img">
-                                            <img class="img-fuild" src="https://eepp.cl/images/productos/Z1-K-NEGRO.jpg">
+                                            <img class="img-fuild" src="~/Content/img/categories/@i.strImgOne">
                                         </div>
                                         <div class="mg-thumblist">
-                                            <img class="img-fuild" src="https://eepp.cl/images/productos/JK-3002076-WEB.jpg">
-                                            <img class="img-fuild" src="https://eepp.cl/images/productos/CALECO-2X.jpg">
+                                            <img class="img-fuild" src="~/Content/img/categories/@i.strImgTwo">
+                                            <img class="img-fuild" src="~/Content/img/categories/@i.strImgThree">
                                         </div>
                                     </div>
                                 </a>
@@ -556,54 +556,16 @@
     <div class="block-separator"></div>
     <div class="container">
         <div class="row">
-            <div class="col-lg-3 col-md-3 mg-cate-thumbnail py-3">
-                <a href="">
-                    <i class="fas fos fo-lightbulb fa-4x pb-3"></i>
-                    <p>@WebStore.Resources.Categories.HomeLights</p>
-                </a>
-            </div>
-            <div class="col-lg-3 col-md-3 mg-cate-thumbnail py-3">
-                <a href="">
-                    <i class="fas fos fo-lamp-post fa-4x pb-3"></i>
-                    <p>@WebStore.Resources.Categories.IndustryLights</p>
-                </a>
-            </div>
-            <div class="col-lg-3 col-md-3 mg-cate-thumbnail py-3">
-                <a href="">
-                    <i class="fas fos fo-home fa-4x pb-3"></i>
-                    <p>@WebStore.Resources.Categories.Residential</p>
-                </a>
-            </div>
-            <div class="col-lg-3 col-md-3 mg-cate-thumbnail py-3">
-                <a href="">
-                    <i class="fas fos fo-bolt fa-4x pb-3"></i>
-                    <p>@WebStore.Resources.Categories.ControlCommand</p>
-                </a>
-            </div>
-            <div class="col-lg-3 col-md-3 mg-cate-thumbnail py-3">
-                <a href="">
-                    <i class="fas fos fo-plug fa-4x pb-3"></i>
-                    <p>@WebStore.Resources.Categories.IndustryPlugs</p>
-                </a>
-            </div>
-            <div class="col-lg-3 col-md-3 mg-cate-thumbnail py-3">
-                <a href="">
-                    <i class="fas fos fo-tubes fa-4x pb-3"></i>
-                    <p>@WebStore.Resources.Categories.ElectricCanalization</p>
-                </a>
-            </div>
-            <div class="col-lg-3 col-md-3 mg-cate-thumbnail py-3">
-                <a href="">
-                    <i class="fas fos fo-cables fa-4x pb-3"></i>
-                    <p>@WebStore.Resources.Categories.ElectricConductor</p>
-                </a>
-            </div>
-            <div class="col-lg-3 col-md-3 mg-cate-thumbnail py-3">
-                <a href="">
-                    <i class="fas fos fo-archive-alt fa-4x pb-3"></i>
-                    <p>@WebStore.Resources.Categories.ElectricHardware</p>
-                </a>
-            </div>
+            @foreach (var j in Model.family)
+            {
+                <div class="col-lg-3 col-md-3 mg-cate-thumbnail py-3">
+                    <a href="@Url.Action("s","Categories", new { language = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName, id = WebStore.Resources.Seo.ResourceManager.GetString(j.strName)}, null)">
+                        <i class="fas fos fo-@j.strName fa-4x pb-3"></i>
+                        <p>@WebStore.Resources.Categories.ResourceManager.GetString(j.strName)</p>
+                    </a>
+                </div>
+            }
+            
         </div>
     </div>
 </section>

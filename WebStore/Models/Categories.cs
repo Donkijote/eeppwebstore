@@ -26,6 +26,7 @@ namespace WebStore.Models
         public IEnumerable<TotalProductByCategory> CategoryTotal { get; set; }
         public IEnumerable<TotalProductByBrand> BrandTotal { get; set; }
         public List<RangePrice> PriceRange { get; set; }
+        public List<PriceRange> BetweenPrices { get; set; }     
     }
 
     public class TotalProductByCategory
@@ -51,5 +52,16 @@ namespace WebStore.Models
     {
         public string minPrice { get; set; }
         public string maxPrice { get; set; }
+    }
+
+    public class PriceRange
+    {
+        public int lower { get; set; }
+        public int low { get; set; }
+        public int middle { get; set; }
+        public int high { get; set; }
+        public int higher { get; set; }
+        public int highest { get; set; }
+        public int top { get; set; }
     }
 }

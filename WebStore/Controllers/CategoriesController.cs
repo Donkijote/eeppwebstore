@@ -62,7 +62,7 @@ namespace WebStore.Controllers
                     ViewBag.Title = Resources.Categories.ResourceManager.GetString(getTitle((culture != "en" ? translatedId : id)));
                     ViewBag.SeoLocation = culture != "en" ? translatedId : id;
                     ViewBag.category = v;
-                    return View("s",s.ToPagedList(page ?? 1, 3));
+                    return View("s",s);
                 }
             }
             else
@@ -128,6 +128,8 @@ namespace WebStore.Controllers
                              select new { strNombre = a.strNombre, strCodigo = a.strCodigo, intPrecio = a.intPrecio, strSeo = b.strSeo })
                             .AsEnumerable()
                             .Select(x => new Products { strNombre = Truncate(x.strNombre, 60), strCodigo = x.strCodigo, intPrecio = FormatNumber(x.intPrecio), categorySeo = x.strSeo }).ToList();
+                    ViewBag.minPrice = s.Min(x => Math.Round(Decimal.Parse(x.intPrecio), 0));
+                    ViewBag.maxPrice = s.Max(x => Math.Round(Decimal.Parse(x.intPrecio), 0));
                     return s;
                 }
             }

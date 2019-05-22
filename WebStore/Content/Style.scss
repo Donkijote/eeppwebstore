@@ -1,4 +1,4 @@
-﻿$Icons: ( donkijote-spanish: "\e800", compare: "\e801", shopping-cart: "\e802", archive: "\e803", archive-alt: "\e80a", cable-line: "\e804", cables: "\e80b", bolt: "\e805", home: "\e806", lamp-post: "\e807", lightbulb: "\e808", plug: "\e809", tubes: "\e80c", donkijote-british: "\e80d", logo: "\e80e", logo-text: "\e80f");
+﻿$Icons: ( donkijote-spanish: "\e800", compare: "\e801", shopping-cart: "\e802", archive: "\e803", ElectricHardware: "\e80a", cable-line: "\e804", ElectricConductor: "\e80b", ControlCommand: "\e805", Residential: "\e806", IndustryLights: "\e807", HomeLights: "\e808", IndustryPlugs: "\e809", ElectricCanalization: "\e80c", donkijote-british: "\e80d", logo: "\e80e", logo-text: "\e80f");
 $orangeredHover: #e43f00;
 $greyBlack: #343a40 ;
 @import '_extra.scss';
@@ -13,6 +13,24 @@ $greyBlack: #343a40 ;
     -moz-transition: -moz-transform .2s,background .3s,color .3s,opacity 0 .3s;
     -o-transition: -o-transform .2s,background .3s,color .3s,opacity 0 .3s;
     transition: transform .2s,background .3s,color .3s,opacity 0 .3s;
+}
+
+@mixin respond-to($minWidth: false, $maxWidth: false) {
+    @if $maxWidth == false or $maxWidth == "" {
+        @media only screen and (min-width: $minWidth + px) {
+            @content;
+        }
+    }
+    @else if $minWidth == false or $minWidth == "" {
+        @media only screen and (max-width: $maxWidth + px) {
+            @content;
+        }
+    }
+    @else {
+        @media only screen and (min-width: $minWidth + px) and (max-width: $maxWidth + px) {
+            @content;
+        }
+    }
 }
 
 /*#region Fonts */
@@ -2272,7 +2290,7 @@ button {
             -ms-user-select: none;
             user-select: none;
 
-            &:hover{
+            &:hover {
                 opacity: 1;
             }
         }
@@ -2285,18 +2303,26 @@ button {
             right: 20px;
         }
 
-        &.outside-nav{
-            .owl-prev{
+        &.outside-nav {
+            .owl-prev {
                 left: -60px;
+
+                @include respond-to(false, 540) {
+                    left: -30px;
+                }
             }
 
-            .owl-next{
+            .owl-next {
                 right: -60px;
+
+                @include respond-to(false, 540) {
+                    right: -30px;
+                }
             }
         }
 
-        &.dark-theme{
-            .owl-prev, .owl-next{
+        &.dark-theme {
+            .owl-prev, .owl-next {
                 background-color: darkgray !important;
                 color: #ffffff !important;
             }

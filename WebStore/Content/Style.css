@@ -708,31 +708,31 @@ html * {
   .fos.fo-archive::before {
     content: "";
     font-weight: normal; }
-  .fos.fo-archive-alt::before {
+  .fos.fo-ElectricHardware::before {
     content: "";
     font-weight: normal; }
   .fos.fo-cable-line::before {
     content: "";
     font-weight: normal; }
-  .fos.fo-cables::before {
+  .fos.fo-ElectricConductor::before {
     content: "";
     font-weight: normal; }
-  .fos.fo-bolt::before {
+  .fos.fo-ControlCommand::before {
     content: "";
     font-weight: normal; }
-  .fos.fo-home::before {
+  .fos.fo-Residential::before {
     content: "";
     font-weight: normal; }
-  .fos.fo-lamp-post::before {
+  .fos.fo-IndustryLights::before {
     content: "";
     font-weight: normal; }
-  .fos.fo-lightbulb::before {
+  .fos.fo-HomeLights::before {
     content: "";
     font-weight: normal; }
-  .fos.fo-plug::before {
+  .fos.fo-IndustryPlugs::before {
     content: "";
     font-weight: normal; }
-  .fos.fo-tubes::before {
+  .fos.fo-ElectricCanalization::before {
     content: "";
     font-weight: normal; }
   .fos.fo-donkijote-british::before {
@@ -2257,9 +2257,15 @@ button {
 
 .owl-carousel .owl-nav.outside-nav .owl-prev {
   left: -60px; }
+  @media only screen and (max-width: 540px) {
+    .owl-carousel .owl-nav.outside-nav .owl-prev {
+      left: -30px; } }
 
 .owl-carousel .owl-nav.outside-nav .owl-next {
   right: -60px; }
+  @media only screen and (max-width: 540px) {
+    .owl-carousel .owl-nav.outside-nav .owl-next {
+      right: -30px; } }
 
 .owl-carousel .owl-nav.dark-theme .owl-prev, .owl-carousel .owl-nav.dark-theme .owl-next {
   background-color: darkgray !important;

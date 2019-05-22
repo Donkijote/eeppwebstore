@@ -2,11 +2,7 @@
 
 @using X.PagedList.Mvc;
 
-@model IPagedList<WebStore.Models.Products>
-
-@{
-    var pages = (IPagedList)Model;
-}
+@model IEnumerable<WebStore.Models.Products>
 
 <section>
     <header class="header">
@@ -56,14 +52,13 @@
                 <div class="column">
                     <div class="mg-shop-sorting">
                         <label for="sorting">Sort by:</label>
-                        <select class="form-control" id="sorting">
-                            <option>Popularity</option>
-                            <option>Low - High Price</option>
-                            <option>High - Low Price</option>
-                            <option>Average Rating</option>
-                            <option>A - Z Order</option>
-                            <option>Z - A Order</option>
-                        </select><span class="text-muted">Showing:&nbsp;</span><span>@((pages.PageNumber - 1) * pages.PageSize + 1) - @(pages.PageNumber * pages.PageSize) items of @pages.TotalItemCount</span>
+                        <select class="form-control" id="sort-by-button-group">
+                            <option data-sort-value="price" data-ascending="true">Menor a mayor precio</option>
+                            <option data-sort-value="price" data-ascending="false">Mayor a menor price</option>
+                            <option data-sort-value="stars" data-ascending="false">Mejor calificado</option>
+                            <option data-sort-value="name" data-ascending="true">A - Z</option>
+                            <option data-sort-value="name" data-ascending="false">Z - A</option>
+                        </select><span class="text-muted">Showing:&nbsp;</span><span></span>
                     </div>
                 </div>
                 <div class="column">
@@ -93,24 +88,28 @@
                     </form>
                 </div>
             </div>
-            <div class="row" id="renderProducts">
+
+            <div class="row grid" id="renderProducts">
                 @if (ViewBag.type == "Grid" || ViewBag.type == "")
                 {
                     if (Model.Any())
                     {
+                        Random rand = new Random();
                         foreach (var item in Model)
                         {
-                            <div class="col-md-4 col-sm-6 col-6">
+                            <div class="col-md-4 col-sm-6 col-6 element-item">
                                 <div class="mg-product-card mb-3">
                                     <div class="mg-product-wish bg-secondary" href="javascript:void(0);">
                                         <i></i>
                                     </div>
-                                    <div class="mg-rating-stars">
-                                        <i class="fas fa-star filled"></i>
-                                        <i class="fas fa-star filled"></i>
-                                        <i class="fas fa-star filled"></i>
-                                        <i class="fas fa-star filled"></i>
-                                        <i class="fas fa-star"></i>
+                                    <div class="mg-rating-stars stars">
+                                        @{
+                                            int stars = rand.Next(5);
+                                            for (var i = 1; i < 6; i++)
+                                            {
+                                                <i class="fas fa-star @(i <= stars ? "filled": "")"></i>
+                                            }
+                                        }
                                     </div>
                                     <a class="mg-product-thumb" href="@Url.Action("s","Categories", new { id = Html.DisplayFor(modelItem => item.categorySeo), idp = Html.DisplayFor(modelItem => item.strCodigo), language=System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName })">
                                         <img class="img-fuild" src="https://eepp.cl/images/productos/Z1-K-BLANCO.jpg"
@@ -120,13 +119,13 @@
                                         <div class="mg-product-card-body">
                                             <h4 class="mg-product-price">
                                                 <del>$15.062,00</del><br />
-                                                $ @Html.DisplayFor(modelItem => item.intPrecio)
+                                                $ <span class="price">@Html.DisplayFor(modelItem => item.intPrecio)</span>
                                                 <label class="off">50% OFF</label>
                                             </h4>
                                             <div class="mg-product-category">
-                                                SKU: @Html.DisplayFor(modelItem => item.strCodigo)
+                                                SKU: <span class="number">@Html.DisplayFor(modelItem => item.strCodigo)</span>
                                             </div>
-                                            <h3 class="mg-product-title">
+                                            <h3 class="mg-product-title name">
                                                 @Html.DisplayFor(modelItem => item.strNombre)
                                             </h3>
                                         </div>
@@ -185,44 +184,6 @@
                     }
                 }
             </div>
-            @Html.PagedListPager(Model, page => Url.Action("s",
-            new { page, id = ViewContext.RouteData.Values["id"], Utf8 = Request.QueryString["Utf8"] }),
-            new X.PagedList.Mvc.Common.PagedListRenderOptionsBase() {
-                Display = X.PagedList.Mvc.Common.PagedListDisplayMode.IfNeeded,
-                LiElementClasses = new string[] { "page-item" },
-                PageClasses = new string[] { "page-link" },
-                ContainerDivClasses = new string[] { "pagination-container on-desktop" },
-                UlElementClasses = new string[] { "pagination" },
-                DisplayLinkToFirstPage = X.PagedList.Mvc.Common.PagedListDisplayMode.IfNeeded,
-                DisplayLinkToLastPage = X.PagedList.Mvc.Common.PagedListDisplayMode.IfNeeded,
-                LinkToFirstPageFormat = WebStore.Resources.Links.First,
-                LinkToLastPageFormat = WebStore.Resources.Links.Last,
-                PreviousElementClass = "mg-previous",
-                LinkToPreviousPageFormat = "",
-                NextElementClass = "mg-next",
-                LinkToNextPageFormat = "",
-                ClassToApplyToFirstListItemInPager =  "mg-first",
-                ClassToApplyToLastListItemInPager = "mg-last"
-            })
-            @Html.PagedListPager(Model, page => Url.Action("s",
-            new { page, id = ViewContext.RouteData.Values["id"], Utf8 = Request.QueryString["Utf8"] }),
-            new X.PagedList.Mvc.Common.PagedListRenderOptionsBase() {
-                Display = X.PagedList.Mvc.Common.PagedListDisplayMode.IfNeeded,
-                LiElementClasses = new string[] { "page-item" },
-                PageClasses = new string[] { "page-link" },
-                ContainerDivClasses = new string[] { "pagination-container on-mobile" },
-                UlElementClasses = new string[] { "pagination" },
-                DisplayLinkToFirstPage = X.PagedList.Mvc.Common.PagedListDisplayMode.IfNeeded,
-                DisplayLinkToLastPage = X.PagedList.Mvc.Common.PagedListDisplayMode.IfNeeded,
-                LinkToFirstPageFormat = "",
-                LinkToLastPageFormat = "",
-                PreviousElementClass = "mg-previous",
-                LinkToPreviousPageFormat = "",
-                NextElementClass = "mg-next",
-                LinkToNextPageFormat = "",
-                ClassToApplyToFirstListItemInPager =  "mg-first",
-                ClassToApplyToLastListItemInPager = "mg-last"
-            })
         </div>
     </div>
 </section>
@@ -238,10 +199,41 @@
                 pageSize: 1,
                 callback: function (data, pagination) {
                     console.log(data);
-                    /*var html = template(data);
+                    var html = template(data);
                     dataContainer.html(html);
                 }
             });*/
+            var $grid = $('.grid').isotope({
+                itemSelector: '.element-item',
+                layoutMode: 'fitRows',
+                getSortData: {
+                    name: '.name',
+                    number: '.number parseInt',
+                    price: function (itemElem) {
+                        var weight = $(itemElem).find('.price').text();
+                        weight = weight.toString().replace(/\./g, '');
+                        return parseFloat(weight.toString().replace(/\,/g, '.'));
+                    },
+                    stars: function (itemElem) {
+                        var stars = $(itemElem).find('.stars');
+                        return parseInt(stars.find('i.filled').length);
+                    }
+                },
+                sortBy: 'name'
+            });
+
+            // bind sort button click
+            $('#sort-by-button-group').on('change', function () {
+                var sortValue = $(this).find(':selected').attr('data-sort-value');
+                var Ascending = $(this).find(':selected').attr('data-ascending');
+                console.log(Ascending);
+                if (Ascending == "true") {
+                    $grid.isotope({ sortBy: sortValue, sortAscending: true });
+                } else {
+                    $grid.isotope({ sortBy: sortValue, sortAscending: false });
+                }
+                
+            });
         })
     </script>
 }

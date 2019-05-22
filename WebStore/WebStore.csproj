@@ -419,6 +419,27 @@
     <Content Include="Content\Countdown\Countdown.min.css">
       <DependentUpon>Countdown.css</DependentUpon>
     </Content>
+    <Content Include="Content\img\categories\canalizacion-electrica-1.jpg" />
+    <Content Include="Content\img\categories\canalizacion-electrica-2.jpg" />
+    <Content Include="Content\img\categories\canalizacion-electrica-3.jpg" />
+    <Content Include="Content\img\categories\control-comando-1.jpg" />
+    <Content Include="Content\img\categories\control-comando-2.jpg" />
+    <Content Include="Content\img\categories\control-comando-3.jpg" />
+    <Content Include="Content\img\categories\enchufes-1.jpg" />
+    <Content Include="Content\img\categories\enchufes-2.jpg" />
+    <Content Include="Content\img\categories\enchufes-3.jpg" />
+    <Content Include="Content\img\categories\ferreteria-1.jpg" />
+    <Content Include="Content\img\categories\ferreteria-2.jpg" />
+    <Content Include="Content\img\categories\ferreteria-3.jpg" />
+    <Content Include="Content\img\categories\hogar-1.jpg" />
+    <Content Include="Content\img\categories\hogar-2.jpg" />
+    <Content Include="Content\img\categories\hogar-3.jpg" />
+    <Content Include="Content\img\categories\industrial-1.jpg" />
+    <Content Include="Content\img\categories\industrial-2.jpg" />
+    <Content Include="Content\img\categories\industrial-3.jpg" />
+    <Content Include="Content\img\categories\residencial-1.jpg" />
+    <Content Include="Content\img\categories\residencial-2.jpg" />
+    <Content Include="Content\img\categories\residencial-3.jpg" />
     <Content Include="Content\img\products\img_one.png" />
     <Content Include="Content\jquery.steps.min.css">
       <DependentUpon>jquery.steps.css</DependentUpon>
