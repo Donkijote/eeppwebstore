@@ -376,6 +376,16 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Placeholder.resx</DependentUpon>
     </Compile>
+    <Compile Include="Resources\Texts.es.Designer.cs">
+      <DependentUpon>Texts.es.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Resources\Texts.Designer.cs">
+      <DependentUpon>Texts.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="Resources\Titles.ja.Designer.cs">
       <DependentUpon>Titles.ja.resx</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -422,6 +432,9 @@
     <Content Include="Content\img\categories\canalizacion-electrica-1.jpg" />
     <Content Include="Content\img\categories\canalizacion-electrica-2.jpg" />
     <Content Include="Content\img\categories\canalizacion-electrica-3.jpg" />
+    <Content Include="Content\img\categories\conductores-electricos-2.jpg" />
+    <Content Include="Content\img\categories\conductores-electricos-3.jpg" />
+    <Content Include="Content\img\categories\conductores-electricos-1.jpg" />
     <Content Include="Content\img\categories\control-comando-1.jpg" />
     <Content Include="Content\img\categories\control-comando-2.jpg" />
     <Content Include="Content\img\categories\control-comando-3.jpg" />
@@ -443,6 +456,10 @@
     <Content Include="Content\img\products\img_one.png" />
     <Content Include="Content\jquery.steps.min.css">
       <DependentUpon>jquery.steps.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Loading.css" />
+    <Content Include="Content\Loading.min.css">
+      <DependentUpon>Loading.css</DependentUpon>
     </Content>
     <Content Include="Content\OwlCarousel\ajax-loader.gif" />
     <Content Include="Content\OwlCarousel\owl.carousel.css" />
@@ -541,6 +558,7 @@
     <Content Include="Content\jquery.steps.scss" />
     <Content Include="Content\PagedList.scss" />
     <Content Include="Content\Countdown\Countdown.scss" />
+    <Content Include="Content\Loading.scss" />
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <Content Include="Scripts\bootstrap.min.js.map" />
@@ -728,6 +746,14 @@
     <EmbeddedResource Include="Resources\Placeholder.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Placeholder.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Texts.es.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Texts.es.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Texts.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Texts.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Titles.ja.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

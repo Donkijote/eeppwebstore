@@ -6,8 +6,8 @@
     <meta name="HandheldFriendly" content="True">
     <title>@ViewBag.Title</title>
     <!-- SEO Tags-->
-    <meta name="title" content="Electro Productos - EEPP -EP - Proyectos LED - E-Commerce Store"/>
-    
+    <meta name="title" content="Electro Productos - EEPP -EP - Proyectos LED - E-Commerce Store" />
+
     @RenderSection("MetaContent", false)
     <!--Resposive Tag-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -29,13 +29,33 @@
 
     <link rel="stylesheet" href="~/Content/Countdown/Countdown.min.css" />
 
+    <link rel="stylesheet" href="~/Content/Loading.min.css" />
+
     @Styles.Render("~/Content/css")
 
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body data-spy="scroll" data-target="#mg-vertical-nav" data-offset="120">
+    <div class="page-loader-wrapper" id="page-loader-wrapper">
+        <div class="loader">
+            <div class="preloader size-xl">
+                <div class="spinner-layer border-orangred">
+                    <div class="circle-clipper left">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="circle-clipper right">
+                        <div class="circle"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="loader-icon">
+                <i class="fas fos fo-logo-ep fa-2x"></i>
+            </div>
+            <p>@WebStore.Resources.Texts.Loading</p>
+        </div>
+    </div>
 
-    @{ Html.RenderAction("MenuBig", "Menu", new {childAction = true}); }
+    @{ Html.RenderAction("MenuBig", "Menu", new { childAction = true }); }
 
     @{ Html.RenderAction("MenuMobile", "Menu", new { childAction = true });}
 
@@ -51,19 +71,19 @@
 
     @Scripts.Render("~/bundles/jquery")
 
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.js" integrity="sha256-PtzTX1ftmEmj8YUiAX0wTIQ+ddTAGVt2MiLMsGsAMxM=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js" integrity="sha256-u7MY6EG5ass8JhTuxBek18r5YG6pllB9zLqE4vZyTn4=" crossorigin="anonymous"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.26.12/dist/sweetalert2.all.min.js" integrity="sha256-Y+WJP3jVjJgfw+/m2N5/GGUgxqXDCz7S3zstxj8pqng=" crossorigin="anonymous"></script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mouse0270-bootstrap-notify/3.1.7/bootstrap-notify.js" integrity="sha256-ZfyZUBGHlJunePNMsBqgGX3xHMv4kaCZ5Hj+8Txwd9c=" crossorigin="anonymous"></script>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/paginationjs/2.1.4/pagination.js" integrity="sha256-4f5caNpqq/YzL53GMoOrN6Bna+a4NDUZrAVT+hUHZjU=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/paginationjs/2.1.4/pagination.min.js" integrity="sha256-E+fw0vUbuPq4p3FWWtX7FzzlcMTe7hvrgZxOk8LPAh4=" crossorigin="anonymous"></script>
 
     <script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js"></script>
 

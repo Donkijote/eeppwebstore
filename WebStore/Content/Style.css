@@ -744,6 +744,36 @@ html * {
   .fos.fo-logo-text::before {
     content: "";
     font-weight: normal; }
+  .fos.fo-logo-ep::before {
+    content: "";
+    font-weight: normal; }
+  .fos.fo-bree::before {
+    content: "";
+    font-weight: normal; }
+  .fos.fo-lux::before {
+    content: "";
+    font-weight: normal; }
+  .fos.fo-eco::before {
+    content: "";
+    font-weight: normal; }
+  .fos.fo-gew::before {
+    content: "";
+    font-weight: normal; }
+  .fos.fo-khj::before {
+    content: "";
+    font-weight: normal; }
+  .fos.fo-phl::before {
+    content: "";
+    font-weight: normal; }
+  .fos.fo-sas::before {
+    content: "";
+    font-weight: normal; }
+  .fos.fo-tor::before {
+    content: "";
+    font-weight: normal; }
+  .fos.fo-weg::before {
+    content: "";
+    font-weight: normal; }
 
 .icon-default {
   transition: opacity .3s, transform .3s;
@@ -2284,6 +2314,8 @@ button {
   #carouselPopularBrands .owl-stage-outer .owl-stage .owl-item img {
     width: 110px;
     opacity: 0.75; }
+  #carouselPopularBrands .owl-stage-outer .owl-stage .owl-item i {
+    opacity: 0.75; }
 
 #carouselPopularBrands .carousel-control-prev, #carouselPopularBrands .carousel-control-next {
   top: 50%;
@@ -3605,6 +3637,8 @@ button {
   .mg-cate-thumbnail a {
     text-decoration: none !important;
     color: inherit !important; }
+    .mg-cate-thumbnail a i {
+      opacity: 0.75; }
 
 /*#endregion*/
 /*#region Pagination*/
@@ -3872,8 +3906,17 @@ body {
 .bg-warning {
   background-color: #ffa000 !important; }
 
+.bg-orangered {
+  background-color: #ff4500 !important; }
+
+.border-orangred {
+  border-color: #ff4500 !important; }
+
 .text-warning {
   color: #ffa000 !important; }
+
+.text-orangered {
+  color: #ff4500 !important; }
 
 textarea.form-control {
   padding-top: 12px;
@@ -4098,6 +4141,9 @@ label.text-orangered {
 
 .h-90 {
   height: 90px !important; }
+
+.o-75 {
+  opacity: 0.75; }
 
 .open {
   display: block !important; }

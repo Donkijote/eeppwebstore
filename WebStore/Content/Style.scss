@@ -1,4 +1,31 @@
-﻿$Icons: ( donkijote-spanish: "\e800", compare: "\e801", shopping-cart: "\e802", archive: "\e803", ElectricHardware: "\e80a", cable-line: "\e804", ElectricConductor: "\e80b", ControlCommand: "\e805", Residential: "\e806", IndustryLights: "\e807", HomeLights: "\e808", IndustryPlugs: "\e809", ElectricCanalization: "\e80c", donkijote-british: "\e80d", logo: "\e80e", logo-text: "\e80f");
+﻿$Icons: ( 
+        donkijote-spanish: "\e800", 
+        compare: "\e801", 
+        shopping-cart: "\e802", 
+        archive: "\e803", 
+        ElectricHardware: "\e80a", 
+        cable-line: "\e804", 
+        ElectricConductor: "\e80b", 
+        ControlCommand: "\e805", 
+        Residential: "\e806", 
+        IndustryLights: "\e807", 
+        HomeLights: "\e808", 
+        IndustryPlugs: "\e809", 
+        ElectricCanalization: "\e80c", 
+        donkijote-british: "\e80d", 
+        logo: "\e80e", 
+        logo-text: "\e80f", 
+        logo-ep: "\e810",
+        bree: "\e811",
+        lux: "\e812",
+        eco: "\e813",
+        gew: "\e814",
+        khj: "\e815",
+        phl: "\e816",
+        sas: "\e817",
+        tor: "\e818",
+        weg: "\e819"
+    );
 $orangeredHover: #e43f00;
 $greyBlack: #343a40 ;
 @import '_extra.scss';
@@ -2347,7 +2374,6 @@ button {
     .owl-stage-outer {
         .owl-stage {
             .owl-item {
-
                 text-align: center;
 
                 img {
@@ -2355,6 +2381,9 @@ button {
                     opacity: 0.75;
                 }
 
+                i {
+                    opacity: 0.75;
+                }
             }
         }
     }
@@ -4267,6 +4296,10 @@ button {
     a {
         text-decoration: none !important;
         color: inherit !important;
+
+        i{
+            opacity: 0.75;
+        }
     }
 }
 /*#endregion*/
@@ -4656,8 +4689,20 @@ body {
     background-color: #ffa000 !important;
 }
 
+.bg-orangered {
+    background-color: #ff4500 !important;
+}
+
+.border-orangred {
+    border-color: #ff4500 !important;
+}
+
 .text-warning {
     color: #ffa000 !important;
+}
+
+.text-orangered {
+    color: #ff4500 !important;
 }
 
 textarea {
@@ -4987,6 +5032,10 @@ label {
 
 .h-90{
     height: 90px !important;
+}
+
+.o-75{
+    opacity: 0.75;
 }
 
 .open {

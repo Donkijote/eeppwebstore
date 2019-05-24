@@ -170,7 +170,6 @@ $(function () {
 	$.AdminJs.mobile.activate();
 	$.AdminJs.leftMenu.activate();
 	$.AdminJs.compare.activate();
-	//setTimeout(function () { $('.page-loader-wrapper').fadeOut(); }, 50);
     $.AdminJs.animateLinks.activate();
     $.AdminJs.slider.activate();
     
@@ -178,7 +177,33 @@ $(function () {
     $('[data-toggle="popover"]').popover();
 
     new WOW().init();
+
+    
+    /*setTimeout(function () {
+        $('.page-loader-wrapper').fadeOut('slow', function () {
+            $('body').css({
+                overflow: 'auto'
+            });
+        });
+    }, 5000);*/
+
 });
+
+document.onreadystatechange = function () {
+    var state = document.readyState
+    if (state == 'interactive') {
+        $('body').css({
+            overflow: 'hidden'
+        });
+    }
+    else if (state == 'complete') {
+        document.getElementById('interactive');
+        document.getElementById('page-loader-wrapper').style.display = "none";
+        $('body').css({
+            overflow: 'auto'
+        });
+    }
+}
 
 $.AdminJs.navBar = {
     activate: function () {

@@ -115,8 +115,17 @@ namespace WebStore.Controllers
                              select new { strNombre = a.strNombre, strCodigo = a.strCodigo, intPrecio = a.intPrecio, strSeo = b.strSeo })
                             .AsEnumerable()
                             .Select(x => new Products { strNombre = Truncate(x.strNombre, 60), strCodigo = x.strCodigo, intPrecio = FormatNumber(x.intPrecio), categorySeo = x.strSeo }).ToList();
-                    ViewBag.minPrice = s.Min(x => Math.Round(Decimal.Parse(x.intPrecio), 0));
-                    ViewBag.maxPrice = s.Max(x => Math.Round(Decimal.Parse(x.intPrecio), 0));
+                    if (s.Any())
+                    {
+                        ViewBag.minPrice = s.Min(x => Math.Round(Decimal.Parse(x.intPrecio), 0));
+                        ViewBag.maxPrice = s.Max(x => Math.Round(Decimal.Parse(x.intPrecio), 0));
+                    }
+                    else
+                    {
+                        ViewBag.minPrice = 0;
+                        ViewBag.maxPrice = 0;
+                    }
+                    
                     return s;
                 }
                 else
@@ -128,8 +137,16 @@ namespace WebStore.Controllers
                              select new { strNombre = a.strNombre, strCodigo = a.strCodigo, intPrecio = a.intPrecio, strSeo = b.strSeo })
                             .AsEnumerable()
                             .Select(x => new Products { strNombre = Truncate(x.strNombre, 60), strCodigo = x.strCodigo, intPrecio = FormatNumber(x.intPrecio), categorySeo = x.strSeo }).ToList();
-                    ViewBag.minPrice = s.Min(x => Math.Round(Decimal.Parse(x.intPrecio), 0));
-                    ViewBag.maxPrice = s.Max(x => Math.Round(Decimal.Parse(x.intPrecio), 0));
+                    if (s.Any())
+                    {
+                        ViewBag.minPrice = s.Min(x => Math.Round(Decimal.Parse(x.intPrecio), 0));
+                        ViewBag.maxPrice = s.Max(x => Math.Round(Decimal.Parse(x.intPrecio), 0));
+                    }
+                    else
+                    {
+                        ViewBag.minPrice = 0;
+                        ViewBag.maxPrice = 0;
+                    }
                     return s;
                 }
             }

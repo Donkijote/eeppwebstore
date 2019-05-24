@@ -18,5 +18,9 @@
   {
     "outputFile": "Content/Countdown/Countdown.css",
     "inputFile": "Content/Countdown/Countdown.scss"
+  },
+  {
+    "outputFile": "Content/Loading.css",
+    "inputFile": "Content/Loading.scss"
   }
 ]
