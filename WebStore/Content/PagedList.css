@@ -46,6 +46,22 @@
       cursor: not-allowed;
       background-color: #ffffff;
       border-color: #dddddd; }
+    .pagination li.mg-previous a::before {
+      content: '\f104';
+      font-family: 'Font Awesome 5 Free';
+      font-weight: 900; }
+    .pagination li.mg-next a::before {
+      content: '\f105';
+      font-family: 'Font Awesome 5 Free';
+      font-weight: 900; }
+    .pagination li.mg-first a::before {
+      content: '\f100';
+      font-family: 'Font Awesome 5 Free';
+      font-weight: 900; }
+    .pagination li.mg-last a::after {
+      content: '\f101';
+      font-family: 'Font Awesome 5 Free';
+      font-weight: 900; }
   .pagination.pagination-lg li a, .pagination.pagination-lg li span {
     padding: 10px 16px;
     font-size: 20px; }

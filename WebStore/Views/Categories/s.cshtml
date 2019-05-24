@@ -2,7 +2,11 @@
 
 @using X.PagedList.Mvc;
 
-@model IEnumerable<WebStore.Models.Products>
+@model IPagedList<WebStore.Models.Products>
+
+@{
+    var pages = (IPagedList)Model;
+}
 
 <section>
     <header class="header">
@@ -184,6 +188,44 @@
                     }
                 }
             </div>
+            @Html.PagedListPager(Model, page => Url.Action("s",
+            new { page, id = ViewContext.RouteData.Values["id"], Utf8 = Request.QueryString["Utf8"] }),
+            new X.PagedList.Mvc.Common.PagedListRenderOptionsBase() {
+                Display = X.PagedList.Mvc.Common.PagedListDisplayMode.IfNeeded,
+                LiElementClasses = new string[] { "page-item" },
+                PageClasses = new string[] { "page-link" },
+                ContainerDivClasses = new string[] { "pagination-container mg-on-desktop" },
+                UlElementClasses = new string[] { "pagination pagination-lg justify-content-center" },
+                DisplayLinkToFirstPage = X.PagedList.Mvc.Common.PagedListDisplayMode.IfNeeded,
+                DisplayLinkToLastPage = X.PagedList.Mvc.Common.PagedListDisplayMode.IfNeeded,
+                LinkToFirstPageFormat = WebStore.Resources.Links.First,
+                LinkToLastPageFormat = WebStore.Resources.Links.Last,
+                PreviousElementClass = "mg-previous",
+                LinkToPreviousPageFormat = "",
+                NextElementClass = "mg-next",
+                LinkToNextPageFormat = "",
+                ClassToApplyToFirstListItemInPager =  "mg-first",
+                ClassToApplyToLastListItemInPager = "mg-last"
+            })
+            @Html.PagedListPager(Model, page => Url.Action("s",
+            new { page, id = ViewContext.RouteData.Values["id"], Utf8 = Request.QueryString["Utf8"] }),
+            new X.PagedList.Mvc.Common.PagedListRenderOptionsBase() {
+                Display = X.PagedList.Mvc.Common.PagedListDisplayMode.IfNeeded,
+                LiElementClasses = new string[] { "page-item" },
+                PageClasses = new string[] { "page-link" },
+                ContainerDivClasses = new string[] { "pagination-container mg-on-mobile" },
+                UlElementClasses = new string[] { "pagination justify-content-center" },
+                DisplayLinkToFirstPage = X.PagedList.Mvc.Common.PagedListDisplayMode.IfNeeded,
+                DisplayLinkToLastPage = X.PagedList.Mvc.Common.PagedListDisplayMode.IfNeeded,
+                LinkToFirstPageFormat = "",
+                LinkToLastPageFormat = "",
+                PreviousElementClass = "mg-previous",
+                LinkToPreviousPageFormat = "",
+                NextElementClass = "mg-next",
+                LinkToNextPageFormat = "",
+                ClassToApplyToFirstListItemInPager =  "mg-first",
+                ClassToApplyToLastListItemInPager = "mg-last"
+            })
         </div>
     </div>
 </section>
@@ -231,7 +273,7 @@
                 } else {
                     $grid.isotope({ sortBy: sortValue, sortAscending: false });
                 }
-                
+
             });
         })
     </script>

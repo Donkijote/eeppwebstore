@@ -62,7 +62,7 @@ namespace WebStore.Controllers
                     ViewBag.Title = Resources.Categories.ResourceManager.GetString(getTitle((culture != "en" ? translatedId : id)));
                     ViewBag.SeoLocation = culture != "en" ? translatedId : id;
                     ViewBag.category = v;
-                    return View("s",s);
+                    return View("s",s.ToPagedList(page ?? 1, 3));
                 }
             }
             else

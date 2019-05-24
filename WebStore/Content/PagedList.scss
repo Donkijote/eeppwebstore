@@ -73,6 +73,46 @@
                 }
             }
         }
+
+        &.mg-previous {
+            a {
+                &::before {
+                    content: '\f104';
+                    font-family: 'Font Awesome 5 Free';
+                    font-weight: 900;
+                }
+            }
+        }
+
+        &.mg-next {
+            a {
+                &::before {
+                    content: '\f105';
+                    font-family: 'Font Awesome 5 Free';
+                    font-weight: 900;
+                }
+            }
+        }
+
+        &.mg-first {
+            a {
+                &::before {
+                    content: '\f100';
+                    font-family: 'Font Awesome 5 Free';
+                    font-weight: 900;
+                }
+            }
+        }
+
+        &.mg-last {
+            a {
+                &::after {
+                    content: '\f101';
+                    font-family: 'Font Awesome 5 Free';
+                    font-weight: 900;
+                }
+            }
+        }
     }
 
     &.pagination-lg {
