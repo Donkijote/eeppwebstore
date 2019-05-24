@@ -1,6 +1,6 @@
 ﻿$(function () {
     $("#carouselPopularBrands").owlCarousel({
-        items: 4,
+        items: 6,
         nav: false,
         dots: false,
         navText: ["<i class='fas fa-angle-left fa-2x'></i>", "<i class='fas fa-angle-right fa-2x'></i>"],
@@ -15,7 +15,7 @@
                 items: 1
             },
             1000: {
-                items: 4
+                items: 6
             }
         }
     });

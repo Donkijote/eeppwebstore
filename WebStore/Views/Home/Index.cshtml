@@ -1,4 +1,4 @@
-﻿@model WebStore.Models.BindingCateogyFamilyChild
+﻿@model WebStore.Models.Index
 @{
     ViewBag.Title = WebStore.Resources.Titles.Home;
 }
@@ -405,7 +405,7 @@
         <div id="carouselCategories" class="owl-carousel owl-grab owl-animated-in owl-loaded">
             <div class="owl-stage-outer">
                 <div class="owl-stage">
-                    @foreach (var i in Model.family)
+                    @foreach (var i in Model.Binding.family)
                     {
                         <div class="owl-item">
                             <div class="mg-card mb-3 wow fadeInRight" data-wow-duration="2s">
@@ -556,7 +556,7 @@
     <div class="block-separator"></div>
     <div class="container">
         <div class="row">
-            @foreach (var j in Model.family)
+            @foreach (var j in Model.Binding.family)
             {
                 <div class="col-lg-3 col-md-3 mg-cate-thumbnail py-3">
                     <a href="@Url.Action("s","Categories", new { language = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName, id = WebStore.Resources.Seo.ResourceManager.GetString(j.strName)}, null)">
@@ -577,33 +577,12 @@
         <div id="carouselPopularBrands" class="owl-carousel owl-grab owl-animated-in owl-loaded" data-ride="carousel" data-interval="false">
             <div class="owl-stage-outer">
                 <div class="owl-stage">
-                    <div class="owl-item">
-                        <i class="fas fos fo-bree fa-3x m-auto"></i>
-                    </div>
-                    <div class="owl-item">
-                        <i class="fas fos fo-lux fa-3x m-auto"></i>
-                    </div>
-                    <div class="owl-item">
-                        <i class="fas fos fo-eco fa-3x m-auto"></i>
-                    </div>
-                    <div class="owl-item">
-                        <i class="fas fos fo-gew fa-3x m-auto"></i>
-                    </div>
-                    <div class="owl-item">
-                        <i class="fas fos fo-khj fa-3x m-auto"></i>
-                    </div>
-                    <div class="owl-item">
-                        <i class="fas fos fo-phl fa-3x m-auto"></i>
-                    </div>
-                    <div class="owl-item">
-                        <i class="fas fos fo-sas fa-3x m-auto"></i>
-                    </div>
-                    <div class="owl-item">
-                        <i class="fas fos fo-tor fa-3x m-auto"></i>
-                    </div>
-                    <div class="owl-item">
-                        <i class="fas fos fo-weg fa-3x m-auto"></i>
-                    </div>
+                    @foreach (var i in Model.Brands)
+                    {
+                        <div class="owl-item">
+                            <img class="d-block m-auto" src="~/Content/img/brands/@i.strImg" />
+                        </div>
+                    }
                 </div>
             </div>
         </div>

@@ -2313,7 +2313,10 @@ button {
   text-align: center; }
   #carouselPopularBrands .owl-stage-outer .owl-stage .owl-item img {
     width: 110px;
-    opacity: 0.75; }
+    opacity: 0.75;
+    -webkit-filter: grayscale(100%);
+    -moz-filter: greyscale(100%);
+    filter: grayscale(100%); }
   #carouselPopularBrands .owl-stage-outer .owl-stage .owl-item i {
     opacity: 0.75; }
 

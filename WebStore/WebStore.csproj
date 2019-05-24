@@ -224,6 +224,7 @@
       <DependentUpon>Connection.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\Country.cs" />
+    <Compile Include="Models\Index.cs" />
     <Compile Include="Models\Products.cs" />
     <Compile Include="Models\tblBrand.cs">
       <DependentUpon>Connection.tt</DependentUpon>
@@ -429,6 +430,16 @@
     <Content Include="Content\Countdown\Countdown.min.css">
       <DependentUpon>Countdown.css</DependentUpon>
     </Content>
+    <Content Include="Content\img\brands\atomlux.png" />
+    <Content Include="Content\img\brands\bree.png" />
+    <Content Include="Content\img\brands\duralux.png" />
+    <Content Include="Content\img\brands\eco.png" />
+    <Content Include="Content\img\brands\gewiss.png" />
+    <Content Include="Content\img\brands\khj.png" />
+    <Content Include="Content\img\brands\philips.png" />
+    <Content Include="Content\img\brands\sassin.png" />
+    <Content Include="Content\img\brands\tornado.png" />
+    <Content Include="Content\img\brands\weg.png" />
     <Content Include="Content\img\categories\canalizacion-electrica-1.jpg" />
     <Content Include="Content\img\categories\canalizacion-electrica-2.jpg" />
     <Content Include="Content\img\categories\canalizacion-electrica-3.jpg" />

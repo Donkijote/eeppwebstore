@@ -2379,6 +2379,9 @@ button {
                 img {
                     width: 110px;
                     opacity: 0.75;
+                    -webkit-filter: grayscale(100%);
+                    -moz-filter: greyscale(100%);
+                    filter: grayscale(100%);
                 }
 
                 i {
