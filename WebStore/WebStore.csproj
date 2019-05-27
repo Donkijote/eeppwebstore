@@ -247,6 +247,9 @@
     <Compile Include="Models\tblFicha.cs">
       <DependentUpon>Connection.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\tblImg.cs">
+      <DependentUpon>Connection.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\tblModel.cs">
       <DependentUpon>Connection.tt</DependentUpon>
     </Compile>

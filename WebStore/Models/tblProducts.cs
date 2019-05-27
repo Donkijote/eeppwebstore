@@ -20,9 +20,6 @@ namespace WebStore.Models
         public decimal intPrecio { get; set; }
         public Nullable<int> refCategoria { get; set; }
         public Nullable<decimal> intPrecioTwo { get; set; }
-        public string strImgOne { get; set; }
-        public string strImgTwo { get; set; }
-        public string strImgThree { get; set; }
         public Nullable<int> intStock { get; set; }
         public Nullable<bool> intNew { get; set; }
         public Nullable<bool> intActive { get; set; }
@@ -32,6 +29,7 @@ namespace WebStore.Models
         public Nullable<int> refFicha { get; set; }
         public Nullable<int> refOffert { get; set; }
         public Nullable<int> refOfferTime { get; set; }
+        public Nullable<int> refImg { get; set; }
     
         public virtual tblCategories tblCategories { get; set; }
         public virtual tblModel tblModel { get; set; }
@@ -39,5 +37,6 @@ namespace WebStore.Models
         public virtual tblFicha tblFicha { get; set; }
         public virtual tblOffert tblOffert { get; set; }
         public virtual tblOffertTime tblOffertTime { get; set; }
+        public virtual tblImg tblImg { get; set; }
     }
 }

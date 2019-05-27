@@ -19,7 +19,17 @@ namespace WebStore.Controllers
             var viewModel = new BindingCateogyFamilyChild();
             using(webstoreEntities db = new webstoreEntities())
             {
-                viewModel.family = db.tblFamily.Select(x => x).ToList();
+                viewModel.family = (from a in db.tblFamily
+                                    join b in db.tblImg
+                                    on a.refImg equals b.idImg
+                                    select new Family {
+                                        IdFamily = a.idFamily,
+                                        StrName = a.strName,
+                                        StrSeo = a.strSeo,
+                                        StrImgOne = b.strImgOne,
+                                        StrImgTwo = b.strImgTwo,
+                                        StrImgThree = b.strImgThree
+                                    }).ToList();
                 viewModel.category = db.tblCategories.Select(x => x).ToList();
             }
             return View(viewModel);

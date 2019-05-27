@@ -16,7 +16,7 @@ namespace WebStore.Controllers
 
             using (webstoreEntities db = new webstoreEntities())
             {
-                viewModel.family = db.tblFamily.Select(x => x).OrderBy(y => y.intOrder).ToList();
+                viewModel.family = db.tblFamily.Select(x => new Family { StrName = x.strName, StrSeo = x.strSeo, IntOrder = x.intOrder }).OrderBy(y => y.IntOrder).ToList();
                 viewModel.category = db.tblCategories.Select(x => x).ToList();
             }
             return PartialView(viewModel);

@@ -10,6 +10,12 @@ namespace WebStore.Models
     {
         public BindingCateogyFamilyChild Binding { get; set; }
 
-        public IEnumerable<tblBrand> Brands { get; set; }
+        public IEnumerable<Brands> Brands { get; set; }
+    }
+
+    public class Brands
+    {
+        public string StrName { get; set; }
+        public string StrImg { get; set; }
     }
 }

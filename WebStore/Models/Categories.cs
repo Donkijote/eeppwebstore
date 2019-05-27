@@ -14,7 +14,7 @@ namespace WebStore.Models
 
     public class BindingCateogyFamilyChild
     {
-        public IEnumerable<tblFamily> family { get; set; }
+        public IEnumerable<Family> family { get; set; }
         public IEnumerable<tblCategories> category { get; set; }
     }
 
@@ -27,6 +27,17 @@ namespace WebStore.Models
         public IEnumerable<TotalProductByBrand> BrandTotal { get; set; }
         public List<RangePrice> PriceRange { get; set; }
         public List<PriceRange> BetweenPrices { get; set; }     
+    }
+
+    public class Family
+    {
+        public int IdFamily { get; set; }
+        public string StrName { get; set; }
+        public string StrSeo { get; set; }
+        public string StrImgOne { get; set; }
+        public string StrImgTwo { get; set; }
+        public string StrImgThree { get; set; }
+        public int? IntOrder { get; set; }
     }
 
     public class TotalProductByCategory

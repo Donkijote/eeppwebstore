@@ -12,21 +12,27 @@ namespace WebStore.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class tblBrand
+    public partial class tblImg
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public tblBrand()
+        public tblImg()
         {
+            this.tblBrand = new HashSet<tblBrand>();
             this.tblProducts = new HashSet<tblProducts>();
+            this.tblFamily = new HashSet<tblFamily>();
         }
     
-        public int idBrand { get; set; }
-        public string strName { get; set; }
-        public Nullable<int> intOrder { get; set; }
-        public Nullable<int> refImg { get; set; }
+        public int idImg { get; set; }
+        public string strImgOne { get; set; }
+        public string strImgTwo { get; set; }
+        public string strImgThree { get; set; }
+        public string strImgFour { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tblBrand> tblBrand { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblProducts> tblProducts { get; set; }
-        public virtual tblImg tblImg { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tblFamily> tblFamily { get; set; }
     }
 }

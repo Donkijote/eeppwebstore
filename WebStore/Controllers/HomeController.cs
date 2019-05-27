@@ -46,11 +46,20 @@ namespace WebStore.Controllers
             {
                 viewModel.Binding = new BindingCateogyFamilyChild
                 {
-                    family = db.tblFamily.Select(x => x).OrderBy(y => y.intOrder).ToList(),
+                    family = (from a in db.tblFamily
+                              join b in db.tblImg
+                              on a.refImg equals b.idImg
+                              select new Family { IdFamily = a.idFamily, StrName = a.strName, StrSeo = a.strSeo, StrImgOne = b.strImgOne, StrImgTwo = b.strImgTwo, StrImgThree = b.strImgThree, IntOrder = a.intOrder })
+                              .OrderBy(x => x.IntOrder)
+                              .ToList(),
                     category = db.tblCategories.Select(x => x).ToList()
                 };
 
-                viewModel.Brands = db.tblBrand.Select(x => x).ToList();
+                viewModel.Brands = (from a in db.tblBrand
+                                    join b in db.tblImg
+                                    on a.refImg equals b.idImg
+                                    select new Brands{ StrName = a.strName, StrImg = b.strImgOne})
+                                    .ToList();
             }
             return View(viewModel);
         }
