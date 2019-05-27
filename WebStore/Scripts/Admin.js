@@ -369,7 +369,7 @@ $.AdminJs.mobile = {
 $.AdminJs.totop = {
 	activate: function () {
 		var _this = this;
-		if (window.matchMedia('(max-width: 767px)').matches) {
+		if (window.matchMedia('(max-width: 991px)').matches) {
 			//...
 		} else {
 			$(window).scroll(function () {

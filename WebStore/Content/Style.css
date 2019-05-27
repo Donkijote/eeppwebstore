@@ -820,7 +820,7 @@ html * {
   .navbar.mg-big-screen {
     /*#region Searcher */
     /*#endregion */ }
-    @media (max-width: 768px) {
+    @media (max-width: 991px) {
       .navbar.mg-big-screen {
         display: none !important; } }
     .navbar.mg-big-screen .container {
@@ -1087,43 +1087,55 @@ html * {
       border-radius: 0px; }
   .navbar.mg-mobile-menu {
     position: fixed;
-    box-shadow: 0 3px 30px 0 rgba(47, 56, 68, 0.45);
-    z-index: 5;
-    background-color: #FFFFFF;
-    bottom: -100px;
-    left: 0;
-    right: 0;
-    transition: bottom 0.3s; }
-    .navbar.mg-mobile-menu .mg-mobile-menu-wrapper {
-      display: flex; }
-      .navbar.mg-mobile-menu .mg-mobile-menu-wrapper .mg-mobile-menu-wrapper-item {
-        position: relative;
-        transition: background-color .3s;
-        padding: 20px; }
-        .navbar.mg-mobile-menu .mg-mobile-menu-wrapper .mg-mobile-menu-wrapper-item:first-child {
-          border-left: none; }
-        .navbar.mg-mobile-menu .mg-mobile-menu-wrapper .mg-mobile-menu-wrapper-item .mg-navbar-cart .mg-count-label {
-          display: block;
-          position: absolute;
-          top: -10px;
-          right: -25px;
-          width: 18px;
-          height: 18px;
-          border-radius: 50%;
-          background-color: #007bff;
-          color: #fff;
-          font-size: 11px;
-          line-height: 18px; }
+    top: 0;
+    z-index: 5; }
+    .navbar.mg-mobile-menu .mg-header-mobile-menu {
+      position: fixed;
+      box-shadow: 0 3px 30px 0 rgba(47, 56, 68, 0.45);
+      z-index: 9999;
+      background-color: #FFFFFF;
+      bottom: -100px;
+      left: 0;
+      right: 0;
+      transition: bottom 0.3s; }
+      .navbar.mg-mobile-menu .mg-header-mobile-menu .mg-mobile-menu-wrapper {
+        display: flex; }
+        @media only screen and (min-width: 577px) {
+          .navbar.mg-mobile-menu .mg-header-mobile-menu .mg-mobile-menu-wrapper {
+            margin-left: 50%;
+            transform: translateX(-50%); } }
+        .navbar.mg-mobile-menu .mg-header-mobile-menu .mg-mobile-menu-wrapper .mg-mobile-menu-wrapper-item {
+          position: relative;
+          transition: background-color .3s;
+          padding: 20px; }
+          .navbar.mg-mobile-menu .mg-header-mobile-menu .mg-mobile-menu-wrapper .mg-mobile-menu-wrapper-item:first-child {
+            border-left: none; }
+          .navbar.mg-mobile-menu .mg-header-mobile-menu .mg-mobile-menu-wrapper .mg-mobile-menu-wrapper-item .mg-navbar-cart .mg-count-label {
+            display: block;
+            position: absolute;
+            top: -10px;
+            right: -25px;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background-color: #007bff;
+            color: #fff;
+            font-size: 11px;
+            line-height: 18px; }
     .navbar.mg-mobile-menu .menu {
       display: block;
       position: absolute;
-      bottom: 100%;
+      top: 100%;
       left: -100%;
       width: 100%;
       padding-top: 15px;
       background-color: #f5f5f5;
       box-shadow: -15px 7px 30px -6px rgba(0, 0, 0, 0.15);
       transition: all 0.5s ease-in-out; }
+      @media only screen and (max-width: 991px) and (orientation: landscape) {
+        .navbar.mg-mobile-menu .menu {
+          height: 100vh;
+          overflow: auto; } }
       .navbar.mg-mobile-menu .menu .mg-mobile-search {
         padding-right: 15px;
         padding-bottom: 15px;
@@ -1237,7 +1249,8 @@ html * {
         border-top: 1px solid #e5e5e5;
         background-color: #fff;
         overflow-y: auto;
-        overflow-x: hidden; }
+        overflow-x: hidden;
+        height: 100vh; }
         .navbar.mg-mobile-menu .menu .mg-slide-menu .mg-slide-menu-wrapper {
           display: block;
           position: relative;
@@ -1246,7 +1259,7 @@ html * {
           transition: all 0.4s cubic-bezier(0.86, 0, 0.07, 1);
           margin: 0;
           padding: 0;
-          min-height: 414px; }
+          min-height: 600px; }
           .navbar.mg-mobile-menu .menu .mg-slide-menu .mg-slide-menu-wrapper.off-view {
             -webkit-transform: translate3d(-100%, 0, 0);
             transform: translate3d(-100%, 0, 0); }
@@ -1349,10 +1362,10 @@ html * {
       left: 600px;
       z-index: 9030;
       width: 100%;
-      -webkit-transition: all 0.4s; }
+      -webkit-transition: all 0.5s ease-in-out;
+      transition: all 0.5s ease-in-out; }
       .navbar.mg-mobile-menu .mg-profile.open {
-        left: 0px;
-        -webkit-transition: all 0.4s; }
+        left: 0px !important; }
       .navbar.mg-mobile-menu .mg-profile .mg-profile-body {
         width: 100%;
         border-bottom-right-radius: 0px;
@@ -3375,7 +3388,7 @@ button {
   z-index: 9030;
   transition: left .4s ease-in-out; }
   .mg-profile.open {
-    left: 0; }
+    left: 0 !important; }
   .mg-profile .mg-profile-toggle {
     position: absolute;
     top: 0;
@@ -3864,6 +3877,8 @@ body {
   line-height: 1.5;
   text-transform: none;
   position: relative; }
+  body.modal-open {
+    overflow: hidden !important; }
 
 .mg-content {
   overflow: hidden;
@@ -4297,9 +4312,7 @@ button.bg-secondary:focus, button.bg-secondary:hover {
   .mg-on-desktop {
     display: block; }
   .mg-mobile-menu .mg-profile {
-    display: none !important; }
-  .mg-mobile-menu {
-    display: none; } }
+    display: none !important; } }
 
 @media (max-width: 991px) {
   .mg-sidebar-toggle {
@@ -4359,8 +4372,6 @@ button.bg-secondary:focus, button.bg-secondary:hover {
     display: none !important; }
   .hidden-on-mobile {
     display: none !important; }
-  .alert {
-    max-width: 330px; }
   .card-header .on-desktop {
     display: none; }
   .card-header .row.on-mobile {
@@ -4378,6 +4389,7 @@ button.bg-secondary:focus, button.bg-secondary:hover {
   .mg-profile {
     display: none; }
   .mg-mobile-menu .mg-profile {
+    left: 830px !important;
     display: block !important; }
   #carouselPopularBrands .carousel-indicators {
     bottom: -50%; } }
@@ -4407,7 +4419,9 @@ button.bg-secondary:focus, button.bg-secondary:hover {
   .hidden-lg-up {
     display: none !important; }
   .totop {
-    right: 45px; } }
+    right: 45px; }
+  .mg-mobile-menu {
+    display: none; } }
 
 @media (max-width: 576px) {
   .mg-on-mobile {

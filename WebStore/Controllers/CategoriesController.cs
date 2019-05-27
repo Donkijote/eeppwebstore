@@ -16,7 +16,13 @@ namespace WebStore.Controllers
         // GET: Categories
         public ActionResult All()
         {
-            return View();
+            var viewModel = new BindingCateogyFamilyChild();
+            using(webstoreEntities db = new webstoreEntities())
+            {
+                viewModel.family = db.tblFamily.Select(x => x).ToList();
+                viewModel.category = db.tblCategories.Select(x => x).ToList();
+            }
+            return View(viewModel);
         }
 
         public ActionResult s(string id, string idp, int? page)
