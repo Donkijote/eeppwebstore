@@ -1259,7 +1259,7 @@ html * {
           transition: all 0.4s cubic-bezier(0.86, 0, 0.07, 1);
           margin: 0;
           padding: 0;
-          min-height: 600px; }
+          min-height: 800px; }
           .navbar.mg-mobile-menu .menu .mg-slide-menu .mg-slide-menu-wrapper.off-view {
             -webkit-transform: translate3d(-100%, 0, 0);
             transform: translate3d(-100%, 0, 0); }
