@@ -12,22 +12,21 @@ namespace WebStore.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class tblOffertTime
+    public partial class iw_tgrupo
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public tblOffertTime()
+        public iw_tgrupo()
         {
-            this.tblProducts = new HashSet<tblProducts>();
+            this.iw_tprod = new HashSet<iw_tprod>();
         }
     
-        public int idOffertTime { get; set; }
-        public Nullable<int> intPercentageTime { get; set; }
-        public Nullable<System.DateTime> strTime { get; set; }
-        public string strName { get; set; }
-        public string strDescription { get; set; }
-        public string refCodProd { get; set; }
+        public string CodGrupo { get; set; }
+        public string DesGrupo { get; set; }
+        public string PubGrupo { get; set; }
+        public string Imagen { get; set; }
+        public int EsParaAutoservicio { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tblProducts> tblProducts { get; set; }
+        public virtual ICollection<iw_tprod> iw_tprod { get; set; }
     }
 }

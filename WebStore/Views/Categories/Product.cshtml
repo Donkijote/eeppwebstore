@@ -30,7 +30,7 @@
                         </li>
                         <li class="separator">&nbsp;</li>
                         <li>
-                            @ViewBag.Title
+                            @ViewBag.Breadcrumbs
                         </li>
                     </ul>
                 </div>
@@ -107,22 +107,33 @@
                                 </li>
                                 <li class="separator">&nbsp;</li>
                                 <li>
-                                    @ViewBag.Title
+                                    @ViewBag.Breadcrumbs
                                 </li>
                             </ul>
                         </div>
-                        <div class="container-countdown bg-secondary">
-                            <h1 class="text-danger">OFERTA LIMITADA</h1>
-                            <div class="countdown" style="height:80px;" data-time="@ViewBag.Datetime"></div>
-                        </div>
-                        <h5 class="mb-3">
+                        @if (item.TimeOffer)
+                        {
+                            <div class="container-countdown bg-secondary">
+                                <h1 class="text-danger">OFERTA LIMITADA</h1>
+                                <div class="countdown" style="height:80px;" data-time="@item.Time"></div>
+                            </div>
+                        }
+                        <h5 class="mb-3 text-capitalize">
                             @Html.DisplayFor(x => item.strNombre)
                         </h5>
                         <h2 class="d-block">
-                            <del class="text-muted" style="font-size:18px;">$958.00</del><br />
-                            @Html.DisplayFor(x => item.intPrecio)
-                            <span class="text-muted" style="font-size:18px;">+iva</span>
-                            <label class="off text-success" style="font-size:24px;">50% OFF</label>
+                            @if (item.intPrecioOff != "0")
+                            {
+                                <del class="text-muted" style="font-size:18px;">$@item.intPrecio</del><br />
+                                <span>$ @item.intPrecioOff</span>
+                                <span class="text-muted" style="font-size:18px;">+iva</span>
+                                <label class="off text-success" style="font-size:24px;">@item.intPrecentOff OFF</label>
+                            }
+                            else
+                            {
+                                @Html.DisplayFor(x => item.intPrecio)
+                                <span class="text-muted" style="font-size:18px;">+iva</span>
+                            }
                         </h2>
                     </div>
                 </div>

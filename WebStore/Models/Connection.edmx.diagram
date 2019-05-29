@@ -7,7 +7,7 @@
       <Diagram DiagramId="bd2ef89b67eb47a4b9926d62f8e1980d" Name="Diagram1">
         <EntityTypeShape EntityType="webstoreModel.tblCategories" Width="1.5" PointX="2.375" PointY="1.125" IsExpanded="true" />
         <EntityTypeShape EntityType="webstoreModel.tblProducts" Width="1.5" PointX="0.5" PointY="1.125" />
-        <EntityTypeShape EntityType="webstoreModel.tblUsers" Width="1.5" PointX="7.75" PointY="3.5" />
+        <EntityTypeShape EntityType="webstoreModel.tblUsers" Width="1.5" PointX="7.75" PointY="3.625" />
         <AssociationConnector Association="webstoreModel.FK_tblProducts_tblCategories1" />
         <EntityTypeShape EntityType="webstoreModel.tblCountry" Width="1.5" PointX="0.5" PointY="12.125" />
         <EntityTypeShape EntityType="webstoreModel.tblComunas" Width="1.5" PointX="4.25" PointY="9.375" />

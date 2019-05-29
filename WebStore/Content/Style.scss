@@ -2638,7 +2638,8 @@ button {
 
         &.on-list {
             display: block;
-            top: 85%;
+            position: relative;
+            top: 0;
             text-align: left;
         }
     }
@@ -2805,6 +2806,12 @@ button {
                 }
             }
         }
+    }
+
+    .mg-product-countdown-wrapper{
+        position: absolute;
+        top: 60%;
+        left: 10%;
     }
 
     &.mg-product-list {

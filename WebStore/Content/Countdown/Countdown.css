@@ -6,7 +6,6 @@
 .countdown {
   height: 80px;
   /* Reset */
-  /* Skeleton */
   /* Colon Seperator - IE */
   /* Colon Seperator */ }
   @media only screen and (max-width: 540px) {
@@ -29,26 +28,97 @@
     backface-visibility: hidden; }
   .countdown ul {
     list-style: none; }
-  .countdown li {
-    line-height: 87px; }
-  .countdown ul.flip {
-    position: relative;
-    float: left;
-    margin-right: 2px;
-    height: 100%;
-    width: 40px;
-    font-size: 50px;
-    font-weight: bold;
-    /*border-radius*/
-    -webkit-border-radius: 6px;
-    -moz-border-radius: 6px;
-    -ms-border-radius: 6px;
-    border-radius: 6px;
-    /*box-shadow*/
-    -webkit-box-shadow: 0 2px 5px rgba(0, 0, 0, 0.7);
-    -moz-box-shadow: 0 2px 5px rgba(0, 0, 0, 0.7);
-    -ms-box-shadow: 0 2px 5px rgba(0, 0, 0, 0.7);
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.7); }
+    .countdown ul.flip {
+      position: relative;
+      float: left;
+      margin-right: 2px;
+      height: 100%;
+      width: 40px;
+      font-size: 50px;
+      font-weight: bold;
+      /*border-radius*/
+      -webkit-border-radius: 6px;
+      -moz-border-radius: 6px;
+      -ms-border-radius: 6px;
+      border-radius: 6px;
+      /*box-shadow*/
+      -webkit-box-shadow: 0 2px 5px rgba(0, 0, 0, 0.7);
+      -moz-box-shadow: 0 2px 5px rgba(0, 0, 0, 0.7);
+      -ms-box-shadow: 0 2px 5px rgba(0, 0, 0, 0.7);
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.7); }
+      .countdown ul.flip li {
+        z-index: 1;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        line-height: 80px; }
+        .countdown ul.flip li span {
+          display: block;
+          height: 100%;
+          /*perspective*/
+          -webkit-perspective: 200px;
+          -moz-perspective: 200px;
+          -ms-perspective: 200px;
+          -o-perspective: 200px;
+          perspective: 200px; }
+          .countdown ul.flip li span div {
+            z-index: 1;
+            position: absolute;
+            left: 0;
+            width: 100%;
+            height: 50%;
+            overflow: hidden; }
+            .countdown ul.flip li span div .shadow {
+              position: absolute;
+              width: 100%;
+              height: 100%;
+              z-index: 2; }
+            .countdown ul.flip li span div.up {
+              /*transform-origin*/
+              -webkit-transform-origin: 50% 100%;
+              -moz-transform-origin: 50% 100%;
+              -ms-transform-origin: 50% 100%;
+              -o-transform-origin: 50% 100%;
+              transform-origin: 50% 100%;
+              top: 0; }
+              .countdown ul.flip li span div.up:after {
+                content: "";
+                position: absolute;
+                bottom: 0px;
+                left: 0;
+                z-index: 5;
+                width: 100%;
+                height: 1px;
+                background-color: rgba(0, 0, 0, 0.4); }
+              .countdown ul.flip li span div.up div.inn {
+                top: 0; }
+            .countdown ul.flip li span div.down {
+              /*transform-origin*/
+              -webkit-transform-origin: 50% 0%;
+              -moz-transform-origin: 50% 0%;
+              -ms-transform-origin: 50% 0%;
+              -o-transform-origin: 50% 0%;
+              transform-origin: 50% 0%;
+              bottom: 0; }
+              .countdown ul.flip li span div.down div.inn {
+                bottom: 0; }
+            .countdown ul.flip li span div div.inn {
+              position: absolute;
+              left: 0;
+              z-index: 1;
+              width: 100%;
+              height: 200%;
+              color: #ffffff;
+              text-shadow: 0 1px 2px #000;
+              text-align: center;
+              background-color: #dc3545;
+              /*border-radius*/
+              -webkit-border-radius: 6px;
+              -moz-border-radius: 6px;
+              -ms-border-radius: 6px;
+              border-radius: 6px; }
   @media only screen and (max-width: 540px) {
     .countdown ul.flip {
       width: 25px !important;
@@ -80,79 +150,8 @@
     margin-right: 14px; }
   .countdown ul.flip:nth-child(2n+2) {
     margin-right: 12px; }
-  .countdown ul.flip li {
-    z-index: 1;
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    line-height: 60px; }
-  .countdown ul.flip li span {
-    display: block;
-    height: 100%;
-    /*perspective*/
-    -webkit-perspective: 200px;
-    -moz-perspective: 200px;
-    -ms-perspective: 200px;
-    -o-perspective: 200px;
-    perspective: 200px; }
-  .countdown ul.flip li span div {
-    z-index: 1;
-    position: absolute;
-    left: 0;
-    width: 100%;
-    height: 50%;
-    overflow: hidden; }
-  .countdown ul.flip li span div .shadow {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    z-index: 2; }
-  .countdown ul.flip li span div.up {
-    /*transform-origin*/
-    -webkit-transform-origin: 50% 100%;
-    -moz-transform-origin: 50% 100%;
-    -ms-transform-origin: 50% 100%;
-    -o-transform-origin: 50% 100%;
-    transform-origin: 50% 100%;
-    top: 0; }
-  .countdown ul.flip li span div.up:after {
-    content: "";
-    position: absolute;
-    bottom: 0px;
-    left: 0;
-    z-index: 5;
-    width: 100%;
-    height: 1px;
-    background-color: rgba(0, 0, 0, 0.4); }
-  .countdown ul.flip li span div.down {
-    /*transform-origin*/
-    -webkit-transform-origin: 50% 0%;
-    -moz-transform-origin: 50% 0%;
-    -ms-transform-origin: 50% 0%;
-    -o-transform-origin: 50% 0%;
-    transform-origin: 50% 0%;
-    bottom: 0; }
-  .countdown ul.flip li span div div.inn {
-    position: absolute;
-    left: 0;
-    z-index: 1;
-    width: 100%;
-    height: 200%;
-    color: #ffffff;
-    text-shadow: 0 1px 2px #000;
-    text-align: center;
-    background-color: #dc3545;
-    /*border-radius*/
-    -webkit-border-radius: 6px;
-    -moz-border-radius: 6px;
-    -ms-border-radius: 6px;
-    border-radius: 6px; }
-  .countdown ul.flip li span div.up div.inn {
-    top: 0; }
-  .countdown ul.flip li span div.down div.inn {
-    bottom: 0; }
+  .countdown.xs ul.flip:nth-child(2n+2):not(:last-child):after {
+    top: -70%; }
 
 .play ul li.previous {
   z-index: 2; }

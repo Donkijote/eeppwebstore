@@ -2480,7 +2480,8 @@ button {
         color: #ffa000; }
     .mg-product-card .mg-rating-stars.on-list {
       display: block;
-      top: 85%;
+      position: relative;
+      top: 0;
       text-align: left; }
   .mg-product-card .mg-product-thumb {
     display: block;
@@ -2596,6 +2597,10 @@ button {
         border-radius: 50%;
         background-color: #4caf50;
         content: ''; }
+  .mg-product-card .mg-product-countdown-wrapper {
+    position: absolute;
+    top: 60%;
+    left: 10%; }
   @media (min-width: 576px) {
     .mg-product-card.mg-product-list {
       display: table;

@@ -144,6 +144,7 @@
           <Property Name="strTime" Type="date" />
           <Property Name="strName" Type="varchar" MaxLength="50" />
           <Property Name="strDescription" Type="varchar" MaxLength="100" />
+          <Property Name="refCodProd" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="tblProducts">
           <Key>
@@ -879,6 +880,7 @@
           <NavigationProperty Name="tblProducts" Relationship="webstoreModel.FK_tblProducts_tblOffertTime" FromRole="tblOffertTime" ToRole="tblProducts" />
           <Property Name="strName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="strDescription" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="refCodProd" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <Association Name="FK_tblProducts_tblFicha">
           <End Type="webstoreModel.tblFicha" Role="tblFicha" Multiplicity="0..1" />
@@ -1156,6 +1158,7 @@
           <EntitySetMapping Name="tblOffertTime">
             <EntityTypeMapping TypeName="webstoreModel.tblOffertTime">
               <MappingFragment StoreEntitySet="tblOffertTime">
+                <ScalarProperty Name="refCodProd" ColumnName="refCodProd" />
                 <ScalarProperty Name="strDescription" ColumnName="strDescription" />
                 <ScalarProperty Name="strName" ColumnName="strName" />
                 <ScalarProperty Name="strTime" ColumnName="strTime" />

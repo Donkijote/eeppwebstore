@@ -55,6 +55,7 @@
             <div class="mg-shop-toolbar padding-bottom-1x mb-2">
                 <div class="column">
                     <div class="mg-shop-sorting">
+                        @ViewBag.first
                         <label for="sorting">Sort by:</label>
                         <select class="form-control" id="sort-by-button-group">
                             <option data-sort-value="price" data-ascending="true">Menor a mayor precio</option>
@@ -106,15 +107,24 @@
                                     <div class="mg-product-wish bg-secondary" href="javascript:void(0);">
                                         <i></i>
                                     </div>
-                                    <div class="mg-rating-stars stars">
-                                        @{
-                                            int stars = rand.Next(5);
-                                            for (var i = 1; i < 6; i++)
-                                            {
-                                                <i class="fas fa-star @(i <= stars ? "filled": "")"></i>
+                                    @if (item.TimeOffer)
+                                    {
+                                        <div class="mg-product-countdown-wrapper">
+                                            <div class="countdown xs" style="height:30px;" data-time="@item.Time"></div>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="mg-rating-stars stars">
+                                            @{
+                                                int stars = rand.Next(5);
+                                                for (var i = 1; i < 6; i++)
+                                                {
+                                                    <i class="fas fa-star @(i <= stars ? "filled": "")"></i>
+                                                }
                                             }
-                                        }
-                                    </div>
+                                        </div>
+                                    }
                                     <a class="mg-product-thumb" href="@Url.Action("s","Categories", new { id = Html.DisplayFor(modelItem => item.categorySeo), idp = Html.DisplayFor(modelItem => item.strCodigo), language=System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName })">
                                         <img class="img-fuild" src="https://eepp.cl/images/productos/Z1-K-BLANCO.jpg"
                                              alt="Producto">
@@ -122,14 +132,22 @@
 
                                         <div class="mg-product-card-body">
                                             <h4 class="mg-product-price">
-                                                <del>$15.062,00</del><br />
-                                                $ <span class="price">@Html.DisplayFor(modelItem => item.intPrecio)</span>
-                                                <label class="off">50% OFF</label>
+                                                @if (item.intPrecioOff != "0")
+                                                {
+                                                    <del>$@Html.DisplayFor(modelItem => item.intPrecio)</del><br />
+                                                    <span class="price">$ @Html.DisplayFor(modelItem => item.intPrecioOff)</span>
+                                                    <label class="off">@Html.DisplayFor(modelItem => item.intPrecentOff) OFF</label>
+                                                }
+                                                else
+                                                {
+                                                    <span class="price">@Html.DisplayFor(modelItem => item.intPrecio)</span>
+                                                }
+
                                             </h4>
                                             <div class="mg-product-category">
                                                 SKU: <span class="number">@Html.DisplayFor(modelItem => item.strCodigo)</span>
                                             </div>
-                                            <h3 class="mg-product-title name">
+                                            <h3 class="mg-product-title name text-capitalize">
                                                 @Html.DisplayFor(modelItem => item.strNombre)
                                             </h3>
                                         </div>
@@ -159,25 +177,43 @@
                                     <img class="img-fuild img-sec" src="https://eepp.cl/images/home/sec.png">
                                 </a>
                                 <div class="mg-product-card-body">
-                                    <div class="mg-rating-stars on-list">
-                                        <i class="fas fa-star filled"></i>
-                                        <i class="fas fa-star filled"></i>
-                                        <i class="fas fa-star filled"></i>
-                                        <i class="fas fa-star filled"></i>
-                                        <i class="fas fa-star"></i>
-                                    </div>
                                     <h4 class="mg-product-price">
-                                        <del>$62.00</del><br />
-                                        $ @Html.DisplayFor(modelItem => item.intPrecio)
-                                        <label class="off">50% OFF</label>
+                                        @if (item.intPrecioOff != "0")
+                                        {
+                                            <del>$@Html.DisplayFor(modelItem => item.intPrecio)</del><br />
+                                            <span class="price">$ @Html.DisplayFor(modelItem => item.intPrecioOff)</span>
+                                            <label class="off">@Html.DisplayFor(modelItem => item.intPrecentOff) OFF</label>
+                                        }
+                                        else
+                                        {
+                                            <span class="price">@Html.DisplayFor(modelItem => item.intPrecio)</span>
+                                            <label class="off">@Html.DisplayFor(modelItem => item.intPrecentOff) OFF</label>
+                                        }
                                     </h4>
                                     <div class="mg-product-category">
-                                        SKU: @Html.DisplayFor(modelItem => item.strCodigo)
+                                        SKU: <span class="number">@Html.DisplayFor(modelItem => item.strCodigo)</span>
                                     </div>
-                                    <h3 class="mg-product-title">
+                                    <h3 class="mg-product-title text-capitalize name">
                                         <a href="@Url.Action("s","Categories", new { id = "Cables", idp = Html.DisplayFor(modelItem => item.strCodigo), language=System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName })">@Html.DisplayFor(modelItem => item.strNombre)</a>
                                     </h3>
-                                    <p class="text-sm text-muted hidden-xs-down my-1">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tempore odit officiis illo perferendis deserunt, ipsam dolor ad dolorem eaque veritatis.</p>
+                                    <p class="text-sm text-muted hidden-xs-down my-1 mb-3">@Html.DisplayFor(modelItem => item.strNombre)</p>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="mg-rating-stars on-list stars">
+                                                <i class="fas fa-star filled"></i>
+                                                <i class="fas fa-star filled"></i>
+                                                <i class="fas fa-star filled"></i>
+                                                <i class="fas fa-star filled"></i>
+                                                <i class="fas fa-star"></i>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            @if (item.TimeOffer)
+                                            {
+                                                <div class="countdown xs" style="height:30px;" data-time="@item.Time"></div>
+                                            }
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         }
@@ -275,6 +311,8 @@
                 }
 
             });
+
+            $.AdminJs.Countdown.activate();
         })
     </script>
 }

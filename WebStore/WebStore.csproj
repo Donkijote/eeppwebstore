@@ -224,7 +224,49 @@
       <DependentUpon>Connection.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\Country.cs" />
+    <Compile Include="Models\EEPP.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EEPP.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EEPP.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EEPP.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EEPP.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EEPP.edmx</DependentUpon>
+    </Compile>
     <Compile Include="Models\Index.cs" />
+    <Compile Include="Models\iw_gmovi.cs">
+      <DependentUpon>EEPP.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\iw_gsaen.cs">
+      <DependentUpon>EEPP.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\iw_tgrsubgr.cs">
+      <DependentUpon>EEPP.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\iw_tgrupo.cs">
+      <DependentUpon>EEPP.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\iw_tlispre.cs">
+      <DependentUpon>EEPP.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\iw_tlpregrsubgr.cs">
+      <DependentUpon>EEPP.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\iw_tlprprod.cs">
+      <DependentUpon>EEPP.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\iw_tprod.cs">
+      <DependentUpon>EEPP.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\iw_tsubgr.cs">
+      <DependentUpon>EEPP.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Products.cs" />
     <Compile Include="Models\tblBrand.cs">
       <DependentUpon>Connection.tt</DependentUpon>
@@ -523,6 +565,16 @@
       <DependentUpon>Connection.edmx</DependentUpon>
       <LastGenOutput>Connection.cs</LastGenOutput>
     </Content>
+    <Content Include="Models\EEPP.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>EEPP.edmx</DependentUpon>
+      <LastGenOutput>EEPP.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\EEPP.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>EEPP.edmx</DependentUpon>
+      <LastGenOutput>EEPP.cs</LastGenOutput>
+    </Content>
     <Content Include="Scripts\Admin.js" />
     <Content Include="Scripts\Admin.min.js">
       <DependentUpon>Admin.js</DependentUpon>
@@ -573,6 +625,13 @@
     <Content Include="Content\PagedList.scss" />
     <Content Include="Content\Countdown\Countdown.scss" />
     <Content Include="Content\Loading.scss" />
+    <EntityDeploy Include="Models\EEPP.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>EEPP.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\EEPP.edmx.diagram">
+      <DependentUpon>EEPP.edmx</DependentUpon>
+    </Content>
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <Content Include="Scripts\bootstrap.min.js.map" />
