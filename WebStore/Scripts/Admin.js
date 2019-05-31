@@ -432,25 +432,28 @@ $.AdminJs.slider = {
 
 $.AdminJs.Countdown = {
     activate: function () {
-        new FlipClock({
-            isCountdown: true,
-            startTime: $('.countdown').data('time'),
-            containerElement: $('.countdown'),
-            face: {
-                days: {
-                    maxValue: 31
-                },
-                hours: {
-                    maxValue: 23
-                },
-                minutes: {
-                    maxValue: 59
-                },
-                seconds: {
-                    maxValue: 59
+        var time = $('.countdown').data('time');
+        if (time != null) {
+            new FlipClock({
+                isCountdown: true,
+                startTime: time,
+                containerElement: $('.countdown'),
+                face: {
+                    days: {
+                        maxValue: 31
+                    },
+                    hours: {
+                        maxValue: 23
+                    },
+                    minutes: {
+                        maxValue: 59
+                    },
+                    seconds: {
+                        maxValue: 59
+                    }
                 }
-            }
-        });
+            });
+        }
     }
 }
 

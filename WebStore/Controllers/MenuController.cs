@@ -60,36 +60,61 @@ namespace WebStore.Controllers
 
         private static List<TotalProductByCategory> CategoryTotal()
         {
-            using(webstoreEntities db = new webstoreEntities())
-            {
-                var s = (from a in db.tblProducts
-                         join b in db.tblCategories
-                         on a.refCategoria equals b.idCategoria
-                         join c in db.tblFamily
-                         on b.refFamily equals c.idFamily
-                         select new { totalCategories = b.idCategoria, totalfamily = c.idFamily, products = a.idProdcuto })
-                         .GroupBy(cate => cate.totalCategories)
-                         .Select(x => new TotalProductByCategory { TotalProducts = x.Count(), CategoryId = x.Key })
-                         .ToList();
-                return s;
-            }
+            webstoreEntities db = new webstoreEntities();
+            ElectropEntities dbE = new ElectropEntities();
+            /* var s = (from a in db.tblProducts
+                        join b in db.tblCategories
+                        on a.refCategoria equals b.idCategoria
+                        join c in db.tblFamily
+                        on b.refFamily equals c.idFamily
+                        select new { totalCategories = b.idCategoria, totalfamily = c.idFamily, products = a.idProdcuto })
+                        .GroupBy(cate => cate.totalCategories)
+                        .Select(x => new TotalProductByCategory { TotalProducts = x.Count(), CategoryId = x.Key })
+                        .ToList();*/
+
+            var s = (from a in dbE.iw_tprod
+                        join b in dbE.iw_tsubgr
+                        on a.CodSubGr equals b.CodSubGr
+                        join c in dbE.iw_tgrupo
+                        on a.CodGrupo equals c.CodGrupo
+                        join d in dbE.iw_tlprprod
+                        on a.CodProd equals d.CodProd
+                        where d.CodLista == "15"
+                        select new { Category = b.DesSubGr, Family = c.DesGrupo, Product = a.CodBarra })
+                        .GroupBy(c => c.Category)
+                        .Select(x => new TotalProductByCategory { TotalProducts = x.Count(), CategoryName = x.Key})
+                        .ToList();
+            return s;
+
         }
 
         private static List<TotalProductByFamily> FamilyTotal()
         {
-            using (webstoreEntities db = new webstoreEntities())
-            {
-                var s = (from a in db.tblProducts
-                         join b in db.tblCategories
-                         on a.refCategoria equals b.idCategoria
-                         join c in db.tblFamily
-                         on b.refFamily equals c.idFamily
-                         select new { totalCategories = b.idCategoria, totalfamily = c.idFamily, products = a.idProdcuto })
-                         .GroupBy(cate => cate.totalfamily)
-                         .Select(x => new TotalProductByFamily { TotalProducts = x.Count(), FamilyId = x.Key })
-                         .ToList();
-                return s;
-            }
+            webstoreEntities db = new webstoreEntities();
+            ElectropEntities dbE = new ElectropEntities();
+            /*var s = (from a in db.tblProducts
+                        join b in db.tblCategories
+                        on a.refCategoria equals b.idCategoria
+                        join c in db.tblFamily
+                        on b.refFamily equals c.idFamily
+                        select new { totalCategories = b.idCategoria, totalfamily = c.idFamily, products = a.idProdcuto })
+                        .GroupBy(cate => cate.totalfamily)
+                        .Select(x => new TotalProductByFamily { TotalProducts = x.Count(), FamilyId = x.Key })
+                        .ToList();*/
+            var s = (from a in dbE.iw_tprod
+                     join b in dbE.iw_tsubgr
+                     on a.CodSubGr equals b.CodSubGr
+                     join c in dbE.iw_tgrupo
+                     on a.CodGrupo equals c.CodGrupo
+                     join d in dbE.iw_tlprprod
+                     on a.CodProd equals d.CodProd
+                     where d.CodLista == "15"
+                     select new { Category = b.DesSubGr, Family = c.DesGrupo, Product = a.CodBarra })
+            .GroupBy(c => c.Family)
+            .Select(x => new TotalProductByFamily { TotalProducts = x.Count(), FamilyName = x.Key })
+            .ToList();
+
+            return s;
         }
 
         private static List<TotalProductByBrand> BrandTotal(string seo)
@@ -132,59 +157,71 @@ namespace WebStore.Controllers
 
         private static List<PriceRange> BetweenPrices(string seo)
         {
-            using (webstoreEntities db = new webstoreEntities())
+            webstoreEntities db = new webstoreEntities();
+            ElectropEntities dbE = new ElectropEntities();
+            var cat = (from a in db.tblCategories
+                        where a.strSeo == seo
+                        select new { CategoryName = a.strNombre })
+                        .FirstOrDefault();
+            var ca = (from a in dbE.iw_tprod
+                      join l in dbE.iw_tlprprod
+                      on a.CodProd equals l.CodProd
+                      join c in dbE.iw_tsubgr
+                      on a.CodSubGr equals c.CodSubGr
+                      where l.CodLista == "15" && c.DesSubGr == cat.CategoryName
+                      select new { price = a.PrecioVta + (a.PrecioVta * l.ValorPct / 100) })
+                      .ToList();
+
+            if (ca.Any())
             {
-                var ca = (from a in db.tblProducts
-                          join b in db.tblCategories
-                          on a.refCategoria equals b.idCategoria
-                          where b.strSeo == seo
-                          select new { products = a.idProdcuto, price = a.intPrecio })
-                          .ToList();
-                if (ca.Any())
+                PriceRange prices = new PriceRange
                 {
-                    var ranges = new[] {0, 10000, 50000, 100000, 200000,300000, 500000 };
-                    PriceRange prices = new PriceRange
-                    {
-                        lower = ca.Where(x => x.price > 0 && x.price < 10000).Count(),
-                        low = ca.Where(x => x.price > 10000 && x.price < 50000).Count(),
-                        middle = ca.Where(x => x.price > 50000 && x.price < 100000).Count(),
-                        high = ca.Where(x => x.price > 100000 && x.price < 200000).Count(),
-                        higher = ca.Where(x => x.price > 200000 && x.price < 300000).Count(),
-                        highest = ca.Where(x => x.price > 300000 && x.price < 500000).Count(),
-                        top = ca.Where(x => x.price > 500000).Count(),
-                    };
+                    lower = ca.Where(x => x.price > 0.00 && x.price < 10000.00).Count(),
+                    low = ca.Where(x => x.price >= 10000.00 && x.price < 50000.00).Count(),
+                    middle = ca.Where(x => x.price >= 50000.00 && x.price < 100000.00).Count(),
+                    high = ca.Where(x => x.price >= 100000.00 && x.price < 200000.00).Count(),
+                    higher = ca.Where(x => x.price >= 200000.00 && x.price < 300000.00).Count(),
+                    highest = ca.Where(x => x.price >= 300000.00 && x.price < 500000.00).Count(),
+                    top = ca.Where(x => x.price >= 500000.00).Count(),
+                };
 
-                    List<PriceRange> listPrice = new List<PriceRange>();
-                    listPrice.Add(prices);
+                List<PriceRange> listPrice = new List<PriceRange>();
+                listPrice.Add(prices);
 
-                    return listPrice;
-                }
-                else
-                {
-
-                    var f = (from a in db.tblProducts
-                             join b in db.tblCategories
-                             on a.refCategoria equals b.idCategoria
-                             join c in db.tblFamily
-                             on b.refFamily equals c.idFamily
-                             where c.strSeo == seo
-                             select new { products = a.idProdcuto, price = a.intPrecio });
-
-                    PriceRange prices = new PriceRange
-                    {
-                        lower = f.Where(x => x.price > 0 && x.price < 10000).Count(),
-                        low = f.Where(x => x.price > 10000 && x.price < 50000).Count(),
-                        middle = f.Where(x => x.price > 50000 && x.price < 100000).Count(),
-                        high = f.Where(x => x.price > 100000 && x.price < 200000).Count(),
-                        higher = f.Where(x => x.price > 200000 && x.price < 300000).Count(),
-                        highest = f.Where(x => x.price > 300000 && x.price < 500000).Count(),
-                        top = f.Where(x => x.price > 500000).Count(),
-                    };
-                    List<PriceRange> listPrice = new List<PriceRange>();
-                    listPrice.Add(prices);
-                    return listPrice;
-                }
+                return listPrice;
             }
+            else
+            {
+
+                var fam = (from c in db.tblFamily
+                            where c.strSeo == seo
+                            select new { FamilyName = c.strName })
+                            .FirstOrDefault();
+
+                var f = (from a in dbE.iw_tprod
+                          join l in dbE.iw_tlprprod
+                          on a.CodProd equals l.CodProd
+                          join c in dbE.iw_tgrupo
+                          on a.CodGrupo equals c.CodGrupo
+                          where l.CodLista == "15" && c.DesGrupo == fam.FamilyName
+                          select new { price = a.PrecioVta + (a.PrecioVta * l.ValorPct / 100) })
+                      .ToList();
+
+                PriceRange prices = new PriceRange
+                {
+                    lower = f.Where(x => x.price > 0 && x.price < 10000).Count(),
+                    low = f.Where(x => x.price >= 10000 && x.price < 50000).Count(),
+                    middle = f.Where(x => x.price >= 50000 && x.price < 100000).Count(),
+                    high = f.Where(x => x.price >= 100000 && x.price < 200000).Count(),
+                    higher = f.Where(x => x.price >= 200000 && x.price < 300000).Count(),
+                    highest = f.Where(x => x.price >= 300000.00 && x.price < 500000.00).Count(),
+                    top = f.Where(x => x.price >= 500000.00).Count(),
+                };
+                List<PriceRange> listPrice = new List<PriceRange>();
+                listPrice.Add(prices);
+                return listPrice;
+            }
+
         }
     }
 }

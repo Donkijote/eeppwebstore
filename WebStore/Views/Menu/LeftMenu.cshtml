@@ -15,7 +15,7 @@
                     <a href="#" class=@(ViewBag.active == i.strName ? "active":"")>@WebStore.Resources.Categories.ResourceManager.GetString(i.strName)</a>
                     @foreach(var j in Model.FamilyTotal)
                     {
-                        if(i.idFamily == j.FamilyId)
+                        if(i.strName == j.FamilyName)
                         {
                             <span>(@j.TotalProducts)</span>
                         }
@@ -29,7 +29,7 @@
                                     <a href="#" class=@(ViewBag.active == k.strNombre ? "active":"")>@WebStore.Resources.Categories.ResourceManager.GetString(k.strNombre)</a>
                                     @foreach (var l in Model.CategoryTotal)
                                     {
-                                        if (k.idCategoria == l.CategoryId)
+                                        if (k.strNombre == l.CategoryName)
                                         {
                                             <span>(@l.TotalProducts)</span>
                                         }

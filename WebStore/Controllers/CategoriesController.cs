@@ -35,7 +35,7 @@ namespace WebStore.Controllers
             return View(viewModel);
         }
 
-        public ActionResult s(string id, string idp, int? page)
+        public ActionResult s(string id, string idp, int? Page, int? PerPage, string SortedBy)
         {
             if (String.IsNullOrWhiteSpace(idp))
             {
@@ -64,9 +64,9 @@ namespace WebStore.Controllers
                     string isAllowed;
                     if (query != "")
                     {
-                        if(!String.IsNullOrEmpty(Request.QueryString["Utf8"]) || !String.IsNullOrWhiteSpace(Request.QueryString["Utf8"]))
+                        if(!String.IsNullOrEmpty(Request.QueryString["View"]) || !String.IsNullOrWhiteSpace(Request.QueryString["View"]))
                         {
-                            isAllowed = Request.QueryString["Utf8"];
+                            isAllowed = Request.QueryString["View"];
                         }
                         else
                         {
@@ -83,7 +83,27 @@ namespace WebStore.Controllers
                     ViewBag.Title = Resources.Categories.ResourceManager.GetString(getTitle((culture != "en" ? translatedId : id)));
                     ViewBag.SeoLocation = culture != "en" ? translatedId : id;
                     ViewBag.category = v;
-                    return View("s",s.ToPagedList(page ?? 1, 3));
+                    ViewBag.perPage = PerPage != null ? PerPage : 0;
+
+                    var sorted = s.OrderBy(o => o.strNombre);
+
+                    if (SortedBy == null || SortedBy == "" || SortedBy == "nameA")
+                    {
+                        sorted = s.OrderBy(x => x.strNombre);
+                    }
+                    else if (SortedBy == "nameZ")
+                    {
+                        sorted = s.OrderByDescending(x => x.strNombre);
+                    }
+                    else if(SortedBy == "high")
+                    {
+                        sorted = s.OrderByDescending(x => x.intPrecioNum);
+                    }
+                    else if(SortedBy == "low")
+                    {
+                        sorted = s.OrderBy(x => x.intPrecioNum);
+                    }
+                    return View("s", sorted.ToPagedList(Page ?? 1, PerPage ?? 15));
                 }
             }
             else
@@ -113,9 +133,9 @@ namespace WebStore.Controllers
                          {
                              strCodigo = p.strCod,
                              strNombre = p.strNombre.ToLower(),
-                             intPrecio = FormatNumber((Decimal)(p.intPrecio + (p.intPrecio * (p.intPercent / 100)))),
+                             intPrecio = FormatNumber((int)(p.intPrecio + (p.intPrecio * (p.intPercent / 100)))),
                              intPrecentOff = o.Any(l => l.CodProd == p.strCodigo) ? o.Where(i => i.CodProd == p.strCodigo).Select(j => (int)j.ValorPct).FirstOrDefault() + "%" : "0",
-                             intPrecioOff = o.Any(l => l.CodProd == p.strCodigo) ? FormatNumber((Decimal)(p.intPrecio + (p.intPrecio * (p.intPercent / 100))) - (Decimal)(((p.intPrecio + (p.intPrecio * (p.intPercent / 100))) * o.Where(i => i.CodProd == p.strCodigo).Select(j => (int)j.ValorPct).FirstOrDefault() / 100))) : "0",
+                             intPrecioOff = o.Any(l => l.CodProd == p.strCodigo) ? FormatNumber((int)(p.intPrecio + (p.intPrecio * (p.intPercent / 100))) - (int)(((p.intPrecio + (p.intPrecio * (p.intPercent / 100))) * o.Where(i => i.CodProd == p.strCodigo).Select(j => (int)j.ValorPct).FirstOrDefault() / 100))) : "0",
                              intPercent = p.intPercent + "%",
                              categorySeo = id
                          })
@@ -143,7 +163,7 @@ namespace WebStore.Controllers
                         {
                             a.TimeOffer = true;
                             a.intPrecentOff = percentOff + "%";
-                            a.intPrecioOff = FormatNumber(Decimal.Parse(a.intPrecio) - (Decimal)(Double.Parse(a.intPrecio) * percentOff / 100));
+                            a.intPrecioOff = FormatNumber(Int32.Parse(a.intPrecio) - (int)(Double.Parse(a.intPrecio) * percentOff / 100));
                             a.Time = string.Format("{0:D2}:{1:D2}:{2:D2}:{3:D2}", timeDiff.Days, timeDiff.Hours, timeDiff.Minutes, timeDiff.Seconds);
                         }
                     }
@@ -183,11 +203,12 @@ namespace WebStore.Controllers
                         {
                             strCodigo = x.strCod,
                             strNombre = Truncate(x.strNombre, 60).ToLower(),
-                            intPrecio = FormatNumber((Decimal)(x.intPrecio + (x.intPrecio * ( x.percent / 100 ) ))),
+                            intPrecio = FormatNumber((int)(x.intPrecio + (x.intPrecio * ( x.percent / 100 ) ))),
                             intPrecentOff = o.Any(l => l.CodProd == x.strCodigo) ? o.Where(i => i.CodProd == x.strCodigo).Select(j => (int)j.ValorPct).FirstOrDefault() + "%" : "0",
-                            intPrecioOff = o.Any(l => l.CodProd == x.strCodigo) ? FormatNumber((Decimal)(x.intPrecio + (x.intPrecio * (x.percent / 100))) - (Decimal)(((x.intPrecio + (x.intPrecio * (x.percent / 100))) * o.Where(i => i.CodProd == x.strCodigo).Select(j => (int)j.ValorPct).FirstOrDefault() / 100))) : "0",
+                            intPrecioOff = o.Any(l => l.CodProd == x.strCodigo) ? FormatNumber((int)(x.intPrecio + (x.intPrecio * (x.percent / 100))) - (int)(((x.intPrecio + (x.intPrecio * (x.percent / 100))) * o.Where(i => i.CodProd == x.strCodigo).Select(j => (int)j.ValorPct).FirstOrDefault() / 100))) : "0",
                             intPercent = x.percent + "%",
-                            categorySeo = id
+                            categorySeo = id,
+                            intPrecioNum = o.Any(l => l.CodProd == x.strCodigo) ? (int)(x.intPrecio + (x.intPrecio * (x.percent / 100))) - (int)(((x.intPrecio + (x.intPrecio * (x.percent / 100))) * o.Where(i => i.CodProd == x.strCodigo).Select(j => (int)j.ValorPct).FirstOrDefault() / 100)) : (int)(x.intPrecio + (x.intPrecio * (x.percent / 100)))
                         })
                         .ToList();
                 if (s.Any())
@@ -217,7 +238,7 @@ namespace WebStore.Controllers
                         {
                             a.TimeOffer = true;
                             a.intPrecentOff = percentOff + "%";
-                            a.intPrecioOff = FormatNumber(Decimal.Parse(a.intPrecio) - (Decimal)(Double.Parse(a.intPrecio) * percentOff / 100));
+                            a.intPrecioOff = FormatNumber(Int32.Parse(a.intPrecio) - (int)(Double.Parse(a.intPrecio) * percentOff / 100));
                             a.Time = string.Format("{0:D2}:{1:D2}:{2:D2}:{3:D2}", timeDiff.Days, timeDiff.Hours, timeDiff.Minutes, timeDiff.Seconds);
                         }
                     }
@@ -249,11 +270,12 @@ namespace WebStore.Controllers
                             {
                                 strCodigo = x.strCod,
                                 strNombre = Truncate(x.strNombre, 60).ToLower(),
-                                intPrecio = FormatNumber( (Decimal)(x.intPrecio + (x.intPrecio * ( x.percent / 100 ) ) ) ),
+                                intPrecio = FormatNumber( (int)(x.intPrecio + (x.intPrecio * ( x.percent / 100 ) ) ) ),
                                 intPrecentOff = o.Any(l => l.CodProd == x.strCodigo) ? o.Where(i => i.CodProd == x.strCodigo).Select(j => (int)j.ValorPct).FirstOrDefault() + "%" : "0",
-                                intPrecioOff = o.Any(l => l.CodProd == x.strCodigo) ? FormatNumber( (Decimal)( x.intPrecio + (x.intPrecio * (x.percent / 100)) )  -  (Decimal)( ( (x.intPrecio + (x.intPrecio * (x.percent / 100))) * o.Where(i => i.CodProd == x.strCodigo).Select(j => (int)j.ValorPct).FirstOrDefault() / 100) ) ) : "0",
+                                intPrecioOff = o.Any(l => l.CodProd == x.strCodigo) ? FormatNumber( (int)( x.intPrecio + (x.intPrecio * (x.percent / 100)) )  -  (int)( ( (x.intPrecio + (x.intPrecio * (x.percent / 100))) * o.Where(i => i.CodProd == x.strCodigo).Select(j => (int)j.ValorPct).FirstOrDefault() / 100) ) ) : "0",
                                 intPercent = x.percent + "%",
-                                categorySeo = id
+                                categorySeo = id,
+                                intPrecioNum = o.Any(l => l.CodProd == x.strCodigo) ? (int)(x.intPrecio + (x.intPrecio * (x.percent / 100))) - (int)(((x.intPrecio + (x.intPrecio * (x.percent / 100))) * o.Where(i => i.CodProd == x.strCodigo).Select(j => (int)j.ValorPct).FirstOrDefault() / 100)) : (int)(x.intPrecio + (x.intPrecio * (x.percent / 100)))
                             })
                             .ToList();
                 if (s.Any())
@@ -283,7 +305,7 @@ namespace WebStore.Controllers
                         {
                             a.TimeOffer = true;
                             a.intPrecentOff = percentOff + "%";
-                            a.intPrecioOff = FormatNumber( Decimal.Parse(a.intPrecio) - (Decimal)( Double.Parse(a.intPrecio) * percentOff / 100  ) );
+                            a.intPrecioOff = FormatNumber( Int32.Parse(a.intPrecio) - (int)( Double.Parse(a.intPrecio) * percentOff / 100  ) );
                             a.Time = string.Format("{0:D2}:{1:D2}:{2:D2}:{3:D2}", timeDiff.Days, timeDiff.Hours, timeDiff.Minutes, timeDiff.Seconds);
                         }
                     }
@@ -297,9 +319,9 @@ namespace WebStore.Controllers
             return value.Length <= maxChars ? value : value.Substring(0, maxChars) + "...";
         }
 
-        private static string FormatNumber(decimal number)
+        private static string FormatNumber(int number)
         {
-            return number.ToString("N", CultureInfo.GetCultureInfo("es-CL"));
+            return number.ToString("N0", CultureInfo.GetCultureInfo("es-CL"));
         }
 
         private string getTitle(string id)

@@ -49,21 +49,27 @@
                     <i class="far fa-clock" style="font-size: 33px; margin-top: -5px;"></i>
                     &nbsp;&nbsp;Check our Limited Offers. Save up to 50%&nbsp;&nbsp;&nbsp;
                     <div class="mt-3 hidden-xl-up"></div>
-                    <a class="btn btn-orangered" href="#">View Offers</a>
+                    <a class="btn btn-orangered" href="#">@WebStore.Resources.Buttons.ViewOffers</a>
                 </div>
             </div>
             <div class="mg-shop-toolbar padding-bottom-1x mb-2">
                 <div class="column">
                     <div class="mg-shop-sorting">
                         @ViewBag.first
-                        <label for="sorting">Sort by:</label>
+                        <label for="sorting">@WebStore.Resources.Texts.Sort</label>
                         <select class="form-control" id="sort-by-button-group">
-                            <option data-sort-value="price" data-ascending="true">Menor a mayor precio</option>
-                            <option data-sort-value="price" data-ascending="false">Mayor a menor price</option>
-                            <option data-sort-value="stars" data-ascending="false">Mejor calificado</option>
-                            <option data-sort-value="name" data-ascending="true">A - Z</option>
-                            <option data-sort-value="name" data-ascending="false">Z - A</option>
-                        </select><span class="text-muted">Showing:&nbsp;</span><span></span>
+                            <option value="low" @(Request.QueryString["SortedBy"] == "low" ? "selected":"")>@WebStore.Resources.Texts.LowHigh</option>
+                            <option value="high" @(Request.QueryString["SortedBy"] == "high" ? "selected":"")>@WebStore.Resources.Texts.HighLow</option>
+                            <option value="rate" @(Request.QueryString["SortedBy"] == "rated" ? "selected":"")>@WebStore.Resources.Texts.BestRated</option>
+                            <option value="nameA" @(Request.QueryString["SortedBy"] == "nameA" || Request.QueryString["SortedBy"] == null ? "selected":"")>A - Z</option>
+                            <option value="nameZ" @(Request.QueryString["SortedBy"] == "nameZ" ? "selected":"")>Z - A</option>
+                        </select>
+                        <label class="text-muted">@WebStore.Resources.Texts.Showing&nbsp;</label>
+                        <select class="form-control" id="perPage">
+                            <option value="15" @(ViewBag.perPage == 15 || ViewBag.perPage == 0 ? "selected":"")>15</option>
+                            <option value="25" @(ViewBag.perPage == 25 ? "selected":"")>25</option>
+                            <option value="50" @(ViewBag.perPage == 50 ? "selected":"")>50</option>
+                        </select>
                     </div>
                 </div>
                 <div class="column">
@@ -75,20 +81,11 @@
                                     <input type="hidden" name="page" value="@Request.QueryString["page"]" />
                                 }
                             }
-                            @if (ViewBag.type == "Grid" || ViewBag.type == "")
-                            {
-                                <input type="radio" name="Utf8" id="grid" class="grid" value="Grid" checked>
-                                <label for="grid" class="grid-view typeview"><span></span><span></span><span></span></label>
-                                <input type="radio" name="Utf8" id="list" class="list" value="List">
-                                <label for="list" class="list-view typeview"><span></span><span></span><span></span></label>
-                            }
-                            else if (ViewBag.type == "List")
-                            {
-                                <input type="radio" name="Utf8" id="grid" class="grid" value="Grid">
-                                <label for="grid" class="grid-view typeview"><span></span><span></span><span></span></label>
-                                <input type="radio" name="Utf8" id="list" class="list" value="List" checked>
-                                <label for="list" class="list-view typeview"><span></span><span></span><span></span></label>
-                            }
+                            <input type="radio" name="View" id="grid" class="grid" value="Grid" @(ViewBag.type == "Grid" || ViewBag.type == "" ? "checked":"")>
+                            <label for="grid" class="grid-view typeview"><span></span><span></span><span></span></label>
+                            <input type="radio" name="View" id="list" class="list" value="List" @(ViewBag.type == "List" ? "checked":"")>
+                            <label for="list" class="list-view typeview"><span></span><span></span><span></span></label>
+
                         </div>
                     </form>
                 </div>
@@ -107,40 +104,41 @@
                                     <div class="mg-product-wish bg-secondary" href="javascript:void(0);">
                                         <i></i>
                                     </div>
-                                    @if (item.TimeOffer)
-                                    {
-                                        <div class="mg-product-countdown-wrapper">
-                                            <div class="countdown xs" style="height:30px;" data-time="@item.Time"></div>
-                                        </div>
-                                    }
-                                    else
-                                    {
-                                        <div class="mg-rating-stars stars">
-                                            @{
-                                                int stars = rand.Next(5);
-                                                for (var i = 1; i < 6; i++)
-                                                {
-                                                    <i class="fas fa-star @(i <= stars ? "filled": "")"></i>
-                                                }
-                                            }
-                                        </div>
-                                    }
                                     <a class="mg-product-thumb" href="@Url.Action("s","Categories", new { id = Html.DisplayFor(modelItem => item.categorySeo), idp = Html.DisplayFor(modelItem => item.strCodigo), language=System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName })">
-                                        <img class="img-fuild" src="https://eepp.cl/images/productos/Z1-K-BLANCO.jpg"
+                                        <img class="img-fuild" src="https://eepp.cl/images/productos/BR-FL120W-07-240W-WEB.jpg"
                                              alt="Producto">
-                                        <img class="img-fuild img-sec" src="https://eepp.cl/images/home/sec.png">
+                                        <img class="img-fuild img-sec" src="~/Content/img/certificates/sec.png" />
+                                        <img class="img-fluid img-ds43" src="~/Content/img/certificates/ds43.png" />
 
                                         <div class="mg-product-card-body">
+                                            @if (item.TimeOffer)
+                                            {
+                                                <div class="mg-product-countdown-wrapper">
+                                                    <div class="countdown xs" style="height:30px;" data-time="@item.Time"></div>
+                                                </div>
+                                            }
+                                            else
+                                            {
+                                                <div class="mg-rating-stars stars">
+                                                    @{
+                                                        int stars = rand.Next(5);
+                                                        for (var i = 1; i < 6; i++)
+                                                        {
+                                                            <i class="fas fa-star @(i <= stars ? "filled": "")"></i>
+                                                        }
+                                                    }
+                                                </div>
+                                            }
                                             <h4 class="mg-product-price">
                                                 @if (item.intPrecioOff != "0")
                                                 {
                                                     <del>$@Html.DisplayFor(modelItem => item.intPrecio)</del><br />
                                                     <span class="price">$ @Html.DisplayFor(modelItem => item.intPrecioOff)</span>
-                                                    <label class="off">@Html.DisplayFor(modelItem => item.intPrecentOff) OFF</label>
+                                                    <label class="off">@Html.DisplayFor(modelItem => item.intPrecentOff) DCTO</label>
                                                 }
                                                 else
                                                 {
-                                                    <span class="price">@Html.DisplayFor(modelItem => item.intPrecio)</span>
+                                                    <span class="price">$@Html.DisplayFor(modelItem => item.intPrecio)</span>
                                                 }
 
                                             </h4>
@@ -225,7 +223,7 @@
                 }
             </div>
             @Html.PagedListPager(Model, page => Url.Action("s",
-            new { page, id = ViewContext.RouteData.Values["id"], Utf8 = Request.QueryString["Utf8"] }),
+            new { page, id = ViewContext.RouteData.Values["id"], PerPage = Request.QueryString["PerPage"], SortedBy = Request.QueryString["SortedBy"], View = Request.QueryString["View"] }),
             new X.PagedList.Mvc.Common.PagedListRenderOptionsBase() {
                 Display = X.PagedList.Mvc.Common.PagedListDisplayMode.IfNeeded,
                 LiElementClasses = new string[] { "page-item" },
@@ -244,7 +242,7 @@
                 ClassToApplyToLastListItemInPager = "mg-last"
             })
             @Html.PagedListPager(Model, page => Url.Action("s",
-            new { page, id = ViewContext.RouteData.Values["id"], Utf8 = Request.QueryString["Utf8"] }),
+            new { page, id = ViewContext.RouteData.Values["id"], PerPage = Request.QueryString["PerPage"], SortedBy = Request.QueryString["SortedBy"], View = Request.QueryString["View"] }),
             new X.PagedList.Mvc.Common.PagedListRenderOptionsBase() {
                 Display = X.PagedList.Mvc.Common.PagedListDisplayMode.IfNeeded,
                 LiElementClasses = new string[] { "page-item" },
@@ -271,48 +269,89 @@
         $(function () {
             $('#typeView input[type=radio]').on('change', function () {
                 $("#typeView").submit();
-            });
-            /*$('#renderProducts').pagination({
-                dataSource: [1, 2, 3, 4, 5, 6, 7],
-                pageSize: 1,
-                callback: function (data, pagination) {
-                    console.log(data);
-                    var html = template(data);
-                    dataContainer.html(html);
-                }
-            });*/
-            var $grid = $('.grid').isotope({
-                itemSelector: '.element-item',
-                layoutMode: 'fitRows',
-                getSortData: {
-                    name: '.name',
-                    number: '.number parseInt',
-                    price: function (itemElem) {
-                        var weight = $(itemElem).find('.price').text();
-                        weight = weight.toString().replace(/\./g, '');
-                        return parseFloat(weight.toString().replace(/\,/g, '.'));
-                    },
-                    stars: function (itemElem) {
-                        var stars = $(itemElem).find('.stars');
-                        return parseInt(stars.find('i.filled').length);
-                    }
-                },
-                sortBy: 'name'
-            });
+            }); 
 
             // bind sort button click
             $('#sort-by-button-group').on('change', function () {
-                var sortValue = $(this).find(':selected').attr('data-sort-value');
-                var Ascending = $(this).find(':selected').attr('data-ascending');
-                if (Ascending == "true") {
-                    $grid.isotope({ sortBy: sortValue, sortAscending: true });
-                } else {
-                    $grid.isotope({ sortBy: sortValue, sortAscending: false });
+                var sort = $(this).val();
+                var page = getUrlParameter('Page');
+                var view = getUrlParameter('View');
+                var perPage = getUrlParameter('PerPage');
+                var pathname = window.location.pathname;
+                if (page != null && perPage != null && view != null) {
+                    window.location.href = pathname + '?Page=1&PerPage=' + perPage + '&SortedBy=' + sort + '&View=' + view;
                 }
+                else if (page != null && perPage != null && view == null) {
+                    window.location.href = pathname + '?Page=1&PerPage=' + perPage + '&SortedBy=' + sort;
+                }
+                else if (page != null && perPage == null && view == null) {
+                    window.location.href = pathname + '?Page=1&SortedBy=' + sort;
+                }
+                else if (page == null && perPage == null && view != null) {
+                    window.location.href = pathname + '?SortedBy=' + sort + '&View=' + view;
+                }
+                else if (page == null && perPage != null && view == null) {
+                    window.location.href = pathname + '?PerPage=' + perPage + '&SortedBy=' + sort;
+                }
+                else if (page == null && perPage != null && view != null) {
+                    window.location.href = pathname + '?PerPage=' + perPage + '&SortedBy=' + sort + '&View=' + view;
+                }
+                else if (page != null && perPage == null && view != null) {
+                    window.location.href = pathname + '?Page=1&SortedBy=' + sort + '&View=' + view;
+                }
+                else {
+                    window.location.href = pathname + '?SortedBy=' + sort;
+                }
+            });
 
+            $('#perPage').on('change', function () {
+                var page = getUrlParameter('Page');
+                var view = getUrlParameter('View');
+                var sort = getUrlParameter('SortedBy');
+                var pathname = window.location.pathname;
+                var perPage = $(this).val();
+                if (page != null && view != null && sort !== null) {
+                    window.location.href = pathname + '?Page=1&PerPage=' + perPage + '&SortedBy=' + sort + '&View=' + view;
+                }
+                else if (page != null && sort != null && view == null) {
+                    window.location.href = pathname + '?Page=1&PerPage=' + perPage + '&SortedBy=' + sort;
+                }
+                else if (page != null && sort == null && view == null) {
+                    window.location.href = pathname + '?Page=1&PerPage=' + perPage;
+                }
+                else if (page != null && sort == null && view != null) {
+                    window.location.href = pathname + '?Page=1&PerPage=' + perPage + '&View=' + View;
+                }
+                else if (page == null && sort != null && view != null) {
+                    window.location.href = pathname + '?PerPage=' + perPage + '&SortedBy=' + sort + '&View=' + View;
+                }
+                else if (page == null && sort == null && view != null) {
+                    window.location.href = pathname + '?PerPage=' + perPage + '&View=' + View;
+                }
+                else if (page == null && sort != null && view == null) {
+                    window.location.href = pathname + '?PerPage=' + perPage + '&SortedBy=' + sort;
+                }
+                else {
+                    window.location.href = pathname + '?PerPage=' + perPage;
+                }
             });
 
             $.AdminJs.Countdown.activate();
+
+            function getUrlParameter(sParam) {
+                var sPageURL = window.location.search.substring(1),
+                    sURLVariables = sPageURL.split('&'),
+                    sParameterName,
+                    i;
+
+                for (i = 0; i < sURLVariables.length; i++) {
+                    sParameterName = sURLVariables[i].split('=');
+
+                    if (sParameterName[0] === sParam) {
+                        return sParameterName[1] === undefined ? true : decodeURIComponent(sParameterName[1]);
+                    }
+                }
+            };
         })
     </script>
 }

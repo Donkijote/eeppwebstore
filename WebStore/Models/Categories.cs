@@ -43,12 +43,14 @@ namespace WebStore.Models
     public class TotalProductByCategory
     {
         public int CategoryId { get; set; }
+        public string CategoryName { get; set; }
         public int TotalProducts { get; set; }
     }
 
     public class TotalProductByFamily
     {
         public int FamilyId { get; set; }
+        public string FamilyName { get; set; }
         public int TotalProducts { get; set; }
     }
 

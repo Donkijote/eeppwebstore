@@ -509,6 +509,8 @@
     <Content Include="Content\img\categories\residencial-1.jpg" />
     <Content Include="Content\img\categories\residencial-2.jpg" />
     <Content Include="Content\img\categories\residencial-3.jpg" />
+    <Content Include="Content\img\certificates\ds43.png" />
+    <Content Include="Content\img\certificates\sec.png" />
     <Content Include="Content\img\products\img_one.png" />
     <Content Include="Content\jquery.steps.min.css">
       <DependentUpon>jquery.steps.css</DependentUpon>

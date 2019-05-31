@@ -947,6 +947,7 @@ html * {
             width: 100%;
             -webkit-transition: all 0.5s ease-in-out;
             transition: all 0.5s ease-in-out;
+            overflow: auto;
 
             &.open {
                 left: 0px !important;
@@ -2597,6 +2598,16 @@ button {
         cursor: pointer;
         text-decoration: none;
 
+        @include respond-to(false, 1024) {
+            display: block;
+            top: 5px;
+        }
+
+        @include respond-to(false, 1366,landscape) {
+            display: block;
+            top: 5px;
+        }
+
         i {
             &::before {
                 content: '\f004';
@@ -2621,15 +2632,29 @@ button {
     .mg-rating-stars {
         display: none;
         position: absolute;
-        top: 60%;
-        width: 100%;
-        text-align: center;
+        top: 63%;
+        left: 50%;
+        transform: translateX(-50%);
+
+        @include respond-to(false, 1024) {
+            display: block;
+            position: relative;
+            left: 0;
+            transform: translateX(0);
+        }
+
+        @include respond-to(1025, 1366, landscape) {
+            display: block;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+        }
 
         i {
             display: inline-block;
             margin-right: 2px;
             color: #bfbfbf;
-            font-size: 12px;
+            font-size: 18px;
 
             &.filled {
                 color: #ffa000;
@@ -2655,12 +2680,32 @@ button {
         img {
             display: block;
             width: 100%;
+            padding-bottom: 1rem;
 
             &.img-sec {
                 position: absolute;
-                width: 100px;
+                width: 70px;
                 left: 25px;
-                top: 25px;
+                top: 55%;
+
+                @include respond-to(false, 567) {
+                    width: 60px;
+                    left: 15px;
+                    top: 50%;
+                }
+            }
+
+            &.img-ds43 {
+                position: absolute;
+                width: 70px;
+                right: 25px;
+                top: 55%;
+
+                @include respond-to(false, 567) {
+                    width: 60px;
+                    right: 15px;
+                    top: 50%;
+                }
             }
         }
     }
@@ -2677,6 +2722,10 @@ button {
             margin-bottom: 6px;
             font-size: 12px;
             text-align: left;
+
+            @include respond-to(false, 991) {
+                display: none;
+            }
         }
 
         .mg-product-title {
@@ -2684,6 +2733,10 @@ button {
             font-size: 16px;
             font-weight: normal;
             text-align: left;
+
+            @include respond-to(false, 567) {
+                font-size: 14px;
+            }
 
             a {
                 transition: color .3s;
@@ -2808,7 +2861,7 @@ button {
         }
     }
 
-    .mg-product-countdown-wrapper{
+    .mg-product-countdown-wrapper {
         position: absolute;
         top: 60%;
         left: 10%;
@@ -4937,6 +4990,10 @@ textarea {
 .custom-control {
     margin-bottom: 6px !important;
     padding-left: 1.5rem !important;
+
+    @include respond-to(false, 1024){
+        padding-left: 0 !important;
+    }
 }
 
 a {
@@ -5332,7 +5389,7 @@ button.bg-secondary:focus, button.bg-secondary:hover {
         text-align: center;
         box-shadow: 0 3px 10px 0 rgba(0,0,0,0.18);
         cursor: pointer;
-        z-index: 9900;
+        z-index: 4;
     }
 
     .mg-sidebar-toggle.position-left {
@@ -5534,10 +5591,6 @@ button.bg-secondary:focus, button.bg-secondary:hover {
             top: 0px;
             left: 0px;
             border-radius: 0px;
-        }
-
-        .mg-rating-stars {
-            display: none;
         }
 
         .mg-product-button-group {
