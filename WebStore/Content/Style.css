@@ -2460,10 +2460,6 @@ button {
       .mg-product-card .mg-product-wish {
         display: block;
         top: 5px; } }
-    @media only screen and (max-width: 1366px) and (orientation: landscape) {
-      .mg-product-card .mg-product-wish {
-        display: block;
-        top: 5px; } }
     .mg-product-card .mg-product-wish i::before {
       content: '\f004';
       font-family: "Font Awesome 5 Free";
@@ -2480,18 +2476,12 @@ button {
     top: 63%;
     left: 50%;
     transform: translateX(-50%); }
-    @media only screen and (max-width: 1024px) {
+    @media only screen and (min-width: flasepx) and (max-width: 1024px) {
       .mg-product-card .mg-rating-stars {
         display: block;
         position: relative;
         left: 0;
         transform: translateX(0); } }
-    @media only screen and (min-width: 1025px) and (max-width: 1366px) and (orientation: landscape) {
-      .mg-product-card .mg-rating-stars {
-        display: block;
-        position: absolute;
-        left: 50%;
-        transform: translateX(-50%); } }
     .mg-product-card .mg-rating-stars i {
       display: inline-block;
       margin-right: 2px;

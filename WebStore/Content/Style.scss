@@ -2603,11 +2603,6 @@ button {
             top: 5px;
         }
 
-        @include respond-to(false, 1366,landscape) {
-            display: block;
-            top: 5px;
-        }
-
         i {
             &::before {
                 content: '\f004';
@@ -2636,18 +2631,11 @@ button {
         left: 50%;
         transform: translateX(-50%);
 
-        @include respond-to(false, 1024) {
+        @include respond-to(flase, 1024) {
             display: block;
             position: relative;
             left: 0;
             transform: translateX(0);
-        }
-
-        @include respond-to(1025, 1366, landscape) {
-            display: block;
-            position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
         }
 
         i {
