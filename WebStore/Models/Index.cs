@@ -11,6 +11,8 @@ namespace WebStore.Models
         public BindingCateogyFamilyChild Binding { get; set; }
 
         public IEnumerable<Brands> Brands { get; set; }
+
+        public IEnumerable<Products> ProductTime { get; set; }
     }
 
     public class Brands
