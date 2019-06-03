@@ -13,6 +13,8 @@ namespace WebStore.Models
         public IEnumerable<Brands> Brands { get; set; }
 
         public IEnumerable<Products> ProductTime { get; set; }
+
+        public IEnumerable<Products> ProductsList { get; set; }
     }
 
     public class Brands

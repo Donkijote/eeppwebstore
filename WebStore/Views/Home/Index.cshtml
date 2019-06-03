@@ -43,7 +43,7 @@
                                                     </div>-->
                                                     <div class="countdown" data-time="@i.Time"></div>
                                                 </div><br>
-                                                <a class="mg-buttons__btn btn btn-lg animated fadeInRight delay-3s btn-outline-orangered" href="@Url.Action("s","Categories", new { id = Html.DisplayFor(modelItem => i.categorySeo), idp = Html.DisplayFor(modelItem => i.strCodigo), language=System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName })">@WebStore.Resources.Buttons.ViewOffers</a>
+                                                <a class="mg-buttons__btn btn btn-lg animated fadeInRight delay-3s btn-outline-orangered" href="@Url.Action("s", "Categories", new { id = Html.DisplayFor(modelItem => i.categorySeo), idp = Html.DisplayFor(modelItem => i.strCodigo), language = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName })">@WebStore.Resources.Buttons.ViewOffers</a>
                                             </div>
                                         }
                                     </div>
@@ -62,7 +62,7 @@
                 </div>
             </div>
         </section>
-        
+
         <div class="d-block position-relative text-right" style="z-index:3;">
             <div class="mg-index-rota-img" id="i3d">
                 <img class="img-fluid wow fadeInRight d-block w-100" src="~/Content/img/frame_1.png">
@@ -269,6 +269,245 @@
     </div>
 </section>
 
+<section id="top-categories" data-name="categories" class="mg-content">
+    <div class="block-separator"></div>
+    <div class="container pb-5">
+        <h3 class="text-center mb-5 wow fadeInRight" data-wow-duration="2s">@WebStore.Resources.Titles.TopCate</h3>
+        <div id="carouselCategories" class="owl-carousel owl-grab owl-animated-in owl-loaded">
+            <div class="owl-stage-outer">
+                <div class="owl-stage">
+                    @foreach (var i in Model.Binding.family)
+                    {
+                        <div class="owl-item">
+                            <div class="mg-card mb-3 wow fadeInRight" data-wow-duration="2s">
+                                <a class="mg-card-img-tiles">
+                                    <div class="mg-inner">
+                                        <div class="mg-main-img">
+                                            <img class="img-fuild" src="~/Content/img/categories/@i.StrImgOne">
+                                        </div>
+                                        <div class="mg-thumblist">
+                                            <img class="img-fuild" src="~/Content/img/categories/@i.StrImgTwo">
+                                            <img class="img-fuild" src="~/Content/img/categories/@i.StrImgThree">
+                                        </div>
+                                    </div>
+                                </a>
+                                <div class="card-body text-center">
+                                    <h4 class="card-title">
+                                        @WebStore.Resources.Categories.ResourceManager.GetString(i.StrName)
+                                    </h4>
+                                    <p class="text-muted">desde 50.00$ </p>
+                                    <a class="btn btn-outline-orangered btn-sm" href="@Url.Action("s", "Categories", new { id = WebStore.Resources.Seo.ResourceManager.GetString(i.StrName), language = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName }, null)">@WebStore.Resources.Buttons.ViewProducts</a>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!--<section id="plans" data-name="" class="mg-content mg-box mg-section mg-section-relative mg-section-fixed-size mg-section-bg-adapted mg-parallax-background mb-5"
+         style="background-image: url(https://demo.gridgum.com/templates/free-themes/computer-service/assets/images/iphone-926663-1920-1920x1280-94.jpg);position: relative;background-attachment: scroll;background-size: auto;">
+    <div class="mg-box__magnet " style="vertical-align:top;">
+        <div class="block-separator"></div>
+        <div class="mg-overlay" style="opacity: 0.6; background-color: rgb(0, 0, 0);"></div>
+        <div class="mg-section__container container mg-pricing">
+            <div class="row">
+                <div class="col-md-6 ml-auto mr-auto text-center">
+                    <h2 class="mg-title">@WebStore.Resources.Titles.Plans</h2>
+                    <h5 class="mg-description">You have Free Unlimited Updates and Premium Support on each package.</h5>
+                    <div class="section-space"></div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-4 col-md-6">
+                    <div class="mg-card mg-card-pricing mx-auto">
+                        <div class="mg-card-header-pricing mg-card-header-primary text-center">
+                            <div class="mg-card-subtitle-pricing">
+                                Lleva <b>x10</b> Productos
+                            </div>
+                            <h1 class="mg-card-tittle-pricing">$23.275 <small class="h6">+ iva</small></h1>
+                        </div>
+                        <div class="mg-card-body">
+                            <ul class="mg-card-specification-pricing">
+                                <li>
+                                    <b>5%</b> Descuento Incluido
+                                </li>
+                                <li>
+                                    <b><i class="fas fa-times" style="color:red;"></i></b> Despacho dentro de Santiago
+                                </li>
+                                <li>
+                                    <b><i class="fas fa-times" style="color:red;"></i></b> Despacho a Regiones
+                                </li>
+                                <li>
+                                    <b><i class="fas fa-check" style="color:green;"></i></b> Garantía
+                                </li>
+                            </ul>
+                            <div class="mg-card-img-pricing">
+                                <img class="img-fluid" src="http://eepp.cl/images/productos/AZ-GC410-120W-WEB.jpg">
+                            </div>
+                        </div>
+                        <div class="mg-card-footer-pricing text-center">
+                            <a href="#pablo" class="btn btn-orangered btn-lg text-uppercase">@WebStore.Resources.Buttons.Order</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="mg-card mg-card-pricing mx-auto">
+                        <div class="mg-card-header-pricing mg-card-header-secondary text-center">
+                            <div class="mg-card-subtitle-pricing">
+                                Lleva <b>x25</b> Productos
+                            </div>
+                            <h1 class="mg-card-tittle-pricing">$58.187 <small class="h6">+ iva</small></h1>
+                        </div>
+                        <div class="mg-card-body">
+                            <ul class="mg-card-specification-pricing">
+                                <li>
+                                    <b>5%</b> Descuento Incluido
+                                </li>
+                                <li>
+                                    <b><i class="fas fa-check" style="color:green;"></i></b> Despacho dentro de Santiago
+                                </li>
+                                <li>
+                                    <b><i class="fas fa-times" style="color:red;"></i></b> Despacho a Regiones
+                                </li>
+                                <li>
+                                    <b><i class="fas fa-check" style="color:green;"></i></b> Garantía
+                                </li>
+                            </ul>
+                            <div class="mg-card-img-pricing">
+                                <img class="img-fluid" src="http://eepp.cl/images/productos/AZ-GC410-120W-WEB.jpg">
+                            </div>
+                        </div>
+                        <div class="mg-card-footer-pricing text-center">
+                            <a href="#pablo" class="btn btn-orangered btn-lg text-uppercase">@WebStore.Resources.Buttons.Order</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-8 mx-auto">
+                    <div class="mg-card mg-card-pricing mx-auto">
+                        <div class="mg-card-header-pricing mg-card-header-tertiary text-center">
+                            <div class="mg-card-subtitle-pricing">
+                                Lleva <b>x30</b> Productos
+                            </div>
+                            <h1 class="mg-card-tittle-pricing">$66.150 <small class="h6">+ iva</small></h1>
+                        </div>
+                        <div class="mg-card-body">
+                            <ul class="mg-card-specification-pricing">
+                                <li>
+                                    <b>10%</b> Descuento Incluido
+                                </li>
+                                <li>
+                                    <b><i class="fas fa-check" style="color:green;"></i></b> Despacho dentro de Santiago
+                                </li>
+                                <li>
+                                    <b><i class="fas fa-check" style="color:green;"></i></b> Despacho a Regiones
+                                </li>
+                                <li>
+                                    <b><i class="fas fa-check" style="color:green;"></i></b> Garantía
+                                </li>
+                            </ul>
+                            <div class="mg-card-img-pricing">
+                                <img class="img-fluid" src="http://eepp.cl/images/productos/AZ-GC410-120W-WEB.jpg">
+                            </div>
+                        </div>
+                        <div class="mg-card-footer-pricing text-center">
+                            <a href="#pablo" class="btn btn-orangered btn-lg text-uppercase">@WebStore.Resources.Buttons.Order</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="block-separator"></div>
+    </div>
+</section>-->
+
+<section id="ProductsVariety" class="mg-content">
+    <div class="container">
+        <div class="row" id="renderProducts">
+            @{
+                Random rand = new Random();
+                foreach (var item in Model.ProductsList)
+                {
+                    <div class="col-md-3 col-sm-6 col-6 element-item">
+                        <div class="mg-product-card mb-3">
+                            <div class="mg-product-wish bg-secondary" href="javascript:void(0);">
+                                <i></i>
+                            </div>
+                            <a class="mg-product-thumb" href="@Url.Action("s", "Categories", new { id = Html.DisplayFor(modelItem => item.categorySeo), idp = Html.DisplayFor(modelItem => item.strCodigo), language = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName })">
+                                <img class="img-fuild" src="https://eepp.cl/images/productos/BR-FL120W-07-240W-WEB.jpg"
+                                     alt="Producto">
+                                <img class="img-fuild img-sec" src="~/Content/img/certificates/sec.png" />
+                                <img class="img-fluid img-ds43" src="~/Content/img/certificates/ds43.png" />
+
+                                <div class="mg-product-card-body">
+                                    @if (item.TimeOffer)
+                                    {
+                                        <div class="mg-product-countdown-wrapper">
+                                            <div class="countdown xs" style="height:30px;" data-time="@item.Time"></div>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="mg-rating-stars stars">
+                                            @{
+                                                int stars = rand.Next(5);
+                                                for (var i = 1; i < 6; i++)
+                                                {
+                                                    <i class="fas fa-star @(i <= stars ? "filled" : "")"></i>
+                                                }
+                                            }
+                                        </div>
+                                    }
+                                    <h4 class="mg-product-price">
+                                        @if (item.intPrecioOff != "0")
+                                        {
+                                            <del>$@Html.DisplayFor(modelItem => item.intPrecio)</del><br />
+                                            <span class="price">$ @Html.DisplayFor(modelItem => item.intPrecioOff)</span>
+                                            <label class="off">@Html.DisplayFor(modelItem => item.intPrecentOff) DCTO</label>
+                                        }
+                                        else
+                                        {
+                                            <span class="price">$@Html.DisplayFor(modelItem => item.intPrecio)</span>
+                                        }
+
+                                    </h4>
+                                    <div class="mg-product-category">
+                                        SKU: <span class="number">@Html.DisplayFor(modelItem => item.strCodigo)</span>
+                                    </div>
+                                    <h3 class="mg-product-title name text-capitalize">
+                                        @Html.DisplayFor(modelItem => item.strNombre)
+                                    </h3>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+</section>
+
+<section id="brands" data-name="Content" class="mg-content bg-secondary pb-5">
+    <div class="block-separator"></div>
+    <div class="container pb-5">
+        <h1 class="text-center mb-5">@WebStore.Resources.Titles.Brands</h1>
+        <div id="carouselPopularBrands" class="owl-carousel owl-grab owl-animated-in owl-loaded" data-ride="carousel" data-interval="false">
+            <div class="owl-stage-outer">
+                <div class="owl-stage">
+                    @foreach (var i in Model.Brands)
+                    {
+                        <div class="owl-item">
+                            <img class="d-block m-auto" src="~/Content/img/brands/@i.StrImg" />
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
 <section id="staff" data-name="staff" class="container mg-content">
     <div class="block-separator"></div>
     <h2 class="h3 pb-3 text-center wow fadeInUp" data-wow-duration="2s">@WebStore.Resources.Titles.Staff</h2>
@@ -406,160 +645,6 @@
     <div class="block-separator"></div>
 </section>
 
-<section id="top-categories" data-name="categories" class="mg-content">
-    <div class="block-separator"></div>
-    <div class="container pb-5">
-        <h3 class="text-center mb-5 wow fadeInRight" data-wow-duration="2s">@WebStore.Resources.Titles.TopCate</h3>
-        <div id="carouselCategories" class="owl-carousel owl-grab owl-animated-in owl-loaded">
-            <div class="owl-stage-outer">
-                <div class="owl-stage">
-                    @foreach (var i in Model.Binding.family)
-                    {
-                        <div class="owl-item">
-                            <div class="mg-card mb-3 wow fadeInRight" data-wow-duration="2s">
-                                <a class="mg-card-img-tiles">
-                                    <div class="mg-inner">
-                                        <div class="mg-main-img">
-                                            <img class="img-fuild" src="~/Content/img/categories/@i.StrImgOne">
-                                        </div>
-                                        <div class="mg-thumblist">
-                                            <img class="img-fuild" src="~/Content/img/categories/@i.StrImgTwo">
-                                            <img class="img-fuild" src="~/Content/img/categories/@i.StrImgThree">
-                                        </div>
-                                    </div>
-                                </a>
-                                <div class="card-body text-center">
-                                    <h4 class="card-title">
-                                        @WebStore.Resources.Categories.ResourceManager.GetString(i.StrName)
-                                    </h4>
-                                    <p class="text-muted">desde 50.00$ </p>
-                                    <a class="btn btn-outline-orangered btn-sm" href="@Url.Action("s", "Categories", new { id = WebStore.Resources.Seo.ResourceManager.GetString(i.StrName), language = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName }, null)">@WebStore.Resources.Buttons.ViewProducts</a>
-                                </div>
-                            </div>
-                        </div>
-                    }
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<section id="plans" data-name="" class="mg-content mg-box mg-section mg-section-relative mg-section-fixed-size mg-section-bg-adapted mg-parallax-background mb-5"
-         style="background-image: url(https://demo.gridgum.com/templates/free-themes/computer-service/assets/images/iphone-926663-1920-1920x1280-94.jpg);position: relative;background-attachment: scroll;background-size: auto;">
-    <div class="mg-box__magnet " style="vertical-align:top;">
-        <div class="block-separator"></div>
-        <div class="mg-overlay" style="opacity: 0.6; background-color: rgb(0, 0, 0);"></div>
-        <div class="mg-section__container container mg-pricing">
-            <div class="row">
-                <div class="col-md-6 ml-auto mr-auto text-center">
-                    <h2 class="mg-title">@WebStore.Resources.Titles.Plans</h2>
-                    <h5 class="mg-description">You have Free Unlimited Updates and Premium Support on each package.</h5>
-                    <div class="section-space"></div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-4 col-md-6">
-                    <div class="mg-card mg-card-pricing mx-auto">
-                        <div class="mg-card-header-pricing mg-card-header-primary text-center">
-                            <div class="mg-card-subtitle-pricing">
-                                Lleva <b>x10</b> Productos
-                            </div>
-                            <h1 class="mg-card-tittle-pricing">$23.275 <small class="h6">+ iva</small></h1>
-                        </div>
-                        <div class="mg-card-body">
-                            <ul class="mg-card-specification-pricing">
-                                <li>
-                                    <b>5%</b> Descuento Incluido
-                                </li>
-                                <li>
-                                    <b><i class="fas fa-times" style="color:red;"></i></b> Despacho dentro de Santiago
-                                </li>
-                                <li>
-                                    <b><i class="fas fa-times" style="color:red;"></i></b> Despacho a Regiones
-                                </li>
-                                <li>
-                                    <b><i class="fas fa-check" style="color:green;"></i></b> Garantía
-                                </li>
-                            </ul>
-                            <div class="mg-card-img-pricing">
-                                <img class="img-fluid" src="http://eepp.cl/images/productos/AZ-GC410-120W-WEB.jpg">
-                            </div>
-                        </div>
-                        <div class="mg-card-footer-pricing text-center">
-                            <a href="#pablo" class="btn btn-orangered btn-lg text-uppercase">@WebStore.Resources.Buttons.Order</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="mg-card mg-card-pricing mx-auto">
-                        <div class="mg-card-header-pricing mg-card-header-secondary text-center">
-                            <div class="mg-card-subtitle-pricing">
-                                Lleva <b>x25</b> Productos
-                            </div>
-                            <h1 class="mg-card-tittle-pricing">$58.187 <small class="h6">+ iva</small></h1>
-                        </div>
-                        <div class="mg-card-body">
-                            <ul class="mg-card-specification-pricing">
-                                <li>
-                                    <b>5%</b> Descuento Incluido
-                                </li>
-                                <li>
-                                    <b><i class="fas fa-check" style="color:green;"></i></b> Despacho dentro de Santiago
-                                </li>
-                                <li>
-                                    <b><i class="fas fa-times" style="color:red;"></i></b> Despacho a Regiones
-                                </li>
-                                <li>
-                                    <b><i class="fas fa-check" style="color:green;"></i></b> Garantía
-                                </li>
-                            </ul>
-                            <div class="mg-card-img-pricing">
-                                <img class="img-fluid" src="http://eepp.cl/images/productos/AZ-GC410-120W-WEB.jpg">
-                            </div>
-                        </div>
-                        <div class="mg-card-footer-pricing text-center">
-                            <a href="#pablo" class="btn btn-orangered btn-lg text-uppercase">@WebStore.Resources.Buttons.Order</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-8 mx-auto">
-                    <div class="mg-card mg-card-pricing mx-auto">
-                        <div class="mg-card-header-pricing mg-card-header-tertiary text-center">
-                            <div class="mg-card-subtitle-pricing">
-                                Lleva <b>x30</b> Productos
-                            </div>
-                            <h1 class="mg-card-tittle-pricing">$66.150 <small class="h6">+ iva</small></h1>
-                        </div>
-                        <div class="mg-card-body">
-                            <ul class="mg-card-specification-pricing">
-                                <li>
-                                    <b>10%</b> Descuento Incluido
-                                </li>
-                                <li>
-                                    <b><i class="fas fa-check" style="color:green;"></i></b> Despacho dentro de Santiago
-                                </li>
-                                <li>
-                                    <b><i class="fas fa-check" style="color:green;"></i></b> Despacho a Regiones
-                                </li>
-                                <li>
-                                    <b><i class="fas fa-check" style="color:green;"></i></b> Garantía
-                                </li>
-                            </ul>
-                            <div class="mg-card-img-pricing">
-                                <img class="img-fluid" src="http://eepp.cl/images/productos/AZ-GC410-120W-WEB.jpg">
-                            </div>
-                        </div>
-                        <div class="mg-card-footer-pricing text-center">
-                            <a href="#pablo" class="btn btn-orangered btn-lg text-uppercase">@WebStore.Resources.Buttons.Order</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="block-separator"></div>
-    </div>
-</section>
-
 <section id="cate" class="mg-content mb-5">
     <div class="block-separator"></div>
     <div class="container">
@@ -573,26 +658,7 @@
                     </a>
                 </div>
             }
-            
-        </div>
-    </div>
-</section>
 
-<section id="brands" data-name="Content" class="mg-content bg-secondary pb-5">
-    <div class="block-separator"></div>
-    <div class="container pb-5">
-        <h1 class="text-center mb-5">@WebStore.Resources.Titles.Brands</h1>
-        <div id="carouselPopularBrands" class="owl-carousel owl-grab owl-animated-in owl-loaded" data-ride="carousel" data-interval="false">
-            <div class="owl-stage-outer">
-                <div class="owl-stage">
-                    @foreach (var i in Model.Brands)
-                    {
-                        <div class="owl-item">
-                            <img class="d-block m-auto" src="~/Content/img/brands/@i.StrImg" />
-                        </div>
-                    }
-                </div>
-            </div>
         </div>
     </div>
 </section>

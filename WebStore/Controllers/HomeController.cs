@@ -105,6 +105,37 @@ namespace WebStore.Controllers
                 ViewBag.TimeOffer = false;
             }
 
+            var o = dbE.iw_tlprprod.Where(x => x.CodLista == "16").ToList();
+            var p = (from a in dbE.iw_tprod
+                     join b in dbE.iw_tgrupo
+                     on a.CodGrupo equals b.CodGrupo
+                     join c in dbE.iw_tlprprod
+                     on a.CodProd equals c.CodProd
+                     join d in dbE.iw_tlispre
+                     on c.CodLista equals d.CodLista
+                     where d.CodLista == "15"
+                     select new
+                     {
+                         strCodigo = a.CodProd,
+                         strCod = a.CodBarra,
+                         strNombre = a.DesProd,
+                         intPrecio = a.PrecioVta,
+                         percent = c.ValorPct
+                     })
+                    .AsEnumerable()
+                    .Select(x => new Products
+                    {
+                        strCodigo = x.strCod,
+                        strNombre = Truncate(x.strNombre, 60).ToLower(),
+                        intPrecio = FormatNumber((int)(x.intPrecio + (x.intPrecio * (x.percent / 100)))),
+                        intPrecentOff = o.Any(l => l.CodProd == x.strCodigo) ? o.Where(i => i.CodProd == x.strCodigo).Select(j => (int)j.ValorPct).FirstOrDefault() + "%" : "0",
+                        intPrecioOff = o.Any(l => l.CodProd == x.strCodigo) ? FormatNumber((int)(x.intPrecio + (x.intPrecio * (x.percent / 100))) - (int)(((x.intPrecio + (x.intPrecio * (x.percent / 100))) * o.Where(i => i.CodProd == x.strCodigo).Select(j => (int)j.ValorPct).FirstOrDefault() / 100))) : "0",
+                        intPercent = x.percent + "%",
+                        intPrecioNum = o.Any(l => l.CodProd == x.strCodigo) ? (int)(x.intPrecio + (x.intPrecio * (x.percent / 100))) - (int)(((x.intPrecio + (x.intPrecio * (x.percent / 100))) * o.Where(i => i.CodProd == x.strCodigo).Select(j => (int)j.ValorPct).FirstOrDefault() / 100)) : (int)(x.intPrecio + (x.intPrecio * (x.percent / 100)))
+                    })
+                    .ToList();
+            viewModel.ProductsList = p;
+
             return View(viewModel);
         }
 
