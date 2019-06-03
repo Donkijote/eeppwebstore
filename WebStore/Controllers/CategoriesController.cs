@@ -218,21 +218,24 @@ namespace WebStore.Controllers
                     ViewBag.maxPrice = 0;
                 }
 
-                var tList = db.tblOffertTime.Where(t => t.strTime >= DateTime.Today).Select(j => j).ToList();
-                foreach (var a in s)
+                var tList = db.tblOffertTime.Where(t => t.strTime >= DateTime.Now).Select(j => j).ToList();
+                if (tList.Any())
                 {
-                    var first = (from t in tList
-                                    where t.strTime > DateTime.Now
-                                    orderby t.strTime ascending
-                                    select t.strTime).First();
-                    TimeSpan timeDiff = first.Value - DateTime.Now;
-                    int percentOff = tList.Where(t => t.refCodProd == a.strCodigo && t.strTime == first).Select(t => (int)t.intPercentageTime).FirstOrDefault();
-                    if (tList.Any(t => t.refCodProd == a.strCodigo && t.strTime == first))
+                    foreach (var a in s)
                     {
-                        a.TimeOffer = true;
-                        a.intPrecentOff = percentOff + "%";
-                        a.intPrecioOff = FormatNumber((int)Decimal.Parse(a.intPrecio) - (int)(Decimal.Parse(a.intPrecio) * percentOff / 100));
-                        a.Time = string.Format("{0:D2}:{1:D2}:{2:D2}:{3:D2}", timeDiff.Days, timeDiff.Hours, timeDiff.Minutes, timeDiff.Seconds);
+                        var first = (from t in tList
+                                     where t.strTime > DateTime.Now
+                                     orderby t.strTime ascending
+                                     select t.strTime).First();
+                        TimeSpan timeDiff = first.Value - DateTime.Now;
+                        int percentOff = tList.Where(t => t.refCodProd == a.strCodigo && t.strTime == first).Select(t => (int)t.intPercentageTime).FirstOrDefault();
+                        if (tList.Any(t => t.refCodProd == a.strCodigo && t.strTime == first))
+                        {
+                            a.TimeOffer = true;
+                            a.intPrecentOff = percentOff + "%";
+                            a.intPrecioOff = FormatNumber((int)Decimal.Parse(a.intPrecio) - (int)(Decimal.Parse(a.intPrecio) * percentOff / 100));
+                            a.Time = string.Format("{0:D2}:{1:D2}:{2:D2}:{3:D2}", timeDiff.Days, timeDiff.Hours, timeDiff.Minutes, timeDiff.Seconds);
+                        }
                     }
                 }
 
@@ -281,23 +284,28 @@ namespace WebStore.Controllers
                     ViewBag.maxPrice = 0;
                 }
 
-                var tList = db.tblOffertTime.Where(t => t.strTime >= DateTime.Today).Select(j => j).ToList();
-                foreach (var a in s)
+                var tList = db.tblOffertTime.Where(t => t.strTime >= DateTime.Now).Select(j => j).ToList();
+                
+                if(tList.Any())
                 {
-                    var first = (from t in tList
-                                    where t.strTime > DateTime.Now
-                                    orderby t.strTime ascending
-                                    select t.strTime).First();
-                    TimeSpan timeDiff = first.Value - DateTime.Now;
-                    int percentOff = tList.Where(t => t.refCodProd == a.strCodigo && t.strTime == first).Select(t => (int)t.intPercentageTime).FirstOrDefault();
-                    if(tList.Any(t => t.refCodProd == a.strCodigo && t.strTime == first))
+                    foreach (var a in s)
                     {
-                        a.TimeOffer = true;
-                        a.intPrecentOff = percentOff + "%";
-                        a.intPrecioOff = FormatNumber( (int)Decimal.Parse(a.intPrecio) - (int)(Decimal.Parse(a.intPrecio) * percentOff / 100  ) );
-                        a.Time = string.Format("{0:D2}:{1:D2}:{2:D2}:{3:D2}", timeDiff.Days, timeDiff.Hours, timeDiff.Minutes, timeDiff.Seconds);
+                        var first = (from t in tList
+                                     where t.strTime > DateTime.Now
+                                     orderby t.strTime ascending
+                                     select t.strTime).First();
+                        TimeSpan timeDiff = first.Value - DateTime.Now;
+                        int percentOff = tList.Where(t => t.refCodProd == a.strCodigo && t.strTime == first).Select(t => (int)t.intPercentageTime).FirstOrDefault();
+                        if (tList.Any(t => t.refCodProd == a.strCodigo && t.strTime == first))
+                        {
+                            a.TimeOffer = true;
+                            a.intPrecentOff = percentOff + "%";
+                            a.intPrecioOff = FormatNumber((int)Decimal.Parse(a.intPrecio) - (int)(Decimal.Parse(a.intPrecio) * percentOff / 100));
+                            a.Time = string.Format("{0:D2}:{1:D2}:{2:D2}:{3:D2}", timeDiff.Days, timeDiff.Hours, timeDiff.Minutes, timeDiff.Seconds);
+                        }
                     }
                 }
+                
                 return s;
             }
         }
