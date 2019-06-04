@@ -175,7 +175,7 @@
     <value>Producto</value>
   </data>
   <data name="Brands" xml:space="preserve">
-    <value>Marcas Populares</value>
+    <value>Nuestras Marcas</value>
   </data>
   <data name="Plans" xml:space="preserve">
     <value>Elíge el Mejor Plan para Ti</value>
@@ -184,7 +184,7 @@
     <value>Elecciones de Nuestra Tienda</value>
   </data>
   <data name="TopCate" xml:space="preserve">
-    <value>Categorías Populares</value>
+    <value>Categorías</value>
   </data>
   <data name="Start" xml:space="preserve">
     <value>Iniciar Sesión</value>

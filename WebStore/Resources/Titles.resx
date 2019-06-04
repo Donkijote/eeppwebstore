@@ -175,7 +175,7 @@
     <value>Product</value>
   </data>
   <data name="Brands" xml:space="preserve">
-    <value>Popular Brands</value>
+    <value>Our Brands</value>
   </data>
   <data name="Plans" xml:space="preserve">
     <value>Pick the Best Plan for You</value>
@@ -184,7 +184,7 @@
     <value>Our Staff</value>
   </data>
   <data name="TopCate" xml:space="preserve">
-    <value>Top Categories</value>
+    <value>Categories</value>
   </data>
   <data name="Start" xml:space="preserve">
     <value>Log In</value>
