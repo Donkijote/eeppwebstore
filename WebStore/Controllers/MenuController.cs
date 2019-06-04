@@ -133,7 +133,7 @@ namespace WebStore.Controllers
                             on a.CodProd equals b.CodProd
                             join c in dbE.iw_tsubgr
                             on a.CodSubGr equals c.CodSubGr
-                            where b.CodLista == "15" && c.CodSubGr == category.strNombre
+                            where b.CodLista == "15" && c.DesSubGr == category.strNombre
                             select new
                             {
                                 codProS = a.CodProd,
@@ -176,7 +176,7 @@ namespace WebStore.Controllers
                             on a.CodProd equals b.CodProd
                             join c in dbE.iw_tgrupo
                             on a.CodGrupo equals c.CodGrupo
-                            where b.CodLista == "15" && c.CodGrupo == family.strName
+                            where b.CodLista == "15" && c.DesGrupo == family.strName
                             select new
                             {
                                 codProS = a.CodProd,
@@ -208,38 +208,6 @@ namespace WebStore.Controllers
                              .ToList();
                 return group;
             }
-                /*var ca = (from a in db.tblProducts
-                         join b in db.tblCategories
-                         on a.refCategoria equals b.idCategoria
-                         join d in db.tblBrand
-                         on a.refBrand equals d.idBrand
-                         where b.strSeo == seo
-                         select new { products = a.idProdcuto, category = b.idCategoria, brand = d.strName })
-                         .GroupBy(q => q.brand)
-                         .Select(x => new TotalProductByBrand { TotalProducts = x.Count(), BrandName = x.Key })
-                         .ToList();
-                if(ca.Any())
-                {
-                    return ca;
-                }
-                else
-                {
-                    
-                    var f = (from a in db.tblProducts
-                             join b in db.tblCategories
-                             on a.refCategoria equals b.idCategoria
-                             join c in db.tblFamily
-                             on b.refFamily equals c.idFamily
-                             join d in db.tblBrand
-                             on a.refBrand equals d.idBrand
-                             where c.strSeo == seo
-                             select new { products = a.idProdcuto, category = b.idCategoria, brand = d.strName })
-                             .GroupBy(q => q.brand)
-                             .Select(x => new TotalProductByBrand { TotalProducts = x.Count(), BrandName = x.Key })
-                             .ToList();
-                    return f;
-                }*/
-
         }
 
         private static List<PriceRange> BetweenPrices(string seo)
