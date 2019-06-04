@@ -313,6 +313,9 @@
     <Compile Include="Models\tblRegiones.cs">
       <DependentUpon>Connection.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\tblRelBrand.cs">
+      <DependentUpon>Connection.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\tblUsers.cs">
       <DependentUpon>Connection.tt</DependentUpon>
     </Compile>
@@ -511,6 +514,40 @@
     <Content Include="Content\img\categories\residencial-3.jpg" />
     <Content Include="Content\img\certificates\ds43.png" />
     <Content Include="Content\img\certificates\sec.png" />
+    <Content Include="Content\img\products\25040806-1.png" />
+    <Content Include="Content\img\products\25040806-2.jpg" />
+    <Content Include="Content\img\products\25040806-3.jpg" />
+    <Content Include="Content\img\products\25040806-4.jpg" />
+    <Content Include="Content\img\products\25040902-1.png" />
+    <Content Include="Content\img\products\25040902-2.jpg" />
+    <Content Include="Content\img\products\25040902-3.jpg" />
+    <Content Include="Content\img\products\25040902-4.jpg" />
+    <Content Include="Content\img\products\25040906-1.png" />
+    <Content Include="Content\img\products\25040906-2.jpg" />
+    <Content Include="Content\img\products\25040906-3.jpg" />
+    <Content Include="Content\img\products\25040906-4.jpg" />
+    <Content Include="Content\img\products\25041002-1.png" />
+    <Content Include="Content\img\products\25041002-2.jpg" />
+    <Content Include="Content\img\products\25041002-3.jpg" />
+    <Content Include="Content\img\products\25041002-4.jpg" />
+    <Content Include="Content\img\products\25041006-1.png" />
+    <Content Include="Content\img\products\25041006-2.jpg" />
+    <Content Include="Content\img\products\25041006-3.jpg" />
+    <Content Include="Content\img\products\25041006-4.jpg" />
+    <Content Include="Content\img\products\25041102-1.png" />
+    <Content Include="Content\img\products\25041102-2.jpg" />
+    <Content Include="Content\img\products\25041102-3.jpg" />
+    <Content Include="Content\img\products\25041106-1.png" />
+    <Content Include="Content\img\products\25041106-2.jpg" />
+    <Content Include="Content\img\products\25041106-3.jpg" />
+    <Content Include="Content\img\products\25041202-1.png" />
+    <Content Include="Content\img\products\25041202-2.jpg" />
+    <Content Include="Content\img\products\25041202-3.jpg" />
+    <Content Include="Content\img\products\25041202-4.jpg" />
+    <Content Include="Content\img\products\25041206-1.png" />
+    <Content Include="Content\img\products\25041206-2.jpg" />
+    <Content Include="Content\img\products\25041206-3.jpg" />
+    <Content Include="Content\img\products\25041206-4.jpg" />
     <Content Include="Content\img\products\img_one.png" />
     <Content Include="Content\jquery.steps.min.css">
       <DependentUpon>jquery.steps.css</DependentUpon>

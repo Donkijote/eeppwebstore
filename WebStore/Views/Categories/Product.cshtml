@@ -49,19 +49,28 @@
                         <ul class="mg-product-thumbnails owl-thumbs" data-slider-id="1">
                             <li class="owl-thumb-item">
                                 <a id="carousel-selector-0">
-                                    <img src="https://eepp.cl/images/productos/Z1-K-BLANCO.jpg" alt="Product">
+                                    <img src="~/Content/img/products/@item.strCodigo-1.png" alt="@item.strNombre">
                                 </a>
                             </li>
                             <li class="owl-thumb-item">
                                 <a id="carousel-selector-1">
-                                    <img src="https://eepp.cl/images/productos/THHN.jpg" alt="Product">
+                                    <img src="~/Content/img/products/@item.strCodigo-2.jpg" alt="@item.strNombre">
                                 </a>
                             </li>
                             <li class="owl-thumb-item">
                                 <a id="carousel-selector-2">
-                                    <img src="https://eepp.cl/images/productos/Z1-K-AZUL.jpg" alt="Product">
+                                    <img src="~/Content/img/products/@item.strCodigo-3.jpg" alt="@item.strNombre">
                                 </a>
                             </li>
+                            @if (File.Exists(item.strCodigo + "-4.jpg"))
+                            {
+                                <li class="owl-thumb-item">
+                                    <a id="carousel-selector-3">
+                                        <img src="~/Content/img/products/@item.strCodigo-4.jpg" alt="@item.strNombre">
+                                    </a>
+                                </li>
+                            }
+
                         </ul>
                     </div>
                     <div class="col-md-9">
@@ -71,14 +80,20 @@
                                 <div class="owl-stage-outer">
                                     <div class="owl-stage">
                                         <div class="owl-item" data-hash="one">
-                                            <img class="img-fluid" src="https://eepp.cl/images/productos/Z1-K-BLANCO.jpg" alt="First slide">
+                                            <img class="img-fluid" src="~/Content/img/products/@item.strCodigo-1.png" alt="@item.strNombre">
                                         </div>
                                         <div class="owl-item" data-hash="two">
-                                            <img class="img-fluid" src="https://eepp.cl/images/productos/THHN.jpg" alt="Second slide">
+                                            <img class="img-fluid" src="~/Content/img/products/@item.strCodigo-2.jpg" alt="@item.strNombre">
                                         </div>
                                         <div class="owl-item" data-hash="three">
-                                            <img class="img-fluid" src="https://eepp.cl/images/productos/Z1-K-AZUL.jpg" alt="Third slide">
+                                            <img class="img-fluid" src="~/Content/img/products/@item.strCodigo-3.jpg" alt="@item.strNombre">
                                         </div>
+                                        @if (File.Exists(item.strCodigo + "-4.jpg"))
+                                        {
+                                            <div class="owl-item" data-hash="four">
+                                                <img class="img-fluid" src="~/Content/img/products/@item.strCodigo-4.jpg" alt="@item.strNombre">
+                                            </div>
+                                        }
                                     </div>
                                 </div>
                             </div>
@@ -131,7 +146,7 @@
                             }
                             else
                             {
-                                @Html.DisplayFor(x => item.intPrecio)
+                                <span>$ @Html.DisplayFor(x => item.intPrecio)</span>
                                 <span class="text-muted" style="font-size:18px;">+iva</span>
                             }
                         </h2>
@@ -145,18 +160,26 @@
 
                 <div class="row margin-top-1x">
                     <div class="col-sm-12">
-                        <span class="text-muted">watts: <span class="text-dark">10w</span></span>
+                        <span class="text-muted">watts: <span class="text-dark">240w</span></span>
                         <div class="form-group mt-2">
-                            <a class="btn btn-view-more btn-sm" href="javascript:void(0);">
-                                10w
-                            </a>
-
-                            <a class="btn btn-view-more btn-sm" href="javascript:void(0);">
-                                20w
-                            </a>
-
                             <a class="btn btn-view-more btn-sm active" href="javascript:void(0);">
-                                30w
+                                240w
+                            </a>
+
+                            <a class="btn btn-view-more btn-sm" href="javascript:void(0);">
+                                360w
+                            </a>
+
+                            <a class="btn btn-view-more btn-sm" href="javascript:void(0);">
+                                480w
+                            </a>
+
+                            <a class="btn btn-view-more btn-sm" href="javascript:void(0);">
+                                720w
+                            </a>
+
+                            <a class="btn btn-view-more btn-sm" href="javascript:void(0);">
+                                960w
                             </a>
                         </div>
                     </div>
@@ -166,16 +189,12 @@
                     <div class="col-sm-12">
                         <span class="text-muted">CCT°: <span class="text-dark">3000°K</span></span>
                         <div class="form-group mt-2">
-                            <a class="btn btn-view-more btn-sm" href="javascript:void(0);">
-                                3000°Kk
-                            </a>
-
-                            <a class="btn btn-view-more btn-sm" href="javascript:void(0);">
-                                4000°K
-                            </a>
-
                             <a class="btn btn-view-more btn-sm active" href="javascript:void(0);">
-                                6000°K
+                                3000°K
+                            </a>
+
+                            <a class="btn btn-view-more btn-sm" href="javascript:void(0);">
+                                5700°K - 6500°K
                             </a>
                         </div>
                     </div>
@@ -184,7 +203,7 @@
                 <div class="row align-items-end pb-4">
                     <div class="col-sm-4">
                         <div class="form-group mb-0">
-                            <label class="mg-form-label" for="quantity">Quantity</label>
+                            <label class="mg-form-label" for="quantity">@WebStore.Resources.Texts.Quantity</label>
                             <select class="form-control" id="quantity">
                                 <option>1</option>
                                 <option>2</option>
@@ -215,7 +234,7 @@
                     <div class="mt-2 mb-2">
                         <a class="btn btn-view-more btn-sm btn-wishlist" href="javascript:void(0);">
                             <i class="far fa-heart"></i>
-                            &nbsp;To Wishlist
+                            &nbsp;@WebStore.Resources.Buttons.WishList
                         </a>
                     </div>
                     <div class="mt-2 mb-2">

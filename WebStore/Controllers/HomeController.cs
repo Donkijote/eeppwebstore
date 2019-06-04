@@ -56,7 +56,7 @@ namespace WebStore.Controllers
                             select t).FirstOrDefault();
             if(first != null)
             {
-                TimeSpan timeDiff = first.strTime.Value - DateTime.Now;
+                TimeSpan timeDiff = first.strTime - DateTime.Now;
                 int percentOff = first.intPercentageTime != null ? (int)first.intPercentageTime : 0;
 
                 var s = (from a in dbE.iw_tprod

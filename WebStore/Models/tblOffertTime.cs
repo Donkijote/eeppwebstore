@@ -22,7 +22,7 @@ namespace WebStore.Models
     
         public int idOffertTime { get; set; }
         public Nullable<int> intPercentageTime { get; set; }
-        public Nullable<System.DateTime> strTime { get; set; }
+        public System.DateTime strTime { get; set; }
         public string strName { get; set; }
         public string strDescription { get; set; }
         public string refCodProd { get; set; }

@@ -41,5 +41,6 @@ namespace WebStore.Models
         public virtual DbSet<tblOffert> tblOffert { get; set; }
         public virtual DbSet<tblOffertTime> tblOffertTime { get; set; }
         public virtual DbSet<tblImg> tblImg { get; set; }
+        public virtual DbSet<tblRelBrand> tblRelBrand { get; set; }
     }
 }

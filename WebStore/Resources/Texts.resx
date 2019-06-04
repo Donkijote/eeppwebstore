@@ -129,6 +129,9 @@
   <data name="LowHigh" xml:space="preserve">
     <value>Low - High Price</value>
   </data>
+  <data name="Quantity" xml:space="preserve">
+    <value>Quantity</value>
+  </data>
   <data name="Showing" xml:space="preserve">
     <value>Showing:</value>
   </data>

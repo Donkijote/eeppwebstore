@@ -141,7 +141,7 @@
           </Key>
           <Property Name="idOffertTime" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="intPercentageTime" Type="int" />
-          <Property Name="strTime" Type="date" />
+          <Property Name="strTime" Type="datetime" Nullable="false" />
           <Property Name="strName" Type="varchar" MaxLength="50" />
           <Property Name="strDescription" Type="varchar" MaxLength="100" />
           <Property Name="refCodProd" Type="varchar" MaxLength="50" />
@@ -182,6 +182,14 @@
           <Property Name="idRegion" Type="int" Nullable="false" />
           <Property Name="strNombre" Type="nvarchar" MaxLength="70" Nullable="false" />
           <Property Name="intNumber" Type="nvarchar" MaxLength="4" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblRelBrand">
+          <Key>
+            <PropertyRef Name="idRelation" />
+          </Key>
+          <Property Name="idRelation" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="refBrand" Type="int" />
+          <Property Name="refProd" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="tblUsers">
           <Key>
@@ -386,6 +394,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_tblRelBrand_tblBrand">
+          <End Role="tblBrand" Type="Self.tblBrand" Multiplicity="0..1" />
+          <End Role="tblRelBrand" Type="Self.tblRelBrand" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblBrand">
+              <PropertyRef Name="idBrand" />
+            </Principal>
+            <Dependent Role="tblRelBrand">
+              <PropertyRef Name="refBrand" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="webstoreModelStoreContainer">
           <EntitySet Name="tblBrand" EntityType="Self.tblBrand" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblCategories" EntityType="Self.tblCategories" Schema="dbo" store:Type="Tables" />
@@ -402,6 +422,7 @@
           <EntitySet Name="tblProducts" EntityType="Self.tblProducts" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblProvincias" EntityType="Self.tblProvincias" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblRegiones" EntityType="Self.tblRegiones" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblRelBrand" EntityType="Self.tblRelBrand" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblUsers" EntityType="Self.tblUsers" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_tblBrand_tblBrand" Association="Self.FK_tblBrand_tblBrand">
             <End Role="tblImg" EntitySet="tblImg" />
@@ -466,6 +487,10 @@
           <AssociationSet Name="FK_tblProvincias_tblRegiones" Association="Self.FK_tblProvincias_tblRegiones">
             <End Role="tblRegiones" EntitySet="tblRegiones" />
             <End Role="tblProvincias" EntitySet="tblProvincias" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblRelBrand_tblBrand" Association="Self.FK_tblRelBrand_tblBrand">
+            <End Role="tblBrand" EntitySet="tblBrand" />
+            <End Role="tblRelBrand" EntitySet="tblRelBrand" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -568,6 +593,11 @@
           <AssociationSet Name="FK_tblFamily_tblImg" Association="webstoreModel.FK_tblFamily_tblImg">
             <End Role="tblImg" EntitySet="tblImg" />
             <End Role="tblFamily" EntitySet="tblFamily" />
+          </AssociationSet>
+          <EntitySet Name="tblRelBrand" EntityType="webstoreModel.tblRelBrand" />
+          <AssociationSet Name="FK_tblRelBrand_tblBrand" Association="webstoreModel.FK_tblRelBrand_tblBrand">
+            <End Role="tblBrand" EntitySet="tblBrand" />
+            <End Role="tblRelBrand" EntitySet="tblRelBrand" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="tblProducts">
@@ -808,6 +838,7 @@
           <NavigationProperty Name="tblProducts" Relationship="webstoreModel.FK_tblProducts_tblBrand" FromRole="tblBrand" ToRole="tblProducts" />
           <Property Name="refImg" Type="Int32" />
           <NavigationProperty Name="tblImg" Relationship="webstoreModel.FK_tblBrand_tblBrand" FromRole="tblBrand" ToRole="tblImg" />
+          <NavigationProperty Name="tblRelBrand" Relationship="webstoreModel.FK_tblRelBrand_tblBrand" FromRole="tblBrand" ToRole="tblRelBrand" />
         </EntityType>
         <Association Name="FK_tblProducts_tblBrand">
           <End Type="webstoreModel.tblBrand" Role="tblBrand" Multiplicity="0..1" />
@@ -876,7 +907,7 @@
           </Key>
           <Property Name="idOffertTime" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="intPercentageTime" Type="Int32" />
-          <Property Name="strTime" Type="DateTime" Precision="0" />
+          <Property Name="strTime" Type="DateTime" Precision="3" Nullable="false" />
           <NavigationProperty Name="tblProducts" Relationship="webstoreModel.FK_tblProducts_tblOffertTime" FromRole="tblOffertTime" ToRole="tblProducts" />
           <Property Name="strName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="strDescription" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
@@ -964,6 +995,27 @@
             </Principal>
             <Dependent Role="tblFamily">
               <PropertyRef Name="refImg" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="tblRelBrand">
+          <Key>
+            <PropertyRef Name="idRelation" />
+          </Key>
+          <Property Name="idRelation" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="refBrand" Type="Int32" />
+          <Property Name="refProd" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tblBrand" Relationship="webstoreModel.FK_tblRelBrand_tblBrand" FromRole="tblRelBrand" ToRole="tblBrand" />
+        </EntityType>
+        <Association Name="FK_tblRelBrand_tblBrand">
+          <End Type="webstoreModel.tblBrand" Role="tblBrand" Multiplicity="0..1" />
+          <End Type="webstoreModel.tblRelBrand" Role="tblRelBrand" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblBrand">
+              <PropertyRef Name="idBrand" />
+            </Principal>
+            <Dependent Role="tblRelBrand">
+              <PropertyRef Name="refBrand" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1175,6 +1227,15 @@
                 <ScalarProperty Name="strImgTwo" ColumnName="strImgTwo" />
                 <ScalarProperty Name="strImgOne" ColumnName="strImgOne" />
                 <ScalarProperty Name="idImg" ColumnName="idImg" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblRelBrand">
+            <EntityTypeMapping TypeName="webstoreModel.tblRelBrand">
+              <MappingFragment StoreEntitySet="tblRelBrand">
+                <ScalarProperty Name="refProd" ColumnName="refProd" />
+                <ScalarProperty Name="refBrand" ColumnName="refBrand" />
+                <ScalarProperty Name="idRelation" ColumnName="idRelation" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

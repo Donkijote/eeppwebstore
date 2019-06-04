@@ -105,7 +105,7 @@
                                         <i></i>
                                     </div>
                                     <a class="mg-product-thumb" href="@Url.Action("s","Categories", new { id = Html.DisplayFor(modelItem => item.categorySeo), idp = Html.DisplayFor(modelItem => item.strCodigo), language=System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName })">
-                                        <img class="img-fuild" src="https://eepp.cl/images/productos/BR-FL120W-07-240W-WEB.jpg"
+                                        <img class="img-fuild" src="~/Content/img/products/@item.strCodigo-1.png"
                                              alt="Producto">
                                         <img class="img-fuild img-sec" src="~/Content/img/certificates/sec.png" />
                                         <img class="img-fluid img-ds43" src="~/Content/img/certificates/ds43.png" />
@@ -170,9 +170,10 @@
                                     <i></i>
                                 </div>
                                 <a class="mg-product-thumb" href="@Url.Action("s","Categories", new { id = Html.DisplayFor(modelItem => item.categorySeo), idp = Html.DisplayFor(modelItem => item.strCodigo), language=System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName })">
-                                    <img class="img-fuild" src="https://eepp.cl/images/productos/Z1-K-BLANCO.jpg"
+                                    <img class="img-fuild" src="~/Content/img/products/@item.strCodigo-1.png"
                                          alt="Producto">
-                                    <img class="img-fuild img-sec" src="https://eepp.cl/images/home/sec.png">
+                                    <img class="img-fuild img-sec" src="~/Content/img/certificates/sec.png">
+                                    <img class="img-fluid img-ds43" src="~/Content/img/certificates/ds43.png" />
                                 </a>
                                 <div class="mg-product-card-body">
                                     <h4 class="mg-product-price">
