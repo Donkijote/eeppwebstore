@@ -111,6 +111,8 @@ namespace WebStore.Controllers
                      on a.CodGrupo equals b.CodGrupo
                      join c in dbE.iw_tlprprod
                      on a.CodProd equals c.CodProd
+                     join f in dbE.iw_tsubgr
+                     on a.CodSubGr equals f.CodSubGr
                      join d in dbE.iw_tlispre
                      on c.CodLista equals d.CodLista
                      where d.CodLista == "15"
@@ -120,7 +122,8 @@ namespace WebStore.Controllers
                          strCod = a.CodBarra,
                          strNombre = a.DesProd,
                          intPrecio = a.PrecioVta,
-                         percent = c.ValorPct
+                         percent = c.ValorPct,
+                         category = f.DesSubGr
                      })
                     .AsEnumerable()
                     .Select(x => new Products
@@ -131,9 +134,15 @@ namespace WebStore.Controllers
                         intPrecentOff = o.Any(l => l.CodProd == x.strCodigo) ? o.Where(i => i.CodProd == x.strCodigo).Select(j => (int)j.ValorPct).FirstOrDefault() + "%" : "0",
                         intPrecioOff = o.Any(l => l.CodProd == x.strCodigo) ? FormatNumber((int)(x.intPrecio + (x.intPrecio * (x.percent / 100))) - (int)(((x.intPrecio + (x.intPrecio * (x.percent / 100))) * o.Where(i => i.CodProd == x.strCodigo).Select(j => (int)j.ValorPct).FirstOrDefault() / 100))) : "0",
                         intPercent = x.percent + "%",
-                        intPrecioNum = o.Any(l => l.CodProd == x.strCodigo) ? (int)(x.intPrecio + (x.intPrecio * (x.percent / 100))) - (int)(((x.intPrecio + (x.intPrecio * (x.percent / 100))) * o.Where(i => i.CodProd == x.strCodigo).Select(j => (int)j.ValorPct).FirstOrDefault() / 100)) : (int)(x.intPrecio + (x.intPrecio * (x.percent / 100)))
+                        intPrecioNum = o.Any(l => l.CodProd == x.strCodigo) ? (int)(x.intPrecio + (x.intPrecio * (x.percent / 100))) - (int)(((x.intPrecio + (x.intPrecio * (x.percent / 100))) * o.Where(i => i.CodProd == x.strCodigo).Select(j => (int)j.ValorPct).FirstOrDefault() / 100)) : (int)(x.intPrecio + (x.intPrecio * (x.percent / 100))),
+                        categoryName = x.category
                     })
                     .ToList();
+            var cate = db.tblCategories.Select(x => x).ToList();
+            foreach (var i in p)
+            {
+                i.categorySeo = cate.Where(x => x.strNombre == i.categoryName).Select(x => x.strSeo).FirstOrDefault();
+            }
             viewModel.ProductsList = p;
             viewModel.ProductsOffer = p.Where(x => x.intPrecioOff != "0");
 

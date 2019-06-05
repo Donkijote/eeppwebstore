@@ -186,4 +186,7 @@
   <data name="Wishes" xml:space="preserve">
     <value>Tu Lista de Deseos</value>
   </data>
+  <data name="Facebook" xml:space="preserve">
+    <value>Publicaciones de Facebook</value>
+  </data>
 </root>

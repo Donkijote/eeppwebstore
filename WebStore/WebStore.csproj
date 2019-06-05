@@ -479,6 +479,7 @@
     <Content Include="Content\Countdown\Countdown.min.css">
       <DependentUpon>Countdown.css</DependentUpon>
     </Content>
+    <Content Include="Content\img\bg\main-bg-orangered.jpg" />
     <Content Include="Content\img\bg\main-bg.jpg" />
     <Content Include="Content\img\brands\atomlux.png" />
     <Content Include="Content\img\brands\bree.png" />

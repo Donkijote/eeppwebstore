@@ -18,7 +18,7 @@
                                             <div class="h2 text-body mb-2 pt-1">@p.strNombre</div>
                                             <div class="h2 text-body mb-4 pb-1"><del class="text-muted h4">$@p.intPrecio</del> <span class="text-medium">$@p.intPrecioOff</span></div>
                                         </div>
-                                        <a class="btn btn-orangered scale-up delay-1" href="shop-single.html">@WebStore.Resources.Buttons.ViewOffers&nbsp;<i class="icon-arrow-right"></i></a>
+                                        <a class="btn btn-orangered scale-up delay-1" href="@Url.Action("s","Categories", new { id = p.categorySeo, idp = p.strCodigo, language = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName})">@WebStore.Resources.Buttons.ViewOffers&nbsp;<i class="icon-arrow-right"></i></a>
                                     </div>
                                     <div class="col-md-6 padding-bottom-2x mb-3"><img class="d-block mx-auto" src="~/Content/img/products/@p.strCodigo-1.png" alt="@p.strNombre"></div>
                                 </div>
@@ -72,6 +72,7 @@
 
 <section id="ProductsVariety" class="mg-content">
     <div class="container">
+        <h3 class="text-center mb-5 wow fadeInRight" data-wow-duration="2s">@WebStore.Resources.Titles.Product</h3>
         <div class="row" id="renderProducts">
             @{
                 Random rand = new Random();
@@ -82,7 +83,7 @@
                             <div class="mg-product-wish bg-secondary" href="javascript:void(0);">
                                 <i></i>
                             </div>
-                            <a class="mg-product-thumb" href="@Url.Action("s", "Categories", new { id = Html.DisplayFor(modelItem => item.categorySeo), idp = Html.DisplayFor(modelItem => item.strCodigo), language = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName })">
+                            <a class="mg-product-thumb" href="@Url.Action("s", "Categories", new { id = item.categorySeo, idp = item.strCodigo, language = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName })">
                                 <img class="img-fuild" src="~/Content/img/products/@item.strCodigo-1.png"
                                      alt="Producto">
                                 <img class="img-fuild img-sec" src="~/Content/img/certificates/sec.png" />
