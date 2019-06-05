@@ -2316,6 +2316,63 @@ button {
   background-color: darkgray !important;
   color: #ffffff !important; }
 
+.owl-carousel .owl-item .from-top, .owl-carousel .owl-item .from-left, .owl-carousel .owl-item .from-right, .owl-carousel .owl-item .from-bottom, .owl-carousel .owl-item .scale-up, .owl-carousel .owl-item .scale-down {
+  transition: all .45s .3s ease-in-out;
+  opacity: 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden; }
+
+.owl-carousel .owl-item .from-bottom {
+  -webkit-transform: translateY(45px);
+  -ms-transform: translateY(45px);
+  transform: translateY(45px); }
+
+.owl-carousel .owl-item .from-top {
+  -webkit-transform: translateY(-45px);
+  -ms-transform: translateY(-45px);
+  transform: translateY(-45px); }
+
+.owl-carousel .owl-item .from-left {
+  -webkit-transform: translateX(-45px);
+  -ms-transform: translateX(-45px);
+  transform: translateX(-45px); }
+
+.owl-carousel .owl-item .from-right {
+  -webkit-transform: translateX(45px);
+  -ms-transform: translateX(45px);
+  transform: translateX(45px); }
+
+.owl-carousel .owl-item .scale-up {
+  -webkit-transform: scale(0.8);
+  -ms-transform: scale(0.8);
+  transform: scale(0.8); }
+
+.owl-carousel .owl-item .scale-down {
+  -webkit-transform: scale(1.2);
+  -ms-transform: scale(1.2);
+  transform: scale(1.2); }
+
+.owl-carousel .owl-item .delay-1 {
+  transition-delay: .5s; }
+
+.owl-carousel .owl-item.active .from-top, .owl-carousel .owl-item.active .from-bottom {
+  -webkit-transform: translateY(0);
+  -ms-transform: translateY(0);
+  transform: translateY(0);
+  opacity: 1; }
+
+.owl-carousel .owl-item.active .from-left, .owl-carousel .owl-item.active .from-right {
+  -webkit-transform: translateX(0);
+  -ms-transform: translateX(0);
+  transform: translateX(0);
+  opacity: 1; }
+
+.owl-carousel .owl-item.active .scale-up, .owl-carousel .owl-item.active .scale-down {
+  -webkit-transform: scale(1);
+  -ms-transform: scale(1);
+  transform: scale(1);
+  opacity: 1; }
+
 #carouselPopularBrands .carousel-indicators {
   bottom: -30%;
   z-index: 1; }
@@ -2381,6 +2438,17 @@ button {
 #carouselExampleFade .carousel-indicators {
   z-index: 2;
   bottom: 50px !important; }
+
+.header-carousel {
+  background-image: url(img/bg/main-bg.jpg);
+  width: 100%;
+  min-height: 580px;
+  background-position: center;
+  background-color: #fff;
+  background-repeat: no-repeat;
+  background-size: cover;
+  box-shadow: 0 7px 30px -6px rgba(0, 0, 0, 0.15);
+  overflow: hidden; }
 
 @media (max-width: 768px) {
   .carousel-control-prev,

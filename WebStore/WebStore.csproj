@@ -468,6 +468,7 @@
     <Compile Include="Routing\TranslatedRouteCollectionExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Code\ReusableCode.html" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
     <Content Include="Content\bootstrap-reboot.css" />
@@ -478,6 +479,7 @@
     <Content Include="Content\Countdown\Countdown.min.css">
       <DependentUpon>Countdown.css</DependentUpon>
     </Content>
+    <Content Include="Content\img\bg\main-bg.jpg" />
     <Content Include="Content\img\brands\atomlux.png" />
     <Content Include="Content\img\brands\bree.png" />
     <Content Include="Content\img\brands\duralux.png" />

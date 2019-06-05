@@ -3,273 +3,36 @@
     ViewBag.Title = WebStore.Resources.Titles.Home;
 }
 
-@{
-    if (ViewBag.TimeOffer)
-    {
-
-        <section id="header" class="initial mg-box mg-section mg-section-relative mg-section-fixed-size mg-section-bg-adapted mg-parallax-background"
-                 style="background-image: url(http://themes.rokaux.com/unishop/v3.0/template-3/img/hero-slider/main-bg.jpg);position: relative;background-attachment: scroll !important;background-size: auto;">
-            <div class="mg-box__magnet mg-box__magnet--sm-padding mg-box__magnet--center-left mg-nomiddle">
-                <div class="mg-overlay" style="opacity: 0.2; background-color: rgb(255,255, 255);"></div>
-                <div class="mg-box__container mg-section__container container">
-                    <div class="mg-box mg-box--stretched">
-                        <div class="mg-box__magnet mg-box__magnet--center-left">
-                            <div class="row">
-                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                                    <div class="rounded mg-bg-counter position-relative pt-5 pb-5">
-                                        @foreach (var i in Model.ProductTime)
-                                        {
-                                            <div class="text-center">
-                                                <h3 class="h2 text-normal mb-1 text-danger wow fadeInDown">¡OFERTA LIMITADA!</h3>
-                                                <h4 class="text-bold mb-2 wow fadeInDown text-capitalize">@i.strNombre</h4>
-                                                <h4 class="mb-4 wow fadeInDown">
-                                                    <del class="text-muted">$@i.intPrecio</del><br />
-                                                    <span class="display-4">$@i.intPrecioOff </span>
-                                                    <span class="text-success" style="font-size: 2.5rem;">@i.intPrecentOff</span>
-                                                    <span class="text-success">DCTO</span>
-                                                </h4>
-                                                <div class="mg-countdown mb-3 wow fadeInLeft" data-date-time="07/30/2018 12:00:00">
-                                                    <!--<div class="item">
-                                                        <div class="days">00</div><span class="days_ref">Días</span>
-                                                    </div>
-                                                    <div class="item">
-                                                        <div class="hours">00</div><span class="hours_ref">Horas</span>
-                                                    </div>
-                                                    <div class="item">
-                                                        <div class="minutes">00</div><span class="minutes_ref">Min</span>
-                                                    </div>
-                                                    <div class="item">
-                                                        <div class="seconds">00</div><span class="seconds_ref">Seg</span>
-                                                    </div>-->
-                                                    <div class="countdown" data-time="@i.Time"></div>
-                                                </div><br>
-                                                <a class="mg-buttons__btn btn btn-lg animated fadeInRight delay-3s btn-outline-orangered" href="@Url.Action("s", "Categories", new { id = Html.DisplayFor(modelItem => i.categorySeo), idp = Html.DisplayFor(modelItem => i.strCodigo), language = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName })">@WebStore.Resources.Buttons.ViewOffers</a>
-                                            </div>
-                                        }
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="mg-arrow mg-arrow--floating text-center">
-                    <div class="mg-section__container container">
-                        <a class="mg-arrow__link" href="#first-content"><i class="fas fa-angle-down fa-2x"></i></a>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <div class="d-block position-relative text-right" style="z-index:3;">
-            <div class="mg-index-rota-img" id="i3d">
-                <img class="img-fluid wow fadeInRight d-block w-100" src="~/Content/img/frame_1.png">
-            </div>
-        </div>
-
-    }
-    else
-    {
-        <section id="header">
-            <div id="carouselExampleFade" class="carousel slide carousel-fade" data-ride="carousel" data-interval="10000">
-                <ol class="carousel-indicators">
-                    <li data-target="#carouselExampleFade" data-slide-to="0" class="active"></li>
-                    <li data-target="#carouselExampleFade" data-slide-to="1"></li>
-                    <li data-target="#carouselExampleFade" data-slide-to="2"></li>
-                </ol>
-                <div class="carousel-inner">
-                    <div class="carousel-item active">
-                        <section id="header" class="mg-box mg-section mg-section-relative mg-section-fixed-size mg-section-full-height mg-parallax-background"
-                                 style="background-image: url(https://images.unsplash.com/photo-1497197246330-b9cafd652212?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1000&q=80);">
-                            <div class="mg-box__magnet mg-box__magnet--sm-padding mg-box__magnet--center-left">
-                                <div class="mg-overlay" style="opacity: 0.2; background-color: rgb(0, 0, 0);"></div>
-                                <div class="mg-box__container mg-section__container container">
-                                    <div class="mg-box mg-box--stretched">
-                                        <div class="mg-box__magnet mg-box__magnet--center-left">
-                                            <div class="row">
-                                                <div class=" col-sm-6">
-                                                    <div class="mg-hero">
-                                                        <h1 class="mg-hero__text animated fadeInUp delay-2s">COMPUTER SERVICE</h1>
-                                                        <p class="mg-hero__subtext animated fadeInLeft delay-2.5s">
-                                                            COMPUTER SERVICE - as its' name says is a multi
-                                                            purpose free bootstrap theme. It can fit any type of business or project. Built with latest frameworks and
-                                                            bootstrap.<br>
-                                                        </p>
-                                                    </div>
-                                                    <div class="mg-buttons mg-buttons--left">
-                                                        <a class="mg-buttons__btn btn btn-lg animated fadeInRight delay-3s btn-orangered" href="#">@WebStore.Resources.Buttons.Subs</a>
-                                                        <a class="mg-buttons__btn btn btn-lg btn-outline-light animated fadeInRight delay-3.5s" href="#">@WebStore.Resources.Buttons.ReadMore</a>
-                                                    </div>
-                                                </div>
-                                            </div>
+<section class="header-carousel">
+    <div id="carouselMain" class="owl-carousel owl-loaded owl-animated-in owl-animated-out mg-dot">
+        <div class="owl-stage-outer">
+            <div class="owl-stage">
+                @foreach (var p in Model.ProductsOffer)
+                {
+                    <div class="owl-item">
+                        <div class="item">
+                            <div class="container">
+                                <div class="row justify-content-center align-items-center">
+                                    <div class="col-lg-5 col-md-6 padding-bottom-2x text-md-left text-center">
+                                        <div class="from-bottom">
+                                            <div class="h2 text-body mb-2 pt-1">@p.strNombre</div>
+                                            <div class="h2 text-body mb-4 pb-1"><del class="text-muted h4">$@p.intPrecio</del> <span class="text-medium">$@p.intPrecioOff</span></div>
                                         </div>
+                                        <a class="btn btn-orangered scale-up delay-1" href="shop-single.html">@WebStore.Resources.Buttons.ViewOffers&nbsp;<i class="icon-arrow-right"></i></a>
                                     </div>
+                                    <div class="col-md-6 padding-bottom-2x mb-3"><img class="d-block mx-auto" src="~/Content/img/products/@p.strCodigo-1.png" alt="@p.strNombre"></div>
                                 </div>
-                                <div class="mg-arrow mg-arrow--floating text-center">
-                                    <div class="mg-section__container container">
-                                        <a class="mg-arrow__link" href="#first-content"><i class="fas fa-angle-down fa-2x"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </section>
-                    </div>
-                    <div class="carousel-item">
-                        <section id="header" class="mg-box mg-section mg-section-relative mg-section-fixed-size mg-section-full-height mg-parallax-background"
-                                 style="background-image: url(https://images2.alphacoders.com/712/712462.jpg);">
-                            <div class="mg-box__magnet mg-box__magnet--sm-padding mg-box__magnet--center-left">
-                                <div class="mg-overlay" style="opacity: 0.6; background-color: rgb(215, 215, 215);"></div>
-                                <div class="mg-box__container mg-section__container container">
-                                    <div class="mg-box mg-box--stretched">
-                                        <div class="mg-box__magnet mg-box__magnet--center-left">
-                                            <div class="row">
-                                                <div class=" col-sm-6">
-                                                    <div class="mg-hero">
-                                                        <h1 class="mg-hero__text animated fadeInRight delay-5s">Carousel 2</h1>
-                                                        <p class="mg-hero__subtext animated fadeInDown delay-2.5s">
-                                                            COMPUTER SERVICE - as its' name says is a multi
-                                                            purpose free bootstrap theme. It can fit any type of business or project. Built with latest frameworks and
-                                                            bootstrap.<br>
-                                                        </p>
-                                                    </div>
-                                                    <div class="mg-buttons mg-buttons--left">
-                                                        <a class="mg-buttons__btn btn btn-lg animated fadeInUp delay-3s btn-orangered" href="#">@WebStore.Resources.Buttons.Subs</a>
-                                                        <a class="mg-buttons__btn btn btn-lg btn-default animated fadeInUp delay-3.5s" href="#">@WebStore.Resources.Buttons.ReadMore</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="mg-arrow mg-arrow--floating text-center">
-                                    <div class="mg-section__container container">
-                                        <a class="mg-arrow__link" href="#first-content"><i class="fas fa-angle-down fa-2x"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </section>
-                    </div>
-                    <div class="carousel-item">
-                        <section id="header" class="mg-box mg-section mg-section-relative mg-section-fixed-size mg-section-full-height mg-parallax-background"
-                                 style="background-image: url(http://cdn.wallpapersafari.com/13/17/2ljxKQ.jpg);">
-                            <div class="mg-box__magnet mg-box__magnet--sm-padding mg-box__magnet--center-left">
-                                <div class="mg-overlay" style="opacity: 0.6; background-color: rgb(215, 215, 215);"></div>
-                                <div class="mg-box__container mg-section__container container">
-                                    <div class="mg-box mg-box--stretched">
-                                        <div class="mg-box__magnet mg-box__magnet--center-left">
-                                            <div class="row">
-                                                <div class=" col-sm-6">
-                                                    <div class="mg-hero">
-                                                        <h1 class="mg-hero__text animated fadeInLeft delay-2s">Carousel 3</h1>
-                                                        <p class="mg-hero__subtext animated fadeInUp delay-2.5s">
-                                                            COMPUTER SERVICE - as its' name says is a multi
-                                                            purpose free bootstrap theme. It can fit any type of business or project. Built with latest frameworks and
-                                                            bootstrap.<br>
-                                                        </p>
-                                                    </div>
-                                                    <div class="mg-buttons mg-buttons--left">
-                                                        <a class="mg-buttons__btn btn btn-lg animated fadeInLeft delay-3s btn-orangered" href="#">@WebStore.Resources.Buttons.Subs</a>
-                                                        <a class="mg-buttons__btn btn btn-lg btn-default animated fadeInLeft delay-3.5s" href="#">@WebStore.Resources.Buttons.ReadMore</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="mg-arrow mg-arrow--floating text-center">
-                                    <div class="mg-section__container container">
-                                        <a class="mg-arrow__link" href="#first-content"><i class="fas fa-angle-down fa-2x"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </section>
-                    </div>
-                </div>
-                <a class="carousel-control-prev" href="#carouselExampleFade" role="button" data-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="sr-only">Previous</span>
-                </a>
-                <a class="carousel-control-next" href="#carouselExampleFade" role="button" data-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="sr-only">Next</span>
-                </a>
-            </div>
-        </section>
-
-    }
-}
-
-<section id="off" data-name="off" class="mg-content mt-5">
-    <div class="block-separator"></div>
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
-                <a class="text-decoration-none text-dark" href="shop-grid-ls.html">
-                    <div class="card border-0 mg-bg-secondary mb-5 card-offers wow fadeInLeft" data-wow-duration="2s">
-                        <div class="card-body d-table w-100 mg-card-body">
-                            <div class="d-table-cell align-middle">
-                                <img class="img-fluid d-block w-100" src="~/Content/img/products/img_one.png" alt="Image">
-                            </div>
-                            <div class="d-table-cell align-middle pl-2">
-                                <h3 class="h6 text-thin">Mickey Mouse <br><strong>KHJ...</strong></h3>
-                                <h4 class="h6 d-table w-100 text-thin">
-                                    <span class="d-table-cell align-top text-right" style="line-height: 1.2;">&nbsp;<br></span><span class="d-table-cell align-bottom h1 text-medium text-success">50%</span><span class="d-table-cell align-bottom text-success">&nbsp;off</span>
-                                </h4>
-                                <label class="text-orangered">@WebStore.Resources.Buttons.BuyNow&nbsp;<i class="fas fa-angle-right d-inline-block align-middle text-lg"></i></label>
                             </div>
                         </div>
                     </div>
-                </a>
+                }
             </div>
-
-            <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
-                <a class="text-decoration-none text-dark" href="shop-grid-ls.html">
-                    <div class="card border-0 mg-bg-secondary mb-5 card-offers wow fadeInUp" data-wow-duration="2s">
-                        <div class="card-body d-table w-100 mg-card-body">
-                            <div class="d-table-cell align-middle">
-                                <img class="img-fluid d-block w-100" src="~/Content/img/products/img_one.png" alt="Image">
-                            </div>
-                            <div class="d-table-cell align-middle pl-2">
-                                <h3 class="h6 text-thin">Mickey Mouse <br><strong>KHJ...</strong></h3>
-                                <h4 class="h6 d-table w-100 text-thin">
-                                    <span class="d-table-cell align-top text-right" style="line-height: 1.2;">&nbsp;<br></span><span class="d-table-cell align-bottom h1 text-medium text-success">40%</span><span class="d-table-cell align-bottom text-success">&nbsp;off</span>
-                                </h4>
-                                <label class="text-orangered">
-                                    @WebStore.Resources.Buttons.BuyNow&nbsp;<i class="fas fa-angle-right d-inline-block align-middle text-lg"></i>
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-            </div>
-
-            <div class="col-lg-4 col-md-8 col-sm-6 col-xs-12 mx-auto">
-                <a class="text-decoration-none text-dark" href="shop-grid-ls.html">
-                    <div class="card border-0 mg-bg-secondary mb-5 card-offers wow fadeInRight" data-wow-duration="2s">
-                        <div class="card-body d-table w-100 mg-card-body">
-                            <div class="d-table-cell align-middle">
-                                <img class="img-fluid d-block w-100" src="~/Content/img/products/img_one.png" alt="Image">
-                            </div>
-                            <div class="d-table-cell align-middle pl-2">
-                                <h3 class="h6 text-thin">Mickey Mouse <br><strong>KHJ...</strong></h3>
-                                <h4 class="h6 d-table w-100 text-thin">
-                                    <span class="d-table-cell align-bottom" style="line-height: 1.2;"><br>&nbsp;</span><span class="d-table-cell align-bottom h1 text-medium text-success">30%</span><span class="d-table-cell align-bottom text-success">&nbsp;off</span>
-                                </h4>
-                                <label class="text-orangered">
-                                    @WebStore.Resources.Buttons.BuyNow&nbsp;<i class="fas fa-angle-right d-inline-block align-middle text-lg"></i>
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-            </div>
-            <div id="resp"></div>
         </div>
     </div>
 </section>
 
 <section id="top-categories" data-name="categories" class="mg-content">
+    <div class="block-separator"></div>
     <div class="block-separator"></div>
     <div class="container pb-5">
         <h3 class="text-center mb-5 wow fadeInRight" data-wow-duration="2s">@WebStore.Resources.Titles.TopCate</h3>
@@ -306,122 +69,6 @@
         </div>
     </div>
 </section>
-
-<!--<section id="plans" data-name="" class="mg-content mg-box mg-section mg-section-relative mg-section-fixed-size mg-section-bg-adapted mg-parallax-background mb-5"
-         style="background-image: url(https://demo.gridgum.com/templates/free-themes/computer-service/assets/images/iphone-926663-1920-1920x1280-94.jpg);position: relative;background-attachment: scroll;background-size: auto;">
-    <div class="mg-box__magnet " style="vertical-align:top;">
-        <div class="block-separator"></div>
-        <div class="mg-overlay" style="opacity: 0.6; background-color: rgb(0, 0, 0);"></div>
-        <div class="mg-section__container container mg-pricing">
-            <div class="row">
-                <div class="col-md-6 ml-auto mr-auto text-center">
-                    <h2 class="mg-title">@WebStore.Resources.Titles.Plans</h2>
-                    <h5 class="mg-description">You have Free Unlimited Updates and Premium Support on each package.</h5>
-                    <div class="section-space"></div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-4 col-md-6">
-                    <div class="mg-card mg-card-pricing mx-auto">
-                        <div class="mg-card-header-pricing mg-card-header-primary text-center">
-                            <div class="mg-card-subtitle-pricing">
-                                Lleva <b>x10</b> Productos
-                            </div>
-                            <h1 class="mg-card-tittle-pricing">$23.275 <small class="h6">+ iva</small></h1>
-                        </div>
-                        <div class="mg-card-body">
-                            <ul class="mg-card-specification-pricing">
-                                <li>
-                                    <b>5%</b> Descuento Incluido
-                                </li>
-                                <li>
-                                    <b><i class="fas fa-times" style="color:red;"></i></b> Despacho dentro de Santiago
-                                </li>
-                                <li>
-                                    <b><i class="fas fa-times" style="color:red;"></i></b> Despacho a Regiones
-                                </li>
-                                <li>
-                                    <b><i class="fas fa-check" style="color:green;"></i></b> Garantía
-                                </li>
-                            </ul>
-                            <div class="mg-card-img-pricing">
-                                <img class="img-fluid" src="http://eepp.cl/images/productos/AZ-GC410-120W-WEB.jpg">
-                            </div>
-                        </div>
-                        <div class="mg-card-footer-pricing text-center">
-                            <a href="#pablo" class="btn btn-orangered btn-lg text-uppercase">@WebStore.Resources.Buttons.Order</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="mg-card mg-card-pricing mx-auto">
-                        <div class="mg-card-header-pricing mg-card-header-secondary text-center">
-                            <div class="mg-card-subtitle-pricing">
-                                Lleva <b>x25</b> Productos
-                            </div>
-                            <h1 class="mg-card-tittle-pricing">$58.187 <small class="h6">+ iva</small></h1>
-                        </div>
-                        <div class="mg-card-body">
-                            <ul class="mg-card-specification-pricing">
-                                <li>
-                                    <b>5%</b> Descuento Incluido
-                                </li>
-                                <li>
-                                    <b><i class="fas fa-check" style="color:green;"></i></b> Despacho dentro de Santiago
-                                </li>
-                                <li>
-                                    <b><i class="fas fa-times" style="color:red;"></i></b> Despacho a Regiones
-                                </li>
-                                <li>
-                                    <b><i class="fas fa-check" style="color:green;"></i></b> Garantía
-                                </li>
-                            </ul>
-                            <div class="mg-card-img-pricing">
-                                <img class="img-fluid" src="http://eepp.cl/images/productos/AZ-GC410-120W-WEB.jpg">
-                            </div>
-                        </div>
-                        <div class="mg-card-footer-pricing text-center">
-                            <a href="#pablo" class="btn btn-orangered btn-lg text-uppercase">@WebStore.Resources.Buttons.Order</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-8 mx-auto">
-                    <div class="mg-card mg-card-pricing mx-auto">
-                        <div class="mg-card-header-pricing mg-card-header-tertiary text-center">
-                            <div class="mg-card-subtitle-pricing">
-                                Lleva <b>x30</b> Productos
-                            </div>
-                            <h1 class="mg-card-tittle-pricing">$66.150 <small class="h6">+ iva</small></h1>
-                        </div>
-                        <div class="mg-card-body">
-                            <ul class="mg-card-specification-pricing">
-                                <li>
-                                    <b>10%</b> Descuento Incluido
-                                </li>
-                                <li>
-                                    <b><i class="fas fa-check" style="color:green;"></i></b> Despacho dentro de Santiago
-                                </li>
-                                <li>
-                                    <b><i class="fas fa-check" style="color:green;"></i></b> Despacho a Regiones
-                                </li>
-                                <li>
-                                    <b><i class="fas fa-check" style="color:green;"></i></b> Garantía
-                                </li>
-                            </ul>
-                            <div class="mg-card-img-pricing">
-                                <img class="img-fluid" src="http://eepp.cl/images/productos/AZ-GC410-120W-WEB.jpg">
-                            </div>
-                        </div>
-                        <div class="mg-card-footer-pricing text-center">
-                            <a href="#pablo" class="btn btn-orangered btn-lg text-uppercase">@WebStore.Resources.Buttons.Order</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="block-separator"></div>
-    </div>
-</section>-->
 
 <section id="ProductsVariety" class="mg-content">
     <div class="container">
@@ -485,25 +132,6 @@
                     </div>
                 }
             }
-        </div>
-    </div>
-</section>
-
-<section id="brands" data-name="Content" class="mg-content bg-secondary pb-5">
-    <div class="block-separator"></div>
-    <div class="container pb-5">
-        <h2 class="h3 text-center mb-5">@WebStore.Resources.Titles.Brands</h2>
-        <div id="carouselPopularBrands" class="owl-carousel owl-grab owl-animated-in owl-loaded" data-ride="carousel" data-interval="false">
-            <div class="owl-stage-outer">
-                <div class="owl-stage">
-                    @foreach (var i in Model.Brands)
-                    {
-                        <div class="owl-item">
-                            <img class="d-block m-auto" src="~/Content/img/brands/@i.StrImg" />
-                        </div>
-                    }
-                </div>
-            </div>
         </div>
     </div>
 </section>
@@ -645,23 +273,93 @@
     <div class="block-separator"></div>
 </section>
 
-<section id="cate" class="mg-content mb-5">
-    <div class="block-separator"></div>
-    <div class="container">
-        <div class="row">
-            @foreach (var j in Model.Binding.family)
-            {
-                <div class="col-lg-3 col-md-3 mg-cate-thumbnail py-3">
-                    <a href="@Url.Action("s","Categories", new { language = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName, id = WebStore.Resources.Seo.ResourceManager.GetString(j.StrName)}, null)">
-                        <i class="fas fos fo-@j.StrName fa-4x pb-3"></i>
-                        <p>@WebStore.Resources.Categories.ResourceManager.GetString(j.StrName)</p>
-                    </a>
-                </div>
-            }
+@{
+    if (ViewBag.TimeOffer)
+    {
 
+        <section id="header" class="initial mg-box mg-section mg-section-relative mg-section-fixed-size mg-section-bg-adapted mg-parallax-background"
+                 style="background-image: url(http://themes.rokaux.com/unishop/v3.0/template-3/img/hero-slider/main-bg.jpg);position: relative;background-attachment: scroll !important;background-size: auto;">
+            <div class="mg-box__magnet mg-box__magnet--sm-padding mg-box__magnet--center-left mg-nomiddle">
+                <div class="mg-overlay" style="opacity: 0.2; background-color: rgb(255,255, 255);"></div>
+                <div class="mg-box__container mg-section__container container">
+                    <div class="mg-box mg-box--stretched">
+                        <div class="mg-box__magnet mg-box__magnet--center-left">
+                            <div class="row">
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                    <div class="rounded mg-bg-counter position-relative pt-5 pb-5">
+                                        @foreach (var i in Model.ProductTime)
+                                        {
+                                            <div class="text-center">
+                                                <h3 class="h2 text-normal mb-1 text-danger wow fadeInDown">¡OFERTA LIMITADA!</h3>
+                                                <h4 class="text-bold mb-2 wow fadeInDown text-capitalize">@i.strNombre</h4>
+                                                <h4 class="mb-4 wow fadeInDown">
+                                                    <del class="text-muted">$@i.intPrecio</del><br />
+                                                    <span class="display-4">$@i.intPrecioOff </span>
+                                                    <span class="text-success" style="font-size: 2.5rem;">@i.intPrecentOff</span>
+                                                    <span class="text-success">DCTO</span>
+                                                </h4>
+                                                <div class="mg-countdown mb-3 wow fadeInLeft" data-date-time="07/30/2018 12:00:00">
+                                                    <!--<div class="item">
+                                                        <div class="days">00</div><span class="days_ref">Días</span>
+                                                    </div>
+                                                    <div class="item">
+                                                        <div class="hours">00</div><span class="hours_ref">Horas</span>
+                                                    </div>
+                                                    <div class="item">
+                                                        <div class="minutes">00</div><span class="minutes_ref">Min</span>
+                                                    </div>
+                                                    <div class="item">
+                                                        <div class="seconds">00</div><span class="seconds_ref">Seg</span>
+                                                    </div>-->
+                                                    <div class="countdown" data-time="@i.Time"></div>
+                                                </div><br>
+                                                <a class="mg-buttons__btn btn btn-lg animated fadeInRight delay-3s btn-outline-orangered" href="@Url.Action("s", "Categories", new { id = Html.DisplayFor(modelItem => i.categorySeo), idp = Html.DisplayFor(modelItem => i.strCodigo), language = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName })">@WebStore.Resources.Buttons.ViewOffers</a>
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mg-arrow mg-arrow--floating text-center">
+                    <div class="mg-section__container container">
+                        <a class="mg-arrow__link" href="#first-content"><i class="fas fa-angle-down fa-2x"></i></a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="d-block position-relative text-right" style="z-index:3;">
+            <div class="mg-index-rota-img" id="i3d">
+                <img class="img-fluid wow fadeInRight d-block w-100" src="~/Content/img/frame_1.png">
+            </div>
         </div>
-    </div>
-</section>
+
+    }
+}
+
+<section id="brands" data-name="Content" class="mg-content bg-secondary pb-5">
+            <div class="block-separator"></div>
+            <div class="container pb-5">
+                <h2 class="h3 text-center mb-5">@WebStore.Resources.Titles.Brands</h2>
+                <div id="carouselPopularBrands" class="owl-carousel owl-grab owl-animated-in owl-loaded" data-ride="carousel" data-interval="false">
+                    <div class="owl-stage-outer">
+                        <div class="owl-stage">
+                            @foreach (var i in Model.Brands)
+                            {
+                                <div class="owl-item">
+                                    <img class="d-block m-auto" src="~/Content/img/brands/@i.StrImg" />
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
 <section id="info" data-name="Content" class="mg-content mb-5">
     <div class="block-separator"></div>
@@ -706,8 +404,8 @@
     <meta property="og:title" content="Electro Productos SA, Proyectos LED" />
     <meta property="og:image" content="https://eeppwebstore.ddns.net/favicon.ico" />
     <meta property="og:type" content="article" />
-    <meta property="og:url" content="@Request.RawUrl"/>
+    <meta property="og:url" content="@Request.RawUrl" />
     <meta property="og:description" content="Es especialista en el rubro de importación y exportación de materiales eléctricos y productos de iluminación por más de 20 años, dirige sus actividades a las áreas de celulosa, forestal, minería, pesquera, construcción y retail." />
     <meta name="description" content="Es especialista en el rubro de importación y exportación de materiales eléctricos y productos de iluminación por más de 20 años, dirige sus actividades a las áreas de celulosa, forestal, minería, pesquera, construcción y retail.">
-    <meta name="keywords" content="Iluminación, Iluminación LED, Iluminación hogar, Iluminación industrial, Paneles, Interior, Exterior, Luminaria solar, Iluminación solar, solar, Paneles solares, Ampolletas, Tubos, Iluminación urbana, Proyectores LED, Herméticas, Herméticas LED, Estanco, Señaleticas LED, Campanas LED, UFOs LED, Iluminación emergencia, Emergencia LED, Minería LED, Iluminarias para atmóferas extremas, Materiales eléctricas, Control y comando, drivers, Conductores eléctricos, Iluminación jardín"/>
+    <meta name="keywords" content="Iluminación, Iluminación LED, Iluminación hogar, Iluminación industrial, Paneles, Interior, Exterior, Luminaria solar, Iluminación solar, solar, Paneles solares, Ampolletas, Tubos, Iluminación urbana, Proyectores LED, Herméticas, Herméticas LED, Estanco, Señaleticas LED, Campanas LED, UFOs LED, Iluminación emergencia, Emergencia LED, Minería LED, Iluminarias para atmóferas extremas, Materiales eléctricas, Control y comando, drivers, Conductores eléctricos, Iluminación jardín" />
 }

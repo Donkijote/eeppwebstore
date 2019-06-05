@@ -135,6 +135,7 @@ namespace WebStore.Controllers
                     })
                     .ToList();
             viewModel.ProductsList = p;
+            viewModel.ProductsOffer = p.Where(x => x.intPrecioOff != "0");
 
             return View(viewModel);
         }

@@ -1,4 +1,14 @@
 ﻿$(function () {
+    $("#carouselMain").owlCarousel({
+        items: 1,
+        nav: true,
+        dots: true,
+        navText: ["<i class='fas fa-angle-left fa-2x'></i>", "<i class='fas fa-angle-right fa-2x'></i>"],
+        loop: true,
+        margin: 0,
+        responsiveClass: true
+    });
+
     $("#carouselPopularBrands").owlCarousel({
         items: 6,
         nav: false,
