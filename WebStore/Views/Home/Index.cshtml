@@ -15,8 +15,8 @@
                                 <div class="row justify-content-center align-items-center">
                                     <div class="col-lg-5 col-md-6 padding-bottom-2x text-md-left text-center">
                                         <div class="from-bottom">
-                                            <div class="h2 text-body mb-2 pt-1">@p.strNombre</div>
-                                            <div class="h2 text-body mb-4 pb-1"><del class="text-muted h4">$@p.intPrecio</del> <span class="text-medium">$@p.intPrecioOff</span></div>
+                                            <div class="h2 text-body mb-2 pt-1 text-capitalize">@p.strNombre</div>
+                                            <div class="h2 text-body mb-4 pb-1"><del class="text-muted h4">$@p.intPrecio</del><br /> <span class="h1">$@p.intPrecioOff</span><span class="text-success h4">@p.intPrecentOff DCTO</span></div>
                                         </div>
                                         <a class="btn btn-orangered scale-up delay-1" href="@Url.Action("s","Categories", new { id = p.categorySeo, idp = p.strCodigo, language = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName})">@WebStore.Resources.Buttons.ViewOffers&nbsp;<i class="icon-arrow-right"></i></a>
                                     </div>
@@ -279,9 +279,9 @@
     {
 
         <section id="header" class="initial mg-box mg-section mg-section-relative mg-section-fixed-size mg-section-bg-adapted mg-parallax-background"
-                 style="background-image: url(http://themes.rokaux.com/unishop/v3.0/template-3/img/hero-slider/main-bg.jpg);position: relative;background-attachment: scroll !important;background-size: auto;">
+                 style="background-image: url(/Content/img/bg/timeoffer-bg.jpg);">
             <div class="mg-box__magnet mg-box__magnet--sm-padding mg-box__magnet--center-left mg-nomiddle">
-                <div class="mg-overlay" style="opacity: 0.2; background-color: rgb(255,255, 255);"></div>
+                <div class="mg-overlay" style="opacity: 0.8;"></div>
                 <div class="mg-box__container mg-section__container container">
                     <div class="mg-box mg-box--stretched">
                         <div class="mg-box__magnet mg-box__magnet--center-left">
@@ -292,10 +292,10 @@
                                         {
                                             <div class="text-center">
                                                 <h3 class="h2 text-normal mb-1 text-danger wow fadeInDown">¡OFERTA LIMITADA!</h3>
-                                                <h4 class="text-bold mb-2 wow fadeInDown text-capitalize">@i.strNombre</h4>
+                                                <h4 class="text-bold mb-2 wow fadeInDown text-capitalize text-white">@i.strNombre</h4>
                                                 <h4 class="mb-4 wow fadeInDown">
                                                     <del class="text-muted">$@i.intPrecio</del><br />
-                                                    <span class="display-4">$@i.intPrecioOff </span>
+                                                    <span class="display-4 text-white">$@i.intPrecioOff </span>
                                                     <span class="text-success" style="font-size: 2.5rem;">@i.intPrecentOff</span>
                                                     <span class="text-success">DCTO</span>
                                                 </h4>
@@ -319,16 +319,8 @@
                                         }
                                     </div>
                                 </div>
-                                <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
-
-                                </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-                <div class="mg-arrow mg-arrow--floating text-center">
-                    <div class="mg-section__container container">
-                        <a class="mg-arrow__link" href="#first-content"><i class="fas fa-angle-down fa-2x"></i></a>
                     </div>
                 </div>
             </div>
@@ -344,23 +336,24 @@
 }
 
 <section id="brands" data-name="Content" class="mg-content bg-secondary pb-5">
-            <div class="block-separator"></div>
-            <div class="container pb-5">
-                <h2 class="h3 text-center mb-5">@WebStore.Resources.Titles.Brands</h2>
-                <div id="carouselPopularBrands" class="owl-carousel owl-grab owl-animated-in owl-loaded" data-ride="carousel" data-interval="false">
-                    <div class="owl-stage-outer">
-                        <div class="owl-stage">
-                            @foreach (var i in Model.Brands)
-                            {
-                                <div class="owl-item">
-                                    <img class="d-block m-auto" src="~/Content/img/brands/@i.StrImg" />
-                                </div>
-                            }
+    <div class="block-separator"></div>
+    <div class="block-separator pt-5"></div>
+    <div class="container pb-5">
+        <h2 class="h3 text-center mb-5">@WebStore.Resources.Titles.Brands</h2>
+        <div id="carouselPopularBrands" class="owl-carousel owl-grab owl-animated-in owl-loaded" data-ride="carousel" data-interval="false">
+            <div class="owl-stage-outer">
+                <div class="owl-stage">
+                    @foreach (var i in Model.Brands)
+                    {
+                        <div class="owl-item">
+                            <img class="d-block m-auto" src="~/Content/img/brands/@i.StrImg" />
                         </div>
-                    </div>
+                    }
                 </div>
             </div>
-        </section>
+        </div>
+    </div>
+</section>
 
 <section id="info" data-name="Content" class="mg-content mb-5">
     <div class="block-separator"></div>

@@ -205,7 +205,7 @@ namespace WebStore.Resources {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Product.
+        ///   Busca una cadena traducida similar a Products.
         /// </summary>
         public static string Product {
             get {

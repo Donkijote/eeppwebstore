@@ -481,6 +481,7 @@
     </Content>
     <Content Include="Content\img\bg\main-bg-orangered.jpg" />
     <Content Include="Content\img\bg\main-bg.jpg" />
+    <Content Include="Content\img\bg\timeoffer-bg.jpg" />
     <Content Include="Content\img\brands\atomlux.png" />
     <Content Include="Content\img\brands\bree.png" />
     <Content Include="Content\img\brands\duralux.png" />
