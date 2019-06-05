@@ -11,7 +11,7 @@
                 {
                     <div class="owl-item">
                         <div class="item">
-                            <div class="container">
+                            <div class="container padding-top-3x">
                                 <div class="row justify-content-center align-items-center">
                                     <div class="col-lg-5 col-md-6 padding-bottom-2x text-md-left text-center">
                                         <div class="from-bottom">
@@ -20,7 +20,7 @@
                                         </div>
                                         <a class="btn btn-orangered scale-up delay-1" href="@Url.Action("s","Categories", new { id = p.categorySeo, idp = p.strCodigo, language = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName})">@WebStore.Resources.Buttons.ViewOffers&nbsp;<i class="icon-arrow-right"></i></a>
                                     </div>
-                                    <div class="col-md-6 padding-bottom-2x mb-3"><img class="d-block mx-auto" src="~/Content/img/products/@p.strCodigo-1.png" alt="@p.strNombre"></div>
+                                    <div class="col-md-6 padding-bottom-2x mb-3"><img class="d-block mx-auto" style="max-width:400px;" src="~/Content/img/products/@p.strCodigo-1.png" alt="@p.strNombre"></div>
                                 </div>
                             </div>
                         </div>
@@ -76,9 +76,10 @@
         <div class="row" id="renderProducts">
             @{
                 Random rand = new Random();
+                int count = 0;
                 foreach (var item in Model.ProductsList)
                 {
-                    <div class="col-md-3 col-sm-6 col-6 element-item">
+                    <div class="col-md-3 col-sm-6 col-6 element-item wow fadeInUp" data-wow-delay="@count+s">
                         <div class="mg-product-card mb-3">
                             <div class="mg-product-wish bg-secondary" href="javascript:void(0);">
                                 <i></i>
@@ -131,148 +132,21 @@
                             </a>
                         </div>
                     </div>
+
+                    if(count == 4)
+                    {
+                        count = 0;
+                    }
+                    else
+                    {
+                        count++;
+                    }
                 }
             }
         </div>
     </div>
 </section>
 
-<section id="staff" data-name="staff" class="container mg-content">
-    <div class="block-separator"></div>
-    <h2 class="h3 pb-3 text-center wow fadeInUp" data-wow-duration="2s">@WebStore.Resources.Titles.Staff</h2>
-    <div class="row pt-1">
-        <div class="col-md-4 col-sm-6 mb-3">
-            <div class="widget mg-widget-featured-products wow fadeInUp" data-wow-duration="2s">
-                <h3 class="mg-widget-title">Más Vendidos</h3>
-                <!-- Entry-->
-                <div class="entry">
-                    <div class="entry-thumb">
-                        <a href="shop-single.html">
-                            <img src="https://eepp.cl/images/productos/AZ-GC410-120W-WEB.jpg"
-                                 alt="Product">
-                        </a>
-                    </div>
-                    <div class="entry-content">
-                        <h4 class="entry-title">
-                            <a href="shop-single.html">Yamin 120W</a>
-                        </h4>
-                        <span class="entry-meta d-inline-block text-dark" style="font-size:18px;">$287.99</span>
-                        <label class="text-success">50% off</label>
-                    </div>
-                </div>
-                <!-- Entry-->
-                <div class="entry">
-                    <div class="entry-thumb">
-                        <a href="shop-single.html">
-                            <img src="https://eepp.cl/images/productos/BR-FL120W-07-240W-WEB.jpg"
-                                 alt="Product">
-                        </a>
-                    </div>
-                    <div class="entry-content">
-                        <h4 class="entry-title"><a href="shop-single.html">Proyector Stadium 240W</a></h4><span class="entry-meta">$95.99</span>
-                    </div>
-                </div>
-                <!-- Entry-->
-                <div class="entry">
-                    <div class="entry-thumb">
-                        <a href="shop-single.html">
-                            <img src="https://eepp.cl/images/productos/dd-12410013.jpg"
-                                 alt="Product">
-                        </a>
-                    </div>
-                    <div class="entry-content">
-                        <h4 class="entry-title"><a href="shop-single.html">Alfa ultra 20W</a></h4><span class="entry-meta">$89.70</span>
-                    </div>
-                </div><a class="btn btn-view-more btn-sm mb-0" href="shop-grid-ls.html">@WebStore.Resources.Buttons.ViewMore</a>
-            </div>
-        </div>
-
-        <div class="col-md-4 col-sm-6 mb-3">
-            <div class="widget mg-widget-featured-products wow fadeInUp" data-wow-duration="2s">
-                <h3 class="mg-widget-title">Nuevos Productos</h3>
-                <!-- Entry-->
-                <div class="entry pb-2">
-                    <div class="entry-thumb">
-                        <a href="shop-single.html">
-                            <img src="https://eepp.cl/images/productos/Polarbear-Series-1.jpg"
-                                 alt="Product">
-                        </a>
-                    </div>
-                    <div class="entry-content">
-                        <h4 class="entry-title"><a href="shop-single.html">Brownbrear 60W</a></h4><span class="entry-meta">$1,450.00</span>
-                    </div>
-                </div>
-                <!-- Entry-->
-                <div class="entry">
-                    <div class="entry-thumb">
-                        <a href="shop-single.html">
-                            <img src="https://eepp.cl/images/productos/brownbear-Series-1.jpg"
-                                 alt="Product">
-                        </a>
-                    </div>
-                    <div class="entry-content">
-                        <h4 class="entry-title"><a href="shop-single.html">Polarbear 120W</a></h4><span class="entry-meta">$910.00</span>
-                    </div>
-                </div>
-                <!-- Entry-->
-                <div class="entry">
-                    <div class="entry-thumb">
-                        <a href="shop-single.html">
-                            <img src="https://eepp.cl/images/productos/golden-Frog-Series-2.jpg"
-                                 alt="Product">
-                        </a>
-                    </div>
-                    <div class="entry-content">
-                        <h4 class="entry-title"><a href="shop-single.html">Goldenfrog 30W</a></h4><span class="entry-meta">$298.99</span>
-                    </div>
-                </div><a class="btn btn-view-more btn-sm mb-0" href="shop-grid-ls.html">@WebStore.Resources.Buttons.ViewMore</a>
-            </div>
-        </div>
-
-        <div class="col-md-4 col-sm-6 mb-3">
-            <div class="widget mg-widget-featured-products wow fadeInUp" data-wow-duration="2s">
-                <h3 class="mg-widget-title">Mejores Calificados</h3>
-                <!-- Entry-->
-                <div class="entry pb-2">
-                    <div class="entry-thumb">
-                        <a href="shop-single.html">
-                            <img src="https://eepp.cl/images/productos/DL-LLDL803120-WEB.jpg"
-                                 alt="Product">
-                        </a>
-                    </div>
-                    <div class="entry-content">
-                        <h4 class="entry-title"><a href="shop-single.html">New Union 60W</a></h4><span class="entry-meta">$68.00</span>
-                    </div>
-                </div>
-                <!-- Entry-->
-                <div class="entry">
-                    <div class="entry-thumb">
-                        <a href="shop-single.html">
-                            <img src="https://eepp.cl/images/productos/AZ-GC410-120W-WEB.jpg"
-                                 alt="Product">
-                        </a>
-                    </div>
-                    <div class="entry-content">
-                        <h4 class="entry-title"><a href="shop-single.html">Yaming 60W</a></h4><span class="entry-meta">$839.99</span>
-                    </div>
-                </div>
-                <!-- Entry-->
-                <div class="entry">
-                    <div class="entry-thumb">
-                        <a href="shop-single.html">
-                            <img src="https://eepp.cl/images/productos/dd-12410029.jpg"
-                                 alt="Product">
-                        </a>
-                    </div>
-                    <div class="entry-content">
-                        <h4 class="entry-title"><a href="shop-single.html">Bulbo led 25W</a></h4><span class="entry-meta">$28.99</span>
-                    </div>
-                </div><a class="btn btn-view-more btn-sm mb-0" href="shop-grid-ls.html">@WebStore.Resources.Buttons.ViewMore</a>
-            </div>
-        </div>
-    </div>
-    <div class="block-separator"></div>
-</section>
 
 @{
     if (ViewBag.TimeOffer)
@@ -280,14 +154,14 @@
 
         <section id="header" class="initial mg-box mg-section mg-section-relative mg-section-fixed-size mg-section-bg-adapted mg-parallax-background"
                  style="background-image: url(/Content/img/bg/timeoffer-bg.jpg);">
-            <div class="mg-box__magnet mg-box__magnet--sm-padding mg-box__magnet--center-left mg-nomiddle">
+            <div class="mg-box__magnet mg-box__magnet--center-left mg-nomiddle">
                 <div class="mg-overlay" style="opacity: 0.8;"></div>
                 <div class="mg-box__container mg-section__container container">
                     <div class="mg-box mg-box--stretched">
                         <div class="mg-box__magnet mg-box__magnet--center-left">
                             <div class="row">
                                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                                    <div class="rounded mg-bg-counter position-relative pt-5 pb-5">
+                                    <div class="rounded mg-bg-counter position-relative pt-2 pb-2">
                                         @foreach (var i in Model.ProductTime)
                                         {
                                             <div class="text-center">
@@ -328,12 +202,150 @@
 
         <div class="d-block position-relative text-right" style="z-index:3;">
             <div class="mg-index-rota-img" id="i3d">
-                <img class="img-fluid wow fadeInRight d-block w-100" src="~/Content/img/frame_1.png">
+                <img class="img-fluid wow fadeInRight d-block w-100" src="~/Content/img/contador.png">
             </div>
         </div>
 
     }
 }
+
+<section id="staff" data-name="staff" class="container mg-content">
+    <div class="block-separator"></div>
+    <div class="block-separator pt-5"></div>
+    <h2 class="h3 pb-3 text-center wow fadeInUp" data-wow-duration="2s">@WebStore.Resources.Titles.Staff</h2>
+    <div class="row pt-1">
+        <div class="col-md-4 col-sm-6 mb-3">
+            <div class="widget mg-widget-featured-products wow fadeInUp" data-wow-duration="2s">
+                <h3 class="mg-widget-title">Más Vendidos</h3>
+                <!-- Entry-->
+                <div class="entry">
+                    <div class="entry-thumb">
+                        <a href="shop-single.html">
+                            <img src="https://eepp.cl/images/productos/AZ-GC410-120W-WEB.jpg"
+                                    alt="Product">
+                        </a>
+                    </div>
+                    <div class="entry-content">
+                        <h4 class="entry-title">
+                            <a href="shop-single.html">Yamin 120W</a>
+                        </h4>
+                        <span class="entry-meta d-inline-block text-dark" style="font-size:18px;">$287.99</span>
+                        <label class="text-success">50% off</label>
+                    </div>
+                </div>
+                <!-- Entry-->
+                <div class="entry">
+                    <div class="entry-thumb">
+                        <a href="shop-single.html">
+                            <img src="https://eepp.cl/images/productos/BR-FL120W-07-240W-WEB.jpg"
+                                    alt="Product">
+                        </a>
+                    </div>
+                    <div class="entry-content">
+                        <h4 class="entry-title"><a href="shop-single.html">Proyector Stadium 240W</a></h4><span class="entry-meta">$95.99</span>
+                    </div>
+                </div>
+                <!-- Entry-->
+                <div class="entry">
+                    <div class="entry-thumb">
+                        <a href="shop-single.html">
+                            <img src="https://eepp.cl/images/productos/dd-12410013.jpg"
+                                    alt="Product">
+                        </a>
+                    </div>
+                    <div class="entry-content">
+                        <h4 class="entry-title"><a href="shop-single.html">Alfa ultra 20W</a></h4><span class="entry-meta">$89.70</span>
+                    </div>
+                </div><a class="btn btn-view-more btn-sm mb-0" href="shop-grid-ls.html">@WebStore.Resources.Buttons.ViewMore</a>
+            </div>
+        </div>
+
+        <div class="col-md-4 col-sm-6 mb-3">
+            <div class="widget mg-widget-featured-products wow fadeInUp" data-wow-duration="2s">
+                <h3 class="mg-widget-title">Nuevos Productos</h3>
+                <!-- Entry-->
+                <div class="entry pb-2">
+                    <div class="entry-thumb">
+                        <a href="shop-single.html">
+                            <img src="https://eepp.cl/images/productos/Polarbear-Series-1.jpg"
+                                    alt="Product">
+                        </a>
+                    </div>
+                    <div class="entry-content">
+                        <h4 class="entry-title"><a href="shop-single.html">Brownbrear 60W</a></h4><span class="entry-meta">$1,450.00</span>
+                    </div>
+                </div>
+                <!-- Entry-->
+                <div class="entry">
+                    <div class="entry-thumb">
+                        <a href="shop-single.html">
+                            <img src="https://eepp.cl/images/productos/brownbear-Series-1.jpg"
+                                    alt="Product">
+                        </a>
+                    </div>
+                    <div class="entry-content">
+                        <h4 class="entry-title"><a href="shop-single.html">Polarbear 120W</a></h4><span class="entry-meta">$910.00</span>
+                    </div>
+                </div>
+                <!-- Entry-->
+                <div class="entry">
+                    <div class="entry-thumb">
+                        <a href="shop-single.html">
+                            <img src="https://eepp.cl/images/productos/golden-Frog-Series-2.jpg"
+                                    alt="Product">
+                        </a>
+                    </div>
+                    <div class="entry-content">
+                        <h4 class="entry-title"><a href="shop-single.html">Goldenfrog 30W</a></h4><span class="entry-meta">$298.99</span>
+                    </div>
+                </div><a class="btn btn-view-more btn-sm mb-0" href="shop-grid-ls.html">@WebStore.Resources.Buttons.ViewMore</a>
+            </div>
+        </div>
+
+        <div class="col-md-4 col-sm-6 mb-3">
+            <div class="widget mg-widget-featured-products wow fadeInUp" data-wow-duration="2s">
+                <h3 class="mg-widget-title">Mejores Calificados</h3>
+                <!-- Entry-->
+                <div class="entry pb-2">
+                    <div class="entry-thumb">
+                        <a href="shop-single.html">
+                            <img src="https://eepp.cl/images/productos/DL-LLDL803120-WEB.jpg"
+                                    alt="Product">
+                        </a>
+                    </div>
+                    <div class="entry-content">
+                        <h4 class="entry-title"><a href="shop-single.html">New Union 60W</a></h4><span class="entry-meta">$68.00</span>
+                    </div>
+                </div>
+                <!-- Entry-->
+                <div class="entry">
+                    <div class="entry-thumb">
+                        <a href="shop-single.html">
+                            <img src="https://eepp.cl/images/productos/AZ-GC410-120W-WEB.jpg"
+                                    alt="Product">
+                        </a>
+                    </div>
+                    <div class="entry-content">
+                        <h4 class="entry-title"><a href="shop-single.html">Yaming 60W</a></h4><span class="entry-meta">$839.99</span>
+                    </div>
+                </div>
+                <!-- Entry-->
+                <div class="entry">
+                    <div class="entry-thumb">
+                        <a href="shop-single.html">
+                            <img src="https://eepp.cl/images/productos/dd-12410029.jpg"
+                                    alt="Product">
+                        </a>
+                    </div>
+                    <div class="entry-content">
+                        <h4 class="entry-title"><a href="shop-single.html">Bulbo led 25W</a></h4><span class="entry-meta">$28.99</span>
+                    </div>
+                </div><a class="btn btn-view-more btn-sm mb-0" href="shop-grid-ls.html">@WebStore.Resources.Buttons.ViewMore</a>
+            </div>
+        </div>
+    </div>
+    <div class="block-separator"></div>
+</section>
 
 <section id="brands" data-name="Content" class="mg-content bg-secondary pb-5">
     <div class="block-separator"></div>
@@ -359,22 +371,22 @@
     <div class="block-separator"></div>
     <div class="container">
         <div class="row">
-            <div class="col-md-3 col-sm-6 text-center mb-30">
+            <div class="col-md-3 col-sm-6 text-center mb-30 wow fadeInLeft" data-wow-delay="2s">
                 <i class="fas fa-truck fa-3x img-thumbnail mx-auto w-90 h-90 pt-4 mb-3 o-75"></i>
                 <h6>Despacho a domicilio</h6>
                 <p class="text-muted margin-bottom-none">Despacho dentro y fuera de Santiago</p>
             </div>
-            <div class="col-md-3 col-sm-6 text-center mb-30">
+            <div class="col-md-3 col-sm-6 text-center mb-30 wow fadeInLeft" data-wow-delay="1s">
                 <i class="far fa-check-circle fa-3x img-thumbnail mx-auto w-90 h-90 pt-4 mb-3 o-75"></i>
                 <h6>Productos certificados</h6>
                 <p class="text-muted margin-bottom-none">Decreto supremo N298 SEC</p>
             </div>
-            <div class="col-md-3 col-sm-6 text-center mb-30">
+            <div class="col-md-3 col-sm-6 text-center mb-30 wow fadeInRight" data-wow-delay="1s">
                 <i class="far fa-credit-card fa-3x img-thumbnail mx-auto w-90 h-90 pt-4 mb-3 o-75"></i>
                 <h6>Facilidad de pago</h6>
                 <p class="text-muted margin-bottom-none">Crédito y débito</p>
             </div>
-            <div class="col-md-3 col-sm-6 text-center mb-30">
+            <div class="col-md-3 col-sm-6 text-center mb-30 wow fadeInRight" data-wow-delay="2s">
                 <i class="fas fa-seedling fa-3x img-thumbnail mx-auto w-90 h-90 pt-4 mb-3 o-75"></i>
                 <h6>Ahorro de energía</h6>
                 <p class="text-muted margin-bottom-none">Nuevas tecnologías</p>
@@ -386,9 +398,9 @@
 @section Scripts{
     <script type="text/javascript">
         $(document).ready(function () {
-            $("#i3d").interactive_3d({
+            /*$("#i3d").interactive_3d({
                 frames: 8
-            });
+            });*/
             $.AdminJs.Countdown.activate();
         });
     </script>
