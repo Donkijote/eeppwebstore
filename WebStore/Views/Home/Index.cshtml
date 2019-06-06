@@ -76,10 +76,10 @@
         <div class="row" id="renderProducts">
             @{
                 Random rand = new Random();
-                int count = 0;
+                decimal count = 0.5m;
                 foreach (var item in Model.ProductsList)
                 {
-                    <div class="col-md-3 col-sm-6 col-6 element-item wow fadeInUp" data-wow-delay="@count+s">
+                    <div class="col-md-3 col-sm-6 col-6 element-item wow fadeInUp" data-wow-delay="@(count.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture))s">
                         <div class="mg-product-card mb-3">
                             <div class="mg-product-wish bg-secondary" href="javascript:void(0);">
                                 <i></i>
@@ -133,13 +133,13 @@
                         </div>
                     </div>
 
-                    if(count == 4)
+                    if (count == 2.0m)
                     {
-                        count = 0;
+                        count = 1;
                     }
                     else
                     {
-                        count++;
+                        count+=0.5m;
                     }
                 }
             }
@@ -151,7 +151,8 @@
 @{
     if (ViewBag.TimeOffer)
     {
-
+        <div class="block-separator pt-5"></div>
+        <div class="block-separator pt-5"></div>
         <section id="header" class="initial mg-box mg-section mg-section-relative mg-section-fixed-size mg-section-bg-adapted mg-parallax-background"
                  style="background-image: url(/Content/img/bg/timeoffer-bg.jpg);">
             <div class="mg-box__magnet mg-box__magnet--center-left mg-nomiddle">
@@ -210,7 +211,7 @@
 }
 
 <section id="staff" data-name="staff" class="container mg-content">
-    <div class="block-separator"></div>
+    <div class="block-separator pt-5"></div>
     <div class="block-separator pt-5"></div>
     <h2 class="h3 pb-3 text-center wow fadeInUp" data-wow-duration="2s">@WebStore.Resources.Titles.Staff</h2>
     <div class="row pt-1">
@@ -222,7 +223,7 @@
                     <div class="entry-thumb">
                         <a href="shop-single.html">
                             <img src="https://eepp.cl/images/productos/AZ-GC410-120W-WEB.jpg"
-                                    alt="Product">
+                                 alt="Product">
                         </a>
                     </div>
                     <div class="entry-content">
@@ -238,7 +239,7 @@
                     <div class="entry-thumb">
                         <a href="shop-single.html">
                             <img src="https://eepp.cl/images/productos/BR-FL120W-07-240W-WEB.jpg"
-                                    alt="Product">
+                                 alt="Product">
                         </a>
                     </div>
                     <div class="entry-content">
@@ -250,7 +251,7 @@
                     <div class="entry-thumb">
                         <a href="shop-single.html">
                             <img src="https://eepp.cl/images/productos/dd-12410013.jpg"
-                                    alt="Product">
+                                 alt="Product">
                         </a>
                     </div>
                     <div class="entry-content">
@@ -268,7 +269,7 @@
                     <div class="entry-thumb">
                         <a href="shop-single.html">
                             <img src="https://eepp.cl/images/productos/Polarbear-Series-1.jpg"
-                                    alt="Product">
+                                 alt="Product">
                         </a>
                     </div>
                     <div class="entry-content">
@@ -280,7 +281,7 @@
                     <div class="entry-thumb">
                         <a href="shop-single.html">
                             <img src="https://eepp.cl/images/productos/brownbear-Series-1.jpg"
-                                    alt="Product">
+                                 alt="Product">
                         </a>
                     </div>
                     <div class="entry-content">
@@ -292,7 +293,7 @@
                     <div class="entry-thumb">
                         <a href="shop-single.html">
                             <img src="https://eepp.cl/images/productos/golden-Frog-Series-2.jpg"
-                                    alt="Product">
+                                 alt="Product">
                         </a>
                     </div>
                     <div class="entry-content">
@@ -310,7 +311,7 @@
                     <div class="entry-thumb">
                         <a href="shop-single.html">
                             <img src="https://eepp.cl/images/productos/DL-LLDL803120-WEB.jpg"
-                                    alt="Product">
+                                 alt="Product">
                         </a>
                     </div>
                     <div class="entry-content">
@@ -322,7 +323,7 @@
                     <div class="entry-thumb">
                         <a href="shop-single.html">
                             <img src="https://eepp.cl/images/productos/AZ-GC410-120W-WEB.jpg"
-                                    alt="Product">
+                                 alt="Product">
                         </a>
                     </div>
                     <div class="entry-content">
@@ -334,7 +335,7 @@
                     <div class="entry-thumb">
                         <a href="shop-single.html">
                             <img src="https://eepp.cl/images/productos/dd-12410029.jpg"
-                                    alt="Product">
+                                 alt="Product">
                         </a>
                     </div>
                     <div class="entry-content">
@@ -371,22 +372,22 @@
     <div class="block-separator"></div>
     <div class="container">
         <div class="row">
-            <div class="col-md-3 col-sm-6 text-center mb-30 wow fadeInLeft" data-wow-delay="2s">
+            <div class="col-md-3 col-sm-6 text-center mb-30 wow fadeInLeft" data-wow-delay="1s">
                 <i class="fas fa-truck fa-3x img-thumbnail mx-auto w-90 h-90 pt-4 mb-3 o-75"></i>
                 <h6>Despacho a domicilio</h6>
                 <p class="text-muted margin-bottom-none">Despacho dentro y fuera de Santiago</p>
             </div>
-            <div class="col-md-3 col-sm-6 text-center mb-30 wow fadeInLeft" data-wow-delay="1s">
+            <div class="col-md-3 col-sm-6 text-center mb-30 wow fadeInLeft" data-wow-delay="0.5s">
                 <i class="far fa-check-circle fa-3x img-thumbnail mx-auto w-90 h-90 pt-4 mb-3 o-75"></i>
                 <h6>Productos certificados</h6>
                 <p class="text-muted margin-bottom-none">Decreto supremo N298 SEC</p>
             </div>
-            <div class="col-md-3 col-sm-6 text-center mb-30 wow fadeInRight" data-wow-delay="1s">
+            <div class="col-md-3 col-sm-6 text-center mb-30 wow fadeInRight" data-wow-delay="0.5s">
                 <i class="far fa-credit-card fa-3x img-thumbnail mx-auto w-90 h-90 pt-4 mb-3 o-75"></i>
                 <h6>Facilidad de pago</h6>
                 <p class="text-muted margin-bottom-none">Crédito y débito</p>
             </div>
-            <div class="col-md-3 col-sm-6 text-center mb-30 wow fadeInRight" data-wow-delay="2s">
+            <div class="col-md-3 col-sm-6 text-center mb-30 wow fadeInRight" data-wow-delay="1s">
                 <i class="fas fa-seedling fa-3x img-thumbnail mx-auto w-90 h-90 pt-4 mb-3 o-75"></i>
                 <h6>Ahorro de energía</h6>
                 <p class="text-muted margin-bottom-none">Nuevas tecnologías</p>

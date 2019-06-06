@@ -167,6 +167,14 @@ namespace WebStore.Controllers
                         }
                     }
                 }
+                else
+                {
+                    foreach(var a in x)
+                    {
+                        ViewBag.Title = Resources.Titles.Product + " " + a.strNombre;
+                        ViewBag.Breadcrumbs = Resources.Titles.Product + " #" + a.strCodigo;
+                    }
+                }
 
                 return View("Product", x);
             }

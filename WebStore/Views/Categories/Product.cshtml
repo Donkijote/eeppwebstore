@@ -62,7 +62,7 @@
                                     <img src="~/Content/img/products/@item.strCodigo-3.jpg" alt="@item.strNombre">
                                 </a>
                             </li>
-                            @if (File.Exists(item.strCodigo + "-4.jpg"))
+                            @if (File.Exists(Server.MapPath("/Content/img/products/" + item.strCodigo + "-4.jpg")))
                             {
                                 <li class="owl-thumb-item">
                                     <a id="carousel-selector-3">
@@ -75,7 +75,10 @@
                     </div>
                     <div class="col-md-9">
                         <div class="mg-product-gallery">
-                            <span class="mg-product-badge bg-danger">Sale</span>
+                            @if (item.intPrecioOff != "0")
+                            {
+                                <span class="mg-product-badge bg-success">Oferta</span>
+                            }
                             <div id="carouselProductsImg" class="owl-carousel owl-loaded owl-drag" data-slider-id="1">
                                 <div class="owl-stage-outer">
                                     <div class="owl-stage">
@@ -88,7 +91,7 @@
                                         <div class="owl-item" data-hash="three">
                                             <img class="img-fluid" src="~/Content/img/products/@item.strCodigo-3.jpg" alt="@item.strNombre">
                                         </div>
-                                        @if (File.Exists(item.strCodigo + "-4.jpg"))
+                                        @if (System.IO.File.Exists(Server.MapPath("/Content/img/products/" + item.strCodigo + "-4.jpg")))
                                         {
                                             <div class="owl-item" data-hash="four">
                                                 <img class="img-fluid" src="~/Content/img/products/@item.strCodigo-4.jpg" alt="@item.strNombre">

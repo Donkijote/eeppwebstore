@@ -101,6 +101,10 @@
                         {
                             <div class="col-md-4 col-sm-6 col-6 element-item">
                                 <div class="mg-product-card mb-3">
+                                    @if(item.intPrecioOff != "0")
+                                    {
+                                        <span class="mg-product-badge bg-success">Oferta</span>
+                                    }
                                     <div class="mg-product-wish bg-secondary" href="javascript:void(0);">
                                         <i></i>
                                     </div>
@@ -166,12 +170,16 @@
                         foreach (var item in Model)
                         {
                             <div class="mg-product-card mg-product-list mb-3">
+                                @if (item.intPrecioOff != "0")
+                                {
+                                    <span class="mg-product-badge bg-success">Oferta</span>
+                                }
                                 <div class="mg-product-wish bg-secondary" href="javascript:void(0);">
                                     <i></i>
                                 </div>
                                 <a class="mg-product-thumb" href="@Url.Action("s","Categories", new { id = Html.DisplayFor(modelItem => item.categorySeo), idp = Html.DisplayFor(modelItem => item.strCodigo), language=System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName })">
                                     <img class="img-fuild" src="~/Content/img/products/@item.strCodigo-1.png"
-                                         alt="Producto">
+                                        alt="Producto">
                                     <img class="img-fuild img-sec" src="~/Content/img/certificates/sec.png">
                                     <img class="img-fluid img-ds43" src="~/Content/img/certificates/ds43.png" />
                                 </a>
@@ -186,7 +194,6 @@
                                         else
                                         {
                                             <span class="price">@Html.DisplayFor(modelItem => item.intPrecio)</span>
-                                            <label class="off">@Html.DisplayFor(modelItem => item.intPrecentOff) OFF</label>
                                         }
                                     </h4>
                                     <div class="mg-product-category">
