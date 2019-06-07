@@ -196,6 +196,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CategoriesController.cs" />
+    <Compile Include="Controllers\DownloadsController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\FooterController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -717,6 +718,7 @@
       <DependentUpon>EEPP.edmx</DependentUpon>
     </Content>
     <Content Include="Content\fichas\25040806.pdf" />
+    <Content Include="Content\img\certificates\Certification-Sec-Bree.pdf" />
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <Content Include="Scripts\bootstrap.min.js.map" />
@@ -808,6 +810,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\img\certificates\ds43\" />
+    <Folder Include="Views\Downloads\" />
     <Folder Include="Views\Language\" />
   </ItemGroup>
   <ItemGroup>

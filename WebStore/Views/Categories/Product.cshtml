@@ -298,15 +298,24 @@
                                 voluptate velit esse cillum dolore eu fugiat.
                             </p>
                             <div class="row">
-                                <div class="col-md-4">
-                                    <a class="text-orangered text-sm" href="javascript:void(0);">@WebStore.Resources.Ficha.Ds43</a>
-                                </div>
-                                <div class="col-md-4">
-                                    <a class="text-orangered text-sm" href="javascript:void(0);">@WebStore.Resources.Ficha.Sec</a>
-                                </div>
-                                <div class="col-md-4">
-                                    <a class="text-orangered text-sm" href="@Url.Action("GetPdf", "Downloads", new { filename = f.refCodProd})" target="_blank">@WebStore.Resources.Ficha.Sheet</a>
-                                </div>
+                                @if (f.strDs43)
+                                {
+                                    <div class="col-md-4">
+                                        <a class="text-orangered text-sm" href="@Url.Action("ProductDs43CertificationPDF", "Downloads", new { filename = f.refCodProd})" target="_blank">@WebStore.Resources.Ficha.Ds43</a>
+                                    </div>
+                                }
+                                @if (f.strSec)
+                                {
+                                    <div class="col-md-4">
+                                        <a class="text-orangered text-sm" href="@Url.Action("ProductSecCertificationPDF", "Downloads", new { filename = f.strBrand})" target="_blank">@WebStore.Resources.Ficha.Sec</a>
+                                    </div>
+                                }
+                                @if (f.strFicha)
+                                {
+                                    <div class="col-md-4">
+                                        <a class="text-orangered text-sm" href="@Url.Action("ProductTecnicalSheetPDF", "Downloads", new { filename = f.refCodProd})" target="_blank">@WebStore.Resources.Ficha.Sheet</a>
+                                    </div>
+                                }
                             </div>
                             <div class="block-separator"></div>
                             <h3 class="h4">@WebStore.Resources.Titles.Warranty</h3>

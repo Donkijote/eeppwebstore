@@ -40,7 +40,9 @@ namespace WebStore
                 new RouteValueTranslation(cultureEN, "Language", "Language"),
                 new RouteValueTranslation(cultureEN, "Tickets", "Tickets"),
                 new RouteValueTranslation(cultureEN, "Downloads", "Downloads"),
-                new RouteValueTranslation(cultureEN, "GetPdf", "ProductTecnicalSheetPDF"),
+                new RouteValueTranslation(cultureEN, "ProductTecnicalSheetPDF", "ProductTecnicalSheetPDF"),
+                new RouteValueTranslation(cultureEN, "ProductSecCertificationPDF", "ProductSecCertificationPDF"),
+                new RouteValueTranslation(cultureEN, "ProductDs43CertificationPDF", "ProductDs43CertificationPDF"),
                 new RouteValueTranslation(cultureES, "Home", "Inicio"),
                 new RouteValueTranslation(cultureES, "About", "Nosotros"),
                 new RouteValueTranslation(cultureES, "Contact", "Contactos"),
@@ -64,7 +66,9 @@ namespace WebStore
                 new RouteValueTranslation(cultureES, "Language", "Idioma"),
                 new RouteValueTranslation(cultureES, "Tickets", "Tickets"),
                 new RouteValueTranslation(cultureES, "Downloads", "Descargas"),
-                new RouteValueTranslation(cultureES, "GetPDF", "FichaTecnicaProductoPDF"),
+                new RouteValueTranslation(cultureES, "ProductTecnicalSheetPDF", "FichaTecnicaProductoPDF"),
+                new RouteValueTranslation(cultureES, "ProductSecCertificationPDF", "CertificationSecProductoDPF"),
+                new RouteValueTranslation(cultureES, "ProductDs43CertificationPDF", "CertificationDs43ProductoDPF"),
                 new RouteValueTranslation(cultureJA, "Home", "いえ"),
                 new RouteValueTranslation(cultureJA, "Index", "インデッ")
                 }
