@@ -37,10 +37,10 @@ namespace WebStore.Models
         public virtual DbSet<tblModelDetail> tblModelDetail { get; set; }
         public virtual DbSet<tblCategoryRelation> tblCategoryRelation { get; set; }
         public virtual DbSet<tblBrand> tblBrand { get; set; }
-        public virtual DbSet<tblFicha> tblFicha { get; set; }
         public virtual DbSet<tblOffert> tblOffert { get; set; }
         public virtual DbSet<tblOffertTime> tblOffertTime { get; set; }
         public virtual DbSet<tblImg> tblImg { get; set; }
         public virtual DbSet<tblRelBrand> tblRelBrand { get; set; }
+        public virtual DbSet<tblFicha> tblFicha { get; set; }
     }
 }

@@ -110,11 +110,7 @@ namespace WebStore.Controllers
             {
                 webstoreEntities db = new webstoreEntities();
                 ElectropEntities dbE = new ElectropEntities();
-                /*var x = (from a in db.tblProducts
-                        where a.strCodigo == idp
-                        select new { strNombre = a.strNombre, strCodigo = a.strCodigo, intPrecio = a.intPrecio})
-                        .AsEnumerable()
-                        .Select(p => new Products { strNombre = p.strNombre, strCodigo = p.strCodigo, intPrecio = FormatNumber(p.intPrecio)});*/
+                
                 var o = dbE.iw_tlprprod.Where(i => i.CodLista == "16").ToList();
                 var x = (from a in dbE.iw_tprod
                          join b in dbE.iw_tlprprod
@@ -129,7 +125,7 @@ namespace WebStore.Controllers
                              intPrecio = a.PrecioVta,
                              intPercent = b.ValorPct })
                          .AsEnumerable()
-                         .Select(p => new Products
+                         .Select(p => new ProductsSingle
                          {
                              strCodigo = p.strCod,
                              strNombre = p.strNombre.ToLower(),
@@ -173,6 +169,23 @@ namespace WebStore.Controllers
                     {
                         ViewBag.Title = Resources.Titles.Product + " " + a.strNombre;
                         ViewBag.Breadcrumbs = Resources.Titles.Product + " #" + a.strCodigo;
+                    }
+                }
+
+                var Ficha = db.tblFicha.Select(f => f);
+
+                foreach (var p in x)
+                {
+                    if (Ficha.Any(f => f.refCodProd == p.strCodigo))
+                    {
+                        p.Ficha = Ficha;
+                    }
+                    else
+                    {
+                        p.Ficha = new List<tblFicha>()
+                        {
+
+                        };
                     }
                 }
 

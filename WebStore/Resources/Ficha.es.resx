@@ -117,28 +117,133 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="BestRated" xml:space="preserve">
-    <value>Best Rated</value>
+  <data name="Ampers" xml:space="preserve">
+    <value>Amperes</value>
   </data>
-  <data name="HighLow" xml:space="preserve">
-    <value>High - Low Price</value>
+  <data name="Autonomy" xml:space="preserve">
+    <value>Autonomia</value>
   </data>
-  <data name="Loading" xml:space="preserve">
-    <value>Loading...</value>
+  <data name="Batery" xml:space="preserve">
+    <value>Batería</value>
   </data>
-  <data name="LowHigh" xml:space="preserve">
-    <value>Low - High Price</value>
+  <data name="Body" xml:space="preserve">
+    <value>Cuerpo</value>
   </data>
-  <data name="Openair" xml:space="preserve">
-    <value>Open Air</value>
+  <data name="BodyCovert" xml:space="preserve">
+    <value>Recubrimiento</value>
   </data>
-  <data name="Quantity" xml:space="preserve">
-    <value>Quantity</value>
+  <data name="Certification" xml:space="preserve">
+    <value>Certificaciones</value>
   </data>
-  <data name="Showing" xml:space="preserve">
-    <value>Showing:</value>
+  <data name="CircuitTemp" xml:space="preserve">
+    <value>Temperatura de corto circuito</value>
   </data>
-  <data name="Sort" xml:space="preserve">
-    <value>Sort By:</value>
+  <data name="Color" xml:space="preserve">
+    <value>Color</value>
+  </data>
+  <data name="ColorLight" xml:space="preserve">
+    <value>Temperatura de color (CCT°)</value>
+  </data>
+  <data name="Country" xml:space="preserve">
+    <value>País</value>
+  </data>
+  <data name="CRI" xml:space="preserve">
+    <value>Índice de reproducción comática</value>
+  </data>
+  <data name="Diameter" xml:space="preserve">
+    <value>Diámetro</value>
+  </data>
+  <data name="Ds43" xml:space="preserve">
+    <value>Descargar certificación Ds43</value>
+  </data>
+  <data name="IK" xml:space="preserve">
+    <value>Protección de impacto</value>
+  </data>
+  <data name="Include" xml:space="preserve">
+    <value>Incluye</value>
+  </data>
+  <data name="Instalation" xml:space="preserve">
+    <value>Instalación</value>
+  </data>
+  <data name="IP" xml:space="preserve">
+    <value>Protección de ingreso</value>
+  </data>
+  <data name="LHW" xml:space="preserve">
+    <value>Dimensiones</value>
+  </data>
+  <data name="Life" xml:space="preserve">
+    <value>Viuda útil</value>
+  </data>
+  <data name="LightAngle" xml:space="preserve">
+    <value>Ángulo de luz</value>
+  </data>
+  <data name="LightType" xml:space="preserve">
+    <value>Tipo de luz</value>
+  </data>
+  <data name="LumWatts" xml:space="preserve">
+    <value>Lúmenes/w</value>
+  </data>
+  <data name="Modules" xml:space="preserve">
+    <value>Módulos</value>
+  </data>
+  <data name="NoInclude" xml:space="preserve">
+    <value>No incluye</value>
+  </data>
+  <data name="PF" xml:space="preserve">
+    <value>Factor potencia</value>
+  </data>
+  <data name="Pir" xml:space="preserve">
+    <value>Sensor de movimientos</value>
+  </data>
+  <data name="Poles" xml:space="preserve">
+    <value>Polos</value>
+  </data>
+  <data name="Power" xml:space="preserve">
+    <value>Potencia</value>
+  </data>
+  <data name="Sec" xml:space="preserve">
+    <value>Descargar certificación Sec</value>
+  </data>
+  <data name="Sheet" xml:space="preserve">
+    <value>Descargar Ficha técnica</value>
+  </data>
+  <data name="Socket" xml:space="preserve">
+    <value>Socket</value>
+  </data>
+  <data name="SolarPanel" xml:space="preserve">
+    <value>Panel solar</value>
+  </data>
+  <data name="Type" xml:space="preserve">
+    <value>Tipo</value>
+  </data>
+  <data name="V" xml:space="preserve">
+    <value>Voltage</value>
+  </data>
+  <data name="Warranty" xml:space="preserve">
+    <value>Garantía</value>
+  </data>
+  <data name="Weight" xml:space="preserve">
+    <value>Peso</value>
+  </data>
+  <data name="WorkTemp" xml:space="preserve">
+    <value>Temperatura de trabajo</value>
+  </data>
+  <data name="Year" xml:space="preserve">
+    <value>Año</value>
+  </data>
+  <data name="Years" xml:space="preserve">
+    <value>Años</value>
+  </data>
+  <data name="Hour" xml:space="preserve">
+    <value>Hora</value>
+  </data>
+  <data name="Hours" xml:space="preserve">
+    <value>Horas</value>
+  </data>
+  <data name="Frequency" xml:space="preserve">
+    <value>Frecuencia</value>
+  </data>
+  <data name="Brand" xml:space="preserve">
+    <value>Marca</value>
   </data>
 </root>

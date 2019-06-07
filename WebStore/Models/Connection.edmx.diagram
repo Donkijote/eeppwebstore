@@ -27,10 +27,8 @@
         <AssociationConnector Association="webstoreModel.FK_tblCategoryRelation_tblCategories_Two" />
         <EntityTypeShape EntityType="webstoreModel.tblBrand" Width="1.5" PointX="0.5" PointY="7.125" />
         <AssociationConnector Association="webstoreModel.FK_tblProducts_tblBrand" />
-        <EntityTypeShape EntityType="webstoreModel.tblFicha" Width="1.5" PointX="6" PointY="3.125" />
         <EntityTypeShape EntityType="webstoreModel.tblOffert" Width="1.5" PointX="6" PointY="1.125" />
         <EntityTypeShape EntityType="webstoreModel.tblOffertTime" Width="1.5" PointX="7.75" PointY="1.125" />
-        <AssociationConnector Association="webstoreModel.FK_tblProducts_tblFicha" />
         <AssociationConnector Association="webstoreModel.FK_tblProducts_tblOffert" />
         <AssociationConnector Association="webstoreModel.FK_tblProducts_tblOffertTime" />
         <EntityTypeShape EntityType="webstoreModel.tblImg" Width="1.5" PointX="4.25" PointY="6.5" />
@@ -39,6 +37,7 @@
         <AssociationConnector Association="webstoreModel.FK_tblFamily_tblImg" />
         <EntityTypeShape EntityType="webstoreModel.tblRelBrand" Width="1.5" PointX="2.375" PointY="11.625" />
         <AssociationConnector Association="webstoreModel.FK_tblRelBrand_tblBrand" />
+        <EntityTypeShape EntityType="webstoreModel.tblFicha" Width="1.5" PointX="6" PointY="3" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

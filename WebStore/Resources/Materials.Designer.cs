@@ -22,14 +22,14 @@ namespace WebStore.Resources {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class Texts {
+    public class Materials {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal Texts() {
+        internal Materials() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace WebStore.Resources {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("WebStore.Resources.Texts", typeof(Texts).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("WebStore.Resources.Materials", typeof(Materials).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,74 +61,11 @@ namespace WebStore.Resources {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Best Rated.
+        ///   Busca una cadena traducida similar a Aluminium.
         /// </summary>
-        public static string BestRated {
+        public static string Aluminium {
             get {
-                return ResourceManager.GetString("BestRated", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a High - Low Price.
-        /// </summary>
-        public static string HighLow {
-            get {
-                return ResourceManager.GetString("HighLow", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Loading....
-        /// </summary>
-        public static string Loading {
-            get {
-                return ResourceManager.GetString("Loading", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Low - High Price.
-        /// </summary>
-        public static string LowHigh {
-            get {
-                return ResourceManager.GetString("LowHigh", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Open Air.
-        /// </summary>
-        public static string Openair {
-            get {
-                return ResourceManager.GetString("Openair", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Quantity.
-        /// </summary>
-        public static string Quantity {
-            get {
-                return ResourceManager.GetString("Quantity", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Showing:.
-        /// </summary>
-        public static string Showing {
-            get {
-                return ResourceManager.GetString("Showing", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Sort By:.
-        /// </summary>
-        public static string Sort {
-            get {
-                return ResourceManager.GetString("Sort", resourceCulture);
+                return ResourceManager.GetString("Aluminium", resourceCulture);
             }
         }
     }

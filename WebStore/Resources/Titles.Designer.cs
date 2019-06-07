@@ -142,6 +142,15 @@ namespace WebStore.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Details and Use.
+        /// </summary>
+        public static string DetailsUse {
+            get {
+                return ResourceManager.GetString("DetailsUse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Edit Address.
         /// </summary>
         public static string editAddress {
@@ -268,11 +277,29 @@ namespace WebStore.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Shipping Info.
+        /// </summary>
+        public static string ShippingInfo {
+            get {
+                return ResourceManager.GetString("ShippingInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Sign Up.
         /// </summary>
         public static string SignUp {
             get {
                 return ResourceManager.GetString("SignUp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Specifications.
+        /// </summary>
+        public static string Specifications {
+            get {
+                return ResourceManager.GetString("Specifications", resourceCulture);
             }
         }
         
@@ -318,6 +345,15 @@ namespace WebStore.Resources {
         public static string Traking {
             get {
                 return ResourceManager.GetString("Traking", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Warranty.
+        /// </summary>
+        public static string Warranty {
+            get {
+                return ResourceManager.GetString("Warranty", resourceCulture);
             }
         }
         

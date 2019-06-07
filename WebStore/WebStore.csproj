@@ -330,6 +330,26 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Buttons.resx</DependentUpon>
     </Compile>
+    <Compile Include="Resources\Materials.es.Designer.cs">
+      <DependentUpon>Materials.es.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Resources\Materials.Designer.cs">
+      <DependentUpon>Materials.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Resources\Colors.es.Designer.cs">
+      <DependentUpon>Colors.es.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Resources\Colors.Designer.cs">
+      <DependentUpon>Colors.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="Resources\Cart.es.Designer.cs">
       <DependentUpon>Cart.es.resx</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -340,6 +360,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Cart.resx</DependentUpon>
     </Compile>
+    <Compile Include="Resources\Ficha.es.Designer.cs">
+      <DependentUpon>Ficha.es.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="Resources\Filter.es.Designer.cs">
       <DependentUpon>Filter.es.resx</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -347,6 +372,11 @@
     </Compile>
     <Compile Include="Resources\Filter.Designer.cs">
       <DependentUpon>Filter.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Resources\Ficha.Designer.cs">
+      <DependentUpon>Ficha.resx</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
@@ -492,6 +522,15 @@
     <Content Include="Content\img\brands\sassin.png" />
     <Content Include="Content\img\brands\tornado.png" />
     <Content Include="Content\img\brands\weg.png" />
+    <Content Include="Content\img\carouselOffers\25040806.png" />
+    <Content Include="Content\img\carouselOffers\25040902.png" />
+    <Content Include="Content\img\carouselOffers\25040906.png" />
+    <Content Include="Content\img\carouselOffers\25041002.png" />
+    <Content Include="Content\img\carouselOffers\25041006.png" />
+    <Content Include="Content\img\carouselOffers\25041102.png" />
+    <Content Include="Content\img\carouselOffers\25041106.png" />
+    <Content Include="Content\img\carouselOffers\25041202.png" />
+    <Content Include="Content\img\carouselOffers\25041206.png" />
     <Content Include="Content\img\categories\canalizacion-electrica-1.jpg" />
     <Content Include="Content\img\categories\canalizacion-electrica-2.jpg" />
     <Content Include="Content\img\categories\canalizacion-electrica-3.jpg" />
@@ -519,41 +558,42 @@
     <Content Include="Content\img\certificates\ds43.png" />
     <Content Include="Content\img\certificates\sec.png" />
     <Content Include="Content\img\contador.png" />
-    <Content Include="Content\img\products\25040806-1.png" />
+    <Content Include="Content\img\products\25040806-1.jpg" />
     <Content Include="Content\img\products\25040806-2.jpg" />
     <Content Include="Content\img\products\25040806-3.jpg" />
     <Content Include="Content\img\products\25040806-4.jpg" />
-    <Content Include="Content\img\products\25040902-1.png" />
+    <Content Include="Content\img\products\25040902-1.jpg" />
     <Content Include="Content\img\products\25040902-2.jpg" />
     <Content Include="Content\img\products\25040902-3.jpg" />
     <Content Include="Content\img\products\25040902-4.jpg" />
-    <Content Include="Content\img\products\25040906-1.png" />
+    <Content Include="Content\img\products\25040906-1.jpg" />
     <Content Include="Content\img\products\25040906-2.jpg" />
     <Content Include="Content\img\products\25040906-3.jpg" />
     <Content Include="Content\img\products\25040906-4.jpg" />
-    <Content Include="Content\img\products\25041002-1.png" />
+    <Content Include="Content\img\products\25041002-1.jpg" />
     <Content Include="Content\img\products\25041002-2.jpg" />
     <Content Include="Content\img\products\25041002-3.jpg" />
     <Content Include="Content\img\products\25041002-4.jpg" />
-    <Content Include="Content\img\products\25041006-1.png" />
+    <Content Include="Content\img\products\25041006-1.jpg" />
     <Content Include="Content\img\products\25041006-2.jpg" />
     <Content Include="Content\img\products\25041006-3.jpg" />
     <Content Include="Content\img\products\25041006-4.jpg" />
-    <Content Include="Content\img\products\25041102-1.png" />
+    <Content Include="Content\img\products\25041102-1.jpg" />
     <Content Include="Content\img\products\25041102-2.jpg" />
     <Content Include="Content\img\products\25041102-3.jpg" />
-    <Content Include="Content\img\products\25041106-1.png" />
+    <Content Include="Content\img\products\25041106-1.jpg" />
     <Content Include="Content\img\products\25041106-2.jpg" />
     <Content Include="Content\img\products\25041106-3.jpg" />
-    <Content Include="Content\img\products\25041202-1.png" />
+    <Content Include="Content\img\products\25041202-1.jpg" />
     <Content Include="Content\img\products\25041202-2.jpg" />
     <Content Include="Content\img\products\25041202-3.jpg" />
     <Content Include="Content\img\products\25041202-4.jpg" />
-    <Content Include="Content\img\products\25041206-1.png" />
+    <Content Include="Content\img\products\25041206-1.jpg" />
     <Content Include="Content\img\products\25041206-2.jpg" />
     <Content Include="Content\img\products\25041206-3.jpg" />
     <Content Include="Content\img\products\25041206-4.jpg" />
     <Content Include="Content\img\products\img_one.png" />
+    <Content Include="Content\img\qr\Bree-sec.jpg" />
     <Content Include="Content\jquery.steps.min.css">
       <DependentUpon>jquery.steps.css</DependentUpon>
     </Content>
@@ -676,6 +716,7 @@
     <Content Include="Models\EEPP.edmx.diagram">
       <DependentUpon>EEPP.edmx</DependentUpon>
     </Content>
+    <Content Include="Content\fichas\25040806.pdf" />
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <Content Include="Scripts\bootstrap.min.js.map" />
@@ -788,6 +829,22 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Buttons.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Materials.es.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Materials.es.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Materials.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Materials.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Colors.es.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Colors.es.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Colors.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Colors.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources\Cart.es.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Cart.es.Designer.cs</LastGenOutput>
@@ -796,6 +853,10 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Cart.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Ficha.es.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Ficha.es.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources\Filter.es.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Filter.es.Designer.cs</LastGenOutput>
@@ -803,6 +864,10 @@
     <EmbeddedResource Include="Resources\Filter.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Filter.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Ficha.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Ficha.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Seo.es.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

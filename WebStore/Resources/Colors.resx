@@ -117,28 +117,25 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="BestRated" xml:space="preserve">
-    <value>Best Rated</value>
+  <data name="Black" xml:space="preserve">
+    <value>Black</value>
   </data>
-  <data name="HighLow" xml:space="preserve">
-    <value>High - Low Price</value>
+  <data name="Blue" xml:space="preserve">
+    <value>Blue</value>
   </data>
-  <data name="Loading" xml:space="preserve">
-    <value>Loading...</value>
+  <data name="Green" xml:space="preserve">
+    <value>Green</value>
   </data>
-  <data name="LowHigh" xml:space="preserve">
-    <value>Low - High Price</value>
+  <data name="Red" xml:space="preserve">
+    <value>Red</value>
   </data>
-  <data name="Openair" xml:space="preserve">
-    <value>Open Air</value>
+  <data name="Type" xml:space="preserve">
+    <value>Type</value>
   </data>
-  <data name="Quantity" xml:space="preserve">
-    <value>Quantity</value>
+  <data name="White" xml:space="preserve">
+    <value>White</value>
   </data>
-  <data name="Showing" xml:space="preserve">
-    <value>Showing:</value>
-  </data>
-  <data name="Sort" xml:space="preserve">
-    <value>Sort By:</value>
+  <data name="Yellow" xml:space="preserve">
+    <value>Yellow</value>
   </data>
 </root>

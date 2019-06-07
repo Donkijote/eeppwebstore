@@ -207,4 +207,16 @@
   <data name="ShippingAddress" xml:space="preserve">
     <value>Dirección de Envío</value>
   </data>
+  <data name="DetailsUse" xml:space="preserve">
+    <value>Detalles y uso</value>
+  </data>
+  <data name="ShippingInfo" xml:space="preserve">
+    <value>Información del envío</value>
+  </data>
+  <data name="Specifications" xml:space="preserve">
+    <value>Especificaciones</value>
+  </data>
+  <data name="Warranty" xml:space="preserve">
+    <value>Garantía</value>
+  </data>
 </root>

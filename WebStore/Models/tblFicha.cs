@@ -14,24 +14,18 @@ namespace WebStore.Models
     
     public partial class tblFicha
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public tblFicha()
-        {
-            this.tblProducts = new HashSet<tblProducts>();
-        }
-    
         public int idFicha { get; set; }
         public Nullable<int> strPotencia { get; set; }
         public Nullable<int> intColorTemp { get; set; }
         public Nullable<int> intLumWatts { get; set; }
         public string strLifespan { get; set; }
-        public Nullable<int> intVoltage { get; set; }
+        public string intVoltage { get; set; }
         public Nullable<decimal> intWeight { get; set; }
-        public string strLHM { get; set; }
+        public string strLHW { get; set; }
         public string strCertification { get; set; }
         public Nullable<int> intIp { get; set; }
         public Nullable<int> intIk { get; set; }
-        public Nullable<int> intLightAngle { get; set; }
+        public string intLightAngle { get; set; }
         public string strLightType { get; set; }
         public string strSolarPanel { get; set; }
         public string strBatery { get; set; }
@@ -51,12 +45,16 @@ namespace WebStore.Models
         public Nullable<int> intDiameter { get; set; }
         public string strType { get; set; }
         public string strCountry { get; set; }
-        public Nullable<int> intWorkTemp { get; set; }
+        public string intWorkTemp { get; set; }
         public Nullable<int> intCircuitBreakTemp { get; set; }
         public string strInclude { get; set; }
         public string strNoInclude { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tblProducts> tblProducts { get; set; }
+        public Nullable<bool> intNew { get; set; }
+        public string refCodProd { get; set; }
+        public bool strSec { get; set; }
+        public bool strDs43 { get; set; }
+        public bool strFicha { get; set; }
+        public string strFrequency { get; set; }
+        public string strBrand { get; set; }
     }
 }

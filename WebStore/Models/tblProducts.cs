@@ -34,7 +34,6 @@ namespace WebStore.Models
         public virtual tblCategories tblCategories { get; set; }
         public virtual tblModel tblModel { get; set; }
         public virtual tblBrand tblBrand { get; set; }
-        public virtual tblFicha tblFicha { get; set; }
         public virtual tblOffert tblOffert { get; set; }
         public virtual tblOffertTime tblOffertTime { get; set; }
         public virtual tblImg tblImg { get; set; }

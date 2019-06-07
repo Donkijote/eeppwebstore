@@ -71,13 +71,13 @@
           <Property Name="intColorTemp" Type="int" />
           <Property Name="intLumWatts" Type="int" />
           <Property Name="strLifespan" Type="varchar" MaxLength="50" />
-          <Property Name="intVoltage" Type="int" />
+          <Property Name="intVoltage" Type="varchar" MaxLength="50" />
           <Property Name="intWeight" Type="decimal" Precision="18" Scale="2" />
-          <Property Name="strLHM" Type="varchar" MaxLength="50" />
+          <Property Name="strLHW" Type="varchar" MaxLength="50" />
           <Property Name="strCertification" Type="varchar" MaxLength="100" />
           <Property Name="intIp" Type="int" />
           <Property Name="intIk" Type="int" />
-          <Property Name="intLightAngle" Type="int" />
+          <Property Name="intLightAngle" Type="varchar" MaxLength="50" />
           <Property Name="strLightType" Type="varchar" MaxLength="50" />
           <Property Name="strSolarPanel" Type="varchar" MaxLength="50" />
           <Property Name="strBatery" Type="varchar" MaxLength="50" />
@@ -90,6 +90,7 @@
           <Property Name="intPF" Type="decimal" Precision="5" Scale="2" />
           <Property Name="strSocket" Type="varchar" MaxLength="50" />
           <Property Name="intCRI" Type="int" />
+          <Property Name="strFrequency" Type="varchar" MaxLength="50" />
           <Property Name="strPoles" Type="varchar" MaxLength="50" />
           <Property Name="intModule" Type="int" />
           <Property Name="strBody" Type="varchar" MaxLength="50" />
@@ -97,10 +98,16 @@
           <Property Name="intDiameter" Type="int" />
           <Property Name="strType" Type="varchar" MaxLength="50" />
           <Property Name="strCountry" Type="varchar" MaxLength="50" />
-          <Property Name="intWorkTemp" Type="int" />
+          <Property Name="strBrand" Type="varchar" MaxLength="50" />
+          <Property Name="intWorkTemp" Type="varchar" MaxLength="50" />
           <Property Name="intCircuitBreakTemp" Type="int" />
           <Property Name="strInclude" Type="varchar" MaxLength="50" />
           <Property Name="strNoInclude" Type="varchar" MaxLength="50" />
+          <Property Name="intNew" Type="bit" />
+          <Property Name="refCodProd" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="strSec" Type="bit" Nullable="false" />
+          <Property Name="strDs43" Type="bit" Nullable="false" />
+          <Property Name="strFicha" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="tblImg">
           <Key>
@@ -322,18 +329,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_tblProducts_tblFicha">
-          <End Role="tblFicha" Type="Self.tblFicha" Multiplicity="0..1" />
-          <End Role="tblProducts" Type="Self.tblProducts" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblFicha">
-              <PropertyRef Name="idFicha" />
-            </Principal>
-            <Dependent Role="tblProducts">
-              <PropertyRef Name="refFicha" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_tblProducts_tblImg">
           <End Role="tblImg" Type="Self.tblImg" Multiplicity="0..1" />
           <End Role="tblProducts" Type="Self.tblProducts" Multiplicity="*" />
@@ -464,10 +459,6 @@
             <End Role="tblCategories" EntitySet="tblCategories" />
             <End Role="tblProducts" EntitySet="tblProducts" />
           </AssociationSet>
-          <AssociationSet Name="FK_tblProducts_tblFicha" Association="Self.FK_tblProducts_tblFicha">
-            <End Role="tblFicha" EntitySet="tblFicha" />
-            <End Role="tblProducts" EntitySet="tblProducts" />
-          </AssociationSet>
           <AssociationSet Name="FK_tblProducts_tblImg" Association="Self.FK_tblProducts_tblImg">
             <End Role="tblImg" EntitySet="tblImg" />
             <End Role="tblProducts" EntitySet="tblProducts" />
@@ -566,13 +557,8 @@
             <End Role="tblBrand" EntitySet="tblBrand" />
             <End Role="tblProducts" EntitySet="tblProducts" />
           </AssociationSet>
-          <EntitySet Name="tblFicha" EntityType="webstoreModel.tblFicha" />
           <EntitySet Name="tblOffert" EntityType="webstoreModel.tblOffert" />
           <EntitySet Name="tblOffertTime" EntityType="webstoreModel.tblOffertTime" />
-          <AssociationSet Name="FK_tblProducts_tblFicha" Association="webstoreModel.FK_tblProducts_tblFicha">
-            <End Role="tblFicha" EntitySet="tblFicha" />
-            <End Role="tblProducts" EntitySet="tblProducts" />
-          </AssociationSet>
           <AssociationSet Name="FK_tblProducts_tblOffert" Association="webstoreModel.FK_tblProducts_tblOffert">
             <End Role="tblOffert" EntitySet="tblOffert" />
             <End Role="tblProducts" EntitySet="tblProducts" />
@@ -599,6 +585,7 @@
             <End Role="tblBrand" EntitySet="tblBrand" />
             <End Role="tblRelBrand" EntitySet="tblRelBrand" />
           </AssociationSet>
+          <EntitySet Name="tblFicha" EntityType="webstoreModel.tblFicha" />
         </EntityContainer>
         <EntityType Name="tblProducts">
           <Key>
@@ -622,7 +609,6 @@
           <Property Name="refFicha" Type="Int32" />
           <Property Name="refOffert" Type="Int32" />
           <Property Name="refOfferTime" Type="Int32" />
-          <NavigationProperty Name="tblFicha" Relationship="webstoreModel.FK_tblProducts_tblFicha" FromRole="tblProducts" ToRole="tblFicha" />
           <NavigationProperty Name="tblOffert" Relationship="webstoreModel.FK_tblProducts_tblOffert" FromRole="tblProducts" ToRole="tblOffert" />
           <NavigationProperty Name="tblOffertTime" Relationship="webstoreModel.FK_tblProducts_tblOffertTime" FromRole="tblProducts" ToRole="tblOffertTime" />
           <Property Name="refImg" Type="Int32" />
@@ -852,47 +838,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="tblFicha">
-          <Key>
-            <PropertyRef Name="idFicha" />
-          </Key>
-          <Property Name="idFicha" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="strPotencia" Type="Int32" />
-          <Property Name="intColorTemp" Type="Int32" />
-          <Property Name="intLumWatts" Type="Int32" />
-          <Property Name="strLifespan" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="intVoltage" Type="Int32" />
-          <Property Name="intWeight" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="strLHM" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="strCertification" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="intIp" Type="Int32" />
-          <Property Name="intIk" Type="Int32" />
-          <Property Name="intLightAngle" Type="Int32" />
-          <Property Name="strLightType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="strSolarPanel" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="strBatery" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="intPir" Type="Boolean" />
-          <Property Name="strWarranty" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="strAutonomy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="strColor" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="strInstalation" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="intAmpers" Type="Int32" />
-          <Property Name="intPF" Type="Decimal" Precision="5" Scale="2" />
-          <Property Name="strSocket" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="intCRI" Type="Int32" />
-          <Property Name="strPoles" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="intModule" Type="Int32" />
-          <Property Name="strBody" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="strBodyCovert" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="intDiameter" Type="Int32" />
-          <Property Name="strType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="strCountry" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="intWorkTemp" Type="Int32" />
-          <Property Name="intCircuitBreakTemp" Type="Int32" />
-          <Property Name="strInclude" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="strNoInclude" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="tblProducts" Relationship="webstoreModel.FK_tblProducts_tblFicha" FromRole="tblFicha" ToRole="tblProducts" />
-        </EntityType>
         <EntityType Name="tblOffert">
           <Key>
             <PropertyRef Name="idOffert" />
@@ -913,18 +858,6 @@
           <Property Name="strDescription" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="refCodProd" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
-        <Association Name="FK_tblProducts_tblFicha">
-          <End Type="webstoreModel.tblFicha" Role="tblFicha" Multiplicity="0..1" />
-          <End Type="webstoreModel.tblProducts" Role="tblProducts" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblFicha">
-              <PropertyRef Name="idFicha" />
-            </Principal>
-            <Dependent Role="tblProducts">
-              <PropertyRef Name="refFicha" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_tblProducts_tblOffert">
           <End Type="webstoreModel.tblOffert" Role="tblOffert" Multiplicity="0..1" />
           <End Type="webstoreModel.tblProducts" Role="tblProducts" Multiplicity="*" />
@@ -1019,6 +952,53 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="tblFicha">
+          <Key>
+            <PropertyRef Name="idFicha" />
+          </Key>
+          <Property Name="idFicha" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="strPotencia" Type="Int32" />
+          <Property Name="intColorTemp" Type="Int32" />
+          <Property Name="intLumWatts" Type="Int32" />
+          <Property Name="strLifespan" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="intVoltage" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="intWeight" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="strLHW" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="strCertification" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="intIp" Type="Int32" />
+          <Property Name="intIk" Type="Int32" />
+          <Property Name="intLightAngle" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="strLightType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="strSolarPanel" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="strBatery" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="intPir" Type="Boolean" />
+          <Property Name="strWarranty" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="strAutonomy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="strColor" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="strInstalation" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="intAmpers" Type="Int32" />
+          <Property Name="intPF" Type="Decimal" Precision="5" Scale="2" />
+          <Property Name="strSocket" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="intCRI" Type="Int32" />
+          <Property Name="strPoles" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="intModule" Type="Int32" />
+          <Property Name="strBody" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="strBodyCovert" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="intDiameter" Type="Int32" />
+          <Property Name="strType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="strCountry" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="intWorkTemp" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="intCircuitBreakTemp" Type="Int32" />
+          <Property Name="strInclude" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="strNoInclude" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="intNew" Type="Boolean" />
+          <Property Name="refCodProd" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="strSec" Type="Boolean" Nullable="false" />
+          <Property Name="strDs43" Type="Boolean" Nullable="false" />
+          <Property Name="strFicha" Type="Boolean" Nullable="false" />
+          <Property Name="strFrequency" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="strBrand" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1158,47 +1138,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="tblFicha">
-            <EntityTypeMapping TypeName="webstoreModel.tblFicha">
-              <MappingFragment StoreEntitySet="tblFicha">
-                <ScalarProperty Name="strNoInclude" ColumnName="strNoInclude" />
-                <ScalarProperty Name="strInclude" ColumnName="strInclude" />
-                <ScalarProperty Name="intCircuitBreakTemp" ColumnName="intCircuitBreakTemp" />
-                <ScalarProperty Name="intWorkTemp" ColumnName="intWorkTemp" />
-                <ScalarProperty Name="strCountry" ColumnName="strCountry" />
-                <ScalarProperty Name="strType" ColumnName="strType" />
-                <ScalarProperty Name="intDiameter" ColumnName="intDiameter" />
-                <ScalarProperty Name="strBodyCovert" ColumnName="strBodyCovert" />
-                <ScalarProperty Name="strBody" ColumnName="strBody" />
-                <ScalarProperty Name="intModule" ColumnName="intModule" />
-                <ScalarProperty Name="strPoles" ColumnName="strPoles" />
-                <ScalarProperty Name="intCRI" ColumnName="intCRI" />
-                <ScalarProperty Name="strSocket" ColumnName="strSocket" />
-                <ScalarProperty Name="intPF" ColumnName="intPF" />
-                <ScalarProperty Name="intAmpers" ColumnName="intAmpers" />
-                <ScalarProperty Name="strInstalation" ColumnName="strInstalation" />
-                <ScalarProperty Name="strColor" ColumnName="strColor" />
-                <ScalarProperty Name="strAutonomy" ColumnName="strAutonomy" />
-                <ScalarProperty Name="strWarranty" ColumnName="strWarranty" />
-                <ScalarProperty Name="intPir" ColumnName="intPir" />
-                <ScalarProperty Name="strBatery" ColumnName="strBatery" />
-                <ScalarProperty Name="strSolarPanel" ColumnName="strSolarPanel" />
-                <ScalarProperty Name="strLightType" ColumnName="strLightType" />
-                <ScalarProperty Name="intLightAngle" ColumnName="intLightAngle" />
-                <ScalarProperty Name="intIk" ColumnName="intIk" />
-                <ScalarProperty Name="intIp" ColumnName="intIp" />
-                <ScalarProperty Name="strCertification" ColumnName="strCertification" />
-                <ScalarProperty Name="strLHM" ColumnName="strLHM" />
-                <ScalarProperty Name="intWeight" ColumnName="intWeight" />
-                <ScalarProperty Name="intVoltage" ColumnName="intVoltage" />
-                <ScalarProperty Name="strLifespan" ColumnName="strLifespan" />
-                <ScalarProperty Name="intLumWatts" ColumnName="intLumWatts" />
-                <ScalarProperty Name="intColorTemp" ColumnName="intColorTemp" />
-                <ScalarProperty Name="strPotencia" ColumnName="strPotencia" />
-                <ScalarProperty Name="idFicha" ColumnName="idFicha" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="tblOffert">
             <EntityTypeMapping TypeName="webstoreModel.tblOffert">
               <MappingFragment StoreEntitySet="tblOffert">
@@ -1236,6 +1175,54 @@
                 <ScalarProperty Name="refProd" ColumnName="refProd" />
                 <ScalarProperty Name="refBrand" ColumnName="refBrand" />
                 <ScalarProperty Name="idRelation" ColumnName="idRelation" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblFicha">
+            <EntityTypeMapping TypeName="webstoreModel.tblFicha">
+              <MappingFragment StoreEntitySet="tblFicha">
+                <ScalarProperty Name="strBrand" ColumnName="strBrand" />
+                <ScalarProperty Name="strFrequency" ColumnName="strFrequency" />
+                <ScalarProperty Name="strFicha" ColumnName="strFicha" />
+                <ScalarProperty Name="strDs43" ColumnName="strDs43" />
+                <ScalarProperty Name="strSec" ColumnName="strSec" />
+                <ScalarProperty Name="refCodProd" ColumnName="refCodProd" />
+                <ScalarProperty Name="intNew" ColumnName="intNew" />
+                <ScalarProperty Name="strNoInclude" ColumnName="strNoInclude" />
+                <ScalarProperty Name="strInclude" ColumnName="strInclude" />
+                <ScalarProperty Name="intCircuitBreakTemp" ColumnName="intCircuitBreakTemp" />
+                <ScalarProperty Name="intWorkTemp" ColumnName="intWorkTemp" />
+                <ScalarProperty Name="strCountry" ColumnName="strCountry" />
+                <ScalarProperty Name="strType" ColumnName="strType" />
+                <ScalarProperty Name="intDiameter" ColumnName="intDiameter" />
+                <ScalarProperty Name="strBodyCovert" ColumnName="strBodyCovert" />
+                <ScalarProperty Name="strBody" ColumnName="strBody" />
+                <ScalarProperty Name="intModule" ColumnName="intModule" />
+                <ScalarProperty Name="strPoles" ColumnName="strPoles" />
+                <ScalarProperty Name="intCRI" ColumnName="intCRI" />
+                <ScalarProperty Name="strSocket" ColumnName="strSocket" />
+                <ScalarProperty Name="intPF" ColumnName="intPF" />
+                <ScalarProperty Name="intAmpers" ColumnName="intAmpers" />
+                <ScalarProperty Name="strInstalation" ColumnName="strInstalation" />
+                <ScalarProperty Name="strColor" ColumnName="strColor" />
+                <ScalarProperty Name="strAutonomy" ColumnName="strAutonomy" />
+                <ScalarProperty Name="strWarranty" ColumnName="strWarranty" />
+                <ScalarProperty Name="intPir" ColumnName="intPir" />
+                <ScalarProperty Name="strBatery" ColumnName="strBatery" />
+                <ScalarProperty Name="strSolarPanel" ColumnName="strSolarPanel" />
+                <ScalarProperty Name="strLightType" ColumnName="strLightType" />
+                <ScalarProperty Name="intLightAngle" ColumnName="intLightAngle" />
+                <ScalarProperty Name="intIk" ColumnName="intIk" />
+                <ScalarProperty Name="intIp" ColumnName="intIp" />
+                <ScalarProperty Name="strCertification" ColumnName="strCertification" />
+                <ScalarProperty Name="strLHW" ColumnName="strLHW" />
+                <ScalarProperty Name="intWeight" ColumnName="intWeight" />
+                <ScalarProperty Name="intVoltage" ColumnName="intVoltage" />
+                <ScalarProperty Name="strLifespan" ColumnName="strLifespan" />
+                <ScalarProperty Name="intLumWatts" ColumnName="intLumWatts" />
+                <ScalarProperty Name="intColorTemp" ColumnName="intColorTemp" />
+                <ScalarProperty Name="strPotencia" ColumnName="strPotencia" />
+                <ScalarProperty Name="idFicha" ColumnName="idFicha" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -1,4 +1,4 @@
-﻿@model IEnumerable<WebStore.Models.Products>
+﻿@model IEnumerable<WebStore.Models.ProductsSingle>
 
 @section MetaContent{
     <meta name="keywords" content="shop, e-commerce, modern, flat style, responsive, online store, business, mobile, blog, bootstrap 4, html5, css3, jquery, js, gallery, slider, touch, creative, clean">
@@ -49,7 +49,7 @@
                         <ul class="mg-product-thumbnails owl-thumbs" data-slider-id="1">
                             <li class="owl-thumb-item">
                                 <a id="carousel-selector-0">
-                                    <img src="~/Content/img/products/@item.strCodigo-1.png" alt="@item.strNombre">
+                                    <img src="~/Content/img/products/@item.strCodigo-1.jpg" alt="@item.strNombre">
                                 </a>
                             </li>
                             <li class="owl-thumb-item">
@@ -70,7 +70,14 @@
                                     </a>
                                 </li>
                             }
-
+                            @if (item.Ficha.Select(x => x.strSec).FirstOrDefault())
+                            {
+                                <li class="owl-thumb-item">
+                                    <a id="carousel-selector-4">
+                                        <img src="~/Content/img/qr/@(item.Ficha.Select(x=>x.strBrand).FirstOrDefault())-sec.jpg" alt="@item.strNombre">
+                                    </a>
+                                </li>
+                            }
                         </ul>
                     </div>
                     <div class="col-md-9">
@@ -83,7 +90,7 @@
                                 <div class="owl-stage-outer">
                                     <div class="owl-stage">
                                         <div class="owl-item" data-hash="one">
-                                            <img class="img-fluid" src="~/Content/img/products/@item.strCodigo-1.png" alt="@item.strNombre">
+                                            <img class="img-fluid" src="~/Content/img/products/@item.strCodigo-1.jpg" alt="@item.strNombre">
                                         </div>
                                         <div class="owl-item" data-hash="two">
                                             <img class="img-fluid" src="~/Content/img/products/@item.strCodigo-2.jpg" alt="@item.strNombre">
@@ -95,6 +102,12 @@
                                         {
                                             <div class="owl-item" data-hash="four">
                                                 <img class="img-fluid" src="~/Content/img/products/@item.strCodigo-4.jpg" alt="@item.strNombre">
+                                            </div>
+                                        }
+                                        @if (item.Ficha.Select(x => x.strSec).FirstOrDefault())
+                                        {
+                                            <div class="owl-item" data-hash="five">
+                                                <img class="img-fluid" src="~/Content/img/qr/@(item.Ficha.Select(x=>x.strBrand).FirstOrDefault())-sec.jpg" alt="@item.strNombre">
                                             </div>
                                         }
                                     </div>
@@ -270,42 +283,179 @@
 <div class="bg-secondary padding-top-3x padding-bottom-2x mb-3" id="details">
     <div class="container">
         <div class="row">
-            <div class="col-md-6">
-                <h3 class="h4">Detalles y Uso</h3>
-                <p class="mb-4">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                    incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                    ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
-                    voluptate velit esse cillum dolore eu fugiat.
-                </p>
-                <h3 class="h4">Garantía</h3>
-                <ul class="list-icon mb-4">
-                    <li><i class="fas fa-check text-success"></i>Marca Gewiss</li>
-                    <li><i class="fas fa-check text-success"></i>Garantía 5 años</li>
-                    <li><i class="fas fa-check text-success"></i>Certificación CE, Crx, Rosh</li>
-                </ul>
-            </div>
+            @foreach (var i in Model)
+            {
+                if (i.Ficha.Any())
+                {
+                    foreach (var f in i.Ficha)
+                    {
+                        <div class="col-md-6">
+                            <h3 class="h4">@WebStore.Resources.Titles.DetailsUse</h3>
+                            <p class="mb-4">
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+                                incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+                                ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
+                                voluptate velit esse cillum dolore eu fugiat.
+                            </p>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <a class="text-orangered text-sm" href="javascript:void(0);">@WebStore.Resources.Ficha.Ds43</a>
+                                </div>
+                                <div class="col-md-4">
+                                    <a class="text-orangered text-sm" href="javascript:void(0);">@WebStore.Resources.Ficha.Sec</a>
+                                </div>
+                                <div class="col-md-4">
+                                    <a class="text-orangered text-sm" href="@Url.Action("GetPdf", "Downloads", new { filename = f.refCodProd})" target="_blank">@WebStore.Resources.Ficha.Sheet</a>
+                                </div>
+                            </div>
+                            <div class="block-separator"></div>
+                            <h3 class="h4">@WebStore.Resources.Titles.Warranty</h3>
+                            <ul class="list-icon mb-4">
+                                <li><i class="fas fa-check text-success"></i>@WebStore.Resources.Ficha.Brand: @f.strBrand</li>
+                                <li><i class="fas fa-check text-success"></i>@WebStore.Resources.Ficha.Country: @f.strCountry</li>
+                                <li><i class="fas fa-check text-success"></i>@WebStore.Resources.Ficha.Warranty: @f.strWarranty @(Int32.Parse(f.strWarranty) > 1 ? WebStore.Resources.Ficha.Years : WebStore.Resources.Ficha.Year)</li>
+                                <li><i class="fas fa-check text-success"></i>@WebStore.Resources.Ficha.Certification: <span class="text-uppercase">@f.strCertification</span></li>
+                            </ul>
+                        </div>
 
-            <div class="col-md-6">
-                <h3 class="h4">Especificaciones</h3>
-                <ul class="list-unstyled mb-4">
-                    <li><strong>Potencia:</strong> 50w</li>
-                    <li><strong>Temperatura de Luz (CCT°):</strong> 3000 °K</li>
-                    <li><strong>Lúmenes:</strong> 800Lm </li>
-                    <li><strong>Vida útil:</strong> > 25.000 horas</li>
-                    <li><strong>Voltaje:</strong> 120V </li>
-                    <li><strong>Índice de protección:</strong> IP 65 </li>
-                    <li><strong>Resistencia a impactos:</strong> IK 10</li>
-                    <li><strong>Ángulo de luz:</strong> 120° </li>
-                    <li><strong>Instalación:</strong> Sobrepuesto </li>
-                    <li><strong>Tipo:</strong> Opcional</li>
-                </ul>
-                <h3 class="h4">Información del envío</h3>
-                <ul class="list-unstyled mb-4">
-                    <li><strong>Peso:</strong> 20kg </li>
-                    <li><strong>Dimenciones:</strong> 5L x 5H x 5W</li>
-                </ul>
-            </div>
+                        <div class="col-md-6">
+                            <h3 class="h4">@WebStore.Resources.Titles.Specifications</h3>
+                            <ul class="list-unstyled mb-4">
+                                @if (f.strPotencia != null)
+                                {
+                                    <li><strong>@WebStore.Resources.Ficha.Power:</strong> @(f.strPotencia)w</li>
+                                }
+                                @if (f.intColorTemp != null)
+                                {
+                                    <li><strong>@WebStore.Resources.Ficha.ColorLight:</strong> @f.intColorTemp °K</li>
+                                }
+                                @if (f.intVoltage != null)
+                                {
+                                    <li><strong>@WebStore.Resources.Ficha.V:</strong> @(f.intVoltage)V </li>
+                                }
+                                @if (f.intAmpers != null)
+                                {
+                                    <li><strong>@WebStore.Resources.Ficha.Ampers:</strong> @(f.intAmpers)A </li>
+                                }
+                                @if (f.strFrequency != null)
+                                {
+                                    <li><strong>@WebStore.Resources.Ficha.Frequency:</strong> @(f.strFrequency)Hz </li>
+                                }
+                                @if (f.strLightType != null)
+                                {
+                                    <li><strong>@WebStore.Resources.Ficha.LightType:</strong> @(f.strLightType) </li>
+                                }
+                                @if (f.intPF != null)
+                                {
+                                    <li><strong>@WebStore.Resources.Ficha.PF:</strong> >@(f.intPF) </li>
+                                }
+                                @if (f.intLightAngle != null)
+                                {
+                                    <li><strong>@WebStore.Resources.Ficha.LightAngle:</strong> @f.intLightAngle </li>
+                                }
+                                @if (f.intLumWatts != null)
+                                {
+                                    <li><strong>@WebStore.Resources.Ficha.LumWatts:</strong> @(f.intLumWatts)Lm/w </li>
+                                }
+                                @if (f.intCRI != null)
+                                {
+                                    <li><strong>@WebStore.Resources.Ficha.CRI:</strong>CRI > @(f.intCRI) </li>
+                                }
+                                @if (f.intWorkTemp != null)
+                                {
+                                    <li><strong>@WebStore.Resources.Ficha.WorkTemp:</strong> @(f.intWorkTemp) </li>
+                                }
+                                @if (f.intCircuitBreakTemp != null)
+                                {
+                                    <li><strong>@WebStore.Resources.Ficha.CircuitTemp:</strong> @f.intCircuitBreakTemp</li>
+                                }
+                                @if (f.strSolarPanel != null)
+                                {
+                                    <li><strong>@WebStore.Resources.Ficha.SolarPanel:</strong> @(f.strSolarPanel) </li>
+                                }
+                                @if (f.strBatery != null)
+                                {
+                                    <li><strong>@WebStore.Resources.Ficha.Batery:</strong> @f.strBatery </li>
+                                }
+                                @if (f.strAutonomy != null)
+                                {
+                                    <li><strong>@WebStore.Resources.Ficha.Autonomy:</strong> @(f.strAutonomy) @(Int32.Parse(f.strAutonomy) > 1 ? WebStore.Resources.Ficha.Hours : WebStore.Resources.Ficha.Hour)</li>
+                                }
+                                @if (f.intPir != null)
+                                {
+                                    <li><strong>@WebStore.Resources.Ficha.Pir:</strong> @(f.intPir) </li>
+                                }
+                                @if (f.strSocket != null)
+                                {
+                                    <li><strong>@WebStore.Resources.Ficha.Socket:</strong> @(f.strSocket) </li>
+                                }
+                                @if (f.strPoles != null)
+                                {
+                                    <li><strong>@WebStore.Resources.Ficha.Poles:</strong> @(f.strPoles) </li>
+                                }
+                                @if (f.intModule != null)
+                                {
+                                    <li><strong>@WebStore.Resources.Ficha.Modules:</strong> @(f.intModule) </li>
+                                }
+                                @if (f.strLifespan != null)
+                                {
+                                    <li><strong>@WebStore.Resources.Ficha.Life:</strong> > @f.strLifespan @WebStore.Resources.Ficha.Hours</li>
+                                }
+                                @if (f.intIp != null)
+                                {
+                                    <li><strong>@WebStore.Resources.Ficha.IP:</strong> IP @f.intIp </li>
+                                }
+                                @if (f.intIk != null)
+                                {
+                                    <li><strong>@WebStore.Resources.Ficha.IK:</strong> IK @f.intIk</li>
+                                }
+                                @if (f.strColor != null)
+                                {
+                                    <li><strong>@WebStore.Resources.Ficha.Color:</strong> @WebStore.Resources.Colors.ResourceManager.GetString(f.strColor)</li>
+                                }
+                                @if (f.strBody != null)
+                                {
+                                    <li><strong>@WebStore.Resources.Ficha.Body:</strong> @WebStore.Resources.Materials.ResourceManager.GetString(f.strBody)</li>
+                                }
+                                @if (f.strInstalation != null)
+                                {
+                                    <li><strong>@WebStore.Resources.Ficha.Instalation:</strong> @WebStore.Resources.Texts.ResourceManager.GetString(f.strInstalation) </li>
+                                }
+                                @if (f.strInclude != null)
+                                {
+                                    <li><strong>@WebStore.Resources.Ficha.Include:</strong> @(f.strInclude) </li>
+                                }
+                                @if (f.strNoInclude != null)
+                                {
+                                    <li><strong>@WebStore.Resources.Ficha.NoInclude:</strong> @(f.strNoInclude) </li>
+                                }
+                                @if (f.strType != null)
+                                {
+                                    <li><strong>@WebStore.Resources.Ficha.Type:</strong> @f.strType</li>
+                                }
+
+                            </ul>
+                            <h3 class="h4">@WebStore.Resources.Titles.ShippingInfo</h3>
+                            <ul class="list-unstyled mb-4">
+                                @if (f.intWeight != null)
+                                {
+                                    <li><strong>@WebStore.Resources.Ficha.Weight:</strong> @(f.intWeight)kg </li>
+                                }
+                                @if (f.strLHW != null)
+                                {
+                                    <li><strong>@WebStore.Resources.Ficha.LHW:</strong> @f.strLHW</li>
+                                }
+                                @if (f.intDiameter != null)
+                                {
+                                    <li><strong>@WebStore.Resources.Ficha.Diameter:</strong> @f.intDiameter</li>
+                                }
+
+                            </ul>
+                        </div>
+                    }
+                }
+            }
+
         </div>
     </div>
 </div>

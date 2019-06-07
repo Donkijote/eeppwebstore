@@ -22,14 +22,14 @@ namespace WebStore.Resources {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class Texts {
+    public class Colors {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal Texts() {
+        internal Colors() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace WebStore.Resources {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("WebStore.Resources.Texts", typeof(Texts).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("WebStore.Resources.Colors", typeof(Colors).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,74 +61,65 @@ namespace WebStore.Resources {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Best Rated.
+        ///   Busca una cadena traducida similar a Black.
         /// </summary>
-        public static string BestRated {
+        public static string Black {
             get {
-                return ResourceManager.GetString("BestRated", resourceCulture);
+                return ResourceManager.GetString("Black", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a High - Low Price.
+        ///   Busca una cadena traducida similar a Blue.
         /// </summary>
-        public static string HighLow {
+        public static string Blue {
             get {
-                return ResourceManager.GetString("HighLow", resourceCulture);
+                return ResourceManager.GetString("Blue", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Loading....
+        ///   Busca una cadena traducida similar a Green.
         /// </summary>
-        public static string Loading {
+        public static string Green {
             get {
-                return ResourceManager.GetString("Loading", resourceCulture);
+                return ResourceManager.GetString("Green", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Low - High Price.
+        ///   Busca una cadena traducida similar a Red.
         /// </summary>
-        public static string LowHigh {
+        public static string Red {
             get {
-                return ResourceManager.GetString("LowHigh", resourceCulture);
+                return ResourceManager.GetString("Red", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Open Air.
+        ///   Busca una cadena traducida similar a Type.
         /// </summary>
-        public static string Openair {
+        public static string Type {
             get {
-                return ResourceManager.GetString("Openair", resourceCulture);
+                return ResourceManager.GetString("Type", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Quantity.
+        ///   Busca una cadena traducida similar a White.
         /// </summary>
-        public static string Quantity {
+        public static string White {
             get {
-                return ResourceManager.GetString("Quantity", resourceCulture);
+                return ResourceManager.GetString("White", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Showing:.
+        ///   Busca una cadena traducida similar a Yellow.
         /// </summary>
-        public static string Showing {
+        public static string Yellow {
             get {
-                return ResourceManager.GetString("Showing", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Sort By:.
-        /// </summary>
-        public static string Sort {
-            get {
-                return ResourceManager.GetString("Sort", resourceCulture);
+                return ResourceManager.GetString("Yellow", resourceCulture);
             }
         }
     }

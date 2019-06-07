@@ -20,7 +20,7 @@
                                         </div>
                                         <a class="btn btn-orangered scale-up delay-1" href="@Url.Action("s","Categories", new { id = p.categorySeo, idp = p.strCodigo, language = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName})">@WebStore.Resources.Buttons.ViewOffers&nbsp;<i class="icon-arrow-right"></i></a>
                                     </div>
-                                    <div class="col-md-6 padding-bottom-2x mb-3"><img class="d-block mx-auto" style="max-width:400px;" src="~/Content/img/products/@p.strCodigo-1.png" alt="@p.strNombre"></div>
+                                    <div class="col-md-6 padding-bottom-2x mb-3"><img class="d-block mx-auto" style="max-width:400px;" src="~/Content/img/carouselOffers/@(p.strCodigo).png" alt="@p.strNombre"></div>
                                 </div>
                             </div>
                         </div>
