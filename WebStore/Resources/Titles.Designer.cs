@@ -97,7 +97,7 @@ namespace WebStore.Resources {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Our Brands.
+        ///   Busca una cadena traducida similar a Authorized Dealer.
         /// </summary>
         public static string Brands {
             get {
