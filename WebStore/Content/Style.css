@@ -810,12 +810,19 @@ html * {
 /*#endregion*/
 /*#region Navbar */
 .navbar {
-  top: inherit;
-  border-bottom: 1px solid #e5e5e5;
+  position: relative;
+  top: 0;
+  left: 0;
+  -webkit-box-align: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  height: 80px;
   width: 100%;
-  padding: 0;
-  transition: -webkit-transform .4s ease-in-out, background-color .2s;
-  transition: transform .4s ease-in-out, background-color .2s;
+  -webkit-transition: height .4s, line-height .4s, background-color .2s;
+  transition: height .4s, line-height .4s, background-color .2s;
   z-index: 20; }
   .navbar.mg-big-screen {
     /*#region Searcher */
@@ -845,9 +852,84 @@ html * {
       top: 0;
       z-index: 10; }
     .navbar.mg-big-screen.navbar-stuck {
-      position: fixed;
       box-shadow: 0 3px 25px 0 rgba(47, 56, 68, 0.22);
+      height: 50px;
       z-index: 20; }
+      .navbar.mg-big-screen.navbar-stuck .navbar-collapse .mg-search-wrapper {
+        top: -20px; }
+        .navbar.mg-big-screen.navbar-stuck .navbar-collapse .mg-search-wrapper .mg-site-search input {
+          padding: 12px; }
+        .navbar.mg-big-screen.navbar-stuck .navbar-collapse .mg-search-wrapper .mg-site-search .mg-search-tools {
+          right: 40px;
+          margin-top: -10px; }
+          .navbar.mg-big-screen.navbar-stuck .navbar-collapse .mg-search-wrapper .mg-site-search .mg-search-tools .mg-clear-search {
+            padding: 0; }
+      .navbar.mg-big-screen.navbar-stuck.scrolled {
+        top: 0;
+        border-bottom: 0px;
+        background-color: #ff7f40;
+        /**
+            .mg-site-search {
+                bottom: 6px;
+                right: -6%;
+
+                &.in-view {
+                    width: 107%;
+                }
+
+                input {
+                    padding: 14px;
+                }
+
+                .form-control {
+                    &:focus {
+                        border-color: #FFFFFF;
+                        /*background-color: rgba(255,255,255,0.02);
+                        box-shadow: 0px 0px 15px 3px rgba(255, 255, 255, 0.4);
+                    }
+                }
+            }*/ }
+        .navbar.mg-big-screen.navbar-stuck.scrolled .navbar-nav .nav-item {
+          background-color: transparent; }
+          .navbar.mg-big-screen.navbar-stuck.scrolled .navbar-nav .nav-item a {
+            color: white; }
+            .navbar.mg-big-screen.navbar-stuck.scrolled .navbar-nav .nav-item a h6 {
+              color: orangered !important; }
+            .navbar.mg-big-screen.navbar-stuck.scrolled .navbar-nav .nav-item a.text-orangered {
+              color: orangered !important; }
+              .navbar.mg-big-screen.navbar-stuck.scrolled .navbar-nav .nav-item a.text-orangered:hover {
+                color: #e43f00 !important; }
+          .navbar.mg-big-screen.navbar-stuck.scrolled .navbar-nav .nav-item:hover a {
+            color: rgba(255, 255, 255, 0.7); }
+          .navbar.mg-big-screen.navbar-stuck.scrolled .navbar-nav .nav-item:hover .mg-link-menu::after {
+            width: 100%; }
+          .navbar.mg-big-screen.navbar-stuck.scrolled .navbar-nav .nav-item .mg-link-menu::after {
+            content: '';
+            display: block;
+            width: 0;
+            height: 2px;
+            background: rgba(255, 255, 255, 0.7);
+            transition: width .3s; }
+        .navbar.mg-big-screen.navbar-stuck.scrolled .mg-container-logo .navbar-brand .mg-logo-img img {
+          height: 40px; }
+        .navbar.mg-big-screen.navbar-stuck.scrolled .mg-container-logo .navbar-brand .mg-logo-img i {
+          height: 40px;
+          font-size: 40px;
+          color: #FFFFFF; }
+        .navbar.mg-big-screen.navbar-stuck.scrolled .mg-container-logo .navbar-brand .mg-logo-title {
+          color: white; }
+          @media (max-width: 768px) {
+            .navbar.mg-big-screen.navbar-stuck.scrolled .mg-container-logo .navbar-brand .mg-logo-title .mg-logo-title {
+              display: none; } }
+          .navbar.mg-big-screen.navbar-stuck.scrolled .mg-container-logo .navbar-brand .mg-logo-title i {
+            height: 30px;
+            font-size: 30px;
+            color: white; }
+        .navbar.mg-big-screen.navbar-stuck.scrolled .navbar-toggler {
+          color: rgba(255, 255, 255, 0.5);
+          font-size: 25px;
+          border-radius: 0px;
+          padding: 0; }
     .navbar.mg-big-screen .navbar-nav .nav-item {
       padding: 20px;
       cursor: pointer;
@@ -1373,81 +1455,19 @@ html * {
         background-color: #fff;
         height: 100vh;
         box-shadow: 0 0 0 0; }
-  .navbar.navbar-sticky.scrolled {
-    top: 0;
-    border-bottom: 0px;
-    background-color: #ff7f40;
-    /**
-            .mg-site-search {
-                bottom: 6px;
-                right: -6%;
-
-                &.in-view {
-                    width: 107%;
-                }
-
-                input {
-                    padding: 14px;
-                }
-
-                .form-control {
-                    &:focus {
-                        border-color: #FFFFFF;
-                        /*background-color: rgba(255,255,255,0.02);
-                        box-shadow: 0px 0px 15px 3px rgba(255, 255, 255, 0.4);
-                    }
-                }
-            }*/ }
-    .navbar.navbar-sticky.scrolled .navbar-nav .nav-item {
-      background-color: transparent; }
-      .navbar.navbar-sticky.scrolled .navbar-nav .nav-item a {
-        color: white; }
-        .navbar.navbar-sticky.scrolled .navbar-nav .nav-item a h6 {
-          color: orangered !important; }
-        .navbar.navbar-sticky.scrolled .navbar-nav .nav-item a.text-orangered {
-          color: orangered !important; }
-          .navbar.navbar-sticky.scrolled .navbar-nav .nav-item a.text-orangered:hover {
-            color: #e43f00 !important; }
-      .navbar.navbar-sticky.scrolled .navbar-nav .nav-item:hover a {
-        color: rgba(255, 255, 255, 0.7); }
-      .navbar.navbar-sticky.scrolled .navbar-nav .nav-item:hover .mg-link-menu::after {
-        width: 100%; }
-      .navbar.navbar-sticky.scrolled .navbar-nav .nav-item .mg-link-menu::after {
-        content: '';
-        display: block;
-        width: 0;
-        height: 2px;
-        background: rgba(255, 255, 255, 0.7);
-        transition: width .3s; }
-    .navbar.navbar-sticky.scrolled .mg-container-logo .navbar-brand .mg-logo-img img {
-      height: 40px; }
-    .navbar.navbar-sticky.scrolled .mg-container-logo .navbar-brand .mg-logo-img i {
-      height: 40px;
-      font-size: 40px;
-      color: #FFFFFF; }
-    .navbar.navbar-sticky.scrolled .mg-container-logo .navbar-brand .mg-logo-title {
-      color: white; }
-      @media (max-width: 768px) {
-        .navbar.navbar-sticky.scrolled .mg-container-logo .navbar-brand .mg-logo-title .mg-logo-title {
-          display: none; } }
-      .navbar.navbar-sticky.scrolled .mg-container-logo .navbar-brand .mg-logo-title i {
-        height: 30px;
-        font-size: 30px;
-        color: white; }
-    .navbar.navbar-sticky.scrolled .navbar-toggler {
-      color: rgba(255, 255, 255, 0.5);
-      font-size: 25px;
-      border-radius: 0px;
-      padding: 0; }
+  .navbar.navbar-sticky {
+    position: fixed; }
+    .navbar.navbar-sticky + * {
+      margin-top: 80px; }
 
 /*#endregion */
 /*#region Headers*/
 .header {
   width: 100%;
-  margin-top: 0;
+  margin-top: 80px;
   margin-bottom: 60px;
-  padding: 36px 0;
-  background-color: #fff;
+  padding: 50px 0;
+  background-color: #f5f5f5;
   box-shadow: 0 25px 30px -14px rgba(0, 0, 0, 0.12); }
   .header h1, .header h2, .header h3 {
     margin: 0;
@@ -2449,6 +2469,8 @@ button {
   background-size: cover;
   box-shadow: 0 7px 30px -6px rgba(0, 0, 0, 0.15);
   overflow: hidden; }
+  .header-carousel .owl-carousel {
+    margin-top: 80px; }
 
 @media (max-width: 768px) {
   .carousel-control-prev,
@@ -4564,9 +4586,9 @@ button.bg-secondary:focus, button.bg-secondary:hover {
     width: 300px; }
   .mg-index-rota-img {
     max-width: 300px;
-    top: -150px;
-    right: 25%;
-    transform: translateX(25%); }
+    top: -40px;
+    right: 50%;
+    transform: translateX(50%); }
   .mg-product-card {
     border-radius: 0px; }
     .mg-product-card .mg-product-badge {

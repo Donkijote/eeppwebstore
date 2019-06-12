@@ -404,12 +404,20 @@
         display: none;
     }
 
-    .wizard > .steps a, .wizard > .steps a:hover, .wizard > .steps a:active {
-        display: block;
-        width: auto;
-        margin: 0;
-        margin-top: 12px;
-        padding: 0.2em 1em;
+    .wizard {
+        .steps {
+            ul {
+                li {
+                    a, a:hover, a:active {
+                        display: block;
+                        width: auto;
+                        margin: 0;
+                        margin-top: 12px;
+                        padding: 0.2em 1em;
+                    }
+                }
+            }
+        }
     }
 
     .wizard > .steps > ul {
@@ -464,8 +472,8 @@
         content: '\f00c';
         font-family: 'Font Awesome 5 Free';
         font-weight: 900;
-        background-color: #9dc8e2;
-        border-color: #9dc8e2;
+        background-color: #28a745;
+        border-color: #28a745;
         color: #fff;
     }
 }

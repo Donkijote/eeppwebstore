@@ -275,7 +275,7 @@
 @media (max-width: 991px) {
   .wizard > .steps .number, .wizard > .steps .step-Title, .wizard > .steps .fas {
     display: none; }
-  .wizard > .steps a, .wizard > .steps a:hover, .wizard > .steps a:active {
+  .wizard .steps ul li a, .wizard .steps ul li a:hover, .wizard .steps ul li a:active {
     display: block;
     width: auto;
     margin: 0;
@@ -319,6 +319,6 @@
     content: '\f00c';
     font-family: 'Font Awesome 5 Free';
     font-weight: 900;
-    background-color: #9dc8e2;
-    border-color: #9dc8e2;
+    background-color: #28a745;
+    border-color: #28a745;
     color: #fff; } }

@@ -163,6 +163,23 @@ $.AdminJs.addAddress = {
     }
 }
 
+$.AdminJs.cart = {
+    active: function () {
+        $('.remove-from-cart').on('click', function () {
+            $(this).parents('tr')
+                .children('td, th')
+                .animate({
+                    padding: 0
+                })
+                .wrapInner('<div />')
+                .children()
+                .slideUp(function () {
+                    $(this).closest('tr').remove();
+                });
+        })
+    }
+}
+
 $(function () {
 	//$.AdminJs.input.activate();
 	$.AdminJs.totop.activate();
@@ -177,15 +194,6 @@ $(function () {
     $('[data-toggle="popover"]').popover();
 
     new WOW().init();
-
-    
-    /*setTimeout(function () {
-        $('.page-loader-wrapper').fadeOut('slow', function () {
-            $('body').css({
-                overflow: 'auto'
-            });
-        });
-    }, 5000);*/
 
 });
 
@@ -213,7 +221,8 @@ $.AdminJs.navBar = {
 		if ($nav.offset().top > 40) {
 			$nav.toggleClass('scrolled');
 			$nav.toggleClass('navbar-stuck');
-		}
+        }
+
 		$(document).scroll(function () {
             var $nav = $(".navbar-sticky.mg-big-screen");
 			$nav.toggleClass('scrolled', $(this).scrollTop() > 40);
@@ -254,6 +263,10 @@ $.AdminJs.navBar = {
             $('#profileMenuMobile').toggleClass('open');
             $('body').toggleClass('modal-open');
         })
+
+        $('.mg-clear-search').on('click', function () {
+            $('input[name="search"]').val('');
+        })
     },
     hideNav: function () {
         $("[data-nav-status='toggle']").removeClass("is-visible").addClass("is-hidden");
@@ -287,7 +300,18 @@ $.AdminJs.animateLinks = {
 					window.location.hash = hash;
 				});
 			}
-		});
+        });
+        $('.scroll-to').click(function (e) {
+            if (this.hash !== "") {
+                e.preventDefault();
+                var hash = this.hash;
+                $('html, body').animate({
+                    scrollTop: $(hash).offset().top - 50
+                }, 800, function () {
+                    window.location.hash = hash;
+                });
+            }
+        });
 	}
 }
 
@@ -464,8 +488,8 @@ function myAlert(x) {
 		message: x['message']
 	},
 		{
-			type: x['type'],
-			showProgressbar: false,
+            type: x['type'],
+            showProgressbar: false,
 			placement: {
 				from: x['from'],
 				align: x['align']

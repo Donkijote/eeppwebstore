@@ -49,12 +49,14 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
+                <tr >
                     <td>
                         <div class="product-item">
-                            <a class="product-thumb" href="shop-single.html"><img src="http://themes.rokaux.com/unishop/v3.0/template-3/img/shop/cart/01.jpg" alt="Product"></a>
+                            <a class="product-thumb" href="#">
+                            <img src="~/Content/img/products/25040806-1.jpg" alt="Product">
+                            </a>
                             <div class="product-info">
-                                <h4 class="product-title"><a href="shop-single.html">Canon EOS M50 Mirrorless Camera</a></h4><span><em>Type:</em> Mirrorless</span><span><em>Color:</em> Black</span>
+                                <h4 class="product-title"><a href="#">Proyector Bree 240w</a></h4><span><em>Type:</em> Mirrorless</span><span><em>Color:</em> Black</span>
                             </div>
                         </div>
                     </td>
@@ -80,9 +82,11 @@
                 <tr>
                     <td>
                         <div class="product-item">
-                            <a class="product-thumb" href="shop-single.html"><img src="http://themes.rokaux.com/unishop/v3.0/template-3/img/shop/cart/02.jpg" alt="Product"></a>
+                            <a class="product-thumb" href="#">
+                                <img src="~/Content/img/products/25040902-1.jpg" alt="Product">
+                            </a>
                             <div class="product-info">
-                                <h4 class="product-title"><a href="shop-single.html">Apple iPhone X 256 GB Space Gray</a></h4><span><em>Memory:</em> 256 GB</span><span><em>Color:</em> Space Gray</span>
+                                <h4 class="product-title"><a href="#">Proyector Bree 360w</a></h4><span><em>Memory:</em> 256 GB</span><span><em>Color:</em> Space Gray</span>
                             </div>
                         </div>
                     </td>
@@ -108,9 +112,11 @@
                 <tr>
                     <td>
                         <div class="product-item">
-                            <a class="product-thumb" href="shop-single.html"><img src="http://themes.rokaux.com/unishop/v3.0/template-3/img/shop/cart/03.jpg" alt="Product"></a>
+                            <a class="product-thumb" href="#">
+                                <img src="~/Content/img/products/25041002-1.jpg" alt="Product">
+                            </a>
                             <div class="product-info">
-                                <h4 class="product-title"><a href="shop-single.html">HP LaserJet Pro Laser Printer</a></h4><span><em>Type:</em> Laser</span><span><em>Color:</em> White</span>
+                                <h4 class="product-title"><a href="#">Proyector Bree 480w</a></h4><span><em>Type:</em> Laser</span><span><em>Color:</em> White</span>
                             </div>
                         </div>
                     </td>
@@ -334,4 +340,10 @@
         </div>
     </div>
 </div>
-
+@section Scripts{
+    <script type="text/javascript">
+        $(function(){
+            $.AdminJs.cart.active();
+        })
+    </script>    
+}

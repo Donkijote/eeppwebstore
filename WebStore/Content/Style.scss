@@ -150,12 +150,20 @@ html * {
 
 /*#region Navbar */
 .navbar {
-    top: inherit;
-    border-bottom: 1px solid #e5e5e5;
+    position: relative;
+    top: 0;
+    left: 0;
+    -webkit-box-align: stretch;
+    -ms-flex-align: stretch;
+    align-items: stretch;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    height: 80px;
     width: 100%;
-    padding: 0;
-    transition: -webkit-transform .4s ease-in-out, background-color .2s;
-    transition: transform .4s ease-in-out, background-color .2s;
+    -webkit-transition: height .4s, line-height .4s, background-color .2s;
+    transition: height .4s, line-height .4s, background-color .2s;
+    //box-shadow: 0 3px 25px 0 rgba(47,56,68,.22);
     z-index: 20;
 
     &.mg-big-screen {
@@ -193,9 +201,143 @@ html * {
         }
 
         &.navbar-stuck {
-            position: fixed;
             box-shadow: 0 3px 25px 0 rgba(47,56,68,0.22);
+            height: 50px;
             z-index: 20;
+
+            .navbar-collapse {
+
+                .mg-search-wrapper {
+                    top: -20px;
+
+                    .mg-site-search {
+
+                        input {
+                            padding: 12px;
+                        }
+
+                        .mg-search-tools {
+                            right: 40px;
+                            margin-top: -10px;
+
+                            .mg-clear-search {
+                                padding: 0;
+                            }
+                        }
+                    }
+                }
+            }
+
+            &.scrolled {
+                top: 0;
+                border-bottom: 0px;
+                background-color: #ff7f40;
+
+                .navbar-nav {
+                    .nav-item {
+                        background-color: transparent;
+
+                        a {
+                            color: rgb(255, 255, 255);
+
+                            h6 {
+                                color: orangered !important;
+                            }
+
+                            &.text-orangered {
+                                color: orangered !important;
+
+                                &:hover {
+                                    color: $orangeredHover !important;
+                                }
+                            }
+                        }
+
+                        &:hover {
+                            a {
+                                color: rgba(255, 255, 255, 0.7);
+                            }
+
+                            .mg-link-menu {
+                                &::after {
+                                    width: 100%;
+                                }
+                            }
+                        }
+
+                        .mg-link-menu {
+                            &::after {
+                                content: '';
+                                display: block;
+                                width: 0;
+                                height: 2px;
+                                background: rgba(255, 255, 255, 0.7);
+                                transition: width .3s;
+                            }
+                        }
+                    }
+                }
+
+                .mg-container-logo {
+                    .navbar-brand {
+
+                        .mg-logo-img {
+                            img {
+                                height: 40px;
+                            }
+
+                            i {
+                                height: 40px;
+                                font-size: 40px;
+                                color: #FFFFFF;
+                            }
+                        }
+
+                        .mg-logo-title {
+                            color: rgb(255, 255, 255);
+
+                            @media(max-width: 768px) {
+                                .mg-logo-title {
+                                    display: none;
+                                }
+                            }
+
+                            i {
+                                height: 30px;
+                                font-size: 30px;
+                                color: rgb(255, 255, 255);
+                            }
+                        }
+                    }
+                }
+                /**
+            .mg-site-search {
+                bottom: 6px;
+                right: -6%;
+
+                &.in-view {
+                    width: 107%;
+                }
+
+                input {
+                    padding: 14px;
+                }
+
+                .form-control {
+                    &:focus {
+                        border-color: #FFFFFF;
+                        /*background-color: rgba(255,255,255,0.02);
+                        box-shadow: 0px 0px 15px 3px rgba(255, 255, 255, 0.4);
+                    }
+                }
+            }*/
+                .navbar-toggler {
+                    color: rgba(255, 255, 255, .5);
+                    font-size: 25px;
+                    border-radius: 0px;
+                    padding: 0;
+                }
+            }
         }
 
         .navbar-nav {
@@ -637,7 +779,7 @@ html * {
             box-shadow: -15px 7px 30px -6px rgba(0,0,0,0.15);
             transition: all 0.5s ease-in-out;
 
-            @include respond-to(false, 991, landscape){
+            @include respond-to(false, 991, landscape) {
                 height: 100vh;
                 overflow: auto;
             }
@@ -964,115 +1106,10 @@ html * {
     }
 
     &.navbar-sticky {
-        &.scrolled {
-            top: 0;
-            border-bottom: 0px;
-            background-color: #ff7f40;
+        position: fixed;
 
-            .navbar-nav {
-                .nav-item {
-                    background-color: transparent;
-
-                    a {
-                        color: rgb(255, 255, 255);
-
-                        h6 {
-                            color: orangered !important;
-                        }
-
-                        &.text-orangered {
-                            color: orangered !important;
-
-                            &:hover {
-                                color: $orangeredHover !important;
-                            }
-                        }
-                    }
-
-                    &:hover {
-                        a {
-                            color: rgba(255, 255, 255, 0.7);
-                        }
-
-                        .mg-link-menu {
-                            &::after {
-                                width: 100%;
-                            }
-                        }
-                    }
-
-                    .mg-link-menu {
-                        &::after {
-                            content: '';
-                            display: block;
-                            width: 0;
-                            height: 2px;
-                            background: rgba(255, 255, 255, 0.7);
-                            transition: width .3s;
-                        }
-                    }
-                }
-            }
-
-            .mg-container-logo {
-                .navbar-brand {
-
-                    .mg-logo-img {
-                        img {
-                            height: 40px;
-                        }
-
-                        i {
-                            height: 40px;
-                            font-size: 40px;
-                            color: #FFFFFF;
-                        }
-                    }
-
-                    .mg-logo-title {
-                        color: rgb(255, 255, 255);
-
-                        @media(max-width: 768px) {
-                            .mg-logo-title {
-                                display: none;
-                            }
-                        }
-
-                        i {
-                            height: 30px;
-                            font-size: 30px;
-                            color: rgb(255, 255, 255);
-                        }
-                    }
-                }
-            }
-            /**
-            .mg-site-search {
-                bottom: 6px;
-                right: -6%;
-
-                &.in-view {
-                    width: 107%;
-                }
-
-                input {
-                    padding: 14px;
-                }
-
-                .form-control {
-                    &:focus {
-                        border-color: #FFFFFF;
-                        /*background-color: rgba(255,255,255,0.02);
-                        box-shadow: 0px 0px 15px 3px rgba(255, 255, 255, 0.4);
-                    }
-                }
-            }*/
-            .navbar-toggler {
-                color: rgba(255, 255, 255, .5);
-                font-size: 25px;
-                border-radius: 0px;
-                padding: 0;
-            }
+        + * {
+            margin-top: 80px;
         }
     }
 }
@@ -1081,13 +1118,13 @@ html * {
 /*#region Headers*/
 .header {
     width: 100%;
-    margin-top: 0;
+    margin-top: 80px;
     margin-bottom: 60px;
-    padding: 36px 0;
-    background-color: #fff;
+    padding: 50px 0;
+    background-color: #f5f5f5;
     box-shadow: 0 25px 30px -14px rgba(0, 0, 0, 0.12);
 
-    h1,h2,h3 {
+    h1, h2, h3 {
         margin: 0;
         font-size: 24px;
         font-weight: normal;
@@ -2583,6 +2620,10 @@ button {
     background-size: cover;
     box-shadow: 0 7px 30px -6px rgba(0,0,0,0.15);
     overflow: hidden;
+
+    .owl-carousel{
+        margin-top: 80px;
+    }
 }
 
 @media(max-width: 768px) {
@@ -5659,9 +5700,9 @@ button.bg-secondary:focus, button.bg-secondary:hover {
 
     .mg-index-rota-img {
         max-width: 300px;
-        top: -150px;
-        right: 25%;
-        transform: translateX(25%);
+        top: -40px;
+        right: 50%;
+        transform: translateX(50%);
     }
 
     .mg-product-card {
