@@ -246,6 +246,9 @@
   <data name="ViewOffers" xml:space="preserve">
     <value>View Offer</value>
   </data>
+  <data name="ViewProduct" xml:space="preserve">
+    <value>View Product</value>
+  </data>
   <data name="ViewProducts" xml:space="preserve">
     <value>View Products</value>
   </data>

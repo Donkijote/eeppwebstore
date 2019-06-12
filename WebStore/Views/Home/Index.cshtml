@@ -14,11 +14,14 @@
                             <div class="container padding-top-3x">
                                 <div class="row justify-content-center align-items-center">
                                     <div class="col-lg-5 col-md-6 padding-bottom-2x text-md-left text-center">
+                                        <div class="from-top">
+                                            <div class="display-4 mb-2 pt-1 text-capitalize text-danger font-weight-bold">¡Oferta Especial!</div>
+                                        </div>
                                         <div class="from-bottom">
                                             <div class="h2 text-body mb-2 pt-1 text-capitalize">@p.strNombre</div>
                                             <div class="h2 text-body mb-4 pb-1"><del class="text-muted h4">$@p.intPrecio</del><br /> <span class="h1">$@p.intPrecioOff</span><span class="text-success h4">@p.intPrecentOff DCTO</span></div>
                                         </div>
-                                        <a class="btn btn-orangered scale-up delay-1" href="@Url.Action("s","Categories", new { id = p.categorySeo, idp = p.strCodigo, language = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName})">@WebStore.Resources.Buttons.ViewOffers&nbsp;<i class="icon-arrow-right"></i></a>
+                                        <a class="btn btn-orangered scale-up delay-1" href="@Url.Action("s","Categories", new { id = p.categorySeo, idp = p.strCodigo, language = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName})">@WebStore.Resources.Buttons.ViewProduct</a>
                                     </div>
                                     <div class="col-md-6 padding-bottom-2x mb-3"><img class="d-block mx-auto" style="max-width:400px;" src="~/Content/img/carouselOffers/@(p.strCodigo).png" alt="@p.strNombre"></div>
                                 </div>
@@ -81,6 +84,10 @@
                 {
                     <div class="col-md-3 col-sm-6 col-6 element-item wow fadeInUp" data-wow-delay="@(count.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture))s">
                         <div class="mg-product-card mb-3">
+                            @if (item.intPrecioOff != "0")
+                            {
+                                <span class="mg-product-badge bg-success">Oferta</span>
+                            }
                             <div class="mg-product-wish bg-secondary" href="javascript:void(0);">
                                 <i></i>
                             </div>
@@ -386,7 +393,7 @@
                 <p class="text-muted margin-bottom-none">Crédito y débito</p>
             </div>
             <div class="col-md-3 col-sm-6 text-center mb-30 wow fadeInRight" data-wow-delay="1s">
-                <i class="fas fa-seedling fa-3x img-thumbnail mx-auto w-90 h-90 pt-4 mb-3 o-75"></i>
+                <i class="fas fa-coins fa-3x img-thumbnail mx-auto w-90 h-90 pt-4 mb-3 o-75"></i>
                 <h6>Precio mayorista</h6>
                 <p class="text-muted margin-bottom-none">Consulte por nuestros precios mayoristas para obtener mejores ofertas</p>
             </div>

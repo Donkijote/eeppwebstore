@@ -448,6 +448,15 @@ namespace WebStore.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a View Product.
+        /// </summary>
+        public static string ViewProduct {
+            get {
+                return ResourceManager.GetString("ViewProduct", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a View Products.
         /// </summary>
         public static string ViewProducts {
