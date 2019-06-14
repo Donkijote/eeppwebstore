@@ -771,7 +771,7 @@ html * {
         .menu {
             display: block;
             position: absolute;
-            top: 100%;
+            top: 0;
             left: -100%;
             width: 100%;
             padding-top: 15px;
@@ -1107,10 +1107,6 @@ html * {
 
     &.navbar-sticky {
         position: fixed;
-
-        + * {
-            margin-top: 80px;
-        }
     }
 }
 /*#endregion */
@@ -1123,6 +1119,10 @@ html * {
     padding: 50px 0;
     background-color: #f5f5f5;
     box-shadow: 0 25px 30px -14px rgba(0, 0, 0, 0.12);
+
+    @include respond-to(false, 991) {
+        margin-top: 0;
+    }
 
     h1, h2, h3 {
         margin: 0;
@@ -2623,6 +2623,10 @@ button {
 
     .owl-carousel{
         margin-top: 80px;
+
+        @include respond-to(false, 991){
+            margin-top: 0;
+        }
     }
 }
 
@@ -4147,7 +4151,7 @@ button {
 /*#region Profile*/
 .mg-profile {
     position: fixed;
-    top: 235px;
+    top: 100px;
     left: -300px;
     z-index: 9030;
     transition: left .4s ease-in-out;
@@ -4158,7 +4162,7 @@ button {
 
     .mg-profile-toggle {
         position: absolute;
-        top: 0;
+        top: 125px;
         right: -50px;
         width: 50px;
         height: 50px;
