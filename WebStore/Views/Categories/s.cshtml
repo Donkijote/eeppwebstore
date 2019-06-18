@@ -108,7 +108,7 @@
                                     <div class="mg-product-wish bg-secondary" href="javascript:void(0);">
                                         <i></i>
                                     </div>
-                                    <a class="mg-product-thumb" href="@Url.Action("s","Categories", new { id = Html.DisplayFor(modelItem => item.categorySeo), idp = Html.DisplayFor(modelItem => item.strCodigo), language=System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName })">
+                                    <a class="mg-product-thumb" href="@Url.Action("s","Categories", new { id = WebStore.Resources.Seo.ResourceManager.GetString(item.categorySeo), idp = item.strCodigo, language=System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName })">
                                         <img class="img-fuild" src="~/Content/img/products/@item.strCodigo-1.jpg"
                                              alt="Producto">
                                         
@@ -176,7 +176,7 @@
                                 <div class="mg-product-wish bg-secondary" href="javascript:void(0);">
                                     <i></i>
                                 </div>
-                                <a class="mg-product-thumb" href="@Url.Action("s","Categories", new { id = Html.DisplayFor(modelItem => item.categorySeo), idp = Html.DisplayFor(modelItem => item.strCodigo), language=System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName })">
+                                <a class="mg-product-thumb" href="@Url.Action("s","Categories", new { id = WebStore.Resources.Seo.ResourceManager.GetString(item.categorySeo), idp = item.strCodigo, language=System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName })">
                                     <img class="img-fuild" src="~/Content/img/products/@item.strCodigo-1.png"
                                         alt="Producto">
                                     <img class="img-fuild img-sec" src="~/Content/img/certificates/sec.png">
