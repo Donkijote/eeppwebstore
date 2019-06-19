@@ -190,7 +190,7 @@
     <comment>faena-boards</comment>
   </data>
   <data name="Females" xml:space="preserve">
-    <value>Females</value>
+    <value>Females plugs</value>
     <comment>females</comment>
   </data>
   <data name="Frequency" xml:space="preserve">
@@ -234,7 +234,7 @@
     <comment>lightbulbs-and-tubes</comment>
   </data>
   <data name="Males" xml:space="preserve">
-    <value>Males</value>
+    <value>Males plugs</value>
     <comment>males</comment>
   </data>
   <data name="Motor" xml:space="preserve">
@@ -300,5 +300,9 @@
   <data name="Wires" xml:space="preserve">
     <value>Wires</value>
     <comment>wires</comment>
+  </data>
+  <data name="PlugsAdapters" xml:space="preserve">
+    <value>Plugs and Adapters</value>
+    <comment>plugs and adapters</comment>
   </data>
 </root>

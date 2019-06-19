@@ -317,7 +317,7 @@ $.AdminJs.animateLinks = {
 
 $.AdminJs.leftMenu = {
 	activate: function () {
-		$('.mg-widget-categories li.has-children a').on('click', function (e) {
+		$('.mg-widget-categories li.has-children>a').on('click', function (e) {
 			e.preventDefault();
 			var p = $(this).parent('li');
 			$('.mg-widget-categories li.has-children.expanded').not(p).removeClass('expanded');

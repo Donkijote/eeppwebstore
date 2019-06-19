@@ -130,7 +130,7 @@
     <comment>bottons</comment>
   </data>
   <data name="BPD" xml:space="preserve">
-    <value>breakers-power-points-and-dimmers</value>
+    <value>breakers-powerpoints-and-dimmers</value>
     <comment>breakers-power-points-and-dimmers</comment>
   </data>
   <data name="Breakers" xml:space="preserve">
@@ -190,7 +190,7 @@
     <comment>faena-boards</comment>
   </data>
   <data name="Females" xml:space="preserve">
-    <value>females</value>
+    <value>females-plugs</value>
     <comment>females</comment>
   </data>
   <data name="Frequency" xml:space="preserve">
@@ -234,7 +234,7 @@
     <comment>lightbulbs-and-tubes</comment>
   </data>
   <data name="Males" xml:space="preserve">
-    <value>males</value>
+    <value>males-plugs</value>
     <comment>males</comment>
   </data>
   <data name="Motor" xml:space="preserve">
@@ -300,5 +300,9 @@
   <data name="Wires" xml:space="preserve">
     <value>wires</value>
     <comment>wires</comment>
+  </data>
+  <data name="PlugsAdapters" xml:space="preserve">
+    <value>plugs-adapters</value>
+    <comment>plugs-adapters</comment>
   </data>
 </root>

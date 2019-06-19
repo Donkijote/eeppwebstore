@@ -223,7 +223,7 @@ namespace WebStore.Resources {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Females.
+        ///   Busca una cadena traducida similar a Females plugs.
         /// </summary>
         public static string Females {
             get {
@@ -322,7 +322,7 @@ namespace WebStore.Resources {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Males.
+        ///   Busca una cadena traducida similar a Males plugs.
         /// </summary>
         public static string Males {
             get {
@@ -354,6 +354,15 @@ namespace WebStore.Resources {
         public static string Plates {
             get {
                 return ResourceManager.GetString("Plates", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Plugs and Adapters.
+        /// </summary>
+        public static string PlugsAdapters {
+            get {
+                return ResourceManager.GetString("PlugsAdapters", resourceCulture);
             }
         }
         

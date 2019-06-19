@@ -88,7 +88,7 @@ namespace WebStore.Resources {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a breakers-power-points-and-dimmers.
+        ///   Busca una cadena traducida similar a breakers-powerpoints-and-dimmers.
         /// </summary>
         public static string BPD {
             get {
@@ -223,7 +223,7 @@ namespace WebStore.Resources {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a females.
+        ///   Busca una cadena traducida similar a females-plugs.
         /// </summary>
         public static string Females {
             get {
@@ -322,7 +322,7 @@ namespace WebStore.Resources {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a males.
+        ///   Busca una cadena traducida similar a males-plugs.
         /// </summary>
         public static string Males {
             get {
@@ -354,6 +354,15 @@ namespace WebStore.Resources {
         public static string Plates {
             get {
                 return ResourceManager.GetString("Plates", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a plugs-adapters.
+        /// </summary>
+        public static string PlugsAdapters {
+            get {
+                return ResourceManager.GetString("PlugsAdapters", resourceCulture);
             }
         }
         

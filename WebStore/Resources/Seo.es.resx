@@ -190,7 +190,7 @@
     <comment>tableros-de-faena</comment>
   </data>
   <data name="Females" xml:space="preserve">
-    <value>hermbras</value>
+    <value>enchufes-hermbras</value>
     <comment>hermbras</comment>
   </data>
   <data name="Frequency" xml:space="preserve">
@@ -234,7 +234,7 @@
     <comment>ampolletas-y-tubos</comment>
   </data>
   <data name="Males" xml:space="preserve">
-    <value>machos</value>
+    <value>enchufes-machos</value>
     <comment>machos</comment>
   </data>
   <data name="Motor" xml:space="preserve">
@@ -300,5 +300,9 @@
   <data name="Wires" xml:space="preserve">
     <value>alambres</value>
     <comment>alambres</comment>
+  </data>
+  <data name="PlugsAdapters" xml:space="preserve">
+    <value>enchufes-adaptadores</value>
+    <comment>enchufes-adaptadores</comment>
   </data>
 </root>

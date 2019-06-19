@@ -202,6 +202,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LanguageController.cs" />
     <Compile Include="Controllers\MenuController.cs" />
+    <Compile Include="Controllers\OffertsController.cs" />
     <Compile Include="Controllers\PromotionsController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
@@ -510,6 +511,8 @@
     <Content Include="Content\Countdown\Countdown.min.css">
       <DependentUpon>Countdown.css</DependentUpon>
     </Content>
+    <Content Include="Content\img\bannerCategories\estacas.jpg" />
+    <Content Include="Content\img\bannerCategories\sodimac.jpg" />
     <Content Include="Content\img\bg\main-bg-orangered.jpg" />
     <Content Include="Content\img\bg\main-bg.jpg" />
     <Content Include="Content\img\bg\timeoffer-bg.jpg" />
@@ -523,6 +526,8 @@
     <Content Include="Content\img\brands\sassin.png" />
     <Content Include="Content\img\brands\tornado.png" />
     <Content Include="Content\img\brands\weg.png" />
+    <Content Include="Content\img\carouselOffers\21010404.png" />
+    <Content Include="Content\img\carouselOffers\21010504.png" />
     <Content Include="Content\img\carouselOffers\25040806.png" />
     <Content Include="Content\img\carouselOffers\25040902.png" />
     <Content Include="Content\img\carouselOffers\25040906.png" />
@@ -568,9 +573,12 @@
     <Content Include="Content\img\products\21010104-1.jpg" />
     <Content Include="Content\img\products\21010104-2.jpg" />
     <Content Include="Content\img\products\21010104-3.jpg" />
+    <Content Include="Content\img\carouselOffers\21010104.png" />
     <Content Include="Content\img\products\21010204-1.jpg" />
     <Content Include="Content\img\products\21010204-2.jpg" />
+    <Content Include="Content\img\carouselOffers\21010204.png" />
     <Content Include="Content\img\products\21010304-1.jpg" />
+    <Content Include="Content\img\carouselOffers\21010304.png" />
     <Content Include="Content\img\products\21010404-1.jpg" />
     <Content Include="Content\img\products\21010504-1.jpg" />
     <Content Include="Content\img\products\21020204-1.jpg" />
@@ -861,6 +869,7 @@
     <Folder Include="Content\img\certificates\ds43\" />
     <Folder Include="Views\Downloads\" />
     <Folder Include="Views\Language\" />
+    <Folder Include="Views\Offerts\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

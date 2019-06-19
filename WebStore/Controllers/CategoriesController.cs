@@ -8,6 +8,7 @@ using WebStore.Models;
 using X.PagedList;
 using X.PagedList.Mvc;
 using WebStore.Routing;
+using System.IO;
 
 namespace WebStore.Controllers
 {
@@ -103,6 +104,12 @@ namespace WebStore.Controllers
                     {
                         sorted = s.OrderBy(x => x.intPrecioNum);
                     }
+
+                    var rand = new Random();
+                    var files = Directory.GetFiles(HttpContext.Server.MapPath("~/Content/img/bannerCategories/"), "*.jpg");
+                    var fileName = Path.GetFileName(files[rand.Next(files.Length)]);
+                    ViewBag.banner = fileName;
+
                     return View("s", sorted.ToPagedList(Page ?? 1, PerPage ?? 15));
                 }
             }

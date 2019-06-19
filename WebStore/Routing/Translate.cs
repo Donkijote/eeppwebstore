@@ -130,7 +130,8 @@ namespace WebStore.Routing
                 { "solar", "sun" },
                 { "bandejas", "trays" },
                 { "tubos", "tubes" },
-                { "alambres", "wires" }
+                { "alambres", "wires" },
+                {"enchufes-adaptadores", "plugs-adapters" }
             };
 
                 return categoriesES;
@@ -184,7 +185,8 @@ namespace WebStore.Routing
                 { "sun", "solar" },
                 { "trays", "bandejas" },
                 { "tubes", "tubos" },
-                { "wires", "alambres" }
+                { "wires", "alambres" },
+                {"plugs-adapters", "enchufes-adaptadores" }
             };
 
                 return categoriesEN;

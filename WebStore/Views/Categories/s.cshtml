@@ -43,7 +43,7 @@
             @{ Html.RenderAction("LeftMenu", "Menu", new { childAction = true, active = ViewBag.active, seoLocation = ViewBag.SeoLocation, minPrice = ViewBag.minPrice, maxPrice = ViewBag.maxPrice });}
         </div>
         <div class="col-lg-9">
-            <div class="alert mg-alert alert-image-bg alert-dismissible fade show text-center mb-4" style="background-image: url(http://themes.rokaux.com/unishop/v3.0/template-1/img/banners/alert-bg.jpg);">
+            <div class="alert mg-alert alert-image-bg alert-dismissible fade show text-center mb-4" style="background-image: url(/Content/img/bannerCategories/@ViewBag.banner);">
                 <span class="fas fa-times mg-alert-close text-white" data-dismiss="alert"></span>
                 <div class="h3 text-medium text-white pt-3 pb-3">
                     <i class="far fa-clock" style="font-size: 33px; margin-top: -5px;"></i>
