@@ -143,7 +143,7 @@ namespace WebStore.Controllers
             {
                 i.categorySeo = cate.Where(x => x.strNombre == i.categoryName).Select(x => x.strSeo).FirstOrDefault();
             }
-            viewModel.ProductsList = p;
+            viewModel.ProductsList = p.Take(12);
             viewModel.ProductsOffer = p.Where(x => x.intPrecioOff != "0");
 
             return View(viewModel);

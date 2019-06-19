@@ -279,9 +279,9 @@ namespace WebStore.Resources {
         /// <summary>
         ///   Busca una cadena traducida similar a Industrial.
         /// </summary>
-        public static string Industral {
+        public static string Industrial {
             get {
-                return ResourceManager.GetString("Industral", resourceCulture);
+                return ResourceManager.GetString("Industrial", resourceCulture);
             }
         }
         

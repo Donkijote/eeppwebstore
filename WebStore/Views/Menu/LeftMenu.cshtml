@@ -26,7 +26,7 @@
                             if (k.refFamily == i.idFamily)
                             {
                                 <li>
-                                    <a href="#" class=@(ViewBag.active == k.strNombre ? "active":"")>@WebStore.Resources.Categories.ResourceManager.GetString(k.strNombre)</a>
+                                    <a href="@Url.Action("s","Categories", new { id = WebStore.Resources.Seo.ResourceManager.GetString(k.strNombre), language = System.Threading.Thread.CurrentThread.CurrentCulture.TwoLetterISOLanguageName})" class=@(ViewBag.active == k.strNombre ? "active":"")>@WebStore.Resources.Categories.ResourceManager.GetString(k.strNombre)</a>
                                     @foreach (var l in Model.CategoryTotal)
                                     {
                                         if (k.strNombre == l.CategoryName)

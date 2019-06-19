@@ -563,6 +563,7 @@
     <Content Include="Content\img\products\20010209-1.jpg" />
     <Content Include="Content\img\products\20010210-1.jpg" />
     <Content Include="Content\img\products\20010211-1.jpg" />
+    <Content Include="Content\img\products\20010509-1.jpg" />
     <Content Include="Content\img\products\20010212-1.jpg" />
     <Content Include="Content\img\products\21010104-1.jpg" />
     <Content Include="Content\img\products\21010104-2.jpg" />
@@ -578,10 +579,12 @@
     <Content Include="Content\img\products\21020504-1.jpg" />
     <Content Include="Content\img\products\21100202-1.jpg" />
     <Content Include="Content\img\products\21100206-1.jpg" />
+    <Content Include="Content\img\products\22010705-1.jpg" />
     <Content Include="Content\img\products\22010105-1.jpg" />
     <Content Include="Content\img\products\22010305-1.jpg" />
     <Content Include="Content\img\products\22010405-1.jpg" />
     <Content Include="Content\img\products\22010505-1.jpg" />
+    <Content Include="Content\img\products\23010958-1.jpg" />
     <Content Include="Content\img\products\23010918-1.jpg" />
     <Content Include="Content\img\products\23010919-1.jpg" />
     <Content Include="Content\img\products\23010949-1.jpg" />

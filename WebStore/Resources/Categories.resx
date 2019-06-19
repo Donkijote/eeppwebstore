@@ -213,7 +213,7 @@
     <value>Home lights</value>
     <comment>home-lights</comment>
   </data>
-  <data name="Industral" xml:space="preserve">
+  <data name="Industrial" xml:space="preserve">
     <value>Industrial</value>
     <comment>industrial</comment>
   </data>
