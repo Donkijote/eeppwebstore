@@ -863,13 +863,13 @@
     <Content Include="Views\Menu\MenuBig.cshtml" />
     <Content Include="Views\Menu\MenuMobile.cshtml" />
     <Content Include="Views\Footer\Index.cshtml" />
+    <Content Include="Views\Offerts\Offerts.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\img\certificates\ds43\" />
     <Folder Include="Views\Downloads\" />
     <Folder Include="Views\Language\" />
-    <Folder Include="Views\Offerts\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

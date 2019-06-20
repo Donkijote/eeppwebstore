@@ -145,7 +145,7 @@ namespace WebStore.Controllers
                          .ToList();
                 ViewBag.Category = id;
 
-                var tList = db.tblOffertTime.Where(t => t.strTime >= DateTime.Today).Select(j => j).ToList();
+                var tList = db.tblOffertTime.Where(t => t.strTime >= DateTime.Now).Select(j => j).ToList();
 
                 if (tList.Any())
                 {

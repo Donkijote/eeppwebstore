@@ -24,7 +24,7 @@
                 <div class="mg-search">
                     <ul class="navbar-nav">
                         <li class="nav-item mg-li-menu" style="margin-left:auto;">
-                            <a class="nav-link mg-link-menu" href="javascript:void(0);">
+                            <a class="nav-link mg-link-menu" href="@Url.Action("Offerts","Offerts", new { language = System.Threading.Thread.CurrentThread.CurrentCulture.TwoLetterISOLanguageName})">
                                 @Html.DisplayName(WebStore.Resources.Menu.left)
                             </a>
                         </li>
