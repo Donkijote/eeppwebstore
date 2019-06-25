@@ -225,4 +225,7 @@
   <data name="AnotherAddressInfo" xml:space="preserve">
     <value>Dirección de envío</value>
   </data>
+  <data name="ShippingType" xml:space="preserve">
+    <value>Tipo de envío</value>
+  </data>
 </root>

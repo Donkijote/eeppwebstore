@@ -255,4 +255,10 @@
   <data name="SamePerson" xml:space="preserve">
     <value>Is the same person of the bill?</value>
   </data>
+  <data name="Shipping" xml:space="preserve">
+    <value>Shipping to address</value>
+  </data>
+  <data name="Store" xml:space="preserve">
+    <value>Pick up in store</value>
+  </data>
 </root>

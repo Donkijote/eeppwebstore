@@ -304,6 +304,15 @@ namespace WebStore.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Shipping Type.
+        /// </summary>
+        public static string ShippingType {
+            get {
+                return ResourceManager.GetString("ShippingType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Sign Up.
         /// </summary>
         public static string SignUp {

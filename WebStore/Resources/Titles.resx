@@ -225,4 +225,7 @@
   <data name="AnotherAddressInfo" xml:space="preserve">
     <value>Shipping Address</value>
   </data>
+  <data name="ShippingType" xml:space="preserve">
+    <value>Shipping Type</value>
+  </data>
 </root>

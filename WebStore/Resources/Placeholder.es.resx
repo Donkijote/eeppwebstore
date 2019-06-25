@@ -255,4 +255,10 @@
   <data name="SamePerson" xml:space="preserve">
     <value>¿Recibe la misma persona de la factura?</value>
   </data>
+  <data name="Shipping" xml:space="preserve">
+    <value>Envíar a domicilio</value>
+  </data>
+  <data name="Store" xml:space="preserve">
+    <value>Retirar en tienda</value>
+  </data>
 </root>
