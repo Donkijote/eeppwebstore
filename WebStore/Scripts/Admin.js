@@ -181,6 +181,9 @@ $.AdminJs.cart = {
 
 $.AdminJs.checkOut = {
     active: function () {
+        var _this = this;
+
+        _this.checkoutSteps();
         $('#strStatesNationale').on('change', function () {
             var id = $(this).val();
             $.ajax({
@@ -282,6 +285,77 @@ $.AdminJs.checkOut = {
                 }
             }
         })
+    },
+    checkoutSteps: function () {
+        var form = $("#CheckOutSteps");
+        var url = window.location.pathname;
+        url = url.split('/');
+        var lang = url[1];
+        var label;
+
+        if (lang === "es") {
+            label = {
+                next: "Continuar",
+                previous: "Atrás",
+                finish: "Terminar"
+            };
+        } else {
+            label = {
+                next: "Continue",
+                previous: "Back",
+                finish: "Finish"
+            };
+        }
+
+        form.steps({
+            headerTag: "h3",
+            bodyTag: "fieldset",
+            transitionEffect: "slideLeft",
+            autoFocus: true,
+            labels: label,
+            onStepChanging: function (event, currentIndex, newIndex) {
+                form.validate().settings.ignore = ":disabled,:hidden";
+                if (currentIndex < newIndex) {
+                    // To remove error styles
+                    form.find(".body:eq(" + newIndex + ") label.error").remove();
+                    form.find(".body:eq(" + newIndex + ") .error").removeClass("error");
+                }
+
+                if (newIndex == 1) {
+                    var shippingType = $('input[name="strShippingType"]:checked').val();
+                    if (shippingType == 1) {
+                        $('#ShippingTypeAddress').css({ "display": "none" });
+                        $('#ShippingTypeStore').show();
+                    } else if (shippingType == 2) {
+                        $('#ShippingTypeStore').css({ "display": "none" });
+                        $('#ShippingTypeAddress').show();
+                        if ($('input[name="sameAddress"]').is(':checked') && $('input[name="samePerson"]').is(':checked')) {
+                            form.validate().settings.ignore = ":disabled,:hidden,#anotherPerson :input, #anotherAddress :input";
+                        }
+                    }
+                }
+
+                return form.valid();
+            },
+            onStepChanged: function (event, currentIndex, newIndex) {
+
+            },
+            /*onFinishing: function (event, currentIndex)
+            {
+                form.validate().settings.ignore = ":disabled";
+                return form.valid();
+            }*/
+            onFinished: function (event, currentIndex) {
+                var x = $('input[name="credit-card"]:checked');
+                if (x.val() === "webpay") {
+                    alert('to webPay')
+                } else if (x.val() === "transferencia") {
+                    alert('to Transference')
+                } else {
+                    alert('must select')
+                }
+            }
+        });
     }
 }
 
