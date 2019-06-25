@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using WebStore.Models;
 
 namespace WebStore.Controllers
 {
@@ -16,7 +17,16 @@ namespace WebStore.Controllers
 
         public ActionResult CheckOut()
         {
-            return View();
+            webstoreEntities db = new webstoreEntities();
+            var viewModel = new BindSelect();
+
+            viewModel.countries = db.tblCountry.Select(x => x).ToList();
+
+            viewModel.regions = db.tblRegiones.Select(x => x).ToList();
+
+            viewModel.comunes = db.tblComunas.Where(x => x.refProvincia == 1).ToList();
+
+            return View(viewModel);
         }
 
         public ActionResult LogIn()

@@ -99,7 +99,7 @@ namespace WebStore.Controllers
         public JsonResult Provinces(int id)
         {
 
-            using (WebStore.Models.webstoreEntities db = new WebStore.Models.webstoreEntities())
+            using (webstoreEntities db = new webstoreEntities())
             { 
 
                 var provinces = db.tblProvincias.Where(x => x.refRegion == id).Select(x=> new { id = x.idProvincia, nombre = x.strNombre}).ToList();
@@ -110,7 +110,7 @@ namespace WebStore.Controllers
 
         public JsonResult Communes (int id)
         {
-            using (WebStore.Models.webstoreEntities db = new WebStore.Models.webstoreEntities())
+            using (webstoreEntities db = new webstoreEntities())
             {
 
                 var communes = db.tblComunas.Where(x => x.refProvincia == id).Select(x => new { id = x.idComuna, nombre = x.strNombre }).ToList();

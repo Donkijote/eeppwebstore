@@ -249,4 +249,10 @@
   <data name="YouName" xml:space="preserve">
     <value>Your Name</value>
   </data>
+  <data name="DocumentType" xml:space="preserve">
+    <value>Document type</value>
+  </data>
+  <data name="SamePerson" xml:space="preserve">
+    <value>Is the same person of the bill?</value>
+  </data>
 </root>

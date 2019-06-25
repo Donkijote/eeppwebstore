@@ -219,4 +219,10 @@
   <data name="Warranty" xml:space="preserve">
     <value>Warranty</value>
   </data>
+  <data name="AnotherPersonInfo" xml:space="preserve">
+    <value>Reciver's Information</value>
+  </data>
+  <data name="AnotherAddressInfo" xml:space="preserve">
+    <value>Shipping Address</value>
+  </data>
 </root>

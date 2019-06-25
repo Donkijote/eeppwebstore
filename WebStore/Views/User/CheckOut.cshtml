@@ -1,4 +1,4 @@
-﻿
+﻿@model WebStore.Models.BindSelect
 @{
     ViewBag.Title = WebStore.Resources.Titles.CheckOut;
 }
@@ -41,6 +41,37 @@
                     <span class="fas fa-address-card fa-2x pl-3"></span>
                 </h3>
                 <fieldset>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <label class="font-weight-bold" for="checkout-country">@WebStore.Resources.Placeholder.DocumentType</label>
+                            <div class="form-group input-group">
+                                <select class="form-control" required autocomplete="off" name="checkout-document" id="checkout-country">
+                                    <option value="">@WebStore.Resources.Placeholder.DocumentType</option>
+                                    <option value="1">Factura</option>
+                                    <option value="2">Boleta</option>
+                                </select>
+                                <span class="input-group-addon">
+                                    <i class="fas fa-file"></i>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <label class="font-weight-bold pl-3">
+                                @WebStore.Resources.Placeholder.IdNum
+                                <small>
+                                    <a href="javascript:void(0)" class="text-orangered" id="popover" data-toggle="popover" data-trigger="hover" data-placement="right" title="Número de ID" data-content="Los paquetes no serán entregados sin el número válido de identificación del cliente. Nosotros no usamos esta información para algún otro propósito. Por favor ingrese su número de identificación.">
+                                        Leer más <i class="fas fa-angle-down"></i>
+                                    </a>
+                                </small>
+                            </label>
+                            <div class="form-group input-group">
+                                <input class="form-control" type="text" name="checkout-id" id="checkout-id" placeholder="@WebStore.Resources.Placeholder.IdNum" />
+                                <span class="input-group-addon">
+                                    <i class="fas fa-id-card"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
                     <div class="row">
                         <div class="col-sm-6">
                             <label class="font-weight-bold" for="checkout-fn">@WebStore.Resources.Placeholder.Names</label>
@@ -92,34 +123,27 @@
                             </div>
                         </div>
                         <div class="col-sm-6">
-                            <label class="font-weight-bold" for="checkout-country">@WebStore.Resources.Placeholder.Country</label>
+                            <label class="font-weight-bold pl-3">@WebStore.Resources.Placeholder.Region</label>
                             <div class="form-group input-group">
-                                <select class="form-control" required autocomplete="off" name="checkout-country" id="checkout-country">
-                                    <option value="">@WebStore.Resources.Placeholder.CCountry</option>
-                                    <option value="1">Australia</option>
-                                    <option value="2">Canada</option>
-                                    <option value="3">France</option>
-                                    <option value="4">Germany</option>
-                                    <option value="5">Switzerland</option>
-                                    <option value="6">USA</option>
+                                <select class="form-control" type="text" name="checkout-states" id="strStatesNationale" placeholder="@WebStore.Resources.Placeholder.Region">
+                                    <option value="">@WebStore.Resources.Placeholder.Region</option>
+                                    @foreach (var region in Model.regions)
+                                    {
+                                        <option value="@Html.DisplayFor(a => region.idRegion)">@Html.DisplayFor(a => region.strNombre) @Html.DisplayFor(a => region.intNumber)</option>
+                                    }
                                 </select>
                                 <span class="input-group-addon">
-                                    <i class="fas fa-globe-americas"></i>
+                                    <i class="fas fa-flag"></i>
                                 </span>
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-sm-6">
-                            <label class="font-weight-bold" for="checkout-city">@WebStore.Resources.Placeholder.City</label>
+                            <label class="font-weight-bold pl-3">@WebStore.Resources.Placeholder.Province</label>
                             <div class="form-group input-group">
-                                <select class="form-control" required autocomplete="off" name="checkout-city" id="checkout-city">
-                                    <option value="">@WebStore.Resources.Placeholder.CCity</option>
-                                    <option value="1">Amsterdam</option>
-                                    <option value="2">Berlin</option>
-                                    <option value="3">Geneve</option>
-                                    <option value="4">New York</option>
-                                    <option value="4">Paris</option>
+                                <select class="form-control" type="text" name="checkout-provinces" id="strProvinciaNationale" placeholder="@WebStore.Resources.Placeholder.Province">
+                                    <option value="">@WebStore.Resources.Placeholder.Province</option>
                                 </select>
                                 <span class="input-group-addon">
                                     <i class="fas fa-city"></i>
@@ -127,16 +151,18 @@
                             </div>
                         </div>
                         <div class="col-sm-6">
-                            <label class="font-weight-bold" for="checkout-zip">@WebStore.Resources.Placeholder.PostCode</label>
+                            <label class="font-weight-bold pl-3">@WebStore.Resources.Placeholder.Comune</label>
                             <div class="form-group input-group">
-                                <input class="form-control" required autocomplete="off" type="text" name="checkout-zip" id="checkout-zip" placeholder="@WebStore.Resources.Placeholder.PostCode">
+                                <select class="form-control" type="text" name="checkout-comunes" id="strComunaNationale" placeholder="@WebStore.Resources.Placeholder.Comune">
+                                    <option value="">@WebStore.Resources.Placeholder.Comune</option>
+                                </select>
                                 <span class="input-group-addon">
-                                    <i class="fas fa-map-marked-alt"></i>
+                                    <i class="far fa-object-group"></i>
                                 </span>
                             </div>
                         </div>
                     </div>
-                    <div class="row padding-bottom-1x">
+                    <div class="row">
                         <div class="col-sm-6">
                             <label class="font-weight-bold" for="checkout-address1">@WebStore.Resources.Placeholder.Address 1</label>
                             <div class="form-group input-group">
@@ -156,12 +182,155 @@
                             </div>
                         </div>
                     </div>
+                    <div class=" row padding-bottom-1x">
+                        <div class="col-sm-6">
+                            <label class="font-weight-bold" for="checkout-zip">@WebStore.Resources.Placeholder.PostCode</label>
+                            <div class="form-group input-group">
+                                <input class="form-control" required autocomplete="off" type="text" name="checkout-zip" id="checkout-zip" placeholder="@WebStore.Resources.Placeholder.PostCode">
+                                <span class="input-group-addon">
+                                    <i class="fas fa-map-marked-alt"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
                     <h4>@WebStore.Resources.Titles.ShippingAddress</h4>
                     <hr class="padding-bottom-1x">
                     <div class="form-group">
                         <div class="custom-control custom-checkbox">
-                            <input class="chk-col-deep-orange filled-in" type="checkbox" id="same_address" checked="">
+                            <input class="chk-col-deep-orange filled-in" name="sameAddress" type="checkbox" id="same_address" checked="">
                             <label for="same_address">@WebStore.Resources.Placeholder.SameAddress</label>
+                        </div>
+                    </div>
+                    <div class="form-group pb-2">
+                        <div class="custom-control custom-checkbox">
+                            <input class="chk-col-deep-orange filled-in" name="samePerson" type="checkbox" id="same_person" checked="">
+                            <label for="same_person">@WebStore.Resources.Placeholder.SamePerson</label>
+                        </div>
+                    </div>
+
+                    <div class="d-none pb-3" id="anotherPerson">
+                        <h6>@WebStore.Resources.Titles.AnotherPersonInfo</h6>
+                        <hr class="padding-bottom-1x">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <label class="font-weight-bold" for="checkout-fn">@WebStore.Resources.Placeholder.Names</label>
+                                <div class="form-group input-group">
+                                    <input class="form-control" autocomplete="off" type="text" name="anotherPersonName" id="checkout-fn" placeholder="@WebStore.Resources.Placeholder.Names">
+                                    <span class="input-group-addon">
+                                        <i class="fas fa-file-signature"></i>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <label class="font-weight-bold" for="checkout-ln">@WebStore.Resources.Placeholder.LastNames</label>
+                                <div class="form-group input-group">
+                                    <input class="form-control" autocomplete="off" type="text" name="anotherPersonLastName" id="checkout-ln" placeholder="@WebStore.Resources.Placeholder.LastNames">
+                                    <span class="input-group-addon">
+                                        <i class="fas fa-file-signature"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <label class="font-weight-bold pl-3">
+                                    @WebStore.Resources.Placeholder.IdNum
+                                    <small>
+                                        <a href="javascript:void(0)" class="text-orangered" id="popover" data-toggle="popover" data-trigger="hover" data-placement="right" title="Número de ID" data-content="Los paquetes no serán entregados sin el número válido de identificación del cliente. Nosotros no usamos esta información para algún otro propósito. Por favor ingrese su número de identificación.">
+                                            Leer más <i class="fas fa-angle-down"></i>
+                                        </a>
+                                    </small>
+                                </label>
+                                <div class="form-group input-group">
+                                    <input class="form-control" type="text" name="anotherPersonId" id="anotherPersonId" placeholder="@WebStore.Resources.Placeholder.IdNum" />
+                                    <span class="input-group-addon">
+                                        <i class="fas fa-id-card"></i>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <label class="font-weight-bold" for="checkout-phone">@WebStore.Resources.Placeholder.Telephone</label>
+                                <div class="form-group input-group">
+                                    <input class="form-control" required autocomplete="off" type="text" name="checkout-phone" id="anotherPersonPhone" placeholder="@WebStore.Resources.Placeholder.Phone">
+                                    <span class="input-group-addon">
+                                        <i class="fas fa-mobile-alt"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-none" id="anotherAddress">
+                        <h6>@WebStore.Resources.Titles.AnotherAddressInfo</h6>
+                        <hr class="padding-bottom-1x">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <label class="font-weight-bold pl-3">@WebStore.Resources.Placeholder.Region</label>
+                                <div class="form-group input-group">
+                                    <select class="form-control" type="text" name="checkout-Anotherstates" id="strStatesNationaleAnother" placeholder="@WebStore.Resources.Placeholder.Region">
+                                        <option value="">@WebStore.Resources.Placeholder.Region</option>
+                                        @foreach (var region in Model.regions)
+                                        {
+                                            <option value="@Html.DisplayFor(a => region.idRegion)">@Html.DisplayFor(a => region.strNombre) @Html.DisplayFor(a => region.intNumber)</option>
+                                        }
+                                    </select>
+                                    <span class="input-group-addon">
+                                        <i class="fas fa-flag"></i>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <label class="font-weight-bold pl-3">@WebStore.Resources.Placeholder.Province</label>
+                                <div class="form-group input-group">
+                                    <select class="form-control" type="text" name="checkout-Anotherprovinces" id="strProvinciaNationaleAnother" placeholder="@WebStore.Resources.Placeholder.Province">
+                                        <option value="">@WebStore.Resources.Placeholder.Province</option>
+                                    </select>
+                                    <span class="input-group-addon">
+                                        <i class="fas fa-city"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <label class="font-weight-bold pl-3">@WebStore.Resources.Placeholder.Comune</label>
+                                <div class="form-group input-group">
+                                    <select class="form-control" type="text" name="checkout-Anothercomunes" id="strComunaNationaleAnother" placeholder="@WebStore.Resources.Placeholder.Comune">
+                                        <option value="">@WebStore.Resources.Placeholder.Comune</option>
+                                    </select>
+                                    <span class="input-group-addon">
+                                        <i class="far fa-object-group"></i>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <label class="font-weight-bold" for="checkout-address1">@WebStore.Resources.Placeholder.Address 1</label>
+                                <div class="form-group input-group">
+                                    <input class="form-control" type="text" name="checkout-Anotheraddress1" id="checkout-address1" required autocomplete="off" placeholder="@WebStore.Resources.Placeholder.Address 1">
+                                    <span class="input-group-addon">
+                                        <i class="fas fa-map-marker-alt"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row padding-bottom-1x">
+                            <div class="col-sm-6">
+                                <label class="font-weight-bold" for="checkout-address2">@WebStore.Resources.Placeholder.Address 2</label>
+                                <div class="form-group input-group">
+                                    <input class="form-control" type="text" name="checkout-Anotheraddress2" id="checkout-address2" required autocomplete="off" placeholder="@WebStore.Resources.Placeholder.Address 2">
+                                    <span class="input-group-addon">
+                                        <i class="fas fa-map-marker-alt"></i>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <label class="font-weight-bold" for="checkout-zip">@WebStore.Resources.Placeholder.PostCode</label>
+                                <div class="form-group input-group">
+                                    <input class="form-control" required autocomplete="off" type="text" name="checkout-zip" id="checkout-zip" placeholder="@WebStore.Resources.Placeholder.PostCode">
+                                    <span class="input-group-addon">
+                                        <i class="fas fa-map-marked-alt"></i>
+                                    </span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </fieldset>
@@ -534,7 +703,7 @@
                     finish: "Finish"
                 };
             }
-            
+
             form.steps({
                 headerTag: "h3",
                 bodyTag: "fieldset",
@@ -567,6 +736,8 @@
                     }
                 }
             });
+
+            $.AdminJs.checkOut.active();
         })
     </script>
 }

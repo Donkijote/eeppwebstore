@@ -214,7 +214,7 @@
     <value>Solicitud</value>
   </data>
   <data name="SameAddress" xml:space="preserve">
-    <value>Igual que dirección de factura</value>
+    <value>¿Enviar a la misma dirección que la factura?</value>
   </data>
   <data name="Search" xml:space="preserve">
     <value>Buscar</value>
@@ -248,5 +248,11 @@
   </data>
   <data name="YouName" xml:space="preserve">
     <value>Tu nombre</value>
+  </data>
+  <data name="DocumentType" xml:space="preserve">
+    <value>Tipo de documento</value>
+  </data>
+  <data name="SamePerson" xml:space="preserve">
+    <value>¿Recibe la misma persona de la factura?</value>
   </data>
 </root>

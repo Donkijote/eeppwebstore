@@ -97,6 +97,24 @@ namespace WebStore.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Shipping Address.
+        /// </summary>
+        public static string AnotherAddressInfo {
+            get {
+                return ResourceManager.GetString("AnotherAddressInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Reciver&apos;s Information.
+        /// </summary>
+        public static string AnotherPersonInfo {
+            get {
+                return ResourceManager.GetString("AnotherPersonInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Authorized Dealer.
         /// </summary>
         public static string Brands {

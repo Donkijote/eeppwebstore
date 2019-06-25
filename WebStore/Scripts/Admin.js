@@ -131,10 +131,10 @@ $.AdminJs.addAddress = {
             $.ajax({
                 type: 'GET',
                 dataType: "JSON",
-                url: '/Account/Provinces',
+                url: '/en/Account/Provinces/',
                 data: { id: id },
                 success: function (e) {
-                    var modelsHtml = "";
+                    var modelsHtml = "<option value=''></option>";
                     $.each(e, function (a, b) {
                         modelsHtml += "<option value='" + b.id + "'>" + b.nombre + "</option>";
                     })
@@ -148,11 +148,10 @@ $.AdminJs.addAddress = {
             $.ajax({
                 type: 'GET',
                 dataType: "JSON",
-                url: '/Account/Communes',
+                url: '/en/Account/Communes/',
                 data: { id: id },
                 success: function (e) {
-                    var modelsHtml = "";
-                    console.log(e);
+                    var modelsHtml = "<option value=''></option>";
                     $.each(e, function (a, b) {
                         modelsHtml += "<option value='" + b.id + "'>" + b.nombre + "</option>";
                     })
@@ -176,6 +175,112 @@ $.AdminJs.cart = {
                 .slideUp(function () {
                     $(this).closest('tr').remove();
                 });
+        })
+    }
+}
+
+$.AdminJs.checkOut = {
+    active: function () {
+        $('#strStatesNationale').on('change', function () {
+            var id = $(this).val();
+            $.ajax({
+                type: 'GET',
+                dataType: "JSON",
+                url: '/en/Account/Provinces/',
+                data: { id: id },
+                success: function (e) {
+                    var modelsHtml = "<option value=''></option>";
+                    $.each(e, function (a, b) {
+                        modelsHtml += "<option value='" + b.id + "'>" + b.nombre + "</option>";
+                    })
+                    $("#strProvinciaNationale").html(modelsHtml);
+                }
+            })
+        })
+
+        $('#strProvinciaNationale').on('change', function () {
+            var id = $(this).val();
+            $.ajax({
+                type: 'GET',
+                dataType: "JSON",
+                url: '/en/Account/Communes/',
+                data: { id: id },
+                success: function (e) {
+                    var modelsHtml = "<option value=''></option>";
+                    $.each(e, function (a, b) {
+                        modelsHtml += "<option value='" + b.id + "'>" + b.nombre + "</option>";
+                    })
+                    $("#strComunaNationale").html(modelsHtml);
+                }
+            })
+        })
+
+        $('#strStatesNationaleAnother').on('change', function () {
+            var id = $(this).val();
+            $.ajax({
+                type: 'GET',
+                dataType: "JSON",
+                url: '/en/Account/Provinces/',
+                data: { id: id },
+                success: function (e) {
+                    var modelsHtml = "<option value=''></option>";
+                    $.each(e, function (a, b) {
+                        modelsHtml += "<option value='" + b.id + "'>" + b.nombre + "</option>";
+                    })
+                    $("#strProvinciaNationaleAnother").html(modelsHtml);
+                }
+            })
+        })
+
+        $('#strProvinciaNationaleAnother').on('change', function () {
+            var id = $(this).val();
+            $.ajax({
+                type: 'GET',
+                dataType: "JSON",
+                url: '/en/Account/Communes/',
+                data: { id: id },
+                success: function (e) {
+                    var modelsHtml = "<option value=''></option>";
+                    $.each(e, function (a, b) {
+                        modelsHtml += "<option value='" + b.id + "'>" + b.nombre + "</option>";
+                    })
+                    $("#strComunaNationaleAnother").html(modelsHtml);
+                }
+            })
+        })
+
+        $('#same_address').on('change', function () {
+            if ($(this).is(':checked')) {
+                if ($('#anotherAddress').is(':visible')) {
+                    $('#anotherAddress').addClass('d-none');
+                    var height = $(this).parents('fieldset').outerHeight();
+                    $(this).parents('.content.clearfix').css({ "height": height });
+                }
+            } else {
+                if ($('#anotherAddress').is(':visible')) {
+                } else {
+                    $('#anotherAddress').removeClass('d-none');
+                    var height = $(this).parents('fieldset').outerHeight();
+                    $(this).parents('.content.clearfix').css({ "height": height });
+                }
+            }
+        })
+
+        $('#same_person').on('change', function () {
+            if ($(this).is(':checked')) {
+                if ($('#anotherPerson').is(':visible')) {
+                    $('#anotherPerson').addClass('d-none');
+                    var height = $(this).parents('fieldset').outerHeight();
+                    $(this).parents('.content.clearfix').css({ "height": height });
+                }
+            } else {
+                if ($('#anotherPerson').is(':visible')) {
+                } else {
+                    $('#anotherPerson').removeClass('d-none');
+                    var height = $(this).parents('fieldset').outerHeight();
+                    $(this).parents('.content.clearfix').css({ "height": height });
+                }
+            }
         })
     }
 }

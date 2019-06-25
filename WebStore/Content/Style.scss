@@ -4940,6 +4940,12 @@ textarea {
     }
 }
 
+select{
+    &:focus{
+        background-color: transparent !important;
+    }
+}
+
 .form-control {
     padding: 0 18px;
     transition: all .25s;
