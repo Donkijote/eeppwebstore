@@ -184,6 +184,7 @@ $.AdminJs.checkOut = {
         var _this = this;
 
         _this.checkoutSteps();
+        _this.validateForm();
         $('#strStatesNationale').on('change', function () {
             var id = $(this).val();
             $.ajax({
@@ -356,6 +357,15 @@ $.AdminJs.checkOut = {
                 }
             }
         });
+    },
+    validateForm: function () {
+        var form = $("#CheckOutSteps");
+        var lang = $('body').data('lang');
+        if (lang == "es") {
+            jQuery.extend(jQuery.validator.messages, {
+                required: "Campo requerido.",
+            });
+        }
     }
 }
 

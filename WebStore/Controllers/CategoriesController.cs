@@ -109,7 +109,14 @@ namespace WebStore.Controllers
                     var files = Directory.GetFiles(HttpContext.Server.MapPath("~/Content/img/bannerCategories/"), "*.jpg");
                     var fileName = Path.GetFileName(files[rand.Next(files.Length)]);
                     ViewBag.banner = fileName;
-
+                    if (Request.Browser.IsMobileDevice)
+                    {
+                        ViewBag.Mobile = true;
+                    }
+                    else
+                    {
+                        ViewBag.Mobile = false;
+                    }
                     return View("s", sorted.ToPagedList(Page ?? 1, PerPage ?? 15));
                 }
             }
@@ -207,11 +214,13 @@ namespace WebStore.Controllers
             if (categoryName == null)
             {
                 var family = db.tblFamily.Where(a => a.strSeo == id).FirstOrDefault();
-                
+                var categories = db.tblCategories.Where(a => a.refFamily == family.idFamily).ToList();
                 var o = dbE.iw_tlprprod.Where(x => x.CodLista == "16").ToList();
                 var s = (from a in dbE.iw_tprod
                          join b in dbE.iw_tgrupo
                          on a.CodGrupo equals b.CodGrupo
+                         join ct in dbE.iw_tsubgr
+                         on a.CodSubGr equals ct.CodSubGr
                          join c in dbE.iw_tlprprod
                          on a.CodProd equals c.CodProd
                          join d in dbE.iw_tlispre
@@ -223,7 +232,8 @@ namespace WebStore.Controllers
                              strCod = a.CodBarra,
                              strNombre = a.DesProd,
                              intPrecio = a.PrecioVta,
-                             percent = c.ValorPct
+                             percent = c.ValorPct,
+                             category = ct.DesSubGr
                          })
                         .AsEnumerable()
                         .Select(x => new Products
@@ -234,7 +244,7 @@ namespace WebStore.Controllers
                             intPrecentOff = o.Any(l => l.CodProd == x.strCodigo) ? o.Where(i => i.CodProd == x.strCodigo).Select(j => (int)j.ValorPct).FirstOrDefault() + "%" : "0",
                             intPrecioOff = o.Any(l => l.CodProd == x.strCodigo) ? FormatNumber((int)(x.intPrecio + (x.intPrecio * (x.percent / 100))) - (int)(((x.intPrecio + (x.intPrecio * (x.percent / 100))) * o.Where(i => i.CodProd == x.strCodigo).Select(j => (int)j.ValorPct).FirstOrDefault() / 100))) : "0",
                             intPercent = x.percent + "%",
-                            categorySeo = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(id),
+                            categorySeo = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(categories.Where(a => a.strNombre == x.category).Select(a => a.strSeo).FirstOrDefault()),
                             intPrecioNum = o.Any(l => l.CodProd == x.strCodigo) ? (int)(x.intPrecio + (x.intPrecio * (x.percent / 100))) - (int)(((x.intPrecio + (x.intPrecio * (x.percent / 100))) * o.Where(i => i.CodProd == x.strCodigo).Select(j => (int)j.ValorPct).FirstOrDefault() / 100)) : (int)(x.intPrecio + (x.intPrecio * (x.percent / 100)))
                         })
                         .ToList();

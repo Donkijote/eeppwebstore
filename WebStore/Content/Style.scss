@@ -744,6 +744,10 @@ html * {
                     //border-left: 1px solid #e5e5e5;
                     padding: 20px;
 
+                    @include respond-to(false, 350) {
+                        padding: 15px;
+                    }
+
                     &:first-child {
                         //padding: 10px;
                         border-left: none;
@@ -2760,6 +2764,10 @@ button {
         left: 50%;
         transform: translateX(-50%);
 
+        @include respond-to(false, 1024){
+            display: none !important;
+        }
+
         @include respond-to(flase, 1024) {
             display: block;
             position: relative;
@@ -2982,6 +2990,9 @@ button {
         position: absolute;
         top: 60%;
         left: 10%;
+        @include respond-to(false, 768){
+            display: none !important;
+        }
     }
 
     &.mg-product-list {

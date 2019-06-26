@@ -114,9 +114,14 @@
                                         <div class="mg-product-card-body">
                                             @if (item.TimeOffer)
                                             {
-                                                <div class="mg-product-countdown-wrapper">
-                                                    <div class="countdown xs" style="height:30px;" data-time="@item.Time"></div>
-                                                </div>
+                                                if (!ViewBag.Mobile)
+                                                {
+                                                    <div class="mg-product-countdown-wrapper">
+                                                        <div class="countdown xs" style="height:30px;" data-time="@item.Time"></div>
+                                                    </div>
+                                                }
+                                                
+                                                <span class="mg-product-badge bg-danger">Oferta por Tiempo Limitado</span>
                                             }
                                             else
                                             {
