@@ -115,7 +115,13 @@
                                             @if (item.TimeOffer)
                                             {
                                                 <div class="mg-product-countdown-wrapper">
-                                                    <div class="countdown xs" style="height:30px;" data-time="@item.Time"></div>
+                                                    @if (!ViewBag.Mobile)
+                                                    {
+
+                                                        <div class="countdown xs" style="height:30px;" data-time="@item.Time"></div>
+
+                                                    }
+                                                    <span class="mg-product-badge bg-danger">TIEMPO LIMITADO</span>
                                                 </div>
                                             }
                                             else

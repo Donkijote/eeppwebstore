@@ -135,6 +135,15 @@ namespace WebStore.Controllers
             var fileName = Path.GetFileName(files[rand.Next(files.Length)]);
             ViewBag.banner = fileName;
 
+            if (Request.Browser.IsMobileDevice)
+            {
+                ViewBag.Mobile = true;
+            }
+            else
+            {
+                ViewBag.Mobile = false;
+            }
+
             return View(sorted.ToPagedList(Page ?? 1, PerPage ?? 15));
         }
 

@@ -114,26 +114,27 @@
                                         <div class="mg-product-card-body">
                                             @if (item.TimeOffer)
                                             {
-                                                if (!ViewBag.Mobile)
-                                                {
-                                                    <div class="mg-product-countdown-wrapper">
+                                                <div class="mg-product-countdown-wrapper">
+                                                    @if (!ViewBag.Mobile)
+                                                    {
+
                                                         <div class="countdown xs" style="height:30px;" data-time="@item.Time"></div>
-                                                    </div>
-                                                }
-                                                
-                                                <span class="mg-product-badge bg-danger">Oferta por Tiempo Limitado</span>
+
+                                                    }
+                                                    <span class="mg-product-badge bg-danger">TIEMPO LIMITADO</span>
+                                                </div> 
                                             }
                                             else
                                             {
-                                                <div class="mg-rating-stars stars">
-                                                    @{
-                                                        int stars = rand.Next(5);
-                                                        for (var i = 1; i < 6; i++)
-                                                        {
-                                                            <i class="fas fa-star @(i <= stars ? "filled": "")"></i>
-                                                        }
+                                            <div class="mg-rating-stars stars">
+                                                @{
+                                                    int stars = rand.Next(5);
+                                                    for (var i = 1; i < 6; i++)
+                                                    {
+                                                        <i class="fas fa-star @(i <= stars ? "filled": "")"></i>
                                                     }
-                                                </div>
+                                                }
+                                            </div>
                                             }
                                             <h4 class="mg-product-price">
                                                 @if (item.intPrecioOff != "0")
