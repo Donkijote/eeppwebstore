@@ -9,7 +9,7 @@ namespace WebStore
         public static void RegisterBundles(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
-                        "~/Scripts/jquery-{version}.min.js",
+                        "~/Scripts/jquery-{version}.js",
                         "~/Scripts/jquery.steps.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
