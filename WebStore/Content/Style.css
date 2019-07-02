@@ -4027,8 +4027,7 @@ body {
   font-size: 14px;
   font-weight: normal;
   line-height: 1.5;
-  text-transform: none;
-  position: relative; }
+  text-transform: none; }
   body.modal-open {
     overflow: hidden !important; }
 

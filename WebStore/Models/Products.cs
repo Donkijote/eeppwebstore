@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using WebStore.Functions;
 
 namespace WebStore.Models
 {
@@ -24,6 +25,7 @@ namespace WebStore.Models
 
     public class ProductsSingle
     {
+        public string Cod { get; set; }
         public string strNombre { get; set; }
         public string strCodigo { get; set; }
         public string intPrecio { get; set; }
@@ -38,5 +40,6 @@ namespace WebStore.Models
         public bool TimeOffer { get; set; }
         public string Time { get; set; }
         public IEnumerable<tblFicha> Ficha { get; set; }
+        public IEnumerable<Stock> Stock { get; set; }
     }
 }

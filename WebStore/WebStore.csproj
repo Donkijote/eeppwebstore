@@ -205,6 +205,7 @@
     <Compile Include="Controllers\OffertsController.cs" />
     <Compile Include="Controllers\PromotionsController.cs" />
     <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="Functions\Warehouse.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -270,6 +271,7 @@
       <DependentUpon>EEPP.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Products.cs" />
+    <Compile Include="Models\Stock.cs" />
     <Compile Include="Models\tblBrand.cs">
       <DependentUpon>Connection.tt</DependentUpon>
     </Compile>

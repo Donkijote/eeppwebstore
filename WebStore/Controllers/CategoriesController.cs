@@ -9,6 +9,7 @@ using X.PagedList;
 using X.PagedList.Mvc;
 using WebStore.Routing;
 using System.IO;
+using WebStore.Functions;
 
 namespace WebStore.Controllers
 {
@@ -52,11 +53,6 @@ namespace WebStore.Controllers
 
                     string v = db.tblCategories.Where(a => a.strSeo == (culture != "en" ? translatedId : id))
                             .Select(i => i.strNombre).FirstOrDefault();
-
-                    /*string v = (from a in db.tblCategories
-                             where a.strSeo == (culture != "en" ? translatedId : id)
-                             select new { Nombre = a.strNombre})
-                             .FirstOrDefault();*/
 
                     var s = FamilyOrCategory((culture != "en" ? translatedId : id), v);
 
@@ -124,7 +120,7 @@ namespace WebStore.Controllers
             {
                 webstoreEntities db = new webstoreEntities();
                 ElectropEntities dbE = new ElectropEntities();
-                
+                Warehouse stock = new Warehouse();
                 var o = dbE.iw_tlprprod.Where(i => i.CodLista == "16").ToList();
                 var x = (from a in dbE.iw_tprod
                          join b in dbE.iw_tlprprod
@@ -141,6 +137,7 @@ namespace WebStore.Controllers
                          .AsEnumerable()
                          .Select(p => new ProductsSingle
                          {
+                             Cod = p.strCodigo,
                              strCodigo = p.strCod,
                              strNombre = p.strNombre.ToLower(),
                              intPrecio = FormatNumber((int)(p.intPrecio + (p.intPrecio * (p.intPercent / 100)))),
@@ -190,6 +187,8 @@ namespace WebStore.Controllers
 
                 foreach (var p in x)
                 {
+                    p.Stock = stock.GetStock(p.Cod);
+
                     if (Ficha.Any(f => f.refCodProd == p.strCodigo))
                     {
                         p.Ficha = Ficha;
