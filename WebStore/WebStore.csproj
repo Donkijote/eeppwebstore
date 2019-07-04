@@ -203,8 +203,11 @@
     <Compile Include="Controllers\LanguageController.cs" />
     <Compile Include="Controllers\MenuController.cs" />
     <Compile Include="Controllers\OffertsController.cs" />
+    <Compile Include="Controllers\ProductController.cs" />
+    <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Controllers\PromotionsController.cs" />
     <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="Functions\Function.cs" />
     <Compile Include="Functions\Warehouse.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -866,6 +869,8 @@
     <Content Include="Views\Menu\MenuMobile.cshtml" />
     <Content Include="Views\Footer\Index.cshtml" />
     <Content Include="Views\Offerts\Offerts.cshtml" />
+    <Content Include="Views\Products\Offerts.cshtml" />
+    <Content Include="Views\Product\Product.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

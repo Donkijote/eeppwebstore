@@ -1,0 +1,754 @@
+﻿@model IEnumerable<WebStore.Models.ProductsSingle>
+
+@section MetaContent{
+    <meta name="keywords" content="shop, e-commerce, modern, flat style, responsive, online store, business, mobile, blog, bootstrap 4, html5, css3, jquery, js, gallery, slider, touch, creative, clean">
+}
+
+<section>
+    <header class="header mb-0">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                    <h1 class="d-none">
+                        @ViewBag.Title
+                    </h1>
+                </div>
+                <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
+                    <ul class="breadcrumbs">
+                        <li>
+                            <a href="@Url.Action("Index","Home",new { language = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName})">@WebStore.Resources.Titles.Home</a>
+                        </li>
+                        <li class="separator">&nbsp;</li>
+                        <li>
+                            <a href="@Url.Action("All","Categories",new { language = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName})">@WebStore.Resources.Titles.Categories</a>
+                        </li>
+                        <li class="separator">&nbsp;</li>
+                        <li>
+                            <a href="@Url.Action("s","Categories",new { id = @ViewBag.Category,language = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName})">
+                                @ViewBag.Category
+                            </a>
+                        </li>
+                        <li class="separator">&nbsp;</li>
+                        <li>
+                            @ViewBag.Breadcrumbs
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </header>
+</section>
+
+@foreach (var item in Model)
+{
+<div class="container py-5">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="row">
+                <div class="col-md-3">
+                    <ul class="mg-product-thumbnails owl-thumbs" data-slider-id="1">
+                        <li class="owl-thumb-item">
+                            <a id="carousel-selector-0">
+                                <img src="~/Content/img/products/@item.strCodigo-1.jpg" alt="@item.strNombre">
+                            </a>
+                        </li>
+                        <li class="owl-thumb-item">
+                            <a id="carousel-selector-1">
+                                <img src="~/Content/img/products/@item.strCodigo-2.jpg" alt="@item.strNombre">
+                            </a>
+                        </li>
+                        <li class="owl-thumb-item">
+                            <a id="carousel-selector-2">
+                                <img src="~/Content/img/products/@item.strCodigo-3.jpg" alt="@item.strNombre">
+                            </a>
+                        </li>
+                        @if (File.Exists(Server.MapPath("/Content/img/products/" + item.strCodigo + "-4.jpg")))
+                        {
+                            <li class="owl-thumb-item">
+                                <a id="carousel-selector-3">
+                                    <img src="~/Content/img/products/@item.strCodigo-4.jpg" alt="@item.strNombre">
+                                </a>
+                            </li>
+                        }
+                        @if (item.Ficha.Select(x => x.strSec).FirstOrDefault())
+                        {
+                            <li class="owl-thumb-item">
+                                <a id="carousel-selector-4">
+                                    <img src="~/Content/img/qr/@(item.Ficha.Select(x=>x.strBrand).FirstOrDefault())-sec.jpg" alt="@item.strNombre">
+                                </a>
+                            </li>
+                        }
+                    </ul>
+                </div>
+                <div class="col-md-9">
+                    <div class="mg-product-gallery">
+                        @if (item.intPrecioOff != "0")
+                        {
+                            <span class="mg-product-badge bg-success">Oferta</span>
+                        }
+                        <div id="carouselProductsImg" class="owl-carousel owl-loaded owl-drag" data-slider-id="1">
+                            <div class="owl-stage-outer">
+                                <div class="owl-stage">
+                                    <div class="owl-item" data-hash="one">
+                                        <img class="img-fluid" src="~/Content/img/products/@item.strCodigo-1.jpg" alt="@item.strNombre">
+                                    </div>
+                                    <div class="owl-item" data-hash="two">
+                                        <img class="img-fluid" src="~/Content/img/products/@item.strCodigo-2.jpg" alt="@item.strNombre">
+                                    </div>
+                                    <div class="owl-item" data-hash="three">
+                                        <img class="img-fluid" src="~/Content/img/products/@item.strCodigo-3.jpg" alt="@item.strNombre">
+                                    </div>
+                                    @if (System.IO.File.Exists(Server.MapPath("/Content/img/products/" + item.strCodigo + "-4.jpg")))
+                                    {
+                                        <div class="owl-item" data-hash="four">
+                                            <img class="img-fluid" src="~/Content/img/products/@item.strCodigo-4.jpg" alt="@item.strNombre">
+                                        </div>
+                                    }
+                                    @if (item.Ficha.Select(x => x.strSec).FirstOrDefault())
+                                    {
+                                        <div class="owl-item" data-hash="five">
+                                            <img class="img-fluid" src="~/Content/img/qr/@(item.Ficha.Select(x=>x.strBrand).FirstOrDefault())-sec.jpg" alt="@item.strNombre">
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    @if (item.TimeOffer)
+                    {
+                        <div class="container-countdown bg-secondary">
+                            <h1 class="text-danger">OFERTA LIMITADA</h1>
+                            <div class="countdown" style="height:80px;" data-time="@item.Time"></div>
+                        </div>
+                    }
+                    <h5 class="mb-3 text-capitalize">
+                        @Html.DisplayFor(x => item.strNombre)
+                    </h5>
+                    <h2 class="d-block">
+                        @if (item.intPrecioOff != "0")
+                        {
+                            <del class="text-muted" style="font-size:18px;">$@item.intPrecio</del><br />
+                            <span>$ @item.intPrecioOff</span>
+                            <span class="text-muted" style="font-size:18px;">+iva</span>
+                            <label class="off text-success" style="font-size:24px;">@item.intPrecentOff OFF</label>
+                        }
+                        else
+                        {
+                            <span>$ @Html.DisplayFor(x => item.intPrecio)</span>
+                            <span class="text-muted" style="font-size:18px;">+iva</span>
+                        }
+                    </h2>
+                </div>
+            </div>
+            <p class="text-muted">
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dicta voluptatibus quos ea
+                dolore rem, molestias laudantium et explicabo...
+                <a href="#details" class="scroll-to">Más Infor...</a>
+            </p>
+
+            <div class="row margin-top-1x">
+                <div class="col-sm-12">
+                    <span class="text-muted">watts: <span class="text-dark">240w</span></span>
+                    <div class="form-group mt-2">
+                        <a class="btn btn-view-more btn-sm active" href="javascript:void(0);">
+                            240w
+                        </a>
+
+                        <a class="btn btn-view-more btn-sm" href="javascript:void(0);">
+                            360w
+                        </a>
+
+                        <a class="btn btn-view-more btn-sm" href="javascript:void(0);">
+                            480w
+                        </a>
+
+                        <a class="btn btn-view-more btn-sm" href="javascript:void(0);">
+                            720w
+                        </a>
+
+                        <a class="btn btn-view-more btn-sm" href="javascript:void(0);">
+                            960w
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row margin-top-1x">
+                <div class="col-sm-12">
+                    <span class="text-muted">CCT°: <span class="text-dark">3000°K</span></span>
+                    <div class="form-group mt-2">
+                        <a class="btn btn-view-more btn-sm active" href="javascript:void(0);">
+                            3000°K
+                        </a>
+
+                        <a class="btn btn-view-more btn-sm" href="javascript:void(0);">
+                            5700°K - 6500°K
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row align-items-end pb-4">
+                <div class="col-sm-4">
+                    <div class="form-group mb-0">
+                        <label class="mg-form-label" for="quantity">@WebStore.Resources.Texts.Quantity</label>
+                        <select class="form-control" id="quantity">
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col-sm-8">
+                    <div class="pt-4 hidden-sm-up"></div>
+                    <button class="btn btn-orangered btn-block m-0" data-toast="" data-toast-type="success"
+                            data-toast-position="topRight" data-toast-icon="icon-check-circle" data-toast-title="Product"
+                            data-toast-message="successfuly added to cart!">
+                        <i class="icon-bag"></i> Añadir al carro
+                    </button>
+                </div>
+            </div>
+
+            <div class="pt-1 mb-4">
+                <span><span class="text-medium">SKU:</span> #@Html.DisplayFor(x => item.strCodigo)</span>
+                <span class="text-success pl-3 font-weight-bolder">En Stock</span><br />
+                <br />
+                <h6 class=font-weight-bold>Disponibilidad</h6>
+                <hr />
+
+                <table>
+                    @foreach (var i in item.Stock)
+                    {
+                        <tr>
+                            <td class="pr-3"><h6 class="mb-0">@(i.codBode == "1" ? "Santiago" : (i.codBode == "30" ? "Concepción" : ""))</h6></td>
+                            <td class="pr-3">@i.TotalStock Unidades</td>
+                        </tr>
+                    }
+                </table>
+            </div>
+
+            <hr class="mb-2">
+            <div class="d-flex flex-wrap justify-content-between">
+                <div class="mt-2 mb-2">
+                    <a class="btn btn-view-more btn-sm btn-wishlist mg-product-wish" href="javascript:void(0);">
+                        <i class="far fa-heart"></i>
+                        &nbsp;@WebStore.Resources.Buttons.WishList
+                    </a>
+                </div>
+                <div class="mt-2 mb-2">
+                    <span class="text-muted">Share:&nbsp;&nbsp;</span>
+                    <div class="d-inline-block">
+                        <a class="social-button shape-rounded sb-facebook" href="#" data-toggle="tooltip"
+                           data-placement="top" title="" data-original-title="Facebook">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a class="social-button shape-rounded sb-twitter" href="#" data-toggle="tooltip" data-placement="top"
+                           title="" data-original-title="Twitter">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a class="social-button shape-rounded sb-instagram" href="#" data-toggle="tooltip"
+                           data-placement="top" title="" data-original-title="Instagram">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a class="social-button shape-rounded sb-google-plus" href="#" data-toggle="tooltip"
+                           data-placement="top" title="" data-original-title="Google +">
+                            <i class="fab fa-google-plus-g"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="details"></div>
+</div>
+}
+
+<div class="bg-secondary padding-top-3x padding-bottom-2x mb-3">
+    <div class="container">
+        <div class="row">
+            @foreach (var i in Model)
+            {
+                if (i.Ficha.Any())
+                {
+                    foreach (var f in i.Ficha)
+                    {
+                        <div class="col-md-6">
+                            <h3 class="h4">@WebStore.Resources.Titles.DetailsUse</h3>
+                            <p class="mb-4">
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+                                incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+                                ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
+                                voluptate velit esse cillum dolore eu fugiat.
+                            </p>
+                            <div class="row">
+                                @if (f.strDs43)
+                                {
+                                    <div class="col-md-4">
+                                        <a class="text-orangered text-sm" href="@Url.Action("ProductDs43CertificationPDF", "Downloads", new { filename = f.refCodProd})" target="_blank">@WebStore.Resources.Ficha.Ds43</a>
+                                    </div>
+                                }
+                                @if (f.strSec)
+                                {
+                                    <div class="col-md-4">
+                                        <a class="text-orangered text-sm" href="@Url.Action("ProductSecCertificationPDF", "Downloads", new { filename = f.strBrand})" target="_blank">@WebStore.Resources.Ficha.Sec</a>
+                                    </div>
+                                }
+                                @if (f.strFicha)
+                                {
+                                    <div class="col-md-4">
+                                        <a class="text-orangered text-sm" href="@Url.Action("ProductTecnicalSheetPDF", "Downloads", new { filename = f.refCodProd})" target="_blank">@WebStore.Resources.Ficha.Sheet</a>
+                                    </div>
+                                }
+                            </div>
+                            <div class="block-separator"></div>
+                            <h3 class="h4">@WebStore.Resources.Titles.Warranty</h3>
+                            <ul class="list-icon mb-4">
+                                <li><i class="fas fa-check text-success"></i>@WebStore.Resources.Ficha.Brand: @f.strBrand</li>
+                                <li><i class="fas fa-check text-success"></i>@WebStore.Resources.Ficha.Country: @f.strCountry</li>
+                                <li><i class="fas fa-check text-success"></i>@WebStore.Resources.Ficha.Warranty: @f.strWarranty @(Int32.Parse(f.strWarranty) > 1 ? WebStore.Resources.Ficha.Years : WebStore.Resources.Ficha.Year)</li>
+                                <li><i class="fas fa-check text-success"></i>@WebStore.Resources.Ficha.Certification: <span class="text-uppercase">@f.strCertification</span></li>
+                            </ul>
+                        </div>
+
+                        <div class="col-md-6">
+                            <h3 class="h4">@WebStore.Resources.Titles.Specifications</h3>
+                            <ul class="list-unstyled mb-4">
+                                @if (f.strPotencia != null)
+                                {
+                                    <li><strong>@WebStore.Resources.Ficha.Power:</strong> @(f.strPotencia)w</li>
+                                }
+                                @if (f.intColorTemp != null)
+                                {
+                                    <li><strong>@WebStore.Resources.Ficha.ColorLight:</strong> @f.intColorTemp °K</li>
+                                }
+                                @if (f.intVoltage != null)
+                                {
+                                    <li><strong>@WebStore.Resources.Ficha.V:</strong> @(f.intVoltage)V </li>
+                                }
+                                @if (f.intAmpers != null)
+                                {
+                                    <li><strong>@WebStore.Resources.Ficha.Ampers:</strong> @(f.intAmpers)A </li>
+                                }
+                                @if (f.strFrequency != null)
+                                {
+                                    <li><strong>@WebStore.Resources.Ficha.Frequency:</strong> @(f.strFrequency)Hz </li>
+                                }
+                                @if (f.strLightType != null)
+                                {
+                                    <li><strong>@WebStore.Resources.Ficha.LightType:</strong> @(f.strLightType) </li>
+                                }
+                                @if (f.intPF != null)
+                                {
+                                    <li><strong>@WebStore.Resources.Ficha.PF:</strong> >@(f.intPF) </li>
+                                }
+                                @if (f.intLightAngle != null)
+                                {
+                                    <li><strong>@WebStore.Resources.Ficha.LightAngle:</strong> @f.intLightAngle </li>
+                                }
+                                @if (f.intLumWatts != null)
+                                {
+                                    <li><strong>@WebStore.Resources.Ficha.LumWatts:</strong> @(f.intLumWatts)Lm/w </li>
+                                }
+                                @if (f.intCRI != null)
+                                {
+                                    <li><strong>@WebStore.Resources.Ficha.CRI:</strong>CRI > @(f.intCRI) </li>
+                                }
+                                @if (f.intWorkTemp != null)
+                                {
+                                    <li><strong>@WebStore.Resources.Ficha.WorkTemp:</strong> @(f.intWorkTemp) </li>
+                                }
+                                @if (f.intCircuitBreakTemp != null)
+                                {
+                                    <li><strong>@WebStore.Resources.Ficha.CircuitTemp:</strong> @f.intCircuitBreakTemp</li>
+                                }
+                                @if (f.strSolarPanel != null)
+                                {
+                                    <li><strong>@WebStore.Resources.Ficha.SolarPanel:</strong> @(f.strSolarPanel) </li>
+                                }
+                                @if (f.strBatery != null)
+                                {
+                                    <li><strong>@WebStore.Resources.Ficha.Batery:</strong> @f.strBatery </li>
+                                }
+                                @if (f.strAutonomy != null)
+                                {
+                                    <li><strong>@WebStore.Resources.Ficha.Autonomy:</strong> @(f.strAutonomy) @(Int32.Parse(f.strAutonomy) > 1 ? WebStore.Resources.Ficha.Hours : WebStore.Resources.Ficha.Hour)</li>
+                                }
+                                @if (f.intPir != null)
+                                {
+                                    <li><strong>@WebStore.Resources.Ficha.Pir:</strong> @(f.intPir) </li>
+                                }
+                                @if (f.strSocket != null)
+                                {
+                                    <li><strong>@WebStore.Resources.Ficha.Socket:</strong> @(f.strSocket) </li>
+                                }
+                                @if (f.strPoles != null)
+                                {
+                                    <li><strong>@WebStore.Resources.Ficha.Poles:</strong> @(f.strPoles) </li>
+                                }
+                                @if (f.intModule != null)
+                                {
+                                    <li><strong>@WebStore.Resources.Ficha.Modules:</strong> @(f.intModule) </li>
+                                }
+                                @if (f.strLifespan != null)
+                                {
+                                    <li><strong>@WebStore.Resources.Ficha.Life:</strong> > @f.strLifespan @WebStore.Resources.Ficha.Hours</li>
+                                }
+                                @if (f.intIp != null)
+                                {
+                                    <li><strong>@WebStore.Resources.Ficha.IP:</strong> IP @f.intIp </li>
+                                }
+                                @if (f.intIk != null)
+                                {
+                                    <li><strong>@WebStore.Resources.Ficha.IK:</strong> IK @f.intIk</li>
+                                }
+                                @if (f.strColor != null)
+                                {
+                                    <li><strong>@WebStore.Resources.Ficha.Color:</strong> @WebStore.Resources.Colors.ResourceManager.GetString(f.strColor)</li>
+                                }
+                                @if (f.strBody != null)
+                                {
+                                    <li><strong>@WebStore.Resources.Ficha.Body:</strong> @WebStore.Resources.Materials.ResourceManager.GetString(f.strBody)</li>
+                                }
+                                @if (f.strInstalation != null)
+                                {
+                                    <li><strong>@WebStore.Resources.Ficha.Instalation:</strong> @WebStore.Resources.Texts.ResourceManager.GetString(f.strInstalation) </li>
+                                }
+                                @if (f.strInclude != null)
+                                {
+                                    <li><strong>@WebStore.Resources.Ficha.Include:</strong> @(f.strInclude) </li>
+                                }
+                                @if (f.strNoInclude != null)
+                                {
+                                    <li><strong>@WebStore.Resources.Ficha.NoInclude:</strong> @(f.strNoInclude) </li>
+                                }
+                                @if (f.strType != null)
+                                {
+                                    <li><strong>@WebStore.Resources.Ficha.Type:</strong> @f.strType</li>
+                                }
+
+                            </ul>
+                            <h3 class="h4">@WebStore.Resources.Titles.ShippingInfo</h3>
+                            <ul class="list-unstyled mb-4">
+                                @if (f.intWeight != null)
+                                {
+                                    <li><strong>@WebStore.Resources.Ficha.Weight:</strong> @(f.intWeight)kg </li>
+                                }
+                                @if (f.strLHW != null)
+                                {
+                                    <li><strong>@WebStore.Resources.Ficha.LHW:</strong> @f.strLHW</li>
+                                }
+                                @if (f.intDiameter != null)
+                                {
+                                    <li><strong>@WebStore.Resources.Ficha.Diameter:</strong> @f.intDiameter</li>
+                                }
+
+                            </ul>
+                        </div>
+                    }
+                }
+            }
+
+        </div>
+    </div>
+</div>
+
+<div class="container padding-top-2x">
+    <div class="row">
+        <div class="col-md-4 mb-4">
+            <div class="card border-default">
+                <div class="card-body">
+                    <div class="text-center">
+                        <div class="d-inline align-baseline display-3 mr-1">4.2</div>
+                        <div class="d-inline align-baseline text-sm text-warning mr-1">
+                            <div class="mg-rating-stars">
+                                <i class="fas fa-star filled"></i>
+                                <i class="fas fa-star filled"></i>
+                                <i class="fas fa-star filled"></i>
+                                <i class="fas fa-star filled"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pt-3">
+                        <label class="text-medium text-sm">5 stars <span class="text-muted">- 38</span></label>
+                        <div class="mg-progress margin-bottom-1x">
+                            <div class="mg-progress-bar bg-warning" role="progressbar" style="width: 75%; height: 2px;"
+                                 aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                        <label class="text-medium text-sm">4 stars <span class="text-muted">- 10</span></label>
+                        <div class="mg-progress margin-bottom-1x">
+                            <div class="mg-progress-bar bg-warning" role="progressbar" style="width: 20%; height: 2px;"
+                                 aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                        <label class="text-medium text-sm">3 stars <span class="text-muted">- 3</span></label>
+                        <div class="mg-progress margin-bottom-1x">
+                            <div class="mg-progress-bar bg-warning" role="progressbar" style="width: 7%; height: 2px;"
+                                 aria-valuenow="7" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                        <label class="text-medium text-sm">2 stars <span class="text-muted">- 1</span></label>
+                        <div class="mg-progress margin-bottom-1x">
+                            <div class="mg-progress-bar bg-warning" role="progressbar" style="width: 3%; height: 2px;"
+                                 aria-valuenow="3" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                        <label class="text-medium text-sm">1 star <span class="text-muted">- 0</span></label>
+                        <div class="mg-progress mb-2">
+                            <div class="mg-progress-bar bg-warning" role="progressbar" style="width: 0; height: 2px;"
+                                 aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                    </div>
+                    <div class="pt-2">
+                        <a class="btn btn-warning btn-block" href="#" data-toggle="modal" data-target="#leaveReview">
+                            Leave
+                            a Review
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-8">
+            <h3 class="padding-bottom-1x">Latest Reviews</h3>
+            <div class="mg-comment">
+                <div class="mg-comment-author-ava">
+                    <img src="http://themes.rokaux.com/unishop/v3.0/template-3/img/reviews/02.jpg" alt="mg-Comment author">
+                </div>
+                <div class="mg-comment-body">
+                    <div class="mg-comment-header d-flex flex-wrap justify-content-between">
+                        <h4 class="mg-comment-title">My husband love his new...</h4>
+                        <div class="mb-2">
+                            <div class="mg-rating-stars">
+                                <i class="fas fa-star filled"></i>
+                                <i class="fas fa-star filled"></i>
+                                <i class="fas fa-star filled"></i>
+                                <i class="fas fa-star filled"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="mg-comment-text">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+                        tempor...
+                    </p>
+                    <div class="mg-comment-footer"><span class="mg-comment-meta">Maggie Scott</span></div>
+                </div>
+            </div>
+            <div class="mg-comment">
+                <div class="mg-comment-author-ava">
+                    <img src="http://themes.rokaux.com/unishop/v3.0/template-3/img/reviews/03.jpg" alt="mg-Comment author">
+                </div>
+                <div class="mg-comment-body">
+                    <div class="mg-comment-header d-flex flex-wrap justify-content-between">
+                        <h4 class="mg-comment-title">Awesome quality for the price</h4>
+                        <div class="mb-2">
+                            <div class="mg-rating-stars">
+                                <i class="fas fa-star filled"></i>
+                                <i class="fas fa-star filled"></i>
+                                <i class="fas fa-star filled"></i>
+                                <i class="fas fa-star filled"></i>
+                                <i class="fas fa-star filled"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="mg-comment-text">
+                        Sed ut perspiciatis unde omnis iste natus error sit voluptatem
+                        accusantium...
+                    </p>
+                    <div class="mg-comment-footer"><span class="mg-comment-meta">Jacob Hammond</span></div>
+                </div>
+            </div>
+            <a class="btn btn-view-more btn-block" href="#">View All Reviews</a>
+        </div>
+    </div>
+</div>
+
+<div class="container padding-bottom-3x mb-1">
+    <h3 class="text-center padding-top-2x mt-2 padding-bottom-1x">También Pudieran Interesarte</h3>
+    <div id="carouselYouMayLikeToo" class="owl-carousel owl-animated-in owl-grab owl-loaded" data-ride="carousel" data-interval="false">
+        <div class="owl-stage-outer">
+            <div class="owl-stage">
+                <div class="owl-item">
+                    <div class="mg-product-card mb-3">
+                        <div class="mg-product-wish bg-secondary" href="javascript:void(0);">
+                            <i></i>
+                        </div>
+                        <div class="mg-rating-stars">
+                            <i class="fas fa-star filled"></i>
+                            <i class="fas fa-star filled"></i>
+                            <i class="fas fa-star filled"></i>
+                            <i class="fas fa-star filled"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <a class="mg-product-thumb" href="javascript:void(0);">
+                            <img class="img-fuild" src="https://eepp.cl/images/productos/Z1-K-BLANCO.jpg"
+                                 alt="Producto">
+                            <img class="img-fuild img-sec" src="https://eepp.cl/images/home/sec.png">
+
+                            <div class="mg-product-card-body">
+                                <h4 class="mg-product-price">
+                                    <del>$15.062,00</del><br />
+                                    $ 10.125,00
+                                    <label class="off">50% OFF</label>
+                                </h4>
+                                <div class="mg-product-category">
+                                    SKU: 01245478
+                                </div>
+                                <h3 class="mg-product-title">
+                                    algo va aquí
+                                </h3>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="owl-item">
+                    <div class="mg-product-card mb-3">
+                        <div class="mg-product-wish bg-secondary" href="javascript:void(0);">
+                            <i></i>
+                        </div>
+                        <div class="mg-rating-stars">
+                            <i class="fas fa-star filled"></i>
+                            <i class="fas fa-star filled"></i>
+                            <i class="fas fa-star filled"></i>
+                            <i class="fas fa-star filled"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <a class="mg-product-thumb" href="javascript:void(0);">
+                            <img class="img-fuild" src="https://eepp.cl/images/productos/Z1-K-BLANCO.jpg"
+                                 alt="Producto">
+                            <img class="img-fuild img-sec" src="https://eepp.cl/images/home/sec.png">
+
+                            <div class="mg-product-card-body">
+                                <h4 class="mg-product-price">
+                                    <del>$15.062,00</del><br />
+                                    $ 10.125,00
+                                    <label class="off">50% OFF</label>
+                                </h4>
+                                <div class="mg-product-category">
+                                    SKU: 01245478
+                                </div>
+                                <h3 class="mg-product-title">
+                                    algo va aquí
+                                </h3>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="owl-item">
+                    <div class="mg-product-card mb-3">
+                        <div class="mg-product-wish bg-secondary" href="javascript:void(0);">
+                            <i></i>
+                        </div>
+                        <div class="mg-rating-stars">
+                            <i class="fas fa-star filled"></i>
+                            <i class="fas fa-star filled"></i>
+                            <i class="fas fa-star filled"></i>
+                            <i class="fas fa-star filled"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <a class="mg-product-thumb" href="javascript:void(0);">
+                            <img class="img-fuild" src="https://eepp.cl/images/productos/Z1-K-BLANCO.jpg"
+                                 alt="Producto">
+                            <img class="img-fuild img-sec" src="https://eepp.cl/images/home/sec.png">
+
+                            <div class="mg-product-card-body">
+                                <h4 class="mg-product-price">
+                                    <del>$15.062,00</del><br />
+                                    $ 10.125,00
+                                    <label class="off">50% OFF</label>
+                                </h4>
+                                <div class="mg-product-category">
+                                    SKU: 01245478
+                                </div>
+                                <h3 class="mg-product-title">
+                                    algo va aquí
+                                </h3>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="owl-item">
+                    <div class="mg-product-card mb-3">
+                        <div class="mg-product-wish bg-secondary" href="javascript:void(0);">
+                            <i></i>
+                        </div>
+                        <div class="mg-rating-stars">
+                            <i class="fas fa-star filled"></i>
+                            <i class="fas fa-star filled"></i>
+                            <i class="fas fa-star filled"></i>
+                            <i class="fas fa-star filled"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <a class="mg-product-thumb" href="javascript:void(0);">
+                            <img class="img-fuild" src="https://eepp.cl/images/productos/Z1-K-BLANCO.jpg"
+                                 alt="Producto">
+                            <img class="img-fuild img-sec" src="https://eepp.cl/images/home/sec.png">
+
+                            <div class="mg-product-card-body">
+                                <h4 class="mg-product-price">
+                                    <del>$15.062,00</del><br />
+                                    $ 10.125,00
+                                    <label class="off">50% OFF</label>
+                                </h4>
+                                <div class="mg-product-category">
+                                    SKU: 01245478
+                                </div>
+                                <h3 class="mg-product-title">
+                                    algo va aquí
+                                </h3>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="owl-item">
+                    <div class="mg-product-card mb-3">
+                        <div class="mg-product-wish bg-secondary" href="javascript:void(0);">
+                            <i></i>
+                        </div>
+                        <div class="mg-rating-stars">
+                            <i class="fas fa-star filled"></i>
+                            <i class="fas fa-star filled"></i>
+                            <i class="fas fa-star filled"></i>
+                            <i class="fas fa-star filled"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <a class="mg-product-thumb" href="javascript:void(0);">
+                            <img class="img-fuild" src="https://eepp.cl/images/productos/Z1-K-BLANCO.jpg"
+                                 alt="Producto">
+                            <img class="img-fuild img-sec" src="https://eepp.cl/images/home/sec.png">
+
+                            <div class="mg-product-card-body">
+                                <h4 class="mg-product-price">
+                                    <del>$15.062,00</del><br />
+                                    $ 10.125,00
+                                    <label class="off">50% OFF</label>
+                                </h4>
+                                <div class="mg-product-category">
+                                    SKU: 01245478
+                                </div>
+                                <h3 class="mg-product-title">
+                                    algo va aquí
+                                </h3>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script type="text/javascript">
+        $(function () {
+            $.AdminJs.Countdown.activate();
+        })
+    </script>
+}

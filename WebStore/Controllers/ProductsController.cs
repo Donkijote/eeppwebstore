@@ -1,21 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
-using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using WebStore.Models;
+using WebStore.Functions;
 using WebStore.Routing;
+using System.Globalization;
+using System.IO;
 using X.PagedList;
 using X.PagedList.Mvc;
-using WebStore.Functions;
 
 namespace WebStore.Controllers
 {
-    public class OffertsController : Controller
+    public class ProductsController : Controller
     {
-        // GET: Offerts
+        // GET: Products
         public ActionResult Offerts(int? Page, int? PerPage, string SortedBy)
         {
             string url = Request.RawUrl;

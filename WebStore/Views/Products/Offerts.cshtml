@@ -122,19 +122,19 @@
 
                                                     }
                                                     <span class="mg-product-badge bg-danger">TIEMPO LIMITADO</span>
-                                                </div> 
+                                                </div>
                                             }
                                             else
                                             {
-                                            <div class="mg-rating-stars stars">
-                                                @{
-                                                    int stars = rand.Next(5);
-                                                    for (var i = 1; i < 6; i++)
-                                                    {
-                                                        <i class="fas fa-star @(i <= stars ? "filled": "")"></i>
+                                                <div class="mg-rating-stars stars">
+                                                    @{
+                                                        int stars = rand.Next(5);
+                                                        for (var i = 1; i < 6; i++)
+                                                        {
+                                                            <i class="fas fa-star @(i <= stars ? "filled": "")"></i>
+                                                        }
                                                     }
-                                                }
-                                            </div>
+                                                </div>
                                             }
                                             <h4 class="mg-product-price">
                                                 @if (item.intPrecioOff != "0")
@@ -181,8 +181,10 @@
                                     <i></i>
                                 </div>
                                 <a class="mg-product-thumb" href="@Url.Action("Category","Product", new { id = WebStore.Resources.Seo.ResourceManager.GetString(item.categorySeo), idp = item.strCodigo, language=System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName })">
-                                    <img class="img-fuild" src="~/Content/img/products/@item.strCodigo-1.jpg"
-                                         alt="Producto">
+                                    <img class="img-fuild" src="~/Content/img/products/@item.strCodigo-1.png"
+                                        alt="Producto">
+                                    <img class="img-fuild img-sec" src="~/Content/img/certificates/sec.png">
+                                    <img class="img-fluid img-ds43" src="~/Content/img/certificates/ds43.png" />
                                 </a>
                                 <div class="mg-product-card-body">
                                     <h4 class="mg-product-price">
