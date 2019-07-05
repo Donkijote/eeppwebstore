@@ -487,6 +487,16 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Titles.resx</DependentUpon>
     </Compile>
+    <Compile Include="Resources\Warehouse.es.Designer.cs">
+      <DependentUpon>Warehouse.es.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Resources\Warehouse.Designer.cs">
+      <DependentUpon>Warehouse.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="Resources\VerticalRightNav.es.Designer.cs">
       <DependentUpon>VerticalRightNav.es.resx</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -1016,6 +1026,14 @@
     <EmbeddedResource Include="Resources\Titles.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Titles.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Warehouse.es.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Warehouse.es.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Warehouse.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Warehouse.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\VerticalRightNav.es.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

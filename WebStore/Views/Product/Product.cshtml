@@ -230,7 +230,7 @@
                     @foreach (var i in item.Stock)
                     {
                         <tr>
-                            <td class="pr-3"><h6 class="mb-0">@(i.codBode == "1" ? "Santiago" : (i.codBode == "30" ? "Concepción" : ""))</h6></td>
+                            <td class="pr-3"><h6 class="mb-0">@(i.codBode == "1" ? WebStore.Resources.Warehouse.Santiago : (i.codBode == "30" ? WebStore.Resources.Warehouse.Conce : (i.codBode == "50" ? WebStore.Resources.Warehouse.ToCome: "")))</h6></td>
                             <td class="pr-3">@i.TotalStock Unidades</td>
                         </tr>
                     }
