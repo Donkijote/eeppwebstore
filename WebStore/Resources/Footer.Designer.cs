@@ -70,6 +70,15 @@ namespace WebStore.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Our Company.
+        /// </summary>
+        public static string AboutUs {
+            get {
+                return ResourceManager.GetString("AboutUs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Your Account.
         /// </summary>
         public static string Account {

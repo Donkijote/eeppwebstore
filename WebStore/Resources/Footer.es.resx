@@ -189,4 +189,7 @@
   <data name="Facebook" xml:space="preserve">
     <value>Publicaciones de Facebook</value>
   </data>
+  <data name="AboutUs" xml:space="preserve">
+    <value>Nuestra Empresa</value>
+  </data>
 </root>

@@ -2732,10 +2732,8 @@ button {
         content: ''; }
   .mg-product-card .mg-product-countdown-wrapper {
     position: absolute;
-    top: 60%;
+    top: 62%;
     left: 10%; }
-    .mg-product-card .mg-product-countdown-wrapper span {
-      font-size: 12px; }
     @media only screen and (max-width: 1024px) {
       .mg-product-card .mg-product-countdown-wrapper {
         position: relative;
@@ -2743,6 +2741,9 @@ button {
         left: -5px; }
         .mg-product-card .mg-product-countdown-wrapper .countdown {
           display: none !important; } }
+    .mg-product-card .mg-product-countdown-wrapper .mg-product-badge {
+      display: none;
+      font-size: 12px; }
   @media (min-width: 576px) {
     .mg-product-card.mg-product-list {
       display: table;

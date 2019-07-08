@@ -2988,12 +2988,8 @@ button {
 
     .mg-product-countdown-wrapper {
         position: absolute;
-        top: 60%;
+        top: 62%;
         left: 10%;
-
-        span {
-            font-size: 12px;
-        }
 
         @include respond-to(false, 1024) {
             position: relative;
@@ -3003,6 +2999,11 @@ button {
             .countdown {
                 display: none !important;
             }
+        }
+
+        .mg-product-badge {
+            display: none;
+            font-size: 12px;
         }
     }
 
