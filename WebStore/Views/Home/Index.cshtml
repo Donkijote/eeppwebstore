@@ -61,7 +61,7 @@
                                     <h4 class="card-title">
                                         @WebStore.Resources.Categories.ResourceManager.GetString(i.StrName)
                                     </h4>
-                                    <a class="btn btn-outline-orangered btn-sm" href="@Url.Action("s", "Categories", new { id = WebStore.Resources.Seo.ResourceManager.GetString(i.StrName), language = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName }, null)">@WebStore.Resources.Buttons.ViewProducts</a>
+                                    <a class="btn btn-outline-orangered btn-sm" href="@Url.Action("Category", "Product", new { id = WebStore.Resources.Seo.ResourceManager.GetString(i.StrName), language = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName }, null)">@WebStore.Resources.Buttons.ViewProducts</a>
                                 </div>
                             </div>
                         </div>
