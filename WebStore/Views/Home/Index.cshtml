@@ -21,7 +21,7 @@
                                             <div class="h2 text-body mb-2 pt-1 text-capitalize">@p.strNombre</div>
                                             <div class="h2 text-body mb-4 pb-1"><del class="text-muted h4">$@p.intPrecio</del><br /> <span class="h1">$@p.intPrecioOff</span><span class="text-success h4">@p.intPrecentOff DCTO</span></div>
                                         </div>
-                                        <a class="btn btn-orangered scale-up delay-1" href="@Url.Action("s","Categories", new { id = p.categorySeo, idp = p.strCodigo, language = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName})">@WebStore.Resources.Buttons.ViewProduct</a>
+                                        <a class="btn btn-orangered scale-up delay-1" href="@Url.Action("Category","Product", new { id = p.categorySeo, idp = p.strCodigo, language = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName})">@WebStore.Resources.Buttons.ViewProduct</a>
                                     </div>
                                     <div class="col-md-6 padding-bottom-2x mb-3"><img class="d-block mx-auto" style="max-width:400px;" src="~/Content/img/carouselOffers/@(p.strCodigo).png" alt="@p.strNombre"></div>
                                 </div>
@@ -61,7 +61,7 @@
                                     <h4 class="card-title">
                                         @WebStore.Resources.Categories.ResourceManager.GetString(i.StrName)
                                     </h4>
-                                    <a class="btn btn-outline-orangered btn-sm" href="@Url.Action("Category", "Product", new { id = WebStore.Resources.Seo.ResourceManager.GetString(i.StrName), language = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName }, null)">@WebStore.Resources.Buttons.ViewProducts</a>
+                                    <a class="btn btn-outline-orangered btn-sm" href="@Url.Action("s", "Categories", new { id = WebStore.Resources.Seo.ResourceManager.GetString(i.StrName), language = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName }, null)">@WebStore.Resources.Buttons.ViewProducts</a>
                                 </div>
                             </div>
                         </div>
