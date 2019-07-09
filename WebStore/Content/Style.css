@@ -1636,6 +1636,58 @@ html * {
     cursor: -moz-grabbing !important;
     cursor: -webkit-grabbing !important; }
 
+.gallery-wrapper .gallery-item {
+  margin-bottom: 30px; }
+  .gallery-wrapper .gallery-item a {
+    display: block;
+    position: relative;
+    width: 100%;
+    border-radius: 6px;
+    text-decoration: none;
+    overflow: hidden; }
+    .gallery-wrapper .gallery-item a::before {
+      display: block;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: #000;
+      content: '';
+      opacity: 0;
+      z-index: 1;
+      transition: opacity .3s; }
+    .gallery-wrapper .gallery-item a::after {
+      display: block;
+      position: absolute;
+      top: 50%;
+      left: 0;
+      width: 100%;
+      margin-top: -24px;
+      -webkit-transform: translateY(15px);
+      -ms-transform: translateY(15px);
+      transform: translateY(15px);
+      transition: all .35s;
+      color: #fff;
+      font-family: "Font Awesome 5 Brands";
+      font-size: 32px;
+      text-align: center;
+      content: '\f3ee';
+      opacity: 0;
+      z-index: 5; }
+    .gallery-wrapper .gallery-item a:hover::before {
+      opacity: .45; }
+    .gallery-wrapper .gallery-item a:hover::after {
+      -webkit-transform: translateY(0);
+      -ms-transform: translateY(0);
+      transform: translateY(0);
+      opacity: 1; }
+    .gallery-wrapper .gallery-item a img {
+      display: block;
+      width: 100%; }
+  .gallery-wrapper .gallery-item .caption {
+    display: none; }
+
 /*#endregion */
 /*#region Buttons */
 button {
@@ -4390,6 +4442,50 @@ button.bg-secondary:focus, button.bg-secondary:hover {
     color: grey;
     padding-bottom: 5px;
     font-weight: normal; }
+
+blockquote {
+  position: relative;
+  margin: 0;
+  margin: 50px 0;
+  padding: 50px 30px 40px;
+  border: 0;
+  border-radius: 5px;
+  background-color: #f5f5f5;
+  color: #505050;
+  font-size: 16px;
+  font-style: italic;
+  text-align: center; }
+  blockquote::before {
+    position: absolute;
+    top: -24px;
+    left: 50%;
+    width: 50px;
+    height: 50px;
+    margin-left: -25px;
+    border-radius: 50%;
+    background-image: url(data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pgo8IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMTYuMC4wLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogNi4wMCBCdWlsZCAwKSAgLS0+CjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiBpZD0iQ2FwYV8xIiB4PSIwcHgiIHk9IjBweCIgd2lkdGg9IjI0cHgiIGhlaWdodD0iMjRweCIgdmlld0JveD0iMCAwIDk1LjMzMyA5NS4zMzIiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDk1LjMzMyA5NS4zMzI7IiB4bWw6c3BhY2U9InByZXNlcnZlIj4KPGc+Cgk8Zz4KCQk8cGF0aCBkPSJNMzAuNTEyLDQzLjkzOWMtMi4zNDgtMC42NzYtNC42OTYtMS4wMTktNi45OC0xLjAxOWMtMy41MjcsMC02LjQ3LDAuODA2LTguNzUyLDEuNzkzICAgIGMyLjItOC4wNTQsNy40ODUtMjEuOTUxLDE4LjAxMy0yMy41MTZjMC45NzUtMC4xNDUsMS43NzQtMC44NSwyLjA0LTEuNzk5bDIuMzAxLTguMjNjMC4xOTQtMC42OTYsMC4wNzktMS40NDEtMC4zMTgtMi4wNDUgICAgcy0xLjAzNS0xLjAwNy0xLjc1LTEuMTA1Yy0wLjc3Ny0wLjEwNi0xLjU2OS0wLjE2LTIuMzU0LTAuMTZjLTEyLjYzNywwLTI1LjE1MiwxMy4xOS0zMC40MzMsMzIuMDc2ICAgIGMtMy4xLDExLjA4LTQuMDA5LDI3LjczOCwzLjYyNywzOC4yMjNjNC4yNzMsNS44NjcsMTAuNTA3LDksMTguNTI5LDkuMzEzYzAuMDMzLDAuMDAxLDAuMDY1LDAuMDAyLDAuMDk4LDAuMDAyICAgIGM5Ljg5OCwwLDE4LjY3NS02LjY2NiwyMS4zNDUtMTYuMjA5YzEuNTk1LTUuNzA1LDAuODc0LTExLjY4OC0yLjAzMi0xNi44NTFDNDAuOTcxLDQ5LjMwNywzNi4yMzYsNDUuNTg2LDMwLjUxMiw0My45Mzl6IiBmaWxsPSIjRkZGRkZGIi8+CgkJPHBhdGggZD0iTTkyLjQ3MSw1NC40MTNjLTIuODc1LTUuMTA2LTcuNjEtOC44MjctMTMuMzM0LTEwLjQ3NGMtMi4zNDgtMC42NzYtNC42OTYtMS4wMTktNi45NzktMS4wMTkgICAgYy0zLjUyNywwLTYuNDcxLDAuODA2LTguNzUzLDEuNzkzYzIuMi04LjA1NCw3LjQ4NS0yMS45NTEsMTguMDE0LTIzLjUxNmMwLjk3NS0wLjE0NSwxLjc3My0wLjg1LDIuMDQtMS43OTlsMi4zMDEtOC4yMyAgICBjMC4xOTQtMC42OTYsMC4wNzktMS40NDEtMC4zMTgtMi4wNDVjLTAuMzk2LTAuNjA0LTEuMDM0LTEuMDA3LTEuNzUtMS4xMDVjLTAuNzc2LTAuMTA2LTEuNTY4LTAuMTYtMi4zNTQtMC4xNiAgICBjLTEyLjYzNywwLTI1LjE1MiwxMy4xOS0zMC40MzQsMzIuMDc2Yy0zLjA5OSwxMS4wOC00LjAwOCwyNy43MzgsMy42MjksMzguMjI1YzQuMjcyLDUuODY2LDEwLjUwNyw5LDE4LjUyOCw5LjMxMiAgICBjMC4wMzMsMC4wMDEsMC4wNjUsMC4wMDIsMC4wOTksMC4wMDJjOS44OTcsMCwxOC42NzUtNi42NjYsMjEuMzQ1LTE2LjIwOUM5Ni4wOTgsNjUuNTU5LDk1LjM3Niw1OS41NzUsOTIuNDcxLDU0LjQxM3oiIGZpbGw9IiNGRkZGRkYiLz4KCTwvZz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8L3N2Zz4K);
+    background-color: #05f;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 18px 18px;
+    box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.25);
+    content: ''; }
+  blockquote cite {
+    display: block;
+    margin-top: 16px;
+    color: #999;
+    font-size: 13px;
+    font-style: normal;
+    font-weight: normal; }
+    blockquote cite::before {
+      display: inline-block;
+      margin-top: -1px;
+      margin-right: 6px;
+      color: #999;
+      font-family: "Font Awesome 5 Free";
+      font-size: 1.2em;
+      content: '\f007';
+      vertical-align: middle; }
 
 /*#endregion*/
 /*#region Keyframes */

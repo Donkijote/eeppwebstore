@@ -1,0 +1,176 @@
+﻿@{
+    ViewBag.Title = WebStore.Resources.Titles.Knowus;
+}
+<section>
+    <header class="header">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                    <h1>
+                        @ViewBag.Title
+                    </h1>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                    <ul class="breadcrumbs">
+                        <li>
+                            <a href="@Url.Action("Index","Home", new { language = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName}, null)">@WebStore.Resources.Titles.Home</a>
+                        </li>
+                        <li class="separator">&nbsp;</li>
+                        <li>
+                            @ViewBag.Title
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </header>
+</section>
+
+<div class="container">
+    <div class="gallery-wrapper" data-pswp-uid="1">
+        <div class="gallery-item">
+            <a class="swipeImg" href="http://themes.rokaux.com/unishop/v3.1/template-3/img/blog/single/th01.jpg" data-width="1000" data-height="335">
+                <img src="http://themes.rokaux.com/unishop/v3.1/template-3/img/blog/single/th01.jpg" alt="Image">
+            </a>
+            <span class="caption">Blog single post caption 1</span>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4 col-sm-6">
+                <div class="gallery-item">
+                    <a class="swipeImg" href="http://themes.rokaux.com/unishop/v3.1/template-3/img/blog/single/th02.jpg" data-width="900" data-height="600">
+                        <img src="http://themes.rokaux.com/unishop/v3.1/template-3/img/blog/single/th02.jpg" alt="Image">
+                    </a>
+                    <span class="caption">Blog single post caption 2</span>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6">
+                <div class="gallery-item">
+                    <a class="swipeImg" href="http://themes.rokaux.com/unishop/v3.1/template-3/img/blog/single/02.jpg" data-width="900" data-height="600">
+                        <img src="http://themes.rokaux.com/unishop/v3.1/template-3/img/blog/single/02.jpg" alt="Image">
+                    </a><span class="caption">Blog single post caption 3</span></div>
+            </div>
+            <div class="col-md-4 col-sm-6">
+                <div class="gallery-item">
+                    <a class="swipeImg" href="http://themes.rokaux.com/unishop/v3.1/template-3/img/blog/single/03.jpg" data-width="900" data-height="600">
+                        <img src="http://themes.rokaux.com/unishop/v3.1/template-3/img/blog/single/03.jpg" alt="Image">
+                    </a>
+                    <span class="caption">Blog single post caption 4</span></div>
+            </div>
+        </div>
+    </div>
+
+    <h2 class="pt-4">Smartphones in Every Day Life</h2>
+
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Ut enim ad minima veniam, quis nostrum exercitationem.</p>
+    <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Ut enim ad minima veniam.</p>
+
+    <div class="row pt-3 pb-2">
+        <div class="col-xl-10 offset-xl-1">
+            <blockquote class="margin-top-1x margin-bottom-1x">
+                <p>Perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo.</p>
+                <cite>Someone famous</cite>
+            </blockquote>
+        </div>
+    </div>
+
+    <p class="mt-2">At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio.</p>
+    <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Ut enim ad minima veniam.</p>
+</div>
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe.
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides.
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo https://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)"></button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)"></button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+@section Scripts{
+    <script>
+        $(function () {
+            var container = [];
+
+            $('.gallery-wrapper').find('.gallery-item').each(function () {
+                var $link = $(this).find('a'),
+                    item = {
+                        src: $link.attr('href'),
+                        w: $link.data('width'),
+                        h: $link.data('height'),
+                        title: $(this).find('.caption').text()
+                    };
+                container.push(item);
+            });
+
+            $('.swipeImg').on('click', function (e) {
+                e.preventDefault();
+                var $pswp = $('.pswp')[0],
+                    options = {
+                        index: $(this).parents('.gallery-item').index(),
+                        bgOpacity: 0.85,
+                        showHideOpacity: true
+                    };
+
+                var gallery = new PhotoSwipe($pswp, PhotoSwipeUI_Default, container, options);
+                gallery.init();
+            })
+        })
+    </script>
+}

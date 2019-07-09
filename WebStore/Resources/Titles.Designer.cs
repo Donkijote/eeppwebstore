@@ -178,11 +178,29 @@ namespace WebStore.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a History.
+        /// </summary>
+        public static string History {
+            get {
+                return ResourceManager.GetString("History", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Home.
         /// </summary>
         public static string Home {
             get {
                 return ResourceManager.GetString("Home", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Know Us.
+        /// </summary>
+        public static string Knowus {
+            get {
+                return ResourceManager.GetString("Knowus", resourceCulture);
             }
         }
         

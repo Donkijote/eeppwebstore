@@ -169,6 +169,22 @@ namespace WebStore.Controllers
                     ViewBag.maxPrice = 0;
                 }
 
+                var brands = (from a in db.tblRelBrand
+                              join b in db.tblBrand
+                              on a.refBrand equals b.idBrand
+                              select new {
+                                  refProd = a.refProd,
+                                  brand = b.strName
+                              }).ToList();
+
+                foreach(var i in s)
+                {
+                    if(brands.Any(b => b.refProd == i.strCodigo))
+                    {
+                        i.Brand = brands.Where(b => b.refProd == i.strCodigo).Select(l => l.brand).FirstOrDefault();
+                    }
+                }
+
                 var tList = db.tblOffertTime.Where(t => t.strTime >= DateTime.Now).Select(j => j).ToList();
                 if (tList.Any())
                 {
@@ -233,6 +249,23 @@ namespace WebStore.Controllers
                 {
                     ViewBag.minPrice = 0;
                     ViewBag.maxPrice = 0;
+                }
+
+                var brands = (from a in db.tblRelBrand
+                              join b in db.tblBrand
+                              on a.refBrand equals b.idBrand
+                              select new
+                              {
+                                  refProd = a.refProd,
+                                  brand = b.strName
+                              }).ToList();
+
+                foreach (var i in s)
+                {
+                    if (brands.Any(b => b.refProd == i.strCodigo))
+                    {
+                        i.Brand = brands.Where(b => b.refProd == i.strCodigo).Select(l => l.brand).FirstOrDefault();
+                    }
                 }
 
                 var tList = db.tblOffertTime.Where(t => t.strTime >= DateTime.Now).Select(j => j).ToList();

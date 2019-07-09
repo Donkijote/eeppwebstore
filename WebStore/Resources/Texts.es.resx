@@ -123,6 +123,9 @@
   <data name="BestRated" xml:space="preserve">
     <value>Mejor calificados</value>
   </data>
+  <data name="Brand" xml:space="preserve">
+    <value>Marca:</value>
+  </data>
   <data name="HighLow" xml:space="preserve">
     <value>Mayor a menor precio</value>
   </data>

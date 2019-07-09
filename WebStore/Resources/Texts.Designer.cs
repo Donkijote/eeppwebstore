@@ -79,6 +79,15 @@ namespace WebStore.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Brand:.
+        /// </summary>
+        public static string Brand {
+            get {
+                return ResourceManager.GetString("Brand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a High - Low Price.
         /// </summary>
         public static string HighLow {

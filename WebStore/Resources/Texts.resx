@@ -123,6 +123,9 @@
   <data name="BestRated" xml:space="preserve">
     <value>Best Rated</value>
   </data>
+  <data name="Brand" xml:space="preserve">
+    <value>Brand:</value>
+  </data>
   <data name="HighLow" xml:space="preserve">
     <value>High - Low Price</value>
   </data>

@@ -228,4 +228,10 @@
   <data name="ShippingType" xml:space="preserve">
     <value>Tipo de envío</value>
   </data>
+  <data name="History" xml:space="preserve">
+    <value>Historia</value>
+  </data>
+  <data name="Knowus" xml:space="preserve">
+    <value>Conócenos</value>
+  </data>
 </root>

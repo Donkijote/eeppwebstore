@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using System.Threading;
 using System.Globalization;
 using WebStore.Models;
+using WebStore.Functions;
 
 namespace WebStore.Controllers
 {
@@ -31,6 +32,7 @@ namespace WebStore.Controllers
 
             webstoreEntities db = new webstoreEntities();
             ElectropEntities dbE = new ElectropEntities();
+            Function function = new Function();
 
             viewModel.Binding = new BindingCateogyFamilyChild
                 {
@@ -82,11 +84,11 @@ namespace WebStore.Controllers
                             .Select(x => new Products
                             {
                                 strCodigo = x.strCod,
-                                strNombre = Truncate(first.strName, 60).ToLower(),
+                                strNombre = function.Truncate(first.strName, 60).ToLower(),
                                 categoryName = x.category,
-                                intPrecio = FormatNumber((int)(x.intPrecio + (x.intPrecio * (x.percent / 100)))),
+                                intPrecio = function.FormatNumber((int)(x.intPrecio + (x.intPrecio * (x.percent / 100)))),
                                 intPrecentOff = percentOff + "%",
-                                intPrecioOff = FormatNumber((int)(x.intPrecio + (x.intPrecio * (x.percent / 100))) - ((int)(x.intPrecio + (x.intPrecio * (x.percent / 100))) * percentOff / 100)),
+                                intPrecioOff = function.FormatNumber((int)(x.intPrecio + (x.intPrecio * (x.percent / 100))) - ((int)(x.intPrecio + (x.intPrecio * (x.percent / 100))) * percentOff / 100)),
                                 intPercent = x.percent + "%",
                                 TimeOffer = true,
                                 Time = string.Format("{0:D2}:{1:D2}:{2:D2}:{3:D2}", timeDiff.Days, timeDiff.Hours, timeDiff.Minutes, timeDiff.Seconds)
@@ -129,10 +131,10 @@ namespace WebStore.Controllers
                     .Select(x => new Products
                     {
                         strCodigo = x.strCod,
-                        strNombre = Truncate(x.strNombre, 60).ToLower(),
-                        intPrecio = FormatNumber((int)(x.intPrecio + (x.intPrecio * (x.percent / 100)))),
+                        strNombre = function.Truncate(x.strNombre, 60).ToLower(),
+                        intPrecio = function.FormatNumber((int)(x.intPrecio + (x.intPrecio * (x.percent / 100)))),
                         intPrecentOff = o.Any(l => l.CodProd == x.strCodigo) ? o.Where(i => i.CodProd == x.strCodigo).Select(j => (int)j.ValorPct).FirstOrDefault() + "%" : "0",
-                        intPrecioOff = o.Any(l => l.CodProd == x.strCodigo) ? FormatNumber((int)(x.intPrecio + (x.intPrecio * (x.percent / 100))) - (int)(((x.intPrecio + (x.intPrecio * (x.percent / 100))) * o.Where(i => i.CodProd == x.strCodigo).Select(j => (int)j.ValorPct).FirstOrDefault() / 100))) : "0",
+                        intPrecioOff = o.Any(l => l.CodProd == x.strCodigo) ? function.FormatNumber((int)(x.intPrecio + (x.intPrecio * (x.percent / 100))) - (int)(((x.intPrecio + (x.intPrecio * (x.percent / 100))) * o.Where(i => i.CodProd == x.strCodigo).Select(j => (int)j.ValorPct).FirstOrDefault() / 100))) : "0",
                         intPercent = x.percent + "%",
                         intPrecioNum = o.Any(l => l.CodProd == x.strCodigo) ? (int)(x.intPrecio + (x.intPrecio * (x.percent / 100))) - (int)(((x.intPrecio + (x.intPrecio * (x.percent / 100))) * o.Where(i => i.CodProd == x.strCodigo).Select(j => (int)j.ValorPct).FirstOrDefault() / 100)) : (int)(x.intPrecio + (x.intPrecio * (x.percent / 100))),
                         categoryName = x.category
@@ -156,21 +158,16 @@ namespace WebStore.Controllers
             return View();
         }
 
+        public ActionResult Knowus()
+        {
+            return View("Us");
+        }
+
         public ActionResult Contact()
         {
             ViewBag.Message = "Your contact page.";
 
             return View();
-        }
-
-        private static string Truncate(string value, int maxChars)
-        {
-            return value.Length <= maxChars ? value : value.Substring(0, maxChars) + "...";
-        }
-
-        private static string FormatNumber(int number)
-        {
-            return number.ToString("N0", CultureInfo.GetCultureInfo("es-CL"));
         }
     }
 }

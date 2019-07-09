@@ -19,6 +19,7 @@ namespace WebStore.Models
         public string categoryName { get; set; }
         public string categorySeo { get; set; }
         public string productSeo { get; set; }
+        public string Brand { get; set; }
         public bool TimeOffer { get; set; }
         public string Time { get; set; }
     }
