@@ -61,7 +61,7 @@ namespace WebStore.Resources {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a &lt;script src=&quot;/Scripts/Countdown/Countdown.min.js&quot;&gt;&lt;/script&gt;.
+        ///   Busca una cadena traducida similar a &lt;script src=&quot;/Scripts/Countdown/Countdown.min.js&quot; async&gt;&lt;/script&gt;.
         /// </summary>
         public static string CountdownJs {
             get {
@@ -70,7 +70,7 @@ namespace WebStore.Resources {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a &lt;script src=&quot;/Scripts/jquery.interactive_3d.js&quot;&gt;&lt;/script&gt;.
+        ///   Busca una cadena traducida similar a &lt;script src=&quot;/Scripts/jquery.interactive_3d.js&quot; async&gt;&lt;/script&gt;.
         /// </summary>
         public static string Interactive3dJs {
             get {
@@ -79,7 +79,7 @@ namespace WebStore.Resources {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a &lt;script src=&quot;https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js&quot;&gt;&lt;/script&gt;.
+        ///   Busca una cadena traducida similar a &lt;script src=&quot;https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js&quot; async&gt;&lt;/script&gt;.
         /// </summary>
         public static string Isotope {
             get {
@@ -88,7 +88,7 @@ namespace WebStore.Resources {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a &lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js&quot; integrity=&quot;sha256-u7MY6EG5ass8JhTuxBek18r5YG6pllB9zLqE4vZyTn4=&quot; crossorigin=&quot;anonymous&quot;&gt;&lt;/script&gt;.
+        ///   Busca una cadena traducida similar a &lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js&quot; integrity=&quot;sha256-u7MY6EG5ass8JhTuxBek18r5YG6pllB9zLqE4vZyTn4=&quot; crossorigin=&quot;anonymous&quot; async&gt;&lt;/script&gt;.
         /// </summary>
         public static string JqueryMask {
             get {
@@ -97,7 +97,7 @@ namespace WebStore.Resources {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a &lt;script src=&quot;https://code.jquery.com/ui/1.12.1/jquery-ui.min.js&quot;&gt;&lt;/script&gt;.
+        ///   Busca una cadena traducida similar a &lt;script src=&quot;https://code.jquery.com/ui/1.12.1/jquery-ui.min.js&quot; async&gt;&lt;/script&gt;.
         /// </summary>
         public static string JqueryUi {
             get {
@@ -106,7 +106,7 @@ namespace WebStore.Resources {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a &lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js&quot;&gt;&lt;/script&gt;.
+        ///   Busca una cadena traducida similar a &lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js&quot; async&gt;&lt;/script&gt;.
         /// </summary>
         public static string JqueryValidate {
             get {
@@ -115,7 +115,7 @@ namespace WebStore.Resources {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a &lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/additional-methods.min.js&quot;&gt;&lt;/script&gt;.
+        ///   Busca una cadena traducida similar a &lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/additional-methods.min.js&quot; async&gt;&lt;/script&gt;.
         /// </summary>
         public static string JqueryValidateMethods {
             get {
@@ -124,7 +124,7 @@ namespace WebStore.Resources {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a &lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/mouse0270-bootstrap-notify/3.1.7/bootstrap-notify.js&quot; integrity=&quot;sha256-ZfyZUBGHlJunePNMsBqgGX3xHMv4kaCZ5Hj+8Txwd9c=&quot; crossorigin=&quot;anonymous&quot;&gt;&lt;/script&gt;.
+        ///   Busca una cadena traducida similar a &lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/mouse0270-bootstrap-notify/3.1.7/bootstrap-notify.js&quot; integrity=&quot;sha256-ZfyZUBGHlJunePNMsBqgGX3xHMv4kaCZ5Hj+8Txwd9c=&quot; crossorigin=&quot;anonymous&quot; async&gt;&lt;/script&gt;.
         /// </summary>
         public static string NotifyJs {
             get {
@@ -133,7 +133,7 @@ namespace WebStore.Resources {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a &lt;script src=&quot;/Scripts/OwlCarousel/owl.carousel.min.js&quot;&gt;&lt;/script&gt;.
+        ///   Busca una cadena traducida similar a &lt;script src=&quot;/Scripts/OwlCarousel/owl.carousel.min.js&quot; async&gt;&lt;/script&gt;.
         /// </summary>
         public static string OwlCarousel {
             get {
@@ -142,7 +142,7 @@ namespace WebStore.Resources {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a &lt;script src=&quot;/Scripts/OwlCarousel/Carousels.min.js&quot;&gt;&lt;/script&gt;.
+        ///   Busca una cadena traducida similar a &lt;script src=&quot;/Scripts/OwlCarousel/Carousels.min.js&quot; async&gt;&lt;/script&gt;.
         /// </summary>
         public static string OwlCarouselJs {
             get {
@@ -151,7 +151,7 @@ namespace WebStore.Resources {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a &lt;script src=&quot;/Scripts/OwlCarousel/owl.carousel2.thumbs.min.js&quot;&gt;&lt;/script&gt;.
+        ///   Busca una cadena traducida similar a &lt;script src=&quot;/Scripts/OwlCarousel/owl.carousel2.thumbs.min.js&quot; async&gt;&lt;/script&gt;.
         /// </summary>
         public static string OwlCarouselThumbs {
             get {
@@ -160,7 +160,7 @@ namespace WebStore.Resources {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a &lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/paginationjs/2.1.4/pagination.min.js&quot; integrity=&quot;sha256-E+fw0vUbuPq4p3FWWtX7FzzlcMTe7hvrgZxOk8LPAh4=&quot; crossorigin=&quot;anonymous&quot;&gt;&lt;/script&gt;.
+        ///   Busca una cadena traducida similar a &lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/paginationjs/2.1.4/pagination.min.js&quot; integrity=&quot;sha256-E+fw0vUbuPq4p3FWWtX7FzzlcMTe7hvrgZxOk8LPAh4=&quot; crossorigin=&quot;anonymous&quot; async&gt;&lt;/script&gt;.
         /// </summary>
         public static string PaginationJs {
             get {
@@ -169,7 +169,7 @@ namespace WebStore.Resources {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a &lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.3/photoswipe.min.js&quot; integrity=&quot;sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo=&quot; crossorigin=&quot;anonymous&quot;&gt;&lt;/script&gt;.
+        ///   Busca una cadena traducida similar a &lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.3/photoswipe.min.js&quot; integrity=&quot;sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo=&quot; crossorigin=&quot;anonymous&quot; async&gt;&lt;/script&gt;.
         /// </summary>
         public static string PhotoSwipeJs {
             get {
@@ -178,7 +178,7 @@ namespace WebStore.Resources {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a &lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.3/photoswipe-ui-default.min.js&quot; integrity=&quot;sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU=&quot; crossorigin=&quot;anonymous&quot;&gt;&lt;/script&gt;.
+        ///   Busca una cadena traducida similar a &lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.3/photoswipe-ui-default.min.js&quot; integrity=&quot;sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU=&quot; crossorigin=&quot;anonymous&quot; async&gt;&lt;/script&gt;.
         /// </summary>
         public static string PhotoSwipeUiJs {
             get {
@@ -187,7 +187,7 @@ namespace WebStore.Resources {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a &lt;script src=&quot;/Scripts/jquery.steps.js&quot;&gt;&lt;/script&gt;.
+        ///   Busca una cadena traducida similar a &lt;script src=&quot;/Scripts/jquery.steps.js&quot; async&gt;&lt;/script&gt;.
         /// </summary>
         public static string StepJs {
             get {
@@ -196,7 +196,7 @@ namespace WebStore.Resources {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a &lt;script src=&quot;https://cdn.jsdelivr.net/npm/sweetalert2@7.26.12/dist/sweetalert2.all.min.js&quot; integrity=&quot;sha256-Y+WJP3jVjJgfw+/m2N5/GGUgxqXDCz7S3zstxj8pqng=&quot; crossorigin=&quot;anonymous&quot;&gt;&lt;/script&gt;.
+        ///   Busca una cadena traducida similar a &lt;script src=&quot;https://cdn.jsdelivr.net/npm/sweetalert2@7.26.12/dist/sweetalert2.all.min.js&quot; integrity=&quot;sha256-Y+WJP3jVjJgfw+/m2N5/GGUgxqXDCz7S3zstxj8pqng=&quot; crossorigin=&quot;anonymous&quot; async&gt;&lt;/script&gt;.
         /// </summary>
         public static string SweetAlert {
             get {
@@ -205,7 +205,7 @@ namespace WebStore.Resources {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a &lt;script src=&quot;/Scripts/Animation/wow.min.js&quot;&gt;&lt;/script&gt;.
+        ///   Busca una cadena traducida similar a &lt;script src=&quot;/Scripts/Animation/wow.min.js&quot; async&gt;&lt;/script&gt;.
         /// </summary>
         public static string WowJs {
             get {
