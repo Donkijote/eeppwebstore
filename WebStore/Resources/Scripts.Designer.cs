@@ -61,7 +61,7 @@ namespace WebStore.Resources {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a &lt;script src=&quot;/Scripts/Countdown/Countdown.min.js&quot; async&gt;&lt;/script&gt;.
+        ///   Busca una cadena traducida similar a &lt;script src=&quot;/Scripts/Countdown/Countdown.min.js&quot;&gt;&lt;/script&gt;.
         /// </summary>
         public static string CountdownJs {
             get {
@@ -205,7 +205,7 @@ namespace WebStore.Resources {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a &lt;script src=&quot;/Scripts/Animation/wow.min.js&quot; async&gt;&lt;/script&gt;.
+        ///   Busca una cadena traducida similar a &lt;script src=&quot;/Scripts/Animation/wow.min.js&quot;&gt;&lt;/script&gt;.
         /// </summary>
         public static string WowJs {
             get {
