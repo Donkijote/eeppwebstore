@@ -126,6 +126,9 @@
   <data name="Credit" xml:space="preserve">
     <value>Tarjeta de Crédito</value>
   </data>
+  <data name="Data" xml:space="preserve">
+    <value>Tus datos</value>
+  </data>
   <data name="DeliveryTime" xml:space="preserve">
     <value>Tiempo de entrega</value>
   </data>

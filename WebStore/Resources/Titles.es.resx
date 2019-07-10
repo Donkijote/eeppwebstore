@@ -237,4 +237,7 @@
   <data name="Quote" xml:space="preserve">
     <value>Cotizar productos</value>
   </data>
+  <data name="SendQuote" xml:space="preserve">
+    <value>Enviar nueva cotización</value>
+  </data>
 </root>

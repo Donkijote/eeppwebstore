@@ -33,7 +33,8 @@
         <table class="table">
             <thead>
                 <tr>
-                    <th>Producto</th>
+                    <th>@WebStore.Resources.Cart.Product</th>
+                    <th class="text-center">@WebStore.Resources.Cart.Quantity</th>
 
                     <th class="text-center"><a class="btn btn-sm btn-outline-danger" href="#">@WebStore.Resources.Buttons.EmptyList</a></th>
                 </tr>
@@ -57,6 +58,19 @@
                             </div>
                         </div>
                     </td>
+
+                    <td class="text-center">
+                        <div class="count-input">
+                            <select class="form-control">
+                                <option>1</option>
+                                <option>2</option>
+                                <option>3</option>
+                                <option>4</option>
+                                <option>5</option>
+                            </select>
+                        </div>
+                    </td>
+
                     <td class="text-center">
                         <a class="remove-from-cart" href="#" data-toggle="tooltip" title="" data-original-title="Quitar Artículo">
                             <i class="fas fa-times"></i>
@@ -80,6 +94,19 @@
                             </div>
                         </div>
                     </td>
+
+                    <td class="text-center">
+                        <div class="count-input">
+                            <select class="form-control">
+                                <option>1</option>
+                                <option>2</option>
+                                <option>3</option>
+                                <option>4</option>
+                                <option>5</option>
+                            </select>
+                        </div>
+                    </td>
+
                     <td class="text-center">
                         <a class="remove-from-cart" href="#" data-toggle="tooltip" title="" data-original-title="Quitar Artículo">
                             <i class="fas fa-times"></i>
@@ -103,6 +130,18 @@
                             </div>
                         </div>
                     </td>
+
+                    <td class="text-center">
+                        <div class="count-input">
+                            <select class="form-control">
+                                <option>1</option>
+                                <option>2</option>
+                                <option>3</option>
+                                <option>4</option>
+                                <option>5</option>
+                            </select>
+                        </div>
+                    </td>
                     <td class="text-center">
                         <a class="remove-from-cart" href="#" data-toggle="tooltip" title="" data-original-title="Quitar Artículo">
                             <i class="fas fa-times"></i>
@@ -119,9 +158,66 @@
     </div>
 
     <div class="row col-md-6">
-        <a class="btn btn-orangered" href="javascript:void(0);">@WebStore.Resources.Buttons.QuoteProducts</a>
+        <a class="btn btn-orangered" href="javascript:void(0);" data-toggle="modal" data-target="#openQuote">@WebStore.Resources.Buttons.QuoteProducts</a>
     </div>
 </div>
+
+<form class="modal fade" method="post" id="openQuote" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">@WebStore.Resources.Titles.SendQuote</h4>
+                <div class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></div>
+            </div>
+            <div class="modal-body px-5">
+                <div class="row col-12">
+                    <label class="font-weight-bold" for="checkout-fn">@WebStore.Resources.Placeholder.FullName</label>
+                    <div class="form-group input-group">
+                        <input class="form-control" required autocomplete="off" type="text" name="quote-fn" id="quote-fn" placeholder="@WebStore.Resources.Placeholder.FullName">
+                        <span class="input-group-addon">
+                            <i class="fas fa-file-signature"></i>
+                        </span>
+                    </div>
+                </div>
+                <div class="row col-12">
+                    <label class="font-weight-bold" for="checkout-email">@WebStore.Resources.Placeholder.Email</label>
+                    <div class="form-group input-group">
+                        <input class="form-control" required autocomplete="off" type="email" name="quote-email" id="quote-email" placeholder="@WebStore.Resources.Placeholder.Email">
+                        <span class="input-group-addon">
+                            <i class="fas fa-at"></i>
+                        </span>
+                    </div>
+                </div>
+                <div class="row col-12">
+                    <label class="font-weight-bold" for="checkout-company">@WebStore.Resources.Placeholder.Company</label>
+                    <div class="form-group input-group">
+                        <input class="form-control" autocomplete="off" type="text" name="quote-company" id="quote-company" placeholder="@WebStore.Resources.Placeholder.Company">
+                        <span class="input-group-addon">
+                            <i class="fas fa-industry"></i>
+                        </span>
+                    </div>
+                </div>
+                <div class="row col-12">
+                    <label class="font-weight-bold" for="checkout-phone">@WebStore.Resources.Placeholder.Telephone</label>
+                    <div class="form-group input-group">
+                        <input class="form-control" autocomplete="off" type="text" name="quote-phone" id="quote-phone" placeholder="@WebStore.Resources.Placeholder.Phone">
+                        <span class="input-group-addon">
+                            <i class="fas fa-mobile-alt"></i>
+                        </span>
+                    </div>
+                </div>
+                <div class="row col-12">
+                    <label for="ticket-description">@WebStore.Resources.Placeholder.Description</label>
+                    <textarea class="form-control" name="quote-description" id="quote-description" rows="8" placeholder="@WebStore.Resources.Placeholder.WDescription"></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-orangered" type="submit">@WebStore.Resources.Buttons.Quote</button>
+            </div>
+        </div>
+    </div>
+</form>
+
 
 @section Scripts{
     <script>

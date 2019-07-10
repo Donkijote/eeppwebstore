@@ -2597,7 +2597,7 @@ button {
     width: 35px;
     height: 35px;
     border-radius: 50%;
-    line-height: 38px;
+    line-height: 34px;
     top: 12px;
     right: 12px;
     font-size: 20px;
@@ -2609,13 +2609,13 @@ button {
         display: block;
         top: 5px; } }
     .mg-product-card .mg-product-wish i::before {
-      content: '\f290';
+      content: '\f15c';
       font-family: "Font Awesome 5 Free";
-      font-weight: 900;
+      font-weight: 400;
       color: grey;
       font-style: normal; }
     .mg-product-card .mg-product-wish.active i::before {
-      content: '\f290';
+      content: '\f15c';
       font-family: "Font Awesome 5 Free";
       font-weight: 900;
       color: orangered;

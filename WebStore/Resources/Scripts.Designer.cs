@@ -97,7 +97,7 @@ namespace WebStore.Resources {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a &lt;script src=&quot;https://code.jquery.com/ui/1.12.1/jquery-ui.min.js&quot; async&gt;&lt;/script&gt;.
+        ///   Busca una cadena traducida similar a &lt;script src=&quot;https://code.jquery.com/ui/1.12.1/jquery-ui.min.js&quot;&gt;&lt;/script&gt;.
         /// </summary>
         public static string JqueryUi {
             get {
@@ -187,7 +187,7 @@ namespace WebStore.Resources {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a &lt;script src=&quot;/Scripts/jquery.steps.js&quot; async&gt;&lt;/script&gt;.
+        ///   Busca una cadena traducida similar a &lt;script src=&quot;/Scripts/jquery.steps.js&quot;&gt;&lt;/script&gt;.
         /// </summary>
         public static string StepJs {
             get {

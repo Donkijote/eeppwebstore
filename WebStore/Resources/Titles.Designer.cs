@@ -295,6 +295,15 @@ namespace WebStore.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Send new quoting.
+        /// </summary>
+        public static string SendQuote {
+            get {
+                return ResourceManager.GetString("SendQuote", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Submit New Ticket.
         /// </summary>
         public static string SendTicket {

@@ -237,4 +237,7 @@
   <data name="Quote" xml:space="preserve">
     <value>Quote Products</value>
   </data>
+  <data name="SendQuote" xml:space="preserve">
+    <value>Send new quoting</value>
+  </data>
 </root>
