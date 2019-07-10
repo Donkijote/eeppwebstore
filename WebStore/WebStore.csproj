@@ -337,6 +337,16 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Buttons.resx</DependentUpon>
     </Compile>
+    <Compile Include="Resources\Linkscss.Designer.cs">
+      <DependentUpon>Linkscss.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Resources\Scripts.Designer.cs">
+      <DependentUpon>Scripts.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="Resources\Materials.es.Designer.cs">
       <DependentUpon>Materials.es.resx</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -908,6 +918,14 @@
     <EmbeddedResource Include="Resources\Buttons.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Buttons.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Linkscss.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Linkscss.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Scripts.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Scripts.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Materials.es.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

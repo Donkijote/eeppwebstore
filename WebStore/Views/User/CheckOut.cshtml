@@ -699,6 +699,16 @@
     </div>
 </div>
 
+@section Linkscss{
+    @Html.Raw(WebStore.Resources.Linkscss.Steps)
+}
+
+@section Included{
+    @Html.Raw(WebStore.Resources.Scripts.StepJs)
+    @Html.Raw(WebStore.Resources.Scripts.JqueryValidate)
+    @Html.Raw(WebStore.Resources.Scripts.JqueryValidateMethods)
+}
+
 @section Scripts {
     <script type="text/javascript">
         $(function () {

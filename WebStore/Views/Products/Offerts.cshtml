@@ -56,17 +56,17 @@
                         @ViewBag.first
                         <label for="sorting">@WebStore.Resources.Texts.Sort</label>
                         <select class="form-control" id="sort-by-button-group">
-                            <option value="low" @(Request.QueryString["SortedBy"] == "low" ? "selected":"")>@WebStore.Resources.Texts.LowHigh</option>
-                            <option value="high" @(Request.QueryString["SortedBy"] == "high" ? "selected":"")>@WebStore.Resources.Texts.HighLow</option>
-                            <option value="rate" @(Request.QueryString["SortedBy"] == "rated" ? "selected":"")>@WebStore.Resources.Texts.BestRated</option>
-                            <option value="nameA" @(Request.QueryString["SortedBy"] == "nameA" || Request.QueryString["SortedBy"] == null ? "selected":"")>A - Z</option>
-                            <option value="nameZ" @(Request.QueryString["SortedBy"] == "nameZ" ? "selected":"")>Z - A</option>
+                            <option value="low" @(Request.QueryString["SortedBy"] == "low" ? "selected" : "")>@WebStore.Resources.Texts.LowHigh</option>
+                            <option value="high" @(Request.QueryString["SortedBy"] == "high" ? "selected" : "")>@WebStore.Resources.Texts.HighLow</option>
+                            <option value="rate" @(Request.QueryString["SortedBy"] == "rated" ? "selected" : "")>@WebStore.Resources.Texts.BestRated</option>
+                            <option value="nameA" @(Request.QueryString["SortedBy"] == "nameA" || Request.QueryString["SortedBy"] == null ? "selected" : "")>A - Z</option>
+                            <option value="nameZ" @(Request.QueryString["SortedBy"] == "nameZ" ? "selected" : "")>Z - A</option>
                         </select>
                         <label class="text-muted">@WebStore.Resources.Texts.Showing&nbsp;</label>
                         <select class="form-control" id="perPage">
-                            <option value="15" @(ViewBag.perPage == 15 || ViewBag.perPage == 0 ? "selected":"")>15</option>
-                            <option value="25" @(ViewBag.perPage == 25 ? "selected":"")>25</option>
-                            <option value="50" @(ViewBag.perPage == 50 ? "selected":"")>50</option>
+                            <option value="15" @(ViewBag.perPage == 15 || ViewBag.perPage == 0 ? "selected" : "")>15</option>
+                            <option value="25" @(ViewBag.perPage == 25 ? "selected" : "")>25</option>
+                            <option value="50" @(ViewBag.perPage == 50 ? "selected" : "")>50</option>
                         </select>
                     </div>
                 </div>
@@ -79,9 +79,9 @@
                                     <input type="hidden" name="page" value="@Request.QueryString["page"]" />
                                 }
                             }
-                            <input type="radio" name="View" id="grid" class="grid" value="Grid" @(ViewBag.type == "Grid" || ViewBag.type == "" ? "checked":"")>
+                            <input type="radio" name="View" id="grid" class="grid" value="Grid" @(ViewBag.type == "Grid" || ViewBag.type == "" ? "checked" : "")>
                             <label for="grid" class="grid-view typeview"><span></span><span></span><span></span></label>
-                            <input type="radio" name="View" id="list" class="list" value="List" @(ViewBag.type == "List" ? "checked":"")>
+                            <input type="radio" name="View" id="list" class="list" value="List" @(ViewBag.type == "List" ? "checked" : "")>
                             <label for="list" class="list-view typeview"><span></span><span></span><span></span></label>
 
                         </div>
@@ -99,7 +99,7 @@
                         {
                             <div class="col-md-4 col-sm-6 col-6 element-item">
                                 <div class="mg-product-card mb-3">
-                                    @if(item.intPrecioOff != "0")
+                                    @if (item.intPrecioOff != "0")
                                     {
                                         <span class="mg-product-badge bg-success">Oferta</span>
                                     }
@@ -109,7 +109,7 @@
                                     <a class="mg-product-thumb" href="@Url.Action("Category","Product", new { id = WebStore.Resources.Seo.ResourceManager.GetString(item.categorySeo), idp = item.strCodigo, language=System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName })">
                                         <img class="img-fuild" src="~/Content/img/products/@item.strCodigo-1.jpg"
                                              alt="Producto">
-                                        
+
 
                                         <div class="mg-product-card-body">
                                             @if (item.TimeOffer)
@@ -182,7 +182,7 @@
                                 </div>
                                 <a class="mg-product-thumb" href="@Url.Action("Category","Product", new { id = WebStore.Resources.Seo.ResourceManager.GetString(item.categorySeo), idp = item.strCodigo, language=System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName })">
                                     <img class="img-fuild" src="~/Content/img/products/@item.strCodigo-1.png"
-                                        alt="Producto">
+                                         alt="Producto">
                                     <img class="img-fuild img-sec" src="~/Content/img/certificates/sec.png">
                                     <img class="img-fluid img-ds43" src="~/Content/img/certificates/ds43.png" />
                                 </a>
@@ -275,94 +275,15 @@
     </div>
 </section>
 
+@section Included{
+    @Html.Raw(WebStore.Resources.Scripts.JqueryUi)
+}
+
 @section Scripts{
     <script type="text/javascript">
         $(function () {
-            $('#typeView input[type=radio]').on('change', function () {
-                $("#typeView").submit();
-            }); 
-
-            // bind sort button click
-            $('#sort-by-button-group').on('change', function () {
-                var sort = $(this).val();
-                var page = getUrlParameter('Page');
-                var view = getUrlParameter('View');
-                var perPage = getUrlParameter('PerPage');
-                var pathname = window.location.pathname;
-                if (page != null && perPage != null && view != null) {
-                    window.location.href = pathname + '?Page=1&PerPage=' + perPage + '&SortedBy=' + sort + '&View=' + view;
-                }
-                else if (page != null && perPage != null && view == null) {
-                    window.location.href = pathname + '?Page=1&PerPage=' + perPage + '&SortedBy=' + sort;
-                }
-                else if (page != null && perPage == null && view == null) {
-                    window.location.href = pathname + '?Page=1&SortedBy=' + sort;
-                }
-                else if (page == null && perPage == null && view != null) {
-                    window.location.href = pathname + '?SortedBy=' + sort + '&View=' + view;
-                }
-                else if (page == null && perPage != null && view == null) {
-                    window.location.href = pathname + '?PerPage=' + perPage + '&SortedBy=' + sort;
-                }
-                else if (page == null && perPage != null && view != null) {
-                    window.location.href = pathname + '?PerPage=' + perPage + '&SortedBy=' + sort + '&View=' + view;
-                }
-                else if (page != null && perPage == null && view != null) {
-                    window.location.href = pathname + '?Page=1&SortedBy=' + sort + '&View=' + view;
-                }
-                else {
-                    window.location.href = pathname + '?SortedBy=' + sort;
-                }
-            });
-
-            $('#perPage').on('change', function () {
-                var page = getUrlParameter('Page');
-                var view = getUrlParameter('View');
-                var sort = getUrlParameter('SortedBy');
-                var pathname = window.location.pathname;
-                var perPage = $(this).val();
-                if (page != null && view != null && sort !== null) {
-                    window.location.href = pathname + '?Page=1&PerPage=' + perPage + '&SortedBy=' + sort + '&View=' + view;
-                }
-                else if (page != null && sort != null && view == null) {
-                    window.location.href = pathname + '?Page=1&PerPage=' + perPage + '&SortedBy=' + sort;
-                }
-                else if (page != null && sort == null && view == null) {
-                    window.location.href = pathname + '?Page=1&PerPage=' + perPage;
-                }
-                else if (page != null && sort == null && view != null) {
-                    window.location.href = pathname + '?Page=1&PerPage=' + perPage + '&View=' + View;
-                }
-                else if (page == null && sort != null && view != null) {
-                    window.location.href = pathname + '?PerPage=' + perPage + '&SortedBy=' + sort + '&View=' + View;
-                }
-                else if (page == null && sort == null && view != null) {
-                    window.location.href = pathname + '?PerPage=' + perPage + '&View=' + View;
-                }
-                else if (page == null && sort != null && view == null) {
-                    window.location.href = pathname + '?PerPage=' + perPage + '&SortedBy=' + sort;
-                }
-                else {
-                    window.location.href = pathname + '?PerPage=' + perPage;
-                }
-            });
-
+            $.AdminJs.productstooltips.activate();
             $.AdminJs.Countdown.activate();
-
-            function getUrlParameter(sParam) {
-                var sPageURL = window.location.search.substring(1),
-                    sURLVariables = sPageURL.split('&'),
-                    sParameterName,
-                    i;
-
-                for (i = 0; i < sURLVariables.length; i++) {
-                    sParameterName = sURLVariables[i].split('=');
-
-                    if (sParameterName[0] === sParam) {
-                        return sParameterName[1] === undefined ? true : decodeURIComponent(sParameterName[1]);
-                    }
-                }
-            };
         })
     </script>
 }

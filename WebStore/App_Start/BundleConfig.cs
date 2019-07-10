@@ -10,7 +10,7 @@ namespace WebStore
         {
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/jquery-{version}.js",
-                        "~/Scripts/jquery.steps.js"));
+                        "~/Scripts/bootstrap.bundle.min.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));
@@ -21,8 +21,7 @@ namespace WebStore
                         "~/Scripts/modernizr-*"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/Style.min.css",
-                      "~/Content/jquery.steps.min.css"));
+                      "~/Content/Style.min.css"));
         }
     }
 }

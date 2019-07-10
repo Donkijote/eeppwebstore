@@ -397,11 +397,9 @@ $(function () {
 	$.AdminJs.leftMenu.activate();
 	$.AdminJs.compare.activate();
     $.AdminJs.animateLinks.activate();
-    $.AdminJs.slider.activate();
     
     $('[data-toggle="tooltip"]').tooltip();
     $('[data-toggle="popover"]').popover();
-    new WOW().init();
 
 });
 
@@ -662,6 +660,110 @@ $.AdminJs.slider = {
     }
 }
 
+$.AdminJs.productstooltips = {
+    activate: function () {
+        $.AdminJs.slider.activate();
+
+        $('#typeView input[type=radio]').on('change', function () {
+            $("#typeView").submit();
+        });
+
+        $('#sort-by-button-group').on('change', function () {
+            var sort = $(this).val();
+            var page = getUrlParameter('Page');
+            var view = getUrlParameter('View');
+            var perPage = getUrlParameter('PerPage');
+            var pathname = window.location.pathname;
+            if (page != null && perPage != null && view != null) {
+                window.location.href = pathname + '?Page=1&PerPage=' + perPage + '&SortedBy=' + sort + '&View=' + view;
+            }
+            else if (page != null && perPage != null && view == null) {
+                window.location.href = pathname + '?Page=1&PerPage=' + perPage + '&SortedBy=' + sort;
+            }
+            else if (page != null && perPage == null && view == null) {
+                window.location.href = pathname + '?Page=1&SortedBy=' + sort;
+            }
+            else if (page == null && perPage == null && view != null) {
+                window.location.href = pathname + '?SortedBy=' + sort + '&View=' + view;
+            }
+            else if (page == null && perPage != null && view == null) {
+                window.location.href = pathname + '?PerPage=' + perPage + '&SortedBy=' + sort;
+            }
+            else if (page == null && perPage != null && view != null) {
+                window.location.href = pathname + '?PerPage=' + perPage + '&SortedBy=' + sort + '&View=' + view;
+            }
+            else if (page != null && perPage == null && view != null) {
+                window.location.href = pathname + '?Page=1&SortedBy=' + sort + '&View=' + view;
+            }
+            else {
+                window.location.href = pathname + '?SortedBy=' + sort;
+            }
+        });
+
+        $('#perPage').on('change', function () {
+            var page = getUrlParameter('Page');
+            var view = getUrlParameter('View');
+            var sort = getUrlParameter('SortedBy');
+            var pathname = window.location.pathname;
+            var perPage = $(this).val();
+            if (page != null && view != null && sort !== null) {
+                window.location.href = pathname + '?Page=1&PerPage=' + perPage + '&SortedBy=' + sort + '&View=' + view;
+            }
+            else if (page != null && sort != null && view == null) {
+                window.location.href = pathname + '?Page=1&PerPage=' + perPage + '&SortedBy=' + sort;
+            }
+            else if (page != null && sort == null && view == null) {
+                window.location.href = pathname + '?Page=1&PerPage=' + perPage;
+            }
+            else if (page != null && sort == null && view != null) {
+                window.location.href = pathname + '?Page=1&PerPage=' + perPage + '&View=' + View;
+            }
+            else if (page == null && sort != null && view != null) {
+                window.location.href = pathname + '?PerPage=' + perPage + '&SortedBy=' + sort + '&View=' + View;
+            }
+            else if (page == null && sort == null && view != null) {
+                window.location.href = pathname + '?PerPage=' + perPage + '&View=' + View;
+            }
+            else if (page == null && sort != null && view == null) {
+                window.location.href = pathname + '?PerPage=' + perPage + '&SortedBy=' + sort;
+            }
+            else {
+                window.location.href = pathname + '?PerPage=' + perPage;
+            }
+        });
+    }
+}
+
+$.AdminJs.gallery = {
+    activate: function () {
+        var container = [];
+
+        $('.gallery-wrapper').find('.gallery-item').each(function () {
+            var $link = $(this).find('a'),
+                item = {
+                    src: $link.attr('href'),
+                    w: $link.data('width'),
+                    h: $link.data('height'),
+                    title: $(this).find('.caption').text()
+                };
+            container.push(item);
+        });
+
+        $('.swipeImg').on('click', function (e) {
+            e.preventDefault();
+            var $pswp = $('.pswp')[0],
+                options = {
+                    index: $(this).index(),
+                    bgOpacity: 0.85,
+                    showHideOpacity: true
+                };
+
+            var gallery = new PhotoSwipe($pswp, PhotoSwipeUI_Default, container, options);
+            gallery.init();
+        })
+    }
+}
+
 $.AdminJs.Countdown = {
     activate: function () {
         var time = $('.countdown').data('time');
@@ -721,3 +823,18 @@ function TranslateText(x) {
         return $.Dir.en(x);
     }
 }
+
+function getUrlParameter(sParam) {
+    var sPageURL = window.location.search.substring(1),
+        sURLVariables = sPageURL.split('&'),
+        sParameterName,
+        i;
+
+    for (i = 0; i < sURLVariables.length; i++) {
+        sParameterName = sURLVariables[i].split('=');
+
+        if (sParameterName[0] === sParam) {
+            return sParameterName[1] === undefined ? true : decodeURIComponent(sParameterName[1]);
+        }
+    }
+};

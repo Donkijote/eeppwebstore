@@ -49,11 +49,11 @@
                 </tr>
             </thead>
             <tbody>
-                <tr >
+                <tr>
                     <td>
                         <div class="product-item">
                             <a class="product-thumb" href="#">
-                            <img src="~/Content/img/products/25040806-1.jpg" alt="Product">
+                                <img src="~/Content/img/products/25040806-1.jpg" alt="Product">
                             </a>
                             <div class="product-info">
                                 <h4 class="product-title"><a href="#">Proyector Bree 240w</a></h4><span><em>Type:</em> Mirrorless</span><span><em>Color:</em> Black</span>
@@ -340,10 +340,23 @@
         </div>
     </div>
 </div>
+
+@section Linkscss{
+    @Html.Raw(WebStore.Resources.Linkscss.OwlCarousel)
+    @Html.Raw(WebStore.Resources.Linkscss.OwlCarouselDefault)
+    @Html.Raw(WebStore.Resources.Linkscss.Animate)
+}
+
+@section Included{
+    @Html.Raw(WebStore.Resources.Scripts.OwlCarousel)
+    @Html.Raw(WebStore.Resources.Scripts.OwlCarouselJs)
+    @Html.Raw(WebStore.Resources.Scripts.NotifyJs)
+}
+
 @section Scripts{
     <script type="text/javascript">
-        $(function(){
+        $(function () {
             $.AdminJs.cart.active();
         })
-    </script>    
+    </script>
 }
