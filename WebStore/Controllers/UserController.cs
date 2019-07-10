@@ -33,5 +33,10 @@ namespace WebStore.Controllers
         {
             return View();
         }
+
+        public ActionResult Quote()
+        {
+            return View();
+        }
     }
 }

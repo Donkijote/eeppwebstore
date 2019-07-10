@@ -160,8 +160,8 @@ namespace WebStore.Controllers
                         .ToList();
                 if (s.Any())
                 {
-                    ViewBag.minPrice = s.Min(x => Math.Round(Decimal.Parse(x.intPrecio), 0));
-                    ViewBag.maxPrice = s.Max(x => Math.Round(Decimal.Parse(x.intPrecio), 0));
+                    ViewBag.minPrice = s.Min(x => x.intPrecioNum);
+                    ViewBag.maxPrice = s.Max(x => x.intPrecioNum);
                 }
                 else
                 {
@@ -242,8 +242,8 @@ namespace WebStore.Controllers
                             .ToList();
                 if (s.Any())
                 {
-                    ViewBag.minPrice = s.Min(x => Math.Round(Decimal.Parse(x.intPrecio), 0));
-                    ViewBag.maxPrice = s.Max(x => Math.Round(Decimal.Parse(x.intPrecio), 0));
+                    ViewBag.minPrice = s.Min(x => x.intPrecioNum);
+                    ViewBag.maxPrice = s.Max(x => x.intPrecioNum);
                 }
                 else
                 {

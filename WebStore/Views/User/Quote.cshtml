@@ -1,6 +1,6 @@
 ﻿
 @{
-    ViewBag.Title = WebStore.Resources.Titles.Wishes;
+    ViewBag.Title = WebStore.Resources.Titles.Quote;
 }
 
 <section>
@@ -19,10 +19,6 @@
                         </li>
                         <li class="separator">&nbsp;</li>
                         <li>
-                            <a href="@Url.Action("Home","Account", new { language = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName}, null)">@WebStore.Resources.Titles.Account</a>
-                        </li>
-                        <li class="separator">&nbsp;</li>
-                        <li>
                             @ViewBag.Title
                         </li>
                     </ul>
@@ -31,8 +27,6 @@
         </div>
     </header>
 </section>
-
-@Html.Partial("~/Views/Shared/profileMenu.cshtml")
 
 <div class="container mb-5">
     <div class="table-responsive shopping-cart">
@@ -132,7 +126,7 @@
 @section Scripts{
     <script>
         $(function () {
-            $.AdminJs.profileMenu.activate();
+            
         })
     </script>
 }

@@ -2602,7 +2602,6 @@ button {
     right: 12px;
     font-size: 20px;
     text-align: center;
-    color: #dc3545;
     cursor: pointer;
     text-decoration: none; }
     @media only screen and (max-width: 1024px) {
@@ -2610,14 +2609,16 @@ button {
         display: block;
         top: 5px; } }
     .mg-product-card .mg-product-wish i::before {
-      content: '\f004';
-      font-family: "Font Awesome 5 Free";
-      font-weight: 400;
-      font-style: normal; }
-    .mg-product-card .mg-product-wish.active i::before {
-      content: '\f004';
+      content: '\f290';
       font-family: "Font Awesome 5 Free";
       font-weight: 900;
+      color: grey;
+      font-style: normal; }
+    .mg-product-card .mg-product-wish.active i::before {
+      content: '\f290';
+      font-family: "Font Awesome 5 Free";
+      font-weight: 900;
+      color: orangered;
       font-style: normal; }
   .mg-product-card .mg-rating-stars {
     display: none;

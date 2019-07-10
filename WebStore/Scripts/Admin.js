@@ -1,6 +1,26 @@
 if (typeof jQuery === "undefined") {
 	throw new Error("jQuery plugins need to be before this file");
 }
+$.Dir ={
+    en: function (x) {
+        var englishDic = {
+            "quoteAdd": "This product has been added to your quote list.",
+            "quoteRemove": "This product has been remove to your quote list."
+        }
+
+        return englishDic[x];
+    },
+    es: function (x) {
+        var spanishDic = {
+            "quoteAdd": "Este producto ha sido añadido a su lista de cotización.",
+            "quoteRemove": "Este producto ha sido removido de su lista de cotización."
+        }
+
+        return spanishDic[x];
+
+    }
+}
+
 $.AdminJs = {};
 
 $.AdminJs.Test = {
@@ -49,8 +69,8 @@ $.AdminJs.compare = {
 				$(this).removeClass('active');
 				var data = {
 					icon: 'far fa-times-circle',
-					title: '',
-					message: 'Este producto ha sido removido de su lista de deseos.',
+                    title: '',
+                    message: TranslateText("quoteRemove"),
 					type: 'danger',
 					from: 'top',
 					align: 'right',
@@ -64,7 +84,7 @@ $.AdminJs.compare = {
 				var data = {
 					icon: 'far fa-check-circle',
 					title: '',
-					message: 'Este producto ha sido añadido a su lista de deseos.',
+                    message: TranslateText("quoteAdd"),
 					type: 'success',
 					from: 'top',
 					align: 'right',
@@ -381,7 +401,6 @@ $(function () {
     
     $('[data-toggle="tooltip"]').tooltip();
     $('[data-toggle="popover"]').popover();
-
     new WOW().init();
 
 });
@@ -691,4 +710,14 @@ function myAlert(x) {
 				exit: x['exit']
 			}
 		});
+}
+
+function TranslateText(x) {
+    var $pathname = window.location.pathname,
+        lang = $pathname.split('/')[1];
+    if (lang == "es") {
+        return $.Dir.es(x);
+    } else if (lang == "en") {
+        return $.Dir.en(x);
+    }
 }

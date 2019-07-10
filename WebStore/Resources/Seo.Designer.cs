@@ -286,7 +286,7 @@ namespace WebStore.Resources {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a indutrial-lights.
+        ///   Busca una cadena traducida similar a industrial-lights.
         /// </summary>
         public static string IndustryLights {
             get {

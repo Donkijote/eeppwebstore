@@ -234,4 +234,7 @@
   <data name="Knowus" xml:space="preserve">
     <value>Know Us</value>
   </data>
+  <data name="Quote" xml:space="preserve">
+    <value>Quote Products</value>
+  </data>
 </root>

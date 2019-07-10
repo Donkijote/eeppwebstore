@@ -277,6 +277,15 @@ namespace WebStore.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Quote Products.
+        /// </summary>
+        public static string Quote {
+            get {
+                return ResourceManager.GetString("Quote", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Security.
         /// </summary>
         public static string Security {

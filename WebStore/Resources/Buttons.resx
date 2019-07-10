@@ -198,6 +198,12 @@
   <data name="OrderDetails" xml:space="preserve">
     <value>Order Details</value>
   </data>
+  <data name="Quote" xml:space="preserve">
+    <value>Quote</value>
+  </data>
+  <data name="QuoteProducts" xml:space="preserve">
+    <value>Quote your products</value>
+  </data>
   <data name="ReadMore" xml:space="preserve">
     <value>Read More</value>
   </data>

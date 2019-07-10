@@ -141,6 +141,9 @@
   <data name="Quantity" xml:space="preserve">
     <value>Quantity</value>
   </data>
+  <data name="Share" xml:space="preserve">
+    <value>Share:</value>
+  </data>
   <data name="Showing" xml:space="preserve">
     <value>Showing:</value>
   </data>

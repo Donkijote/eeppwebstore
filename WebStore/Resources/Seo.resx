@@ -218,8 +218,8 @@
     <comment>industrial</comment>
   </data>
   <data name="IndustryLights" xml:space="preserve">
-    <value>indutrial-lights</value>
-    <comment>indutrial-lights</comment>
+    <value>industrial-lights</value>
+    <comment>industrial-lights</comment>
   </data>
   <data name="IndustryPlugs" xml:space="preserve">
     <value>industrial-plugs</value>

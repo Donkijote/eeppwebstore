@@ -1442,6 +1442,7 @@ html * {
     }
 }
 /*#endregion */
+
 /*#region Buttons */
 button {
     background-color: transparent;
@@ -2797,7 +2798,6 @@ button {
         right: 12px;
         font-size: 20px;
         text-align: center;
-        color: #dc3545;
         cursor: pointer;
         text-decoration: none;
 
@@ -2808,9 +2808,10 @@ button {
 
         i {
             &::before {
-                content: '\f004';
+                content: '\f290';
                 font-family: "Font Awesome 5 Free";
-                font-weight: 400;
+                font-weight: 900;
+                color: grey;
                 font-style: normal;
             }
         }
@@ -2818,9 +2819,10 @@ button {
         &.active {
             i {
                 &::before {
-                    content: '\f004';
+                    content: '\f290';
                     font-family: "Font Awesome 5 Free";
                     font-weight: 900;
+                    color: orangered;
                     font-style: normal;
                 }
             }
