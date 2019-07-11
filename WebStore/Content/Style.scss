@@ -2303,6 +2303,80 @@ button {
 }
 /*#endregion*/
 
+/*#region Blog*/
+
+.blog-post {
+    margin-bottom: 30px;
+    border: 1px solid #e5e5e5;
+    border-radius: 5px;
+    background-color: #fff;
+    overflow: hidden;
+
+    .post-body {
+        padding: 22px;
+
+        .post-meta {
+            display: block;
+            margin: 0 0 20px;
+            padding: 0 0 14px;
+            border-bottom: 1px solid #e5e5e5;
+            list-style: none;
+
+            > li {
+                display: inline-block;
+                margin-right: 14px;
+                padding-bottom: 6px;
+                color: #505050;
+                font-size: 12px;
+                cursor: default;
+
+                > i {
+                    margin-top: -1px;
+                    margin-right: 5px;
+                    color: #999;
+                    font-size: 13px;
+                }
+
+                > a {
+                    transition: color .25s;
+                    color: #505050;
+                    text-decoration: none;
+
+                    &:hover{
+                        color: $deep-orange;
+                    }
+                }
+
+                > i, > a {
+                    display: inline-block;
+                    vertical-align: middle;
+                }
+            }
+        }
+
+        .post-title {
+            margin-bottom: 12px;
+            font-size: 18px;
+            font-weight: normal;
+            line-height: 1.4;
+
+            > a {
+                transition: color .3s;
+                color: #232323;
+                text-decoration: none;
+            }
+        }
+
+        > p {
+            margin-bottom: 0;
+            color: #999;
+            font-size: 13px;
+        }
+    }
+}
+
+/*#endregion*/
+
 /*#region Counter */
 .mg-countdown {
     display: inline-block;

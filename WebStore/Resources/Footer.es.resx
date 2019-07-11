@@ -192,4 +192,7 @@
   <data name="AboutUs" xml:space="preserve">
     <value>Nuestra Empresa</value>
   </data>
+  <data name="Projects" xml:space="preserve">
+    <value>Nuestros proyectos</value>
+  </data>
 </root>

@@ -749,11 +749,11 @@ $.AdminJs.gallery = {
             container.push(item);
         });
 
-        $('.swipeImg').on('click', function (e) {
+        $('.gallery-wrapper a').on('click', function (e) {
             e.preventDefault();
             var $pswp = $('.pswp')[0],
                 options = {
-                    index: $(this).index(),
+                    index: $('.gallery-wrapper a').index(this),
                     bgOpacity: 0.85,
                     showHideOpacity: true
                 };

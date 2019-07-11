@@ -240,4 +240,7 @@
   <data name="SendQuote" xml:space="preserve">
     <value>Send new quoting</value>
   </data>
+  <data name="Projects" xml:space="preserve">
+    <value>Our Projects</value>
+  </data>
 </root>

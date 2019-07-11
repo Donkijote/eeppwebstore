@@ -97,4 +97,15 @@
             }
         }
     });
+
+    $(".projectOwlCarousel").owlCarousel({
+        items: 1,
+        nav: true,
+        dots: true,
+        navText: ["<i class='fas fa-angle-left fa-2x'></i>", "<i class='fas fa-angle-right fa-2x'></i>"],
+        loop: false,
+        rewind: true,
+        margin: 0,
+        responsiveClass: true
+    });
 })

@@ -240,4 +240,7 @@
   <data name="SendQuote" xml:space="preserve">
     <value>Enviar nueva cotización</value>
   </data>
+  <data name="Projects" xml:space="preserve">
+    <value>Nuestros proyectos</value>
+  </data>
 </root>

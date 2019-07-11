@@ -106,7 +106,7 @@ namespace WebStore.Resources {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a &lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js&quot; async&gt;&lt;/script&gt;.
+        ///   Busca una cadena traducida similar a &lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js&quot;&gt;&lt;/script&gt;.
         /// </summary>
         public static string JqueryValidate {
             get {
@@ -115,7 +115,7 @@ namespace WebStore.Resources {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a &lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/additional-methods.min.js&quot; async&gt;&lt;/script&gt;.
+        ///   Busca una cadena traducida similar a &lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/additional-methods.min.js&quot;&gt;&lt;/script&gt;.
         /// </summary>
         public static string JqueryValidateMethods {
             get {

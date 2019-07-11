@@ -163,6 +163,11 @@ namespace WebStore.Controllers
             return View("Us");
         }
 
+        public ActionResult Projects()
+        {
+            return View();
+        }
+
         public ActionResult Contact()
         {
             ViewBag.Message = "Your contact page.";

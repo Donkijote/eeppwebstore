@@ -1,0 +1,163 @@
+﻿@{
+    ViewBag.Title = WebStore.Resources.Titles.Projects;
+}
+<section>
+    <header class="header">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                    <h1>
+                        @ViewBag.Title
+                    </h1>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                    <ul class="breadcrumbs">
+                        <li>
+                            <a href="@Url.Action("Index","Home", new { language = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName}, null)">@WebStore.Resources.Titles.Home</a>
+                        </li>
+                        <li class="separator">&nbsp;</li>
+                        <li>
+                            @ViewBag.Title
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </header>
+</section>
+
+<div class="container">
+    <div class="blog-post">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="owl-carousel owl-grab owl-animated-in owl-loaded gallery-wrapper projectOwlCarousel">
+                    <div class="owl-stage-outer">
+                        <div class="owl-stage">
+                            <div class="owl-item">
+                                <div class="gallery-item mb-0">
+                                    <a class="swipeImg" href="http://themes.rokaux.com/unishop/v3.1/template-3/img/blog/single/02.jpg" data-width="900" data-height="600">
+                                        <img src="http://themes.rokaux.com/unishop/v3.1/template-3/img/blog/single/02.jpg" alt="Image">
+                                    </a><span class="caption">Blog single post caption 3</span>
+                                </div>
+                            </div>
+                            <div class="owl-item">
+                                <div class="gallery-item mb-0">
+                                    <a class="swipeImg" href="http://themes.rokaux.com/unishop/v3.1/template-3/img/blog/single/th02.jpg" data-width="900" data-height="600">
+                                        <img src="http://themes.rokaux.com/unishop/v3.1/template-3/img/blog/single/th02.jpg" alt="Image">
+                                    </a>
+                                    <span class="caption">Blog single post caption 2</span>
+                                </div>
+                            </div>
+                            <div class="owl-item">
+                                <div class="gallery-item mb-0">
+                                    <a class="swipeImg" href="http://themes.rokaux.com/unishop/v3.1/template-3/img/blog/single/03.jpg" data-width="900" data-height="600">
+                                        <img src="http://themes.rokaux.com/unishop/v3.1/template-3/img/blog/single/03.jpg" alt="Image">
+                                    </a>
+                                    <span class="caption">Blog single post caption 4</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="post-body">
+                    <ul class="post-meta">
+                        <li><i class="far fa-clock"></i><a href="https://google.com">Mar 15, 2018</a></li>
+                        <li><i class="far fa-user"></i><a href="#">Gregory Smith</a></li>
+                        <li><i class="fas fa-tag"></i><a href="#">Ecommerce</a></li>
+                    </ul>
+                    <h3 class="post-title"><a href="blog-single-rs.html">Different Ways Ecommerce Companies Can Capitalize on Apps</a></h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris... <a href="blog-single-rs.html">Read more</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe.
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides.
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo https://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)"></button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)"></button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+@section Linkscss{
+    @Html.Raw(WebStore.Resources.Linkscss.OwlCarousel)
+    @Html.Raw(WebStore.Resources.Linkscss.OwlCarouselDefault)
+    @Html.Raw(WebStore.Resources.Linkscss.Photoswipe)
+    @Html.Raw(WebStore.Resources.Linkscss.PhotoswipeDefault)
+}
+
+@section Included{
+    @Html.Raw(WebStore.Resources.Scripts.OwlCarousel)
+    @Html.Raw(WebStore.Resources.Scripts.OwlCarouselJs)
+    @Html.Raw(WebStore.Resources.Scripts.PhotoSwipeJs)
+    @Html.Raw(WebStore.Resources.Scripts.PhotoSwipeUiJs)
+}
+
+@section Scripts{
+    <script>
+        $(function () {
+            $.AdminJs.gallery.activate();
+        })
+    </script>
+    }

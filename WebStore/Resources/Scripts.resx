@@ -133,10 +133,10 @@
     <value>&lt;script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"&gt;&lt;/script&gt;</value>
   </data>
   <data name="JqueryValidate" xml:space="preserve">
-    <value>&lt;script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js" async&gt;&lt;/script&gt;</value>
+    <value>&lt;script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"&gt;&lt;/script&gt;</value>
   </data>
   <data name="JqueryValidateMethods" xml:space="preserve">
-    <value>&lt;script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/additional-methods.min.js" async&gt;&lt;/script&gt;</value>
+    <value>&lt;script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/additional-methods.min.js"&gt;&lt;/script&gt;</value>
   </data>
   <data name="NotifyJs" xml:space="preserve">
     <value>&lt;script src="https://cdnjs.cloudflare.com/ajax/libs/mouse0270-bootstrap-notify/3.1.7/bootstrap-notify.js" integrity="sha256-ZfyZUBGHlJunePNMsBqgGX3xHMv4kaCZ5Hj+8Txwd9c=" crossorigin="anonymous" async&gt;&lt;/script&gt;</value>
