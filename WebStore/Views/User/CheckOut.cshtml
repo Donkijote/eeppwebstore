@@ -193,25 +193,30 @@
                             </div>
                         </div>
                     </div>
-
-                    <h4>@WebStore.Resources.Titles.ShippingType</h4>
-                    <hr class="padding-bottom-1x">
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <input type="radio" class="radio with-gap radio-col-deep-orange" name="strShippingType" id="store" value="1" />
-                                <label for="store">@WebStore.Resources.Placeholder.Store</label>
-                                <input type="radio" class="radio with-gap radio-col-deep-orange" name="strShippingType" id="shipping" value="2" />
-                                <label for="shipping">@WebStore.Resources.Placeholder.Shipping</label>
-                            </div>
-                        </div>
-                    </div>
                 </fieldset>
                 <h3>
                     <span class="step-Title">@WebStore.Resources.Check.Shipping</span>
                     <span class="fas fa-truck-moving fa-2x pl-3"></span>
                 </h3>
                 <fieldset>
+                    <h4>@WebStore.Resources.Titles.ShippingType</h4>
+                    <hr class="padding-bottom-1x">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <div class="custom-control d-inline-flex">
+                                    <div class="radiobtn">
+                                        <input type="radio" name="strShippingType" id="store" value="1" />
+                                        <label for="store" class="border-right-0">@WebStore.Resources.Placeholder.Store</label>
+                                    </div>
+                                    <div class="radiobtn">
+                                        <input type="radio" name="strShippingType" id="shipping" value="2" />
+                                        <label for="shipping">@WebStore.Resources.Placeholder.Shipping</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <div id="ShippingTypeStore" style="display:none;">
                         <h6>@WebStore.Resources.Placeholder.Store</h6>
                         <hr />
@@ -219,15 +224,33 @@
                     </div>
                     <div id="ShippingTypeAddress" style="display: none;">
                         <div class="form-group">
-                            <div class="custom-control custom-checkbox">
-                                <input class="chk-col-deep-orange filled-in" name="sameAddress" type="checkbox" id="same_address" checked="">
+                            <div class="custom-control">
                                 <label for="same_address">@WebStore.Resources.Placeholder.SameAddress</label>
+                            </div>
+                            <div class="custom-control d-inline-flex">
+                                <div class="radiobtn">
+                                    <input type="radio" name="sameAddress" id="sameAddressYes" value="1" checked/>
+                                    <label for="sameAddressYes">@WebStore.Resources.Placeholder.Yes</label>
+                                </div>
+                                <div class="radiobtn">
+                                    <input type="radio" name="sameAddress" id="sameAddressNo" value="2" />
+                                    <label for="sameAddressNo">@WebStore.Resources.Placeholder.No</label>
+                                </div>
                             </div>
                         </div>
                         <div class="form-group pb-2">
-                            <div class="custom-control custom-checkbox">
-                                <input class="chk-col-deep-orange filled-in" name="samePerson" type="checkbox" id="same_person" checked="">
+                            <div class="custom-control">
                                 <label for="same_person">@WebStore.Resources.Placeholder.SamePerson</label>
+                            </div>
+                            <div class="custom-control d-inline-flex">
+                                <div class="radiobtn">
+                                    <input type="radio" name="samePerson" id="samePersonYes" value="1" checked/>
+                                    <label for="samePersonYes">@WebStore.Resources.Placeholder.Yes</label>
+                                </div>
+                                <div class="radiobtn">
+                                    <input type="radio" name="samePerson" id="samePersonNo" value="2" />
+                                    <label for="samePersonNo">@WebStore.Resources.Placeholder.No</label>
+                                </div>
                             </div>
                         </div>
 
@@ -481,11 +504,25 @@
                     <span class="fas fa-money-bill-alt fa-2x pl-3"></span>
                 </h3>
                 <fieldset>
-                    <div class="cc-selector">
-                        <input id="webpay" type="radio" name="credit-card" value="webpay" required="">
-                        <label class="drinkcard-cc webpay" for="webpay"></label>
-                        <input id="transferencia" type="radio" name="credit-card" value="transferencia" required="">
-                        <label class="drinkcard-cc transferencia" for="transferencia"></label>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="cc-selector">
+                                <input id="webpay" type="radio" name="wtc" value="webpay" required="">
+                                <label class="drinkcard-cc webpay" for="webpay"></label>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="cc-selector">
+                                <input id="transferencia" type="radio" name="wtc" value="transferencia" required="">
+                                <label class="drinkcard-cc transferencia" for="transferencia"></label>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="cc-selector">
+                                <input id="cash" type="radio" name="wtc" value="cash" required="">
+                                <label class="drinkcard-cc cash" for="cash"></label>
+                            </div>
+                        </div>
                     </div>
                 </fieldset>
                 <h3>

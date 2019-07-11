@@ -663,6 +663,32 @@
 .radio:disabled + label {
   color: rgba(0, 0, 0, 0.26); }
 
+.radiobtn {
+  position: relative;
+  display: block; }
+  .radiobtn label {
+    display: block;
+    background: transparent;
+    color: #FF5722;
+    padding: 5px 20px;
+    border: 1px solid #FF5722;
+    margin-bottom: 5px;
+    cursor: pointer; }
+  .radiobtn input[type="radio"] {
+    display: none !important;
+    position: absolute;
+    width: 100%;
+    appearance: none; }
+    .radiobtn input[type="radio"]:checked + label {
+      background: #FF5722;
+      border-color: #FF5722;
+      color: #FFFFFF; }
+      .radiobtn input[type="radio"]:checked + label:after {
+        background: #FF5722; }
+      .radiobtn input[type="radio"]:checked + label:before {
+        width: 20px;
+        height: 20px; }
+
 form p {
   margin-bottom: 10px;
   text-align: left; }

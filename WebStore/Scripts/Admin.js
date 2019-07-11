@@ -273,8 +273,8 @@ $.AdminJs.checkOut = {
             })
         })
 
-        $('#same_address').on('change', function () {
-            if ($(this).is(':checked')) {
+        $('input[name="sameAddress"]').on('change', function () {
+            if ($(this).val() == "1") {
                 if ($('#anotherAddress').is(':visible')) {
                     $('#anotherAddress').addClass('d-none');
                     var height = $(this).parents('fieldset').outerHeight();
@@ -290,8 +290,8 @@ $.AdminJs.checkOut = {
             }
         })
 
-        $('#same_person').on('change', function () {
-            if ($(this).is(':checked')) {
+        $('input[name="samePerson"]').on('change', function () {
+            if ($(this).val() == "1") {
                 if ($('#anotherPerson').is(':visible')) {
                     $('#anotherPerson').addClass('d-none');
                     var height = $(this).parents('fieldset').outerHeight();
@@ -343,20 +343,33 @@ $.AdminJs.checkOut = {
                 }
 
                 if (newIndex == 1) {
-                    var shippingType = $('input[name="strShippingType"]:checked').val();
-                    if (shippingType == 1) {
-                        $('#ShippingTypeAddress').css({ "display": "none" });
-                        $('#ShippingTypeStore').show();
-                    } else if (shippingType == 2) {
-                        $('#ShippingTypeStore').css({ "display": "none" });
-                        $('#ShippingTypeAddress').show();
-                        if ($('input[name="sameAddress"]').is(':checked') && $('input[name="samePerson"]').is(':checked')) {
-                            form.validate().settings.ignore = ":disabled,:hidden,#anotherPerson :input, #anotherAddress :input";
+                    $('input[name="strShippingType"]').on('change', function () {
+                        var shippingType = $(this).val();
+                        if (shippingType == 1) {
+                            $('#ShippingTypeAddress').css({ "display": "none" });
+                            $('#ShippingTypeStore').show();
+                            var height = $(this).parents('fieldset').outerHeight();
+                            $(this).parents('.content.clearfix').css({ "height": height });
+                        } else if (shippingType == 2) {
+                            $('#ShippingTypeStore').css({ "display": "none" });
+                            $('#ShippingTypeAddress').show();
+                            if ($('input[name="sameAddress"]').is(':checked') && $('input[name="samePerson"]').is(':checked')) {
+                                form.validate().settings.ignore = ":disabled,:hidden,#anotherPerson :input, #anotherAddress :input";
+                            }
+                            var height = $(this).parents('fieldset').outerHeight();
+                            $(this).parents('.content.clearfix').css({ "height": height });
                         }
-                    }
+                    })
                 }
 
-                return form.valid();
+                if (newIndex == 2) {
+                    if ($('input[name="strShippingType"]:checked').val() == 2) {
+                        $('input[id="cash"]').parent().addClass('d-none');
+                    } else {
+                        $('input[id="cash"]').parent().removeClass('d-none');
+                    }
+                }
+                return true;
             },
             onStepChanged: function (event, currentIndex, newIndex) {
 

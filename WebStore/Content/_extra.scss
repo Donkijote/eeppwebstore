@@ -504,6 +504,43 @@ $colors: (
     }
 }
 
+.radiobtn {
+    position: relative;
+    display: block;
+
+    label {
+        display: block;
+        background: transparent;
+        color: $deep-orange;
+        padding: 5px 20px;
+        border: 1px solid $deep-orange;
+        margin-bottom: 5px;
+        cursor: pointer;
+    }
+
+    input[type="radio"] {
+        display: none !important;
+        position: absolute;
+        width: 100%;
+        appearance: none;
+
+        &:checked + label {
+            background: $deep-orange;
+            border-color: $deep-orange;
+            color: $white;
+
+            &:after {
+                background: $deep-orange;
+            }
+
+            &:before {
+                width: 20px;
+                height: 20px;
+            }
+        }
+    }
+}
+
 form {
     p {
         margin-bottom: 10px;

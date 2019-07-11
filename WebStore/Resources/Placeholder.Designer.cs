@@ -295,6 +295,15 @@ namespace WebStore.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a No.
+        /// </summary>
+        public static string No {
+            get {
+                return ResourceManager.GetString("No", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Password.
         /// </summary>
         public static string Password {
@@ -489,6 +498,15 @@ namespace WebStore.Resources {
         public static string WType {
             get {
                 return ResourceManager.GetString("WType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Yes.
+        /// </summary>
+        public static string Yes {
+            get {
+                return ResourceManager.GetString("Yes", resourceCulture);
             }
         }
         

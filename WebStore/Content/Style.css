@@ -664,6 +664,32 @@
 .radio:disabled + label {
   color: rgba(0, 0, 0, 0.26); }
 
+.radiobtn {
+  position: relative;
+  display: block; }
+  .radiobtn label {
+    display: block;
+    background: transparent;
+    color: #FF5722;
+    padding: 5px 20px;
+    border: 1px solid #FF5722;
+    margin-bottom: 5px;
+    cursor: pointer; }
+  .radiobtn input[type="radio"] {
+    display: none !important;
+    position: absolute;
+    width: 100%;
+    appearance: none; }
+    .radiobtn input[type="radio"]:checked + label {
+      background: #FF5722;
+      border-color: #FF5722;
+      color: #FFFFFF; }
+      .radiobtn input[type="radio"]:checked + label:after {
+        background: #FF5722; }
+      .radiobtn input[type="radio"]:checked + label:before {
+        width: 20px;
+        height: 20px; }
+
 form p {
   margin-bottom: 10px;
   text-align: left; }
@@ -3291,7 +3317,7 @@ button {
   background-repeat: no-repeat;
   background-position: center;
   display: inline-block;
-  width: 48%;
+  width: 100%;
   height: 180px;
   -webkit-transition: all 100ms ease-in;
   -moz-transition: all 100ms ease-in;
@@ -3309,6 +3335,9 @@ button {
 
 .cc-selector .transferencia {
   background-image: url(https://conelectric.cl/images/icon-payment-06.png); }
+
+.cc-selector .cash {
+  background-image: url(https://cdn3.iconfinder.com/data/icons/drinks-part-1/112/44-drinks-1_barista-male-caucasian-cashier-pay-512.png); }
 
 /*#endregion*/
 /*#region Card Pricing*/
