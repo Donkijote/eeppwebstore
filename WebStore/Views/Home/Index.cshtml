@@ -87,7 +87,7 @@
                             {
                                 <span class="mg-product-badge bg-success">Oferta</span>
                             }
-                            <div class="mg-product-wish bg-secondary" href="javascript:void(0);">
+                            <div class="mg-product-wish bg-secondary" data-toggle="tooltip" data-placement="top" title="@WebStore.Resources.Buttons.Quote" data-original-title="@WebStore.Resources.Buttons.Quote">
                                 <i></i>
                             </div>
                             <a class="mg-product-thumb" href="@Url.Action("Category", "Product", new { id = item.categorySeo, idp = item.strCodigo, language = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName })">
@@ -413,6 +413,7 @@
     @Html.Raw(WebStore.Resources.Scripts.OwlCarouselJs)
     @Html.Raw(WebStore.Resources.Scripts.WowJs)
     @Html.Raw(WebStore.Resources.Scripts.CountdownJs)
+    @Html.Raw(WebStore.Resources.Scripts.NotifyJs)
 }
 
 @section Scripts{
