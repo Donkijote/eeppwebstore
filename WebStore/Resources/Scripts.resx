@@ -141,6 +141,9 @@
   <data name="NotifyJs" xml:space="preserve">
     <value>&lt;script src="https://cdnjs.cloudflare.com/ajax/libs/mouse0270-bootstrap-notify/3.1.7/bootstrap-notify.js" integrity="sha256-ZfyZUBGHlJunePNMsBqgGX3xHMv4kaCZ5Hj+8Txwd9c=" crossorigin="anonymous" async&gt;&lt;/script&gt;</value>
   </data>
+  <data name="NoUiSliderJs" xml:space="preserve">
+    <value>&lt;script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/14.0.2/nouislider.min.js" integrity="sha256-VG+4f1Hm2q4e+DTEOaiZKlWjJm5W4yqnXNvKkWBYA20=" crossorigin="anonymous"&gt;&lt;/script&gt;</value>
+  </data>
   <data name="OwlCarousel" xml:space="preserve">
     <value>&lt;script src="/Scripts/OwlCarousel/owl.carousel.min.js" async&gt;&lt;/script&gt;</value>
   </data>
@@ -167,5 +170,8 @@
   </data>
   <data name="WowJs" xml:space="preserve">
     <value>&lt;script src="/Scripts/Animation/wow.min.js"&gt;&lt;/script&gt;</value>
+  </data>
+  <data name="wNumJs" xml:space="preserve">
+    <value>&lt;script src="https://cdnjs.cloudflare.com/ajax/libs/wnumb/1.1.0/wNumb.min.js" integrity="sha256-HT7c4lBipI1Hkl/uvUrU1HQx4WF3oQnSafPjgR9Cn8A=" crossorigin="anonymous"&gt;&lt;/script&gt;</value>
   </data>
 </root>

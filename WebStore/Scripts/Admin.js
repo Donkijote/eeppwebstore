@@ -1,6 +1,7 @@
 if (typeof jQuery === "undefined") {
 	throw new Error("jQuery plugins need to be before this file");
 }
+
 $.Dir ={
     en: function (x) {
         var englishDic = {
@@ -655,21 +656,35 @@ $.AdminJs.timing = {
 }
 
 $.AdminJs.slider = {
-    activate: function(){
-        $(".ui-range-slider").slider({
-            range: true,
-            min: 0,
-            max: $('.mg-price-range-slider').data('start-max'),
-            values: [$('.mg-price-range-slider').data('start-min'), $('.mg-price-range-slider').data('start-max')],
-            slide: function (event, ui) {
-                $(".ui-range-value-min").text("$" + ui.values[0] + " - ");
-                $(".ui-range-value-max").text("$" + ui.values[1]);
-            }
+    activate: function () {
+
+        var nonLinearSlider = document.getElementById('ui-range-slider');
+
+        noUiSlider.create(nonLinearSlider, {
+            connect: true,
+            step: 1,
+            orientation: 'horizontal',
+            behaviour: 'tap',
+            start: [$('.mg-price-range-slider').data('start-min'), $('.mg-price-range-slider').data('start-max')],
+            range: {
+                'min': [0],
+                'max': [$('.mg-price-range-slider').data('start-max')]
+            },
+            format: wNumb({
+                decimals: 0,
+                thousand: '.',
+                prefix: '$ ',
+            })
         });
-            /*$( ".ui-range-value-min span" ).val( "$" + $( "#slider-range" ).slider( "values", 0 ) +
-            " - $" + $( "#slider-range" ).slider( "values", 1 ) );
-            $( ".ui-range-value-max span" ).val( "$" + $( "#slider-range" ).slider( "values", 0 ) +
-            " - $" + $( "#slider-range" ).slider( "values", 1 ) );*/
+
+        var nodes = [
+            document.getElementById('ui-range-value-min'),
+            document.getElementById('ui-range-value-max')
+        ];
+
+        nonLinearSlider.noUiSlider.on('update', function (values, handle, unencoded, isTap, positions) {
+            nodes[handle].innerHTML = values[handle];
+        });
     }
 }
 

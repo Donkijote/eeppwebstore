@@ -106,11 +106,38 @@ namespace WebStore.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Address.
+        /// </summary>
+        public static string AddressBranch {
+            get {
+                return ResourceManager.GetString("AddressBranch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Our Mobile Apps.
         /// </summary>
         public static string Apps {
             get {
                 return ResourceManager.GetString("Apps", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Branch.
+        /// </summary>
+        public static string Branch {
+            get {
+                return ResourceManager.GetString("Branch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Branches.
+        /// </summary>
+        public static string Branches {
+            get {
+                return ResourceManager.GetString("Branches", resourceCulture);
             }
         }
         
@@ -129,6 +156,15 @@ namespace WebStore.Resources {
         public static string Departments {
             get {
                 return ResourceManager.GetString("Departments", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Email.
+        /// </summary>
+        public static string Email {
+            get {
+                return ResourceManager.GetString("Email", resourceCulture);
             }
         }
         
@@ -156,6 +192,15 @@ namespace WebStore.Resources {
         public static string FAQ {
             get {
                 return ResourceManager.GetString("FAQ", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Headquarter.
+        /// </summary>
+        public static string HeadQuarter {
+            get {
+                return ResourceManager.GetString("HeadQuarter", resourceCulture);
             }
         }
         

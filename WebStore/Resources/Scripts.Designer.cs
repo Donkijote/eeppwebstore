@@ -133,6 +133,15 @@ namespace WebStore.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a &lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/14.0.2/nouislider.min.js&quot; integrity=&quot;sha256-VG+4f1Hm2q4e+DTEOaiZKlWjJm5W4yqnXNvKkWBYA20=&quot; crossorigin=&quot;anonymous&quot;&gt;&lt;/script&gt;.
+        /// </summary>
+        public static string NoUiSliderJs {
+            get {
+                return ResourceManager.GetString("NoUiSliderJs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a &lt;script src=&quot;/Scripts/OwlCarousel/owl.carousel.min.js&quot; async&gt;&lt;/script&gt;.
         /// </summary>
         public static string OwlCarousel {
@@ -201,6 +210,15 @@ namespace WebStore.Resources {
         public static string SweetAlert {
             get {
                 return ResourceManager.GetString("SweetAlert", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a &lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/wnumb/1.1.0/wNumb.min.js&quot; integrity=&quot;sha256-HT7c4lBipI1Hkl/uvUrU1HQx4WF3oQnSafPjgR9Cn8A=&quot; crossorigin=&quot;anonymous&quot;&gt;&lt;/script&gt;.
+        /// </summary>
+        public static string wNumJs {
+            get {
+                return ResourceManager.GetString("wNumJs", resourceCulture);
             }
         }
         

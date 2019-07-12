@@ -195,4 +195,19 @@
   <data name="Projects" xml:space="preserve">
     <value>Nuestros proyectos</value>
   </data>
+  <data name="AddressBranch" xml:space="preserve">
+    <value>Dirección</value>
+  </data>
+  <data name="Branches" xml:space="preserve">
+    <value>Sucursales</value>
+  </data>
+  <data name="HeadQuarter" xml:space="preserve">
+    <value>Casa matriz</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="Branch" xml:space="preserve">
+    <value>Sucursal</value>
+  </data>
 </root>

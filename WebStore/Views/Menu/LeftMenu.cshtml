@@ -46,7 +46,7 @@
     <section class="mg-widget mg-widget-categories">
         <h3 class="mg-widget-title">@WebStore.Resources.Filter.Price</h3>
         <form class="mg-price-range-slider" method="post" data-start-min="@ViewBag.minPrice" data-start-max="@ViewBag.maxPrice" data-min="0" data-max="1000" data-step="1">
-            <div class="ui-range-slider mt-3"></div>
+            <div class="ui-range-slider mt-3" id="ui-range-slider"></div>
             <footer class="ui-range-slider-footer">
                 <div class="column">
                     <button class="btn btn-outline-orangered btn-sm" type="submit">@WebStore.Resources.Buttons.Filter</button>
@@ -54,11 +54,11 @@
                 <div class="column">
                     <div class="ui-range-values">
                         <div class="ui-range-value-min">
-                            $<span>@ViewBag.minPrice</span>&nbsp;-&nbsp;
+                            <span id="ui-range-value-min">@ViewBag.minPrice</span>&nbsp;-&nbsp;
                             <input type="hidden" value="@ViewBag.minPrice">
                         </div>
                         <div class="ui-range-value-max">
-                            $<span>@ViewBag.maxPrice</span>
+                            <span id="ui-range-value-max">@ViewBag.maxPrice</span>
                             <input type="hidden" value="@ViewBag.maxPrice">
                         </div>
                     </div>

@@ -126,6 +126,12 @@
   <data name="JqueryUi" xml:space="preserve">
     <value>&lt;link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"&gt;</value>
   </data>
+  <data name="NoUiSlider" xml:space="preserve">
+    <value>&lt;link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/14.0.2/nouislider.min.css" integrity="sha256-6pa9Ln4B/FyHlxOYaXuwpET9xH0e21iX0SPLg9P5Ro0=" crossorigin="anonymous" /&gt;</value>
+  </data>
+  <data name="NoUiSliderCustom" xml:space="preserve">
+    <value>&lt;link rel="stylesheet" href="/Content/noUiSlider.min.css" /&gt;</value>
+  </data>
   <data name="OwlCarousel" xml:space="preserve">
     <value>&lt;link rel="stylesheet" href="/Content/OwlCarousel/owl.carousel.min.css" /&gt;</value>
   </data>

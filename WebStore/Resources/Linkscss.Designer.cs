@@ -88,6 +88,24 @@ namespace WebStore.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a &lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/14.0.2/nouislider.min.css&quot; integrity=&quot;sha256-6pa9Ln4B/FyHlxOYaXuwpET9xH0e21iX0SPLg9P5Ro0=&quot; crossorigin=&quot;anonymous&quot; /&gt;.
+        /// </summary>
+        public static string NoUiSlider {
+            get {
+                return ResourceManager.GetString("NoUiSlider", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a &lt;link rel=&quot;stylesheet&quot; href=&quot;/Content/noUiSlider.min.css&quot; /&gt;.
+        /// </summary>
+        public static string NoUiSliderCustom {
+            get {
+                return ResourceManager.GetString("NoUiSliderCustom", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a &lt;link rel=&quot;stylesheet&quot; href=&quot;/Content/OwlCarousel/owl.carousel.min.css&quot; /&gt;.
         /// </summary>
         public static string OwlCarousel {

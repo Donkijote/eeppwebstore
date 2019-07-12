@@ -195,4 +195,19 @@
   <data name="Projects" xml:space="preserve">
     <value>Our Projects</value>
   </data>
+  <data name="AddressBranch" xml:space="preserve">
+    <value>Address</value>
+  </data>
+  <data name="Branches" xml:space="preserve">
+    <value>Branches</value>
+  </data>
+  <data name="HeadQuarter" xml:space="preserve">
+    <value>Headquarter</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="Branch" xml:space="preserve">
+    <value>Branch</value>
+  </data>
 </root>

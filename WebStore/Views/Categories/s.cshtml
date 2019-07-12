@@ -103,9 +103,9 @@
                                     {
                                         <span class="mg-product-badge bg-success">Oferta</span>
                                     }
-                                    <div class="mg-product-wish bg-secondary" href="javascript:void(0);">
+                                    <a class="mg-product-wish bg-secondary" data-toggle="tooltip" data-placement="top" title="@WebStore.Resources.Buttons.Quote" data-original-title="@WebStore.Resources.Buttons.Quote">
                                         <i></i>
-                                    </div>
+                                    </a>
                                     <a class="mg-product-thumb" href="@Url.Action("Category","Product", new { id = WebStore.Resources.Seo.ResourceManager.GetString(item.categorySeo), idp = item.strCodigo, language=System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName })">
                                         <img class="img-fuild" src="~/Content/img/products/@item.strCodigo-1.jpg"
                                              alt="Producto">
@@ -177,9 +177,9 @@
                                 {
                                     <span class="mg-product-badge bg-success">Oferta</span>
                                 }
-                                <div class="mg-product-wish bg-secondary" href="javascript:void(0);">
+                                <a class="mg-product-wish bg-secondary" data-toggle="tooltip" data-placement="top" title="@WebStore.Resources.Buttons.Quote" data-original-title="@WebStore.Resources.Buttons.Quote">
                                     <i></i>
-                                </div>
+                                </a>
                                 <a class="mg-product-thumb" href="@Url.Action("Category","Product", new { id = WebStore.Resources.Seo.ResourceManager.GetString(item.categorySeo), idp = item.strCodigo, language=System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName })">
                                     <img class="img-fuild" src="~/Content/img/products/@item.strCodigo-1.jpg"
                                          alt="Producto">
@@ -231,6 +231,7 @@
                     }
                 }
             </div>
+
             @Html.PagedListPager(Model, page => Url.Action("s",
             new { page, id = ViewContext.RouteData.Values["id"], PerPage = Request.QueryString["PerPage"], SortedBy = Request.QueryString["SortedBy"], View = Request.QueryString["View"] }),
             new X.PagedList.Mvc.Common.PagedListRenderOptionsBase() {
@@ -274,14 +275,15 @@
 </section>
 
 @section Linkscss{
-    @Html.Raw(WebStore.Resources.Linkscss.JqueryUi)
     @Html.Raw(WebStore.Resources.Linkscss.PageList)
     @Html.Raw(WebStore.Resources.Linkscss.Animate)
+    @Html.Raw(WebStore.Resources.Linkscss.NoUiSliderCustom)
 }
 
 @section Included{
-    @Html.Raw(WebStore.Resources.Scripts.JqueryUi)
     @Html.Raw(WebStore.Resources.Scripts.NotifyJs)
+    @Html.Raw(WebStore.Resources.Scripts.wNumJs)
+    @Html.Raw(WebStore.Resources.Scripts.NoUiSliderJs)
 }
 
 @section Scripts{

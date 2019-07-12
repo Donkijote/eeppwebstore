@@ -1,0 +1,131 @@
+﻿$dark: #343a40;
+
+.noUi-target {
+    background: #ededed;
+    border-radius: 5px;
+    box-shadow: none !important;
+    position: relative;
+
+    &.ltr {
+        direction: ltr;
+    }
+
+    .noUi-base {
+        width: 100%;
+        height: 100%;
+        position: relative;
+        z-index: 1;
+
+        .noUi-connects {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            z-index: 1;
+
+            .noUi-connect {
+                height: 100%;
+                width: 100%;
+                background: $dark;
+                will-change: transform;
+                position: absolute;
+                z-index: 1;
+                top: 0;
+                left: 0;
+                -ms-transform-origin: 0 0;
+                -webkit-transform-origin: 0 0;
+                -webkit-transform-style: preserve-3d;
+                transform-origin: 0 0;
+                transform-style: flat;
+            }
+        }
+
+        .noUi-origin {
+            height: 10%;
+            width: 10%;
+            will-change: transform;
+            position: absolute;
+            z-index: 1;
+            top: 0;
+            left: 0;
+            -ms-transform-origin: 0 0;
+            -webkit-transform-origin: 0 0;
+            -webkit-transform-style: preserve-3d;
+            transform-origin: 0 0;
+            transform-style: flat;
+
+            .noUi-handle {
+                border: 1px solid $dark;
+                border-radius: 3px;
+                background: $dark;
+                cursor: default;
+                box-shadow: inset 0 0 1px #fff, inset 0 0px 2px #ebebeb, 0px 4px 2px -2px #bbb;
+                -webkit-backface-visibility: hidden;
+                backface-visibility: hidden;
+                position: absolute;
+            }
+        }
+    }
+
+    &.noUi-horizontal {
+        height: 5px;
+
+        .noUi-base {
+            .noUi-origin {
+                height: 0;
+
+                .noUi-handle {
+                    width: 14px;
+                    height: 20px;
+                    left: -17px;
+                    top: -8px;
+
+                    &:focus {
+                        outline: none !important;
+                        -moz-box-shadow: none;
+                        -webkit-box-shadow: none;
+                        box-shadow: none;
+                    }
+
+                    .noUi-touch-area {
+                        height: 100%;
+                        width: 100%;
+
+                        &:focus {
+                            outline: none !important;
+                            -moz-box-shadow: none;
+                            -webkit-box-shadow: none;
+                            box-shadow: none;
+                        }
+                    }
+                }
+            }
+        }
+
+        &.noUi-ltr {
+            .noUi-base {
+                .noUi-origin {
+                    left: auto;
+                    right: 0;
+
+                    .noUi-handle {
+                        right: -12px;
+                        left: auto;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.noUi-target, .noUi-target * {
+    -webkit-touch-callout: none;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-user-select: none;
+    -ms-touch-action: none;
+    touch-action: none;
+    -ms-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
