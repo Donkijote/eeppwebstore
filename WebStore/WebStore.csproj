@@ -899,6 +899,7 @@
     <Content Include="Views\Home\Us.cshtml" />
     <Content Include="Views\User\Quote.cshtml" />
     <Content Include="Views\Home\Projects.cshtml" />
+    <Content Include="Views\Home\FAQ.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

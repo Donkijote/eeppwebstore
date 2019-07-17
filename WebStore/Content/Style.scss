@@ -2405,7 +2405,7 @@ button {
 }
 /*#endregion*/
 
-/*#region Card*/
+/*#region Card-Accordion*/
 .card {
     .card-body {
         .mg-rating-stars {
@@ -2473,6 +2473,62 @@ button {
 
         label{
             cursor: pointer;
+        }
+    }
+}
+
+.accordion {
+    .card {
+        margin-bottom: 8px;
+        border-bottom: 1px solid #e5e5e5 !important;
+        border-radius: 5px !important;
+
+        .card-header {
+            padding: 0;
+            transition: background-color .3s;
+            background-color: #fff;
+
+            &:first-child {
+                border-radius: 5px 5px 0 0;
+            }
+
+            &:hover {
+                background-color: #f5f5f5;
+            }
+
+            h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+                margin-bottom: 0;
+            }
+        }
+    }
+
+    [data-toggle='collapse'] {
+        display: block;
+        position: relative;
+        padding: .85rem 1.25rem;
+        color: #232323;
+        font-size: 16px;
+        text-decoration: none;
+
+        &::after {
+            position: absolute;
+            top: 50%;
+            right: 1rem;
+            margin-top: -12px;
+            transition: -webkit-transform .25s;
+            transition: transform .25s;
+            font-family: 'Font Awesome 5 Free';
+            font-size: 18px;
+            font-weight: 900;
+            content: '\f106';
+        }
+
+        &.collapsed {
+            &::after {
+                -webkit-transform: rotate(-180deg);
+                -ms-transform: rotate(-180deg);
+                transform: rotate(-180deg);
+            }
         }
     }
 }
@@ -5399,6 +5455,30 @@ a {
             }
         }
     }
+
+    &.list-group-item {
+        position: relative;
+        transition: all .25s;
+        color: #505050;
+        padding-top: .87rem;
+        padding-bottom: .87rem;
+
+        &::before {
+            position: absolute;
+            top: 0;
+            left: -1px;
+            width: 2px;
+            height: 100%;
+            background-color: orangered;
+            content: '';
+            opacity: 0;
+        }
+
+        &:hover,&:focus,&:active{
+            background-color: #FFFFFF;
+            color: orangered;
+        }
+    }
 }
 
 label {
@@ -5585,6 +5665,27 @@ blockquote {
             font-size: 1.2em;
             content: '\f007';
             vertical-align: middle;
+        }
+    }
+}
+
+.list-group {
+    .list-group-item {
+        border-color: #e5e5e5;
+        background-color: #fff;
+        font-size: 15px;
+        text-decoration: none;
+
+        &.active {
+            border-color: #e5e5e5;
+            background-color: #fff;
+            color: orangered;
+            cursor: default;
+            pointer-events: none;
+
+            &::before{
+                opacity: 1;
+            }
         }
     }
 }

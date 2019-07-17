@@ -243,4 +243,7 @@
   <data name="Projects" xml:space="preserve">
     <value>Our Projects</value>
   </data>
+  <data name="HelpFAQ" xml:space="preserve">
+    <value>Help / FAQ</value>
+  </data>
 </root>

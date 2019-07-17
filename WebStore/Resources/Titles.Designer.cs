@@ -178,6 +178,15 @@ namespace WebStore.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Help / FAQ.
+        /// </summary>
+        public static string HelpFAQ {
+            get {
+                return ResourceManager.GetString("HelpFAQ", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a History.
         /// </summary>
         public static string History {

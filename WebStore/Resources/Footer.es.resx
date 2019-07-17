@@ -210,4 +210,7 @@
   <data name="Branch" xml:space="preserve">
     <value>Sucursal</value>
   </data>
+  <data name="HelpFAQ" xml:space="preserve">
+    <value>Ayuda / Preguntas frecuentes</value>
+  </data>
 </root>
