@@ -417,6 +417,12 @@ $(function () {
 
 });
 
+/*$('#loading-image').bind('ajaxStart', function () {
+    $(this).show();
+}).bind('ajaxStop', function () {
+    $(this).hide();
+});*/
+
 document.onreadystatechange = function () {
     var state = document.readyState
     if (state == 'interactive') {
