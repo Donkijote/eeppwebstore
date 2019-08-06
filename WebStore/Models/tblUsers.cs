@@ -19,6 +19,8 @@ namespace WebStore.Models
         public string strLastNames { get; set; }
         public string strEmail { get; set; }
         public string strPassword { get; set; }
+        public Nullable<System.Guid> strVerificationCode { get; set; }
         public Nullable<int> intLevel { get; set; }
+        public Nullable<bool> boolValidate { get; set; }
     }
 }

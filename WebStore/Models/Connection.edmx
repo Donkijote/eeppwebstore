@@ -203,11 +203,13 @@
             <PropertyRef Name="idUser" />
           </Key>
           <Property Name="idUser" Type="int" Nullable="false" />
-          <Property Name="strNames" Type="nchar" MaxLength="20" />
-          <Property Name="strLastNames" Type="nchar" MaxLength="20" />
-          <Property Name="strEmail" Type="nchar" MaxLength="30" />
-          <Property Name="strPassword" Type="nchar" MaxLength="20" />
+          <Property Name="strNames" Type="varchar" MaxLength="50" />
+          <Property Name="strLastNames" Type="varchar" MaxLength="50" />
+          <Property Name="strEmail" Type="varchar" MaxLength="50" />
+          <Property Name="strPassword" Type="varchar" MaxLength="50" />
+          <Property Name="strVerificationCode" Type="uniqueidentifier" />
           <Property Name="intLevel" Type="int" />
+          <Property Name="boolValidate" Type="bit" />
         </EntityType>
         <Association Name="FK_tblBrand_tblBrand">
           <End Role="tblImg" Type="Self.tblImg" Multiplicity="0..1" />
@@ -507,7 +509,6 @@
         <EntityContainer Name="webstoreEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="tblCategories" EntityType="Self.tblCategories" />
           <EntitySet Name="tblProducts" EntityType="webstoreModel.tblProducts" />
-          <EntitySet Name="tblUsers" EntityType="webstoreModel.tblUsers" />
           <AssociationSet Name="FK_tblProducts_tblCategories1" Association="webstoreModel.FK_tblProducts_tblCategories1">
             <End Role="tblCategories" EntitySet="tblCategories" />
             <End Role="tblProducts" EntitySet="tblProducts" />
@@ -586,6 +587,7 @@
             <End Role="tblRelBrand" EntitySet="tblRelBrand" />
           </AssociationSet>
           <EntitySet Name="tblFicha" EntityType="webstoreModel.tblFicha" />
+          <EntitySet Name="tblUsers" EntityType="webstoreModel.tblUsers" />
         </EntityContainer>
         <EntityType Name="tblProducts">
           <Key>
@@ -613,17 +615,6 @@
           <NavigationProperty Name="tblOffertTime" Relationship="webstoreModel.FK_tblProducts_tblOffertTime" FromRole="tblProducts" ToRole="tblOffertTime" />
           <Property Name="refImg" Type="Int32" />
           <NavigationProperty Name="tblImg" Relationship="webstoreModel.FK_tblProducts_tblImg" FromRole="tblProducts" ToRole="tblImg" />
-        </EntityType>
-        <EntityType Name="tblUsers">
-          <Key>
-            <PropertyRef Name="idUser" />
-          </Key>
-          <Property Name="idUser" Type="Int32" Nullable="false" />
-          <Property Name="strNames" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
-          <Property Name="strLastNames" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
-          <Property Name="strEmail" Type="String" MaxLength="30" FixedLength="true" Unicode="true" />
-          <Property Name="strPassword" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
-          <Property Name="intLevel" Type="Int32" />
         </EntityType>
         <Association Name="FK_tblProducts_tblCategories1">
           <End Type="webstoreModel.tblCategories" Role="tblCategories" Multiplicity="0..1" />
@@ -999,6 +990,19 @@
           <Property Name="strDs43" Type="Boolean" Nullable="false" />
           <Property Name="strFicha" Type="Boolean" Nullable="false" />
         </EntityType>
+        <EntityType Name="tblUsers">
+          <Key>
+            <PropertyRef Name="idUser" />
+          </Key>
+          <Property Name="idUser" Type="Int32" Nullable="false" />
+          <Property Name="strNames" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="strLastNames" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="strEmail" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="strPassword" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="strVerificationCode" Type="Guid" />
+          <Property Name="intLevel" Type="Int32" />
+          <Property Name="boolValidate" Type="Boolean" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1036,18 +1040,6 @@
                 <ScalarProperty Name="strCodigo" ColumnName="strCodigo" />
                 <ScalarProperty Name="strNombre" ColumnName="strNombre" />
                 <ScalarProperty Name="idProdcuto" ColumnName="idProdcuto" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="tblUsers">
-            <EntityTypeMapping TypeName="webstoreModel.tblUsers">
-              <MappingFragment StoreEntitySet="tblUsers">
-                <ScalarProperty Name="intLevel" ColumnName="intLevel" />
-                <ScalarProperty Name="strPassword" ColumnName="strPassword" />
-                <ScalarProperty Name="strEmail" ColumnName="strEmail" />
-                <ScalarProperty Name="strLastNames" ColumnName="strLastNames" />
-                <ScalarProperty Name="strNames" ColumnName="strNames" />
-                <ScalarProperty Name="idUser" ColumnName="idUser" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1223,6 +1215,20 @@
                 <ScalarProperty Name="intColorTemp" ColumnName="intColorTemp" />
                 <ScalarProperty Name="strPotencia" ColumnName="strPotencia" />
                 <ScalarProperty Name="idFicha" ColumnName="idFicha" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblUsers">
+            <EntityTypeMapping TypeName="webstoreModel.tblUsers">
+              <MappingFragment StoreEntitySet="tblUsers">
+                <ScalarProperty Name="boolValidate" ColumnName="boolValidate" />
+                <ScalarProperty Name="intLevel" ColumnName="intLevel" />
+                <ScalarProperty Name="strVerificationCode" ColumnName="strVerificationCode" />
+                <ScalarProperty Name="strPassword" ColumnName="strPassword" />
+                <ScalarProperty Name="strEmail" ColumnName="strEmail" />
+                <ScalarProperty Name="strLastNames" ColumnName="strLastNames" />
+                <ScalarProperty Name="strNames" ColumnName="strNames" />
+                <ScalarProperty Name="idUser" ColumnName="idUser" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

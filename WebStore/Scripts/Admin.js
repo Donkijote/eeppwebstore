@@ -54,10 +54,19 @@ $.AdminJs.LogUp = {
 				type: 'POST',
 				url: 'User/LogUp/',
 				data: x,
-				cache: false,
+                cache: false,
+                beforeSend: function () {
+
+                },
 				success: function (e) {
 					window.location.href = "User/Iniciar/";
-				}
+                },
+                comple: function () {
+
+                },
+                error: function (e) {
+
+                }
 			});
 		});
 	}

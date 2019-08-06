@@ -1,4 +1,4 @@
-﻿
+﻿@model WebStore.Models.Registration;
 @{
     ViewBag.Title = WebStore.Resources.Titles.LogIn;
 }
@@ -73,36 +73,50 @@
                 <div class="col-lg-12">
                     <h3 class="mb-3">@WebStore.Resources.Titles.SignUp</h3>
                     <form id="LogUp">
+                        @Html.AntiForgeryToken()
                         <div class="col-sm-10">
                             <div class="form-group input-group">
-                                <input type="text" name="name" class="form-control" id="staticName" placeholder="@WebStore.Resources.Placeholder.YouName" aria-label="Nombre" autocomplete="off">
+                                <input type="text" name="Name" class="form-control" id="Name" placeholder="@WebStore.Resources.Placeholder.YouName" aria-label="Nombre" autocomplete="off">
                                 <span class="input-group-addon">
                                     <i class="fas fa-user"></i>
                                 </span>
+                                @Html.ValidationMessageFor(x => x.Name)
                             </div>
                         </div>
                         <div class="col-sm-10">
                             <div class="form-group input-group">
-                                <input type="email" name="email" class="form-control" id="staticEmail" placeholder="@WebStore.Resources.Placeholder.Email" aria-label="Email" autocomplete="off">
+                                <input type="text" name="Lastname" class="form-control" id="Lastname" placeholder="@WebStore.Resources.Placeholder.LastNames" aria-label="Apellido" autocomplete="off">
+                                <span class="input-group-addon">
+                                    <i class="fas fa-user"></i>
+                                </span>
+                                @Html.ValidationMessageFor(x => x.Lastname)
+                            </div>
+                        </div>
+                        <div class="col-sm-10">
+                            <div class="form-group input-group">
+                                <input type="email" name="Email" class="form-control" id="Email" placeholder="@WebStore.Resources.Placeholder.Email" aria-label="Email" autocomplete="off">
                                 <span class="input-group-addon">
                                     <i class="fas fa-at"></i>
                                 </span>
                             </div>
+                            @Html.ValidationMessageFor(x => x.Email)
                         </div>
                         <div class="col-sm-10">
                             <div class="form-group input-group">
-                                <input type="password" name="pass" class="form-control" id="inputPassword" placeholder="@WebStore.Resources.Placeholder.Password" aria-label="Password" autocomplete="off">
+                                <input type="password" name="Pass" class="form-control" id="Passre" placeholder="@WebStore.Resources.Placeholder.Password" aria-label="Password" autocomplete="off">
                                 <span class="input-group-addon">
                                     <i class="fas fa-key"></i>
                                 </span>
+                                @Html.ValidationMessageFor(x => x.Pass)
                             </div>
                         </div>
                         <div class="col-sm-10">
                             <div class="form-group input-group">
-                                <input type="password" name="passre" class="form-control" id="inputPasswordRe" placeholder="@WebStore.Resources.Placeholder.RePassword" aria-label="PasswordRe" autocomplete="off">
+                                <input type="password" name="Passre" class="form-control" id="Passre" placeholder="@WebStore.Resources.Placeholder.RePassword" aria-label="PasswordRe" autocomplete="off">
                                 <span class="input-group-addon">
                                     <i class="fas fa-key"></i>
                                 </span>
+                                @Html.ValidationMessageFor(x => x.Passre)
                             </div>
                         </div>
                         <div class="col-lg-10 col-sm-6 col-md-6 col-xs-6">

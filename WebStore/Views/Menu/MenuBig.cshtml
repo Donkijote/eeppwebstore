@@ -124,8 +124,7 @@
                     </li>
 
                     @{
-                        bool var = false;
-                        if (var)
+                        if (HttpContext.Current.Session["user"] == null)
                         {
 
                             <li class="nav-item mg-li-social dropdown">
