@@ -142,7 +142,7 @@
     <value>Inicio</value>
   </data>
   <data name="LogIn" xml:space="preserve">
-    <value>Iniciar Sesión / Registrarse</value>
+    <value>Iniciar Sesión</value>
   </data>
   <data name="LogUp" xml:space="preserve">
     <value>Registrarse</value>
@@ -245,5 +245,14 @@
   </data>
   <data name="HelpFAQ" xml:space="preserve">
     <value>Ayuda / Preguntas frecuentes</value>
+  </data>
+  <data name="LogInUp" xml:space="preserve">
+    <value>Iniciar Sesión / Registrarse</value>
+  </data>
+  <data name="VerifyAccount" xml:space="preserve">
+    <value>Verificación de cuenta</value>
+  </data>
+  <data name="RetrievePassword" xml:space="preserve">
+    <value>Recuperar contraseña</value>
   </data>
 </root>

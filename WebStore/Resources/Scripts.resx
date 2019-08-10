@@ -174,4 +174,7 @@
   <data name="wNumJs" xml:space="preserve">
     <value>&lt;script src="https://cdnjs.cloudflare.com/ajax/libs/wnumb/1.1.0/wNumb.min.js" integrity="sha256-HT7c4lBipI1Hkl/uvUrU1HQx4WF3oQnSafPjgR9Cn8A=" crossorigin="anonymous"&gt;&lt;/script&gt;</value>
   </data>
+  <data name="JqueryValidateUnobtrousive" xml:space="preserve">
+    <value>&lt;script src="/Scripts/jquery.validate.unobtrusive.min.js"&gt;&lt;/script&gt;</value>
+  </data>
 </root>

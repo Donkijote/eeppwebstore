@@ -409,6 +409,10 @@
 }
 
 @section Included{
+    @Html.Raw(WebStore.Resources.Scripts.JqueryValidate)
+    @Html.Raw(WebStore.Resources.Scripts.JqueryValidateMethods)
+    @Html.Raw(WebStore.Resources.Scripts.JqueryValidateUnobtrousive)
+    @Html.Raw(WebStore.Resources.Scripts.SweetAlert)
     @Html.Raw(WebStore.Resources.Scripts.OwlCarousel)
     @Html.Raw(WebStore.Resources.Scripts.OwlCarouselJs)
     @Html.Raw(WebStore.Resources.Scripts.WowJs)
@@ -421,6 +425,7 @@
         $(document).ready(function () {
             new WOW().init();
             $.AdminJs.Countdown.activate();
+            $.AdminJs.LogInUp.activate();
         });
     </script>
 }

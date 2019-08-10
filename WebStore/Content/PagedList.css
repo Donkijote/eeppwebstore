@@ -54,10 +54,14 @@
       content: '\f105';
       font-family: 'Font Awesome 5 Free';
       font-weight: 900; }
+    .pagination li.mg-next.hide a::before {
+      display: none; }
     .pagination li.mg-next.mg-last a::after {
       content: '\f101';
       font-family: 'Font Awesome 5 Free';
       font-weight: 900; }
+    .pagination li.mg-next.mg-last.hide a::after {
+      display: none; }
     .pagination li.mg-first a::before {
       content: '\f100';
       font-family: 'Font Awesome 5 Free';

@@ -93,12 +93,28 @@
                 }
             }
 
+            &.hide {
+                a {
+                    &::before {
+                        display:none;
+                    }
+                }
+            }
+
             &.mg-last {
                 a {
                     &::after {
                         content: '\f101';
                         font-family: 'Font Awesome 5 Free';
                         font-weight: 900;
+                    }
+                }
+
+                &.hide {
+                    a {
+                        &::after {
+                            display: none;
+                        }
                     }
                 }
             }

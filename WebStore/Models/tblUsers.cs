@@ -22,5 +22,7 @@ namespace WebStore.Models
         public Nullable<System.Guid> strVerificationCode { get; set; }
         public Nullable<int> intLevel { get; set; }
         public Nullable<bool> boolValidate { get; set; }
+        public string strRecoveryCode { get; set; }
+        public Nullable<System.DateTime> timeRecoveryCode { get; set; }
     }
 }

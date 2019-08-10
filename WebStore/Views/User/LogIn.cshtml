@@ -1,6 +1,6 @@
-﻿@model WebStore.Models.Registration;
+﻿@model WebStore.Models.LogInRegistration
 @{
-    ViewBag.Title = WebStore.Resources.Titles.LogIn;
+    ViewBag.Title = WebStore.Resources.Titles.LogInUp;
 }
 
 <section>
@@ -13,7 +13,7 @@
                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                     <ul class="breadcrumbs">
                         <li>
-                            <a href="@Url.Action("Index","Home",new { language = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName})">@WebStore.Resources.Titles.Home</a>
+                            <a id="url_return" href="@Url.Action("Index","Home",new { language = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName})">@WebStore.Resources.Titles.Home</a>
                         </li>
                         <li class="separator">&nbsp;</li>
                         <li>@ViewBag.Title</li>
@@ -26,25 +26,46 @@
         <div class="row">
             <div class="col-lg-6 col-sm-6 col-md-6 col-xs-6 text-left mb-3">
                 <div class="col-lg-12">
-                    <form id="LogIn">
+                    <h3 class="mb-3">@WebStore.Resources.Titles.LogIn</h3>
+                    <form id="LogIn" autocomplete="off">
+                        @Html.AntiForgeryToken()
                         <div class="col-sm-10">
                             <div class="form-group input-group">
-                                <input type="email" name="email" class="form-control" id="staticEmail" placeholder="@WebStore.Resources.Placeholder.Email" aria-label="Email" autocomplete="off">
+                                <input type="email" name="Email" class="form-control" id="LogIn_Email" placeholder="@WebStore.Resources.Placeholder.Email" aria-label="Email" autocomplete="off" data-val="true" data-val-required="Este campo es requerido.">
                                 <span class="input-group-addon">
                                     <i class="fas fa-at"></i>
                                 </span>
                             </div>
+                            <span class="field-validation-valid" data-valmsg-for="Email" data-valmsg-replace="true"></span>
                         </div>
                         <div class="col-sm-10">
                             <div class="form-group input-group">
-                                <input type="password" name="pass" class="form-control" id="inputPassword" placeholder="@WebStore.Resources.Placeholder.Password" aria-label="Password" autocomplete="off">
+                                <input type="password" name="Pass" class="form-control" id="LogIn_Pass" placeholder="@WebStore.Resources.Placeholder.Password" aria-label="Password" autocomplete="off" data-val="true" data-val-required="Este campo es requerido.">
                                 <span class="input-group-addon">
                                     <i class="fas fa-key"></i>
                                 </span>
+                                <span class="input-group-addon revealPass">
+                                    <i class="far fa-eye"></i>
+                                </span>
                             </div>
+                            <span class="field-validation-valid" data-valmsg-for="Pass" data-valmsg-replace="true"></span>
                         </div>
-                        <div class="col-sm-10 text-left">
-                            <button type="submit" class="btn btn-outline-primary">@WebStore.Resources.Buttons.LogIn</button>
+                        <div class="col-sm-10">
+                            <div class="form-group input-group">
+                                <div class="custom-control custom-checkbox">
+                                    <input class="filled-in chk-col-deep-orange" type="checkbox" id="RememberMe" name="RememberMe">
+                                    <label for="RememberMe" style="font-size:12px !important;">Mantener sesión iniciada</label>
+                                </div>
+                            </div>
+                            @Html.ValidationMessageFor(x => x.LogIn.Pass)
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6 text-left">
+                                <button type="submit" class="btn btn-outline-primary">@WebStore.Resources.Buttons.LogIn</button>
+                            </div>
+                            <div class="col-sm-6 text-left">
+                                <a href="@Url.Action("RetrievePassword","User", new { language = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName})" class="text-decoration-none">@WebStore.Resources.Buttons.RetrievePassword</a>
+                            </div>
                         </div>
                     </form>
                     <div class="col-lg-10">
@@ -72,52 +93,58 @@
             <div class="col-lg-6 col-sm-6 col-md-6 col-xs-6 text-left mb-3">
                 <div class="col-lg-12">
                     <h3 class="mb-3">@WebStore.Resources.Titles.SignUp</h3>
-                    <form id="LogUp">
+                    <form id="LogUp" autocomplete="off" method="post" action="/form">
                         @Html.AntiForgeryToken()
                         <div class="col-sm-10">
                             <div class="form-group input-group">
-                                <input type="text" name="Name" class="form-control" id="Name" placeholder="@WebStore.Resources.Placeholder.YouName" aria-label="Nombre" autocomplete="off">
+                                <input type="text" name="Name" class="form-control" id="Name" placeholder="@WebStore.Resources.Placeholder.YouName" aria-label="Nombre" autocomplete="off" data-val="true" data-val-required="Este campo es requerido.">
                                 <span class="input-group-addon">
                                     <i class="fas fa-user"></i>
                                 </span>
-                                @Html.ValidationMessageFor(x => x.Name)
                             </div>
+                            <span class="field-validation-valid" data-valmsg-for="Name" data-valmsg-replace="true"></span>
                         </div>
                         <div class="col-sm-10">
                             <div class="form-group input-group">
-                                <input type="text" name="Lastname" class="form-control" id="Lastname" placeholder="@WebStore.Resources.Placeholder.LastNames" aria-label="Apellido" autocomplete="off">
+                                <input type="text" name="Lastname" class="form-control" id="Lastname" placeholder="@WebStore.Resources.Placeholder.LastNames" aria-label="Apellido" autocomplete="off" data-val="true" data-val-required="Este campo es requerido.">
                                 <span class="input-group-addon">
                                     <i class="fas fa-user"></i>
                                 </span>
-                                @Html.ValidationMessageFor(x => x.Lastname)
                             </div>
+                            <span class="field-validation-valid" data-valmsg-for="Lastname" data-valmsg-replace="true"></span>
                         </div>
                         <div class="col-sm-10">
                             <div class="form-group input-group">
-                                <input type="email" name="Email" class="form-control" id="Email" placeholder="@WebStore.Resources.Placeholder.Email" aria-label="Email" autocomplete="off">
+                                <input type="email" name="Email" class="form-control" id="Email" placeholder="@WebStore.Resources.Placeholder.Email" aria-label="Email" autocomplete="off" data-val="true" data-val-email="Debe ingresar Email válido." data-val-required="Este campo es requerido.">
                                 <span class="input-group-addon">
                                     <i class="fas fa-at"></i>
                                 </span>
                             </div>
-                            @Html.ValidationMessageFor(x => x.Email)
+                            <span class="field-validation-valid" data-valmsg-for="Email" data-valmsg-replace="true"></span>
                         </div>
                         <div class="col-sm-10">
                             <div class="form-group input-group">
-                                <input type="password" name="Pass" class="form-control" id="Passre" placeholder="@WebStore.Resources.Placeholder.Password" aria-label="Password" autocomplete="off">
+                                <input type="password" name="Pass" class="form-control" id="Pass" placeholder="@WebStore.Resources.Placeholder.Password" aria-label="Password" autocomplete="off" data-val="true" data-val-required="Este campo es requerido." data-val-length="Debe tener mínimo 8 caracteres." data-val-length-max="30" data-val-length-min="8" data-val-regex="La clave debe ser de 8 caracteres y al menos contener 3 de 4 de: mayúscula (A-Z), minúscula (a-z), número (0-9) y caracter especial (e.g. !@@#$%^&amp;*)(opcional)" data-val-regex-pattern="^((?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])|(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[^a-zA-Z0-9])|(?=.*?[A-Z])(?=.*?[0-9])(?=.*?[^a-zA-Z0-9])|(?=.*?[a-z])(?=.*?[0-9])(?=.*?[^a-zA-Z0-9])).{8,}$">
                                 <span class="input-group-addon">
                                     <i class="fas fa-key"></i>
                                 </span>
-                                @Html.ValidationMessageFor(x => x.Pass)
+                                <span class="input-group-addon revealPass">
+                                    <i class="far fa-eye"></i>
+                                </span>
                             </div>
+                            <span class="field-validation-valid" data-valmsg-for="Pass" data-valmsg-replace="true"></span>
                         </div>
                         <div class="col-sm-10">
                             <div class="form-group input-group">
-                                <input type="password" name="Passre" class="form-control" id="Passre" placeholder="@WebStore.Resources.Placeholder.RePassword" aria-label="PasswordRe" autocomplete="off">
+                                <input type="password" name="Passre" class="form-control" id="Passre" placeholder="@WebStore.Resources.Placeholder.RePassword" aria-label="PasswordRe" autocomplete="off" data-val="true" data-val-equalto="Las contraseñas deben coincidir." data-val-equalto-other="*.Pass" data-val-required="Este campo es requerido." data-val-length="Debe tener mínimo 8 caracteres." data-val-length-max="30" data-val-length-min="8">
                                 <span class="input-group-addon">
                                     <i class="fas fa-key"></i>
                                 </span>
-                                @Html.ValidationMessageFor(x => x.Passre)
+                                <span class="input-group-addon revealPass">
+                                    <i class="far fa-eye"></i>
+                                </span>
                             </div>
+                            <span class="field-validation-valid" data-valmsg-for="Passre" data-valmsg-replace="true"></span>
                         </div>
                         <div class="col-lg-10 col-sm-6 col-md-6 col-xs-6">
                             <button type="submit" class="btn btn-outline-primary">@WebStore.Resources.Buttons.SignUp</button>
@@ -128,11 +155,17 @@
         </div>
     </div>
 </section>
+@section Included{
+    @Html.Raw(WebStore.Resources.Scripts.JqueryValidate)
+    @Html.Raw(WebStore.Resources.Scripts.JqueryValidateMethods)
+    @Html.Raw(WebStore.Resources.Scripts.JqueryValidateUnobtrousive)
+    @Html.Raw(WebStore.Resources.Scripts.SweetAlert)
+}
 @section Scripts{
-<script type="text/javascript">
-	$(function(){
-		$.AdminJs.Test.activate();
-	})
-</script>
+    <script type="text/javascript">
+        $(function () {
+            $.AdminJs.LogInUp.activate();
+        })
+    </script>
 }
 

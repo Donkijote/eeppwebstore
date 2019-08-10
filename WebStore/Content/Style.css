@@ -4288,12 +4288,18 @@ select:focus {
     cursor: not-allowed; }
   .form-control::-moz-placeholder, .form-control ::-webkit-input-placeholder {
     color: #999 !important; }
+  .form-control.input-validation-error {
+    border: 1px solid #dc3545 !important; }
 
 .input-group .input-group-addon {
   left: 15px;
   transition: color .3s;
   background-color: transparent !important;
   color: #999; }
+  .input-group .input-group-addon.revealPass {
+    left: 100%;
+    transform: translate(-150%, -50%);
+    cursor: pointer; }
 
 .input-group .form-control {
   padding-left: 37px;
@@ -4316,6 +4322,9 @@ select:focus {
   background-color: transparent; }
   .input-group input:focus + span {
     color: #007bff; }
+
+.input-group .input-validation-error:focus + span {
+  color: #dc3545 !important; }
 
 .list-icon {
   padding: 0;
@@ -4638,6 +4647,9 @@ blockquote {
     pointer-events: none; }
     .list-group .list-group-item.active::before {
       opacity: 1; }
+
+.field-validation-error {
+  color: #dc3545 !important; }
 
 /*#endregion*/
 /*#region Keyframes */

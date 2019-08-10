@@ -5207,6 +5207,10 @@ select{
     &::-moz-placeholder, ::-webkit-input-placeholder {
         color: #999 !important;
     }
+
+    &.input-validation-error {
+        border: 1px solid #dc3545 !important;
+    }
 }
 
 .input-group {
@@ -5215,6 +5219,12 @@ select{
         transition: color .3s;
         background-color: transparent !important;
         color: #999;
+
+        &.revealPass{
+            left: 100%;
+            transform: translate(-150%, -50%);
+            cursor: pointer;
+        }
     }
 
     .form-control {
@@ -5242,6 +5252,14 @@ select{
 
             + span {
                 color: #007bff;
+            }
+        }
+    }
+
+    .input-validation-error {
+        &:focus {
+            + span {
+                color: #dc3545 !important;
             }
         }
     }
@@ -5688,6 +5706,10 @@ blockquote {
             }
         }
     }
+}
+
+.field-validation-error {
+    color: #dc3545 !important;
 }
 /*#endregion*/
 

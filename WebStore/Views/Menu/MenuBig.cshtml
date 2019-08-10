@@ -102,7 +102,7 @@
                             <li>
                                 <a href="@Url.Action("ChangeCulture", "Language", new { language = "en" }, null)" class="text-dark">
                                     <i class="flag-icon">
-                                        <img class="img-fluid" src="http://themes.rokaux.com/unishop/v3.0/template-3/img/flags/EN.png" alt="English">
+                                        <img class="img-fluid" src="http://themes.rokaux.com/unishop/v3.2/template-3/img/flags/EN.png" alt="English">
                                     </i>&nbsp;English
                                 </a>
                             </li>
@@ -124,7 +124,7 @@
                     </li>
 
                     @{
-                        if (HttpContext.Current.Session["user"] == null)
+                        if (HttpContext.Current.Session["email"] == null)
                         {
 
                             <li class="nav-item mg-li-social dropdown">
@@ -137,11 +137,12 @@
                                             <h3 style="font-weight: normal;">@WebStore.Resources.Titles.Start</h3>
                                             <hr>
                                         </div>
-                                        <form id="ajax-login-form" action="" method="post" role="form"
-                                              autocomplete="off">
+                                        <form id="LogIn" autocomplete="off">
+                                            @Html.AntiForgeryToken()
+                                            <a id="url_return" class="d-none" href="@Url.Action("Index","Home",new { language = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName})"></a>
                                             <div class=" form-group input-group">
                                                 <input type="text" class="form-control" placeholder="@WebStore.Resources.Placeholder.Email" aria-label="Username"
-                                                       aria-describedby="basic-addon1" autocomplete="off" name="user" id="user">
+                                                       aria-describedby="basic-addon1" autocomplete="off" name="Email" id="Email" data-val="true" data-val-required="Este campo es requerido.">
                                                 <span class="input-group-addon">
                                                     <i class="fas fa-at"></i>
                                                 </span>
@@ -149,12 +150,17 @@
 
                                             <div class=" form-group input-group">
                                                 <input type="password" class="form-control" placeholder="@WebStore.Resources.Placeholder.Password" aria-label="Password"
-                                                       aria-describedby="basic-addon1" autocomplete="off" name="pass" id="pass">
+                                                       aria-describedby="basic-addon1" autocomplete="off" name="Pass" id="Pass" data-val="true" data-val-required="Este campo es requerido.">
                                                 <span class="input-group-addon">
                                                     <i class="fas fa-key"></i>
                                                 </span>
                                             </div>
-
+                                            <div class="form-group">
+                                                <div class="custom-control custom-checkbox">
+                                                    <input class="filled-in chk-col-deep-orange" type="checkbox" id="RememberMe" name="RememberMe">
+                                                    <label for="RememberMe" style="font-size:12px !important;">Mantener sesión iniciada</label>
+                                                </div>
+                                            </div>
                                             <div class="form-group">
                                                 <div class="col-xs-5 pull-right">
                                                     <input type="submit" name="login-submit" id="login-submit" tabindex="4" class="btn btn-success mg-login-btn"
@@ -166,9 +172,8 @@
                                                 <div class="row pb-3">
                                                     <div class="col-lg-12">
                                                         <div class="text-center">
-                                                            <a href="r" tabindex="5" class="mg-forgot-password">
-                                                                ¿Olvidó su
-                                                                contraseña?
+                                                            <a href="@Url.Action("RetrievePassword","User", new { language = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName})" tabindex="5" class="mg-forgot-password">
+                                                                @WebStore.Resources.Buttons.RetrievePassword
                                                             </a>
                                                         </div>
                                                     </div>
@@ -221,7 +226,7 @@
                                             <i class="fos fo-donkijote-british fa-2x fas"></i>
                                         </div>
                                         <div class="user-info">
-                                            <h6 class="user-name">Manoel Gonçalves</h6>
+                                            <h6 class="user-name text-capitalize">@HttpContext.Current.Session["names"] @HttpContext.Current.Session["lastname"]</h6>
                                             <span class="text-xs text-muted">290 Reward points</span>
                                         </div>
                                     </li>
@@ -235,12 +240,15 @@
                                         <a href="@Url.Action("WishList", "Account", new { language = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName }, null)">@WebStore.Resources.Titles.Wishes</a>
                                     </li>
                                     <li class="mg-submenu-separator"></li>
+                                    @using (Html.BeginForm("LogOut", "User", FormMethod.Post, new { id = "logoutForm" }))
+                                    { }
                                     <li>
-                                        <a href="javascript:void(0);">
+                                        <a href="javascript:document.getElementById('logoutForm').submit()">
                                             <i class="fas fa-unlock"></i>
                                             @WebStore.Resources.Buttons.Exit
                                         </a>
                                     </li>
+
                                 </ul>
                             </li>
                         }

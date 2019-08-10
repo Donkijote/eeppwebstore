@@ -210,6 +210,9 @@
   <data name="Refounds" xml:space="preserve">
     <value>Returns</value>
   </data>
+  <data name="RetrievePassword" xml:space="preserve">
+    <value>Forgot your password?</value>
+  </data>
   <data name="Review" xml:space="preserve">
     <value>Write a review</value>
   </data>

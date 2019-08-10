@@ -10,6 +10,7 @@ using System.Web.Routing;
 
 namespace WebStore.Controllers
 {
+    [Authorize]
     public class AccountController : Controller
     {
         // GET: Account

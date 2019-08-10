@@ -38,7 +38,6 @@ namespace WebStore.Controllers
             }
             ViewBag.type = isAllowed;
             string culture = CultureInfo.CurrentUICulture.TwoLetterISOLanguageName;
-            string translatedId = "";
             Translate dir = new Translate();
             Function function = new Function();
             webstoreEntities db = new webstoreEntities();

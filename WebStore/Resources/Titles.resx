@@ -142,7 +142,7 @@
     <value>Home</value>
   </data>
   <data name="LogIn" xml:space="preserve">
-    <value>Log In / Log Up</value>
+    <value>Log In</value>
   </data>
   <data name="LogUp" xml:space="preserve">
     <value>Log Up</value>
@@ -245,5 +245,14 @@
   </data>
   <data name="HelpFAQ" xml:space="preserve">
     <value>Help / FAQ</value>
+  </data>
+  <data name="LogInUp" xml:space="preserve">
+    <value>Log In / Log Up</value>
+  </data>
+  <data name="VerifyAccount" xml:space="preserve">
+    <value>Account Verification</value>
+  </data>
+  <data name="RetrievePassword" xml:space="preserve">
+    <value>Password Recovery</value>
   </data>
 </root>

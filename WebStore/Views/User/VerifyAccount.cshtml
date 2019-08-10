@@ -1,0 +1,53 @@
+﻿
+@{
+    ViewBag.Title = WebStore.Resources.Titles.VerifyAccount;
+}
+
+<section>
+    <header class="header">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                    <h1>
+                        @ViewBag.Title
+                    </h1>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                    <ul class="breadcrumbs">
+                        <li>
+                            <a href="@Url.Action("Index", "Home", new { language = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName }, null)">@WebStore.Resources.Titles.Home</a>
+                        </li>
+                        <li class="separator">&nbsp;</li>
+                        <li>
+                            @ViewBag.Title
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </header>
+</section>
+
+<div class="container mb-5">
+    @if (ViewBag.Status != null && Convert.ToBoolean(ViewBag.Status))
+    {
+        <div class="alert alert-success" style="padding-top:25px; padding-bottom:25px;">
+            <strong>Activación Exitosa!</strong> Su cuenta ha sido activada con éxito. Para continuar con su perfil haga click <a href="@Url.Action("Continue", "User", new { language = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName, id = ViewBag.userCode})">aquí</a><br /> 
+            O si desea continuar más tarde haga click en @Html.ActionLink("Volver", "Index", "Home")
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-danger" style="padding-top:25px; padding-bottom:25px;">
+            <strong>Error!</strong> @ViewBag.Message
+        </div>
+    }
+</div>
+
+@section Scripts{
+    <script>
+        $(function () {
+
+        })
+    </script>
+}

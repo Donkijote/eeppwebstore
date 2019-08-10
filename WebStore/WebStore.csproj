@@ -843,6 +843,7 @@
     <Content Include="Scripts\umd\popper-utils.min.js" />
     <Content Include="Scripts\umd\popper.js" />
     <Content Include="Scripts\umd\popper.min.js" />
+    <Content Include="Views\Shared\_EmailTemplate.html" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -902,6 +903,8 @@
     <Content Include="Views\User\Quote.cshtml" />
     <Content Include="Views\Home\Projects.cshtml" />
     <Content Include="Views\Home\FAQ.cshtml" />
+    <Content Include="Views\User\VerifyAccount.cshtml" />
+    <Content Include="Views\User\RetrievePassword.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

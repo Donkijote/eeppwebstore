@@ -45,31 +45,221 @@ $.AdminJs.Test = {
 	}
 }
 
-$.AdminJs.LogUp = {
+$.AdminJs.LogInUp = {
 	activate: function () {
 		$('#LogUp').on('submit', function (e) {
 			e.preventDefault();
 			var x = $(this).serialize();
-			$.ajax({
-				type: 'POST',
-				url: 'User/LogUp/',
-				data: x,
-                cache: false,
-                beforeSend: function () {
+            if ($(this).valid()) {
+                $.ajax({
+                    type: 'POST',
+                    url: '/en/User/Registration/',
+                    data: x,
+                    cache: false,
+                    beforeSend: function () {
+                        $.AdminJs.Loading.start();
+                    },
+                    success: function (e) {
+                        if (e.status == "OK") {
+                            $.AdminJs.Alert.success(e.title, e.responseText);
+                        } else if (e.status == "error") {
+                            $.AdminJs.Alert.error(e.title, e.responseText);
+                        } else {
+                            $.AdminJs.Alert.warning(e.title, e.responseText);
+                        }
+                    },
+                    complete: function () {
+                        $.AdminJs.Loading.stop();
+                    },
+                    error: function (e) {
+                        $.AdminJs.Alert.error(e.title, e.responseText);
+                    }
+                });
+            }
+        });
+        $('#LogIn').on('submit', function (e) {
+            e.preventDefault();
+            if ($(this).valid()) {
+                $.ajax({
+                    type: 'POST',
+                    url: '/en/User/LogIn',
+                    data: $(this).serialize(),
+                    cache: false,
+                    beforeSend: function () {
+                        $.AdminJs.Loading.start();
+                    },
+                    success: function (e) {
+                        if (e.status == "OK") {
+                            window.location.href = $('#url_return').attr('href');
+                        } else if (e.status == "error") {
+                            $.AdminJs.Alert.error(e.title, e.responseText);
+                        } else {
+                            $.AdminJs.Alert.warning(e.title, e.responseText);
+                        }
+                    },
+                    complete: function () {
+                        $.AdminJs.Loading.stop();
+                    },
+                    error: function (e) {
+                        $.AdminJs.Alert.error(e.title, e.responseText);
+                    }
+                });
+            }
+        });
+        $.AdminJs.reveal.activate();
+    },
+    recoveryPassword: function () {
+        var _this = this;
+        _this.passwordSteps();
+        $.AdminJs.reveal.activate();
+        $('#RecoveryPassword').on('submit', function (e) {
+            e.preventDefault();
+        })
+    },
+    passwordSteps: function () {
+        var _this = this;
+        var form = $('#RecoveryPassword');
+        var url = window.location.pathname;
+        url = url.split('/');
+        var lang = url[1];
+        var label;
 
-                },
-				success: function (e) {
-					window.location.href = "User/Iniciar/";
-                },
-                comple: function () {
-
-                },
-                error: function (e) {
-
+        if (lang === "es") {
+            label = {
+                next: "Enviar Código",
+                previous: "Atrás",
+                finish: "Cambiar Clave"
+            };
+        } else {
+            label = {
+                next: "Send Code",
+                previous: "Back",
+                finish: "Change password"
+            };
+        }
+        form.steps({
+            headerTag: "h3",
+            bodyTag: "fieldset",
+            transitionEffect: "slideLeft",
+            autoFocus: true,
+            labels: label,
+            onInit: function (event, current) {
+                $('ul[role="tablist"]').hide();
+                $('.actions > ul > li:first-child').attr('style', 'display:none');
+                $('.actions > ul > li:last-child').addClass('hide');
+                $('a[href="#next"]').html('OBTENER CÓDIGO');
+            },
+            onStepChanging: function (event, currentIndex, newIndex) {
+                form.validate().settings.ignore = ":disabled,:hidden";
+                $.AdminJs.Loading.start();
+                if (currentIndex < newIndex) {
+                    // To remove error styles
+                    form.find(".body:eq(" + newIndex + ") label.error").remove();
+                    form.find(".body:eq(" + newIndex + ") .error").removeClass("error");
                 }
-			});
-		});
-	}
+                
+                if (currentIndex == 0) {
+                    var email = _this.sendVerificationCode($('#EmailRecovery').val());
+                    if (email.status == "OK") {
+                        $.AdminJs.Loading.stop();
+                        return form.valid();
+                    }
+                    else {
+                        $.AdminJs.Loading.stop();
+                        if (form.valid()) {
+                            return form.valid();
+                        } else {
+                            return false;
+                        }
+                    }
+                }
+
+                if (currentIndex == 1) {
+                    $.AdminJs.Loading.stop();
+                    return form.valid();
+                }
+            },
+            onStepChanged: function (event, currentIndex, newIndex) {
+                if (currentIndex == 1) {
+                    $('a[href="#next"]').html('VALIDAR CÓDIGO');
+                }
+            },
+            onFinishing: function (event, currentIndex, newIndex) {
+                if (currentIndex == 2) {
+                    return form.valid();
+                }
+            },
+            onFinished: function (event, currentIndex) {
+            }
+        })
+    },
+    validateForm: function () {
+        var form = $("#RecoveryPassword");
+        var lang = $('body').data('lang');
+        if (lang == "es") {
+            jQuery.extend(jQuery.validator.messages, {
+                required: "Campo requerido.",
+            });
+        }
+        $.validator.addMethod("pwcheck", function (value) {
+            return /^[A-Za-z0-9\d=!\-@._*]*$/.test(value) // consists of only these
+                && /[a-z]/.test(value) // has a lowercase letter
+                && /\d/.test(value) // has a digit
+        });
+        /*form.validate({
+            rules: {
+                EmailRecovery: {
+                    required: true,
+                    email: true
+                },
+                CodRecovery: {
+                    required: true,
+                    number: true,
+                    digits: true
+                },
+                PassRecovery: {
+                    required: true,
+                    minlength: 8
+                },
+                RePassRecovery: {
+                    equalTo: "#PassRecovery",
+                    minlength: 8
+                }
+            },
+            messages: {
+                CodRecovery: {
+                    number: "Solo números son aceptados.",
+                    digits: "Solo números son aceptados."
+                },
+                PassRecovery: {
+                    minlength: "Debe tener al menos una longitud de 8 caracteres.",
+                    pwcheck: "Debe tener al menos un número, letras, caracter especial(opcional)."
+                },
+                RePassRecovery: {
+                    minlength: "Debe tener al menos una longitud de 8 caracteres.",
+                    pwcheck: "Debe tener al menos un número, letras, caracter especial(opcional).",
+                    equalTo: "Contraseña deben ser idénticas."
+                }
+            }
+        })*/
+    },
+    sendVerificationCode: function (x) {
+        var resp = "";
+        $.ajax({
+            type: 'POST',
+            url: '/en/User/RetrievePassword',
+            data: { EmailRecovery: x },
+            cache: false,
+            async: false,
+            success: function (e) {
+                resp = e;
+            },
+            error: function (e) {
+                resp = e;
+            }
+        });
+        return resp;
+    }
 }
 
 $.AdminJs.compare = {
@@ -831,6 +1021,64 @@ $.AdminJs.Countdown = {
                 }
             });
         }
+    }
+}
+
+$.AdminJs.Alert = {
+    success: function (x, r) {
+        Swal.fire({
+            title: x,
+            html: r,
+            type: "success",
+            confirmButtonText: 'Ok',
+            confirmButtonClass: 'bg-limegreen',
+        }).then(function () {
+            window.location.reload();
+        });
+    },
+    warning: function (x, r) {
+        Swal.fire({
+            title: x,
+            html: r,
+            type: "warning",
+            confirmButtonText: 'Cerrar',
+            confirmButtonClass: 'bg-orange',
+        })
+    },
+    error: function (x, r) {
+        Swal.fire({
+            title: x,
+            html: r,
+            type: "error",
+            confirmButtonText: 'Cerrar',
+            confirmButtonClass: 'bg-red',
+        })
+    }
+}
+
+$.AdminJs.Loading = {
+    start: function () {
+        $('body').css({ overflow: 'hidden' });
+        $('#page-loader-wrapper').fadeIn('slow');
+    },
+    stop: function () {
+        $('#page-loader-wrapper').fadeOut();
+        $('body').css({ overflow: 'auto' });
+    }
+}
+
+$.AdminJs.reveal = {
+    activate: function () {
+        $('.revealPass').on('click', function (e) {
+            var element = $(this).children('i');
+            if (element.hasClass('far fa-eye')) {
+                element.removeClass('far fa-eye').addClass('far fa-eye-slash');
+                $(this).parent('.form-group').find('input').attr('type', 'text');
+            } else {
+                element.removeClass('far fa-eye-slash').addClass('far fa-eye');
+                $(this).parent('.form-group').find('input').attr('type', 'password');
+            }
+        })
     }
 }
 

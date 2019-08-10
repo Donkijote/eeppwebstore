@@ -210,6 +210,8 @@
           <Property Name="strVerificationCode" Type="uniqueidentifier" />
           <Property Name="intLevel" Type="int" />
           <Property Name="boolValidate" Type="bit" />
+          <Property Name="strRecoveryCode" Type="varchar" MaxLength="6" />
+          <Property Name="timeRecoveryCode" Type="datetime" />
         </EntityType>
         <Association Name="FK_tblBrand_tblBrand">
           <End Role="tblImg" Type="Self.tblImg" Multiplicity="0..1" />
@@ -1002,6 +1004,8 @@
           <Property Name="strVerificationCode" Type="Guid" />
           <Property Name="intLevel" Type="Int32" />
           <Property Name="boolValidate" Type="Boolean" />
+          <Property Name="strRecoveryCode" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+          <Property Name="timeRecoveryCode" Type="DateTime" Precision="3" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1221,6 +1225,8 @@
           <EntitySetMapping Name="tblUsers">
             <EntityTypeMapping TypeName="webstoreModel.tblUsers">
               <MappingFragment StoreEntitySet="tblUsers">
+                <ScalarProperty Name="timeRecoveryCode" ColumnName="timeRecoveryCode" />
+                <ScalarProperty Name="strRecoveryCode" ColumnName="strRecoveryCode" />
                 <ScalarProperty Name="boolValidate" ColumnName="boolValidate" />
                 <ScalarProperty Name="intLevel" ColumnName="intLevel" />
                 <ScalarProperty Name="strVerificationCode" ColumnName="strVerificationCode" />
