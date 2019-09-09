@@ -707,6 +707,18 @@ $.AdminJs.userSettings = {
     }
 }
 
+$.AdminJs.passwordChange = {
+    activate: function (x) {
+        if (x.status == "OK") {
+            $.AdminJs.Alert.info(x.title, x.responseText);
+        } else if (x.status == "warning") {
+            $.AdminJs.Alert.warning(x.title, x.responseText);
+        } else {
+            $.AdminJs.Alert.error(x.title, x.responseText);
+        }
+    }
+}
+
 $(function () {
 	//$.AdminJs.input.activate();
 	$.AdminJs.totop.activate();
