@@ -27,7 +27,7 @@
             <div class="col-lg-6 col-sm-6 col-md-6 col-xs-6 text-left mb-3">
                 <div class="col-lg-12">
                     <h3 class="mb-3">@WebStore.Resources.Titles.LogIn</h3>
-                    <form id="LogIn" autocomplete="off">
+                    <form id="LogInPage" autocomplete="off">
                         @Html.AntiForgeryToken()
                         <div class="col-sm-10">
                             <div class="form-group input-group">
@@ -53,7 +53,7 @@
                         <div class="col-sm-10">
                             <div class="form-group input-group">
                                 <div class="custom-control custom-checkbox">
-                                    <input class="filled-in chk-col-deep-orange" type="checkbox" id="RememberMe" name="RememberMe">
+                                    <input class="filled-in chk-col-deep-orange" type="checkbox" id="LogIn_RememberMe" name="RememberMe">
                                     <label for="RememberMe" style="font-size:12px !important;">Mantener sesión iniciada</label>
                                 </div>
                             </div>
@@ -115,7 +115,7 @@
                         </div>
                         <div class="col-sm-10">
                             <div class="form-group input-group">
-                                <input type="email" name="Email" class="form-control" id="Email" placeholder="@WebStore.Resources.Placeholder.Email" aria-label="Email" autocomplete="off" data-val="true" data-val-email="Debe ingresar Email válido." data-val-required="Este campo es requerido.">
+                                <input type="email" name="Email" class="form-control" id="LogUp_Email" placeholder="@WebStore.Resources.Placeholder.Email" aria-label="Email" autocomplete="off" data-val="true" data-val-email="Debe ingresar Email válido." data-val-required="Este campo es requerido.">
                                 <span class="input-group-addon">
                                     <i class="fas fa-at"></i>
                                 </span>
@@ -124,7 +124,7 @@
                         </div>
                         <div class="col-sm-10">
                             <div class="form-group input-group">
-                                <input type="password" name="Pass" class="form-control" id="Pass" placeholder="@WebStore.Resources.Placeholder.Password" aria-label="Password" autocomplete="off" data-val="true" data-val-required="Este campo es requerido." data-val-length="Debe tener mínimo 8 caracteres." data-val-length-max="30" data-val-length-min="8" data-val-regex="La clave debe ser de 8 caracteres y al menos contener 3 de 4 de: mayúscula (A-Z), minúscula (a-z), número (0-9) y caracter especial (e.g. !@@#$%^&amp;*)(opcional)" data-val-regex-pattern="^((?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])|(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[^a-zA-Z0-9])|(?=.*?[A-Z])(?=.*?[0-9])(?=.*?[^a-zA-Z0-9])|(?=.*?[a-z])(?=.*?[0-9])(?=.*?[^a-zA-Z0-9])).{8,}$">
+                                <input type="password" name="Pass" class="form-control" id="LogUp_Pass" placeholder="@WebStore.Resources.Placeholder.Password" aria-label="Password" autocomplete="off" data-val="true" data-val-required="Este campo es requerido." data-val-length="Debe tener mínimo 8 caracteres." data-val-length-max="30" data-val-length-min="8" data-val-regex="La clave debe ser de 8 caracteres y al menos contener 3 de 4 de: mayúscula (A-Z), minúscula (a-z), número (0-9) y caracter especial (e.g. !@@#$%^&amp;*)(opcional)" data-val-regex-pattern="^((?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])|(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[^a-zA-Z0-9])|(?=.*?[A-Z])(?=.*?[0-9])(?=.*?[^a-zA-Z0-9])|(?=.*?[a-z])(?=.*?[0-9])(?=.*?[^a-zA-Z0-9])).{8,}$">
                                 <span class="input-group-addon">
                                     <i class="fas fa-key"></i>
                                 </span>

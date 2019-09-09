@@ -193,7 +193,7 @@
     <value>Password</value>
   </data>
   <data name="Phone" xml:space="preserve">
-    <value>Phone +56 9 XXXX XXXX</value>
+    <value>Phone 9 XXXX XXXX</value>
   </data>
   <data name="PostCode" xml:space="preserve">
     <value>Zip Code</value>
@@ -272,5 +272,8 @@
   </data>
   <data name="Category" xml:space="preserve">
     <value>Category</value>
+  </data>
+  <data name="ValidationCode" xml:space="preserve">
+    <value>Validation Code</value>
   </data>
 </root>

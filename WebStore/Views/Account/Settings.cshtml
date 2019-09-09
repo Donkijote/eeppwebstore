@@ -1,4 +1,4 @@
-﻿
+﻿@model WebStore.Models.BindingAddress
 @{
     ViewBag.Title = WebStore.Resources.Titles.Settings;
 }
@@ -51,108 +51,179 @@
                         <img class="img-fluid" src="https://s.w.org/images/core/emoji/2.3/svg/1f620.svg" alt="User">
                     </div>
                     <div class="user-data">
-                        <h4 class="h5">Manoel Gonçalves</h4><span>Ingreso 06 Febrero, 2017</span>
+                        <h4 class="h5 text-capitalize">@System.Web.HttpContext.Current.Session["names"] @System.Web.HttpContext.Current.Session["lastname"]</h4><span>Ingreso 06 Febrero, 2017</span>
                     </div>
                 </div>
             </aside>
             <form method="post" id="perfilUpdate">
-
+                @Html.AntiForgeryToken()
+                <input type="hidden" name="AddressId" value="@(Model.Addresses != null ? ""+Model.Addresses.Id :"")" />
                 <div class="row">
                     <div class="col-lg-6">
                         <div class="form-group input-group">
-                            <input class="form-control" type="text" name="strNames" id="strNames" placeholder="@WebStore.Resources.Placeholder.Names" />
+                            <input class="form-control text-capitalize" type="text" name="Name" id="strNames" placeholder="@WebStore.Resources.Placeholder.Names" value="@Model.User.strNames" data-val="true" data-val-required="Campo Requerido" />
                             <span class="input-group-addon">
                                 <i class="fas fa-file-signature"></i>
                             </span>
                         </div>
+                        <span class="field-validation-valid" data-valmsg-for="Name" data-valmsg-replace="true"></span>
                     </div>
                     <div class="col-lg-6">
                         <div class="form-group input-group">
-                            <input class="form-control" type="text" name="strLastNames" id="strLastNames" placeholder="@WebStore.Resources.Placeholder.LastNames" />
+                            <input class="form-control text-capitalize" type="text" name="LastName" id="strLastNames" placeholder="@WebStore.Resources.Placeholder.LastNames" value="@Model.User.strLastNames" data-val="true" data-val-required="Campo Requerido" />
                             <span class="input-group-addon">
                                 <i class="fas fa-file-signature"></i>
                             </span>
                         </div>
+                        <span class="field-validation-valid" data-valmsg-for="LastName" data-valmsg-replace="true"></span>
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="col-lg-6">
                         <div class="form-group input-group">
-                            <input class="form-control" type="text" name="strId" id="strId" placeholder="@WebStore.Resources.Placeholder.Id" />
+                            <input class="form-control" type="text" name="UserId" id="strId" placeholder="@WebStore.Resources.Placeholder.Id" value="@Model.User.intId" @(Model.User.intId != null ? "readonly" : "") data-val="true" data-val-required="Campo Requerido" />
                             <span class="input-group-addon">
                                 <i class="far fa-id-card"></i>
                             </span>
                         </div>
+                        <span class="field-validation-valid" data-valmsg-for="UserId" data-valmsg-replace="true"></span>
                     </div>
                     <div class="col-lg-6">
                         <div class="form-group input-group">
-                            <input class="form-control" type="text" name="strTLf" id="strTLf" placeholder="@WebStore.Resources.Placeholder.Phone" />
+                            <input class="form-control" type="text" name="UserPhone" id="strTLf" placeholder="@WebStore.Resources.Placeholder.Phone" value="@Model.User.intPhone" data-val="true" data-val-required="Campo Requerido" data-val-regex="Solo números" data-val-regex-pattern="([0-9]+)" />
                             <span class="input-group-addon">
                                 <i class="fas fa-mobile-alt"></i>
                             </span>
                         </div>
+                        <span class="field-validation-valid" data-valmsg-for="UserPhone" data-valmsg-replace="true"></span>
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="col-lg-6">
                         <div class="form-group input-group">
-                            <input class="form-control" type="text" name="strCountry" id="strCountry" placeholder="@WebStore.Resources.Placeholder.Country" />
-                            <span class="input-group-addon">
-                                <i class="fas fa-globe-americas"></i>
-                            </span>
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="form-group input-group">
-                            <input class="form-control" type="text" name="strStates" id="strStates" placeholder="@WebStore.Resources.Placeholder.Region" />
+                            <select class="form-control" type="text" name="Region" id="strStatesNationale" placeholder="@WebStore.Resources.Placeholder.Region" data-val="true" data-val-required="Campo Requerido">
+                                <option value="">@WebStore.Resources.Placeholder.Region</option>
+                                @{
+                                    if (Model.Addresses == null)
+                                    {
+                                        foreach (var region in Model.Regiones)
+                                        {
+                                            <option value="@Html.DisplayFor(a => region.idRegion)">@Html.DisplayFor(a => region.strNombre) @Html.DisplayFor(a => region.intNumber)</option>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        foreach (var region in Model.Regiones)
+                                        {
+                                            <option value="@Html.DisplayFor(a => region.idRegion)" @(Model.Addresses.RegionId == region.idRegion ? "selected" : "")>@Html.DisplayFor(a => region.strNombre) @Html.DisplayFor(a => region.intNumber)</option>
+                                        }
+                                    }
+                                }
+                            </select>
                             <span class="input-group-addon">
                                 <i class="fas fa-flag"></i>
                             </span>
                         </div>
+                        <span class="field-validation-valid" data-valmsg-for="Region" data-valmsg-replace="true"></span>
                     </div>
-                </div>
-
-                <div class="row">
                     <div class="col-lg-6">
                         <div class="form-group input-group">
-                            <input class="form-control" type="text" name="strCity" id="strCity" placeholder="@WebStore.Resources.Placeholder.City" />
+                            <select class="form-control" type="text" name="Province" id="strProvinciaNationale" placeholder="@WebStore.Resources.Placeholder.Province" data-val="true" data-val-required="Campo Requerido">
+                                @{
+                                    if (Model.Addresses == null)
+                                    {
+                                        <option value="">@WebStore.Resources.Placeholder.Province</option>
+                                    }
+                                    else
+                                    {
+                                        foreach (var p in Model.Provinces)
+                                        {
+                                            <option value="@Html.DisplayFor(a => p.idProvincia)" @(Model.Addresses.ProvinceId == p.idProvincia ? "selected" : "")>@Html.DisplayFor(a => p.strNombre)</option>
+                                        }
+                                    }
+                                }
+
+                            </select>
                             <span class="input-group-addon">
                                 <i class="fas fa-city"></i>
                             </span>
                         </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="form-group input-group">
-                            <input class="form-control" type="text" name="strPostale" id="strPostale" placeholder="@WebStore.Resources.Placeholder.PostCode" />
-                            <span class="input-group-addon">
-                                <i class="fas fa-map-marked-alt"></i>
-                            </span>
-                        </div>
+                        <span class="field-validation-valid" data-valmsg-for="Province" data-valmsg-replace="true"></span>
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="col-lg-6">
                         <div class="form-group input-group">
-                            <input class="form-control" type="text" name="strAddress" id="strAddress" placeholder="@WebStore.Resources.Placeholder.Address" />
+                            <select class="form-control" type="text" name="Comuna" id="strComunaNationale" placeholder="@WebStore.Resources.Placeholder.Comune" data-val="true" data-val-required="Campo Requerido">
+                                @{
+                                    if (Model.Addresses == null)
+                                    {
+                                        <option value="">@WebStore.Resources.Placeholder.Comune</option>
+                                    }
+                                    else
+                                    {
+                                        foreach (var p in Model.Comunes)
+                                        {
+                                            <option value="@Html.DisplayFor(a => p.idComuna)" @(Model.Addresses.ComunaId == p.idComuna ? "selected" : "")>@Html.DisplayFor(a => p.strNombre)</option>
+                                        }
+                                    }
+                                }
+                                <option value="">@WebStore.Resources.Placeholder.Comune</option>
+                            </select>
+                            <span class="input-group-addon">
+                                <i class="far fa-object-group"></i>
+                            </span>
+                        </div>
+                        <span class="field-validation-valid" data-valmsg-for="Comuna" data-valmsg-replace="true"></span>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="form-group input-group">
+                            <input class="form-control" type="text" name="City" id="strCity" placeholder="@WebStore.Resources.Placeholder.City" value="@(Model.Addresses != null ? Model.Addresses.City: "")" data-val="true" data-val-required="Campo Requerido" />
+                            <span class="input-group-addon">
+                                <i class="fas fa-city"></i>
+                            </span>
+                        </div>
+                        <span class="field-validation-valid" data-valmsg-for="City" data-valmsg-replace="true"></span>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="form-group input-group">
+                            <input class="form-control" type="text" name="Address" id="strAddress" placeholder="@WebStore.Resources.Placeholder.Address" value="@(Model.Addresses != null ? Model.Addresses.Address: "")" data-val="true" data-val-required="Campo Requerido" />
                             <span class="input-group-addon">
                                 <i class="fas fa-map-marker-alt"></i>
                             </span>
                         </div>
+                        <span class="field-validation-valid" data-valmsg-for="Address" data-valmsg-replace="true"></span>
                     </div>
                     <div class="col-lg-6">
                         <div class="form-group input-group">
-                            <input class="form-control" type="text" name="strHome" id="strHome" placeholder="@WebStore.Resources.Placeholder.House" />
+                            <input class="form-control" type="text" name="Type" id="strHome" placeholder="@WebStore.Resources.Placeholder.House" value="@(Model.Addresses != null ? Model.Addresses.Type: "")" data-val="true" data-val-required="Campo Requerido" />
                             <span class="input-group-addon">
                                 <i class="fas fa-home"></i>
                             </span>
                         </div>
+                        <span class="field-validation-valid" data-valmsg-for="Type" data-valmsg-replace="true"></span>
                     </div>
                 </div>
 
-                <button class="btn btn-orangered float-right">@WebStore.Resources.Buttons.Save</button>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="form-group input-group">
+                            <input class="form-control" type="text" name="PosteCode" id="strPostale" placeholder="@WebStore.Resources.Placeholder.PostCode" value="@(Model.Addresses != null ? ""+Model.Addresses.Poste: "")" data-val="true" data-val-required="Campo Requerido" data-val-regex="Solo números" data-val-regex-pattern="([0-9]+)" />
+                            <span class="input-group-addon">
+                                <i class="fas fa-map-marked-alt"></i>
+                            </span>
+                        </div>
+                        <span class="field-validation-valid" data-valmsg-for="PosteCode" data-valmsg-replace="true"></span>
+                    </div>
+                </div>
+
+                <button class="btn btn-orangered float-right" type="submit">@WebStore.Resources.Buttons.Save</button>
             </form>
         </div>
         <div class="col-lg-6">
@@ -177,7 +248,7 @@
                         <span>********</span>
                     </div>
                     <div class="col-lg-6 text-right">
-                        <button type="submit" class="btn btn-warning btn-sm">@WebStore.Resources.Buttons.Edit</button>
+                        <a href="@Url.Action("Password",new { language = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName})" class="btn btn-warning btn-sm">@WebStore.Resources.Buttons.Edit</a>
                     </div>
                 </div>
             </form>
@@ -207,12 +278,21 @@
             </form>
         </div>
     </div>
+    <div id="errorReport"></div>
 </div>
+
+@section Included{
+    @Html.Raw(WebStore.Resources.Scripts.JqueryValidate)
+    @Html.Raw(WebStore.Resources.Scripts.JqueryValidateMethods)
+    @Html.Raw(WebStore.Resources.Scripts.JqueryValidateUnobtrousive)
+    @Html.Raw(WebStore.Resources.Scripts.SweetAlert)
+}
 
 @section Scripts{
     <script>
-    $(function(){
-        $.AdminJs.profileMenu.activate();
-    })
+        $(function () {
+            $.AdminJs.profileMenu.activate();
+            $.AdminJs.userSettings.activate();
+        })
     </script>
 }

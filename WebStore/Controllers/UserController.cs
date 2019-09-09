@@ -56,21 +56,21 @@ namespace WebStore.Controllers
         {
             if (ModelState.IsValid)
             {
-                string logging = LogOn(logIn.Email.ToLower(), logIn.Pass.ToLower(), logIn.RememberMe);
+                string logging = LogOn(logIn.Email, logIn.Pass, logIn.RememberMe);
                 if (logging == "OK")
                 {
                     return Json(new { status = "OK" });
                 }
                 else if(logging == "invalid")
                 {
-                    return Json(new { status = "invalid", title = "Email no registrado", responseText = "Este usuario no se ha registrado en nuestro sitio web." });
+                    return Json(new { status = "warning", title = "Email no registrado", responseText = "Este usuario no se ha registrado en nuestro sitio web." });
                 }else if(logging == "password")
                 {
-                    return Json(new { status = "password", title = "Datos de Usuairo", responseText = "Usuario o contraseña no son correctos." });
+                    return Json(new { status = "warning", title = "Datos de Usuairo", responseText = "Usuario o contraseña no son correctos." });
                 }
                 else
                 {
-                    return Json(new { status = "email", title = "Verificación de Email", responseText = "Para ingresar a su cuenta debe verificar y activar su email, a través de un liink que le fue enviado al su email." });
+                    return Json(new { status = "warning", title = "Verificación de Email", responseText = "Para ingresar a su cuenta debe verificar y activar su email, a través de un liink que le fue enviado al su email." });
                 }
             }
             else
@@ -95,29 +95,29 @@ namespace WebStore.Controllers
                 Random generator = new Random();
                 String r = generator.Next(99999, 1000000).ToString("D6");
                 String email = SendValidationCode(user.strEmail, r);
-                if (email == "sent")
+                if (email == "Sent")
                 {
                     user.strRecoveryCode = r;
                     user.timeRecoveryCode = DateTime.Now;
                     try
                     {
                         db.SaveChanges();
-                        return Json(new { status = "OK", responseText = "something" }, JsonRequestBehavior.AllowGet);
+                        return Json(new { status = "OK", title = "Código", responseText = "Se ha generado un código automáticamente y fue enviado a su dirección de email." }, JsonRequestBehavior.AllowGet);
                     }
                     catch(Exception ex)
                     {
-                        return Json(new { status = "error", responseText = ex.ToString() }, JsonRequestBehavior.AllowGet);
+                        return Json(new { status = "error", title = "Ups...!", responseText = ex.ToString() }, JsonRequestBehavior.AllowGet);
                     }
                 }
                 else
                 {
-                    return Json(new { status = "error", responseText = email }, JsonRequestBehavior.AllowGet);
+                    return Json(new { status = "error", title = "Ups...!", responseText = email }, JsonRequestBehavior.AllowGet);
                 }
                 
             }
             else
             {
-                return Json(new { status = "error", responseText = "Email no existe en nuestra base de datos." }, JsonRequestBehavior.AllowGet);
+                return Json(new { status = "warning", title = "Email", responseText = "Email no existe en nuestra base de datos." }, JsonRequestBehavior.AllowGet);
             }
         }
 
@@ -128,19 +128,52 @@ namespace WebStore.Controllers
             var user = db.tblUsers.Where(x => x.strRecoveryCode == ValidationCode).FirstOrDefault();
             if(user != null)
             {
-                if(user.timeRecoveryCode > DateTime.Now)
+                if(user.timeRecoveryCode.Value.AddMinutes(30) > DateTime.Now)
                 {
-                    return Json(new { status = "OK", responseText = "Código de validación es válido." }, JsonRequestBehavior.AllowGet);
+                    return Json(new { status = "OK", title = "Validado", responseText = "Código de validación es válido." }, JsonRequestBehavior.AllowGet);
                 }
                 else
                 {
-                    return Json(new { status = "warning", responseText = "El código de validación ha expirado." }, JsonRequestBehavior.AllowGet);
+                    return Json(new { status = "warning", title = "Expiración", responseText = "El código de validación ha expirado." }, JsonRequestBehavior.AllowGet);
                 }
             }
             else
             {
-                return Json(new { status = "error", responseText = "Código de validación incorrecto." }, JsonRequestBehavior.AllowGet);
+                return Json(new { status = "error", title = "Código", responseText = "Código de validación incorrecto." }, JsonRequestBehavior.AllowGet);
             }
+        }
+        [HttpPost]
+        public JsonResult ChangePassword(RecoveryPassword recovery)
+        {
+            using (webstoreEntities db = new webstoreEntities())
+            {
+                var user = db.tblUsers.Where(x => x.strEmail == recovery.EmailRecovery && x.strRecoveryCode == recovery.CodRecovery).FirstOrDefault();
+                if(user != null)
+                {
+                    if(recovery.PassRecovery == recovery.PassRecoveryConfirmation)
+                    {
+                        user.strPassword = Crypto.Hash(recovery.PassRecovery);
+                        try
+                        {
+                            db.SaveChanges();
+                            return Json(new { status = "OK", title = "Contraseña", responseText = "Su contraseña fue actualizada con éxito." }, JsonRequestBehavior.AllowGet);
+                        }
+                        catch(Exception ex)
+                        {
+                            return Json(new { status = "error", title = "Ups...!", responseText = ex.ToString() }, JsonRequestBehavior.AllowGet);
+                        }
+                    }
+                    else
+                    {
+                        return Json(new { status = "warning", title = "Contraseña", responseText = "Contraseñas no coinciden." }, JsonRequestBehavior.AllowGet);
+                    }
+                }
+                else
+                {
+                    return Json(new { status = "error", title = "Ups...!", responseText = "Error inesperado al encontrar al usuario." }, JsonRequestBehavior.AllowGet);
+                }
+            }
+            
         }
 
         public ActionResult Quote()
@@ -182,15 +215,17 @@ namespace WebStore.Controllers
                     }, JsonRequestBehavior.AllowGet);
                 }
 
-                tblUsers nickObj = new tblUsers();
-
-                nickObj.strNames = user.Name.ToLower();
-                nickObj.strLastNames = user.Lastname.ToLower();
-                nickObj.strEmail = user.Email.ToLower();
-                nickObj.strVerificationCode = Guid.NewGuid();
-                nickObj.strPassword = Crypto.Hash(user.Pass);
-                nickObj.intLevel = 1;
-                nickObj.boolValidate = false;
+                tblUsers nickObj = new tblUsers
+                {
+                    strNames = user.Name.ToLower(),
+                    strLastNames = user.Lastname.ToLower(),
+                    strEmail = user.Email.ToLower(),
+                    strVerificationCode = Guid.NewGuid(),
+                    strPassword = Crypto.Hash(user.Pass),
+                    intLevel = 1,
+                    boolValidate = false,
+                    strRegistrationDate = DateTime.Now
+                };
 
                 using (webstoreEntities db = new webstoreEntities())
                 {

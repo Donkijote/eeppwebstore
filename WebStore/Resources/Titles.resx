@@ -255,4 +255,7 @@
   <data name="RetrievePassword" xml:space="preserve">
     <value>Password Recovery</value>
   </data>
+  <data name="PasswordChange" xml:space="preserve">
+    <value>Change Password</value>
+  </data>
 </root>

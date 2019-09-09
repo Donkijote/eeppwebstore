@@ -18,6 +18,7 @@ namespace WebStore.Models
         public tblRegiones()
         {
             this.tblProvincias = new HashSet<tblProvincias>();
+            this.tblAddresses = new HashSet<tblAddresses>();
         }
     
         public int idRegion { get; set; }
@@ -26,5 +27,7 @@ namespace WebStore.Models
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblProvincias> tblProvincias { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tblAddresses> tblAddresses { get; set; }
     }
 }

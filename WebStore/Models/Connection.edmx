@@ -5,6 +5,22 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="webstoreModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="tblAddresses">
+          <Key>
+            <PropertyRef Name="idAddress" />
+          </Key>
+          <Property Name="idAddress" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="strCountry" Type="varchar" MaxLength="50" />
+          <Property Name="strCity" Type="varchar" MaxLength="50" />
+          <Property Name="strAddress" Type="text" />
+          <Property Name="strType" Type="varchar" MaxLength="50" />
+          <Property Name="intPostalCode" Type="int" />
+          <Property Name="refRegion" Type="int" />
+          <Property Name="refProvince" Type="int" />
+          <Property Name="refComuna" Type="int" />
+          <Property Name="refuser" Type="int" />
+          <Property Name="boolDefault" Type="bit" />
+        </EntityType>
         <EntityType Name="tblBrand">
           <Key>
             <PropertyRef Name="idBrand" />
@@ -202,17 +218,56 @@
           <Key>
             <PropertyRef Name="idUser" />
           </Key>
-          <Property Name="idUser" Type="int" Nullable="false" />
+          <Property Name="idUser" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="intId" Type="int" />
           <Property Name="strNames" Type="varchar" MaxLength="50" />
           <Property Name="strLastNames" Type="varchar" MaxLength="50" />
           <Property Name="strEmail" Type="varchar" MaxLength="50" />
+          <Property Name="intPhone" Type="int" />
           <Property Name="strPassword" Type="varchar" MaxLength="50" />
+          <Property Name="strRegistrationDate" Type="datetime" />
           <Property Name="strVerificationCode" Type="uniqueidentifier" />
           <Property Name="intLevel" Type="int" />
           <Property Name="boolValidate" Type="bit" />
           <Property Name="strRecoveryCode" Type="varchar" MaxLength="6" />
           <Property Name="timeRecoveryCode" Type="datetime" />
         </EntityType>
+        <Association Name="FK_tblAddresses_tblComunas">
+          <End Role="tblComunas" Type="Self.tblComunas" Multiplicity="0..1" />
+          <End Role="tblAddresses" Type="Self.tblAddresses" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblComunas">
+              <PropertyRef Name="idComuna" />
+            </Principal>
+            <Dependent Role="tblAddresses">
+              <PropertyRef Name="refComuna" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblAddresses_tblRegiones">
+          <End Role="tblRegiones" Type="Self.tblRegiones" Multiplicity="0..1" />
+          <End Role="tblAddresses" Type="Self.tblAddresses" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblRegiones">
+              <PropertyRef Name="idRegion" />
+            </Principal>
+            <Dependent Role="tblAddresses">
+              <PropertyRef Name="refRegion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblAddresses_tblUsers">
+          <End Role="tblUsers" Type="Self.tblUsers" Multiplicity="0..1" />
+          <End Role="tblAddresses" Type="Self.tblAddresses" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblUsers">
+              <PropertyRef Name="idUser" />
+            </Principal>
+            <Dependent Role="tblAddresses">
+              <PropertyRef Name="refuser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_tblBrand_tblBrand">
           <End Role="tblImg" Type="Self.tblImg" Multiplicity="0..1" />
           <End Role="tblBrand" Type="Self.tblBrand" Multiplicity="*" />
@@ -406,6 +461,7 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="webstoreModelStoreContainer">
+          <EntitySet Name="tblAddresses" EntityType="Self.tblAddresses" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblBrand" EntityType="Self.tblBrand" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblCategories" EntityType="Self.tblCategories" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblCategoryRelation" EntityType="Self.tblCategoryRelation" Schema="dbo" store:Type="Tables" />
@@ -423,6 +479,18 @@
           <EntitySet Name="tblRegiones" EntityType="Self.tblRegiones" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblRelBrand" EntityType="Self.tblRelBrand" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblUsers" EntityType="Self.tblUsers" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_tblAddresses_tblComunas" Association="Self.FK_tblAddresses_tblComunas">
+            <End Role="tblComunas" EntitySet="tblComunas" />
+            <End Role="tblAddresses" EntitySet="tblAddresses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblAddresses_tblRegiones" Association="Self.FK_tblAddresses_tblRegiones">
+            <End Role="tblRegiones" EntitySet="tblRegiones" />
+            <End Role="tblAddresses" EntitySet="tblAddresses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblAddresses_tblUsers" Association="Self.FK_tblAddresses_tblUsers">
+            <End Role="tblUsers" EntitySet="tblUsers" />
+            <End Role="tblAddresses" EntitySet="tblAddresses" />
+          </AssociationSet>
           <AssociationSet Name="FK_tblBrand_tblBrand" Association="Self.FK_tblBrand_tblBrand">
             <End Role="tblImg" EntitySet="tblImg" />
             <End Role="tblBrand" EntitySet="tblBrand" />
@@ -590,6 +658,19 @@
           </AssociationSet>
           <EntitySet Name="tblFicha" EntityType="webstoreModel.tblFicha" />
           <EntitySet Name="tblUsers" EntityType="webstoreModel.tblUsers" />
+          <EntitySet Name="tblAddresses" EntityType="webstoreModel.tblAddresses" />
+          <AssociationSet Name="FK_tblAddresses_tblComunas" Association="webstoreModel.FK_tblAddresses_tblComunas">
+            <End Role="tblComunas" EntitySet="tblComunas" />
+            <End Role="tblAddresses" EntitySet="tblAddresses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblAddresses_tblRegiones" Association="webstoreModel.FK_tblAddresses_tblRegiones">
+            <End Role="tblRegiones" EntitySet="tblRegiones" />
+            <End Role="tblAddresses" EntitySet="tblAddresses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblAddresses_tblUsers" Association="webstoreModel.FK_tblAddresses_tblUsers">
+            <End Role="tblUsers" EntitySet="tblUsers" />
+            <End Role="tblAddresses" EntitySet="tblAddresses" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="tblProducts">
           <Key>
@@ -648,6 +729,7 @@
           <Property Name="strNombre" Type="String" MaxLength="70" FixedLength="false" Unicode="true" />
           <Property Name="refProvincia" Type="Int32" Nullable="false" />
           <NavigationProperty Name="tblProvincias" Relationship="webstoreModel.FK_tblComunas_tblProvincias" FromRole="tblComunas" ToRole="tblProvincias" />
+          <NavigationProperty Name="tblAddresses" Relationship="webstoreModel.FK_tblAddresses_tblComunas" FromRole="tblComunas" ToRole="tblAddresses" />
         </EntityType>
         <EntityType Name="tblProvincias">
           <Key>
@@ -667,6 +749,7 @@
           <Property Name="strNombre" Type="String" Nullable="false" MaxLength="70" FixedLength="false" Unicode="true" />
           <Property Name="intNumber" Type="String" Nullable="false" MaxLength="4" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="tblProvincias" Relationship="webstoreModel.FK_tblProvincias_tblRegiones" FromRole="tblRegiones" ToRole="tblProvincias" />
+          <NavigationProperty Name="tblAddresses" Relationship="webstoreModel.FK_tblAddresses_tblRegiones" FromRole="tblRegiones" ToRole="tblAddresses" />
         </EntityType>
         <Association Name="FK_tblComunas_tblProvincias">
           <End Type="webstoreModel.tblProvincias" Role="tblProvincias" Multiplicity="1" />
@@ -1006,7 +1089,66 @@
           <Property Name="boolValidate" Type="Boolean" />
           <Property Name="strRecoveryCode" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
           <Property Name="timeRecoveryCode" Type="DateTime" Precision="3" />
+          <Property Name="strRegistrationDate" Type="DateTime" Precision="3" />
+          <Property Name="intId" Type="Int32" />
+          <Property Name="intPhone" Type="Int32" />
+          <NavigationProperty Name="tblAddresses" Relationship="webstoreModel.FK_tblAddresses_tblUsers" FromRole="tblUsers" ToRole="tblAddresses" />
         </EntityType>
+        <EntityType Name="tblAddresses">
+          <Key>
+            <PropertyRef Name="idAddress" />
+          </Key>
+          <Property Name="idAddress" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="strCountry" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="strCity" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="strAddress" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="strType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="intPostalCode" Type="Int32" />
+          <Property Name="refRegion" Type="Int32" />
+          <Property Name="refProvince" Type="Int32" />
+          <Property Name="refComuna" Type="Int32" />
+          <Property Name="refuser" Type="Int32" />
+          <Property Name="boolDefault" Type="Boolean" />
+          <NavigationProperty Name="tblComunas" Relationship="webstoreModel.FK_tblAddresses_tblComunas" FromRole="tblAddresses" ToRole="tblComunas" />
+          <NavigationProperty Name="tblRegiones" Relationship="webstoreModel.FK_tblAddresses_tblRegiones" FromRole="tblAddresses" ToRole="tblRegiones" />
+          <NavigationProperty Name="tblUsers" Relationship="webstoreModel.FK_tblAddresses_tblUsers" FromRole="tblAddresses" ToRole="tblUsers" />
+        </EntityType>
+        <Association Name="FK_tblAddresses_tblComunas">
+          <End Type="webstoreModel.tblComunas" Role="tblComunas" Multiplicity="0..1" />
+          <End Type="webstoreModel.tblAddresses" Role="tblAddresses" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblComunas">
+              <PropertyRef Name="idComuna" />
+            </Principal>
+            <Dependent Role="tblAddresses">
+              <PropertyRef Name="refComuna" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblAddresses_tblRegiones">
+          <End Type="webstoreModel.tblRegiones" Role="tblRegiones" Multiplicity="0..1" />
+          <End Type="webstoreModel.tblAddresses" Role="tblAddresses" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblRegiones">
+              <PropertyRef Name="idRegion" />
+            </Principal>
+            <Dependent Role="tblAddresses">
+              <PropertyRef Name="refRegion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblAddresses_tblUsers">
+          <End Type="webstoreModel.tblUsers" Role="tblUsers" Multiplicity="0..1" />
+          <End Type="webstoreModel.tblAddresses" Role="tblAddresses" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblUsers">
+              <PropertyRef Name="idUser" />
+            </Principal>
+            <Dependent Role="tblAddresses">
+              <PropertyRef Name="refuser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1225,6 +1367,9 @@
           <EntitySetMapping Name="tblUsers">
             <EntityTypeMapping TypeName="webstoreModel.tblUsers">
               <MappingFragment StoreEntitySet="tblUsers">
+                <ScalarProperty Name="intPhone" ColumnName="intPhone" />
+                <ScalarProperty Name="intId" ColumnName="intId" />
+                <ScalarProperty Name="strRegistrationDate" ColumnName="strRegistrationDate" />
                 <ScalarProperty Name="timeRecoveryCode" ColumnName="timeRecoveryCode" />
                 <ScalarProperty Name="strRecoveryCode" ColumnName="strRecoveryCode" />
                 <ScalarProperty Name="boolValidate" ColumnName="boolValidate" />
@@ -1235,6 +1380,23 @@
                 <ScalarProperty Name="strLastNames" ColumnName="strLastNames" />
                 <ScalarProperty Name="strNames" ColumnName="strNames" />
                 <ScalarProperty Name="idUser" ColumnName="idUser" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblAddresses">
+            <EntityTypeMapping TypeName="webstoreModel.tblAddresses">
+              <MappingFragment StoreEntitySet="tblAddresses">
+                <ScalarProperty Name="boolDefault" ColumnName="boolDefault" />
+                <ScalarProperty Name="refuser" ColumnName="refuser" />
+                <ScalarProperty Name="refComuna" ColumnName="refComuna" />
+                <ScalarProperty Name="refProvince" ColumnName="refProvince" />
+                <ScalarProperty Name="refRegion" ColumnName="refRegion" />
+                <ScalarProperty Name="intPostalCode" ColumnName="intPostalCode" />
+                <ScalarProperty Name="strType" ColumnName="strType" />
+                <ScalarProperty Name="strAddress" ColumnName="strAddress" />
+                <ScalarProperty Name="strCity" ColumnName="strCity" />
+                <ScalarProperty Name="strCountry" ColumnName="strCountry" />
+                <ScalarProperty Name="idAddress" ColumnName="idAddress" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -193,7 +193,7 @@
     <value>Contraseña</value>
   </data>
   <data name="Phone" xml:space="preserve">
-    <value>Teléfono +56 9 XXXX XXXX</value>
+    <value>Teléfono 9 XXXX XXXX</value>
   </data>
   <data name="PostCode" xml:space="preserve">
     <value>Código Postal</value>
@@ -272,5 +272,8 @@
   </data>
   <data name="Category" xml:space="preserve">
     <value>Categoría</value>
+  </data>
+  <data name="ValidationCode" xml:space="preserve">
+    <value>Código de validación</value>
   </data>
 </root>

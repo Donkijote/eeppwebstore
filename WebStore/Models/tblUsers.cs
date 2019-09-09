@@ -14,6 +14,12 @@ namespace WebStore.Models
     
     public partial class tblUsers
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public tblUsers()
+        {
+            this.tblAddresses = new HashSet<tblAddresses>();
+        }
+    
         public int idUser { get; set; }
         public string strNames { get; set; }
         public string strLastNames { get; set; }
@@ -24,5 +30,11 @@ namespace WebStore.Models
         public Nullable<bool> boolValidate { get; set; }
         public string strRecoveryCode { get; set; }
         public Nullable<System.DateTime> timeRecoveryCode { get; set; }
+        public Nullable<System.DateTime> strRegistrationDate { get; set; }
+        public Nullable<int> intId { get; set; }
+        public Nullable<int> intPhone { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tblAddresses> tblAddresses { get; set; }
     }
 }

@@ -61,6 +61,7 @@ namespace WebStore.Functions
             };
             return message;
         }
+
         public static string PopulateEmailBody(string bodyContent)
         {
             string body = string.Empty;
@@ -72,6 +73,18 @@ namespace WebStore.Functions
             body = body.Replace("{BodyContent}", bodyContent);
             body = body.Replace("{unSubcribeUrl}", "#");
             return body;
+        }
+
+        public static string GetLocalIp()
+        {
+            string strHostName = Dns.GetHostName();
+            string ipEntry = Dns.GetHostEntry(strHostName).AddressList[1].ToString();
+            return ipEntry;
+        }
+
+        public static string GetUserIp()
+        {
+            return HttpContext.Current.Request.UserHostAddress;
         }
     }
 

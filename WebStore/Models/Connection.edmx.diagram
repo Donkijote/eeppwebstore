@@ -8,10 +8,10 @@
         <EntityTypeShape EntityType="webstoreModel.tblCategories" Width="1.5" PointX="2.375" PointY="1.125" IsExpanded="true" />
         <EntityTypeShape EntityType="webstoreModel.tblProducts" Width="1.5" PointX="0.5" PointY="1.125" />
         <AssociationConnector Association="webstoreModel.FK_tblProducts_tblCategories1" />
-        <EntityTypeShape EntityType="webstoreModel.tblCountry" Width="1.5" PointX="0.5" PointY="11.625" />
-        <EntityTypeShape EntityType="webstoreModel.tblComunas" Width="1.5" PointX="4.25" PointY="9.375" />
-        <EntityTypeShape EntityType="webstoreModel.tblProvincias" Width="1.5" PointX="2.375" PointY="9.375" />
-        <EntityTypeShape EntityType="webstoreModel.tblRegiones" Width="1.5" PointX="0.5" PointY="9.625" />
+        <EntityTypeShape EntityType="webstoreModel.tblCountry" Width="1.5" PointX="4.125" PointY="9.625" />
+        <EntityTypeShape EntityType="webstoreModel.tblComunas" Width="1.5" PointX="11.25" PointY="7.625" />
+        <EntityTypeShape EntityType="webstoreModel.tblProvincias" Width="1.5" PointX="9.5" PointY="7.625" />
+        <EntityTypeShape EntityType="webstoreModel.tblRegiones" Width="1.5" PointX="7.75" PointY="7.625" />
         <AssociationConnector Association="webstoreModel.FK_tblComunas_tblProvincias" />
         <AssociationConnector Association="webstoreModel.FK_tblProvincias_tblRegiones" />
         <EntityTypeShape EntityType="webstoreModel.tblFamily" Width="1.5" PointX="4.25" PointY="1.125" />
@@ -34,10 +34,14 @@
         <AssociationConnector Association="webstoreModel.FK_tblBrand_tblBrand" />
         <AssociationConnector Association="webstoreModel.FK_tblProducts_tblImg" />
         <AssociationConnector Association="webstoreModel.FK_tblFamily_tblImg" />
-        <EntityTypeShape EntityType="webstoreModel.tblRelBrand" Width="1.5" PointX="2.375" PointY="11.625" />
+        <EntityTypeShape EntityType="webstoreModel.tblRelBrand" Width="1.5" PointX="0.5" PointY="10" />
         <AssociationConnector Association="webstoreModel.FK_tblRelBrand_tblBrand" />
         <EntityTypeShape EntityType="webstoreModel.tblFicha" Width="1.5" PointX="6" PointY="3" />
         <EntityTypeShape EntityType="webstoreModel.tblUsers" Width="1.5" PointX="7.75" PointY="3.75" />
+        <EntityTypeShape EntityType="webstoreModel.tblAddresses" Width="1.5" PointX="9.5" PointY="3.75" />
+        <AssociationConnector Association="webstoreModel.FK_tblAddresses_tblComunas" />
+        <AssociationConnector Association="webstoreModel.FK_tblAddresses_tblRegiones" />
+        <AssociationConnector Association="webstoreModel.FK_tblAddresses_tblUsers" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

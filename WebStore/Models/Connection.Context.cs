@@ -42,5 +42,6 @@ namespace WebStore.Models
         public virtual DbSet<tblRelBrand> tblRelBrand { get; set; }
         public virtual DbSet<tblFicha> tblFicha { get; set; }
         public virtual DbSet<tblUsers> tblUsers { get; set; }
+        public virtual DbSet<tblAddresses> tblAddresses { get; set; }
     }
 }

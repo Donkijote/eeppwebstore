@@ -14,10 +14,18 @@ namespace WebStore.Models
     
     public partial class tblComunas
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public tblComunas()
+        {
+            this.tblAddresses = new HashSet<tblAddresses>();
+        }
+    
         public int idComuna { get; set; }
         public string strNombre { get; set; }
         public int refProvincia { get; set; }
     
         public virtual tblProvincias tblProvincias { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tblAddresses> tblAddresses { get; set; }
     }
 }

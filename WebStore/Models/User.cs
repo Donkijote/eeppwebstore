@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using DataAnnotationsExtensions;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
 
 namespace WebStore.Models
 {
@@ -41,7 +38,6 @@ namespace WebStore.Models
         public string Pass { get; set; }
         public bool RememberMe { get; set; }
     }
-
     public class RecoveryPassword
     {
         [Required(ErrorMessage = "Campo Requerido.")]
@@ -49,7 +45,7 @@ namespace WebStore.Models
         public string EmailRecovery { get; set; }
 
         [Required(ErrorMessage = "Campo Requerido.")]
-        [StringLength(6, MinimumLength = 6, ErrorMessage = "El código no puede ser menor a 6 dígitos.")]
+        [StringLength(6, MinimumLength = 6, ErrorMessage = "El código no puede ser menor o mayor a 6 dígitos.")]
         [RegularExpression("([0-9]+)", ErrorMessage = "Solo números son aceptados.")]
         public string CodRecovery { get; set; }
 
@@ -61,7 +57,7 @@ namespace WebStore.Models
 
         [Required(ErrorMessage = "Este campo es requerido.")]
         [StringLength(30, MinimumLength = 8, ErrorMessage = "Debe tener mínimo 8 caracteres.")]
-        [Compare("PassRecovery", ErrorMessage = "Las contraseñas deben coincidir.")]
+        [EqualTo("PassRecovery", ErrorMessage = "Las contraseñas deben coincidir.")]
         [DataType(DataType.Password)]
         public string PassRecoveryConfirmation { get; set; }
     }

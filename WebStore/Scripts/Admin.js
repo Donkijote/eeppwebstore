@@ -51,28 +51,14 @@ $.AdminJs.LogInUp = {
 			e.preventDefault();
 			var x = $(this).serialize();
             if ($(this).valid()) {
-                $.ajax({
+                $.AdminJs.Ajax.init({
                     type: 'POST',
                     url: '/en/User/Registration/',
                     data: x,
-                    cache: false,
-                    beforeSend: function () {
-                        $.AdminJs.Loading.start();
-                    },
-                    success: function (e) {
+                    action: function (e) {
                         if (e.status == "OK") {
                             $.AdminJs.Alert.success(e.title, e.responseText);
-                        } else if (e.status == "error") {
-                            $.AdminJs.Alert.error(e.title, e.responseText);
-                        } else {
-                            $.AdminJs.Alert.warning(e.title, e.responseText);
                         }
-                    },
-                    complete: function () {
-                        $.AdminJs.Loading.stop();
-                    },
-                    error: function (e) {
-                        $.AdminJs.Alert.error(e.title, e.responseText);
                     }
                 });
             }
@@ -80,28 +66,29 @@ $.AdminJs.LogInUp = {
         $('#LogIn').on('submit', function (e) {
             e.preventDefault();
             if ($(this).valid()) {
-                $.ajax({
+                $.AdminJs.Ajax.init({
                     type: 'POST',
                     url: '/en/User/LogIn',
                     data: $(this).serialize(),
-                    cache: false,
-                    beforeSend: function () {
-                        $.AdminJs.Loading.start();
-                    },
-                    success: function (e) {
+                    action: function (e) {
                         if (e.status == "OK") {
                             window.location.href = $('#url_return').attr('href');
-                        } else if (e.status == "error") {
-                            $.AdminJs.Alert.error(e.title, e.responseText);
-                        } else {
-                            $.AdminJs.Alert.warning(e.title, e.responseText);
                         }
-                    },
-                    complete: function () {
-                        $.AdminJs.Loading.stop();
-                    },
-                    error: function (e) {
-                        $.AdminJs.Alert.error(e.title, e.responseText);
+                    }
+                });
+            }
+        });
+        $('#LogInPage').on('submit', function (e) {
+            e.preventDefault();
+            if ($(this).valid()) {
+                $.AdminJs.Ajax.init({
+                    type: 'POST',
+                    url: '/en/User/LogIn',
+                    data: $(this).serialize(),
+                    action: function (e) {
+                        if (e.status == "OK") {
+                            window.location.href = $('#url_return').attr('href');
+                        }
                     }
                 });
             }
@@ -166,17 +153,21 @@ $.AdminJs.LogInUp = {
                     }
                     else {
                         $.AdminJs.Loading.stop();
-                        if (form.valid()) {
-                            return form.valid();
-                        } else {
-                            return false;
-                        }
+                        return false;
                     }
                 }
 
                 if (currentIndex == 1) {
-                    $.AdminJs.Loading.stop();
-                    return form.valid();
+                    var code = _this.sendValidateVerificationCode($('#CodRecovery').val());
+                    if (code.status == "OK") {
+                        $.AdminJs.Loading.stop();
+                        return form.valid();
+                    }
+                    else {
+                        $.AdminJs.Loading.stop();
+                        $.AdminJs.Alert.warning(code.title, code.responseText)
+                        return false;
+                    }
                 }
             },
             onStepChanged: function (event, currentIndex, newIndex) {
@@ -186,7 +177,18 @@ $.AdminJs.LogInUp = {
             },
             onFinishing: function (event, currentIndex, newIndex) {
                 if (currentIndex == 2) {
-                    return form.valid();
+                    var code = _this.sendChangePassword(form.serialize());
+                    console.log(code);
+                    if (code.status == "OK") {
+                        $.AdminJs.Loading.stop();
+                        $.AdminJs.Alert.success(code.title, code.responseText);
+                        return form.valid();
+                    }
+                    else {
+                        $.AdminJs.Loading.stop();
+                        $.AdminJs.Alert.warning(code.title, code.responseText);
+                        return false;
+                    }
                 }
             },
             onFinished: function (event, currentIndex) {
@@ -247,8 +249,42 @@ $.AdminJs.LogInUp = {
         var resp = "";
         $.ajax({
             type: 'POST',
-            url: '/en/User/RetrievePassword',
+            url: '/en/User/RetrievePasswordEmail/',
             data: { EmailRecovery: x },
+            cache: false,
+            async: false,
+            success: function (e) {
+                resp = e;
+            },
+            error: function (e) {
+                resp = e;
+            }
+        });
+        return resp;
+    },
+    sendValidateVerificationCode: function (x) {
+        var resp = "";
+        $.ajax({
+            type: 'POST',
+            url: '/en/User/RetrievePasswordCode/',
+            data: { ValidationCode: x },
+            cache: false,
+            async: false,
+            success: function (e) {
+                resp = e;
+            },
+            error: function (e) {
+                resp = e;
+            }
+        });
+        return resp;
+    },
+    sendChangePassword: function (x) {
+        var resp = "";
+        $.ajax({
+            type: 'POST',
+            url: '/en/User/ChangePassword/',
+            data: x,
             cache: false,
             async: false,
             success: function (e) {
@@ -407,36 +443,36 @@ $.AdminJs.checkOut = {
         _this.validateForm();
         $('#strStatesNationale').on('change', function () {
             var id = $(this).val();
-            $.ajax({
+            $.AdminJs.Ajax.init({
                 type: 'GET',
                 dataType: "JSON",
                 url: '/en/Account/Provinces/',
                 data: { id: id },
-                success: function (e) {
-                    var modelsHtml = "<option value=''></option>";
+                action: function (e) {
+                    var modelsHtml = "<option value=''>Provincia</option>";
                     $.each(e, function (a, b) {
                         modelsHtml += "<option value='" + b.id + "'>" + b.nombre + "</option>";
                     })
                     $("#strProvinciaNationale").html(modelsHtml);
                 }
-            })
+            }, false, true)
         })
 
         $('#strProvinciaNationale').on('change', function () {
             var id = $(this).val();
-            $.ajax({
+            $.AdminJs.Ajax.init({
                 type: 'GET',
                 dataType: "JSON",
                 url: '/en/Account/Communes/',
                 data: { id: id },
-                success: function (e) {
-                    var modelsHtml = "<option value=''></option>";
+                action: function (e) {
+                    var modelsHtml = "<option value=''>Comuna</option>";
                     $.each(e, function (a, b) {
                         modelsHtml += "<option value='" + b.id + "'>" + b.nombre + "</option>";
                     })
                     $("#strComunaNationale").html(modelsHtml);
                 }
-            })
+            }, false, true)
         })
 
         $('#strStatesNationaleAnother').on('change', function () {
@@ -599,6 +635,75 @@ $.AdminJs.checkOut = {
                 required: "Campo requerido.",
             });
         }
+    }
+}
+
+$.AdminJs.userSettings = {
+    activate: function () {
+        var _this = this;
+        $('#strStatesNationale').on('change', function () {
+            var id = $(this).val();
+            $.AdminJs.Ajax.init({
+                type: 'GET',
+                dataType: "JSON",
+                url: '/en/Account/Provinces/',
+                data: { id: id },
+                action: function (e) {
+                    var modelsHtml = "<option value=''>Provincia</option>";
+                    $.each(e, function (a, b) {
+                        modelsHtml += "<option value='" + b.id + "'>" + b.nombre + "</option>";
+                    })
+                    $("#strProvinciaNationale").html(modelsHtml);
+                }
+            },false,true)
+        })
+
+        $('#strProvinciaNationale').on('change', function () {
+            var id = $(this).val();
+            $.AdminJs.Ajax.init({
+                type: 'GET',
+                dataType: "JSON",
+                url: '/en/Account/Communes/',
+                data: { id: id },
+                action: function (e) {
+                    var modelsHtml = "<option value=''>Comuna</option>";
+                    $.each(e, function (a, b) {
+                        modelsHtml += "<option value='" + b.id + "'>" + b.nombre + "</option>";
+                    })
+                    $("#strComunaNationale").html(modelsHtml);
+                }
+            },false, true)
+        })
+
+        $('#perfilUpdate').on('submit', function (e) {
+            e.preventDefault();
+            var form = $(this);
+            if (form.valid()) {
+                var x = form.serialize()
+                Swal.fire({
+                    title: "Confirmación",
+                    html: "Esta dirección será almacenada como predefinida para cuando realice compras o envíos<br /> Puede cambiar esta configuración en <strong>Direcciones</strong>",
+                    type: "info",
+                    confirmButtonText: 'OK',
+                    confirmButtonClass: 'bg-success',
+                    allowOutsideClick: false,
+                    allowEscapeKey: false
+                }).then((resp) => {
+                    x += "&Default=" + resp.value;
+                    _this.sendUserUpdateInfo(x);
+                });
+            }
+        })
+    },
+    sendUserUpdateInfo: (x) => {
+        $.AdminJs.Ajax.init({
+            type: 'POST',
+            url: '/en/Account/UpdateUserInfo/',
+            data: x,
+            action: (resp) => {
+                $.AdminJs.Alert.success(resp.title, resp.responseText);
+            }
+        }, true)
     }
 }
 
@@ -1031,7 +1136,7 @@ $.AdminJs.Alert = {
             html: r,
             type: "success",
             confirmButtonText: 'Ok',
-            confirmButtonClass: 'bg-limegreen',
+            confirmButtonClass: 'bg-success',
         }).then(function () {
             window.location.reload();
         });
@@ -1042,7 +1147,16 @@ $.AdminJs.Alert = {
             html: r,
             type: "warning",
             confirmButtonText: 'Cerrar',
-            confirmButtonClass: 'bg-orange',
+            confirmButtonClass: 'bg-warning',
+        })
+    },
+    info: function (x, r) {
+        Swal.fire({
+            title: x,
+            html: r,
+            type: "info",
+            confirmButtonText: 'Ok',
+            confirmButtonClass: 'bg-info',
         })
     },
     error: function (x, r) {
@@ -1051,7 +1165,42 @@ $.AdminJs.Alert = {
             html: r,
             type: "error",
             confirmButtonText: 'Cerrar',
-            confirmButtonClass: 'bg-red',
+            confirmButtonClass: 'bg-danger',
+        })
+    }
+}
+
+$.AdminJs.Ajax = {
+    init: (x, loading = false, partial = false) => {
+        $.ajax({
+            type: x.type,
+            url: x.url,
+            data: x.data,
+            cache: false,
+            beforeSend: function () {
+                if (loading) {
+                    $.AdminJs.Loading.start();
+                }
+            },
+            success: function (e) {
+                if (e.status == "OK" || partial || e.status == "info") {
+                    x.action(e);
+                } else if (e.status == "error") {
+                    $.AdminJs.Alert.error(e.title, e.responseText);
+                } else if (e.status == "warning") {
+                    $.AdminJs.Alert.warning(e.title, e.responseText);
+                } else {
+                    $('#errorReport').html(e.title, e.responseText);
+                }
+            },
+            complete: function () {
+                if (loading) {
+                    $.AdminJs.Loading.stop();
+                }
+            },
+            error: function (e) {
+                $('#errorReport').html(e.responseText);
+            }
         })
     }
 }
