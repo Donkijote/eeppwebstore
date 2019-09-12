@@ -87,7 +87,10 @@
                             {
                                 <span class="mg-product-badge bg-success">Oferta</span>
                             }
-                            <div class="mg-product-wish bg-secondary" data-toggle="tooltip" data-placement="top" title="@WebStore.Resources.Buttons.Quote" data-original-title="@WebStore.Resources.Buttons.Quote">
+                            <div class="mg-product-wish bg-secondary" data-toggle="tooltip" data-placement="top" title="@WebStore.Resources.Buttons.Quote" data-original-title="@WebStore.Resources.Buttons.Quote"
+                                 data-code="@item.strCodigo" data-name="@item.strNombre" data-price="@item.intPrecio"
+                                        data-off-percentage="@(item.intPrecioOff != "0" ? item.intPrecentOff:"")" data-off-price="@(item.intPrecioOff != "0" ? item.intPrecioOff:"")"
+                                        data-quantity="1">
                                 <i></i>
                             </div>
                             <a class="mg-product-thumb" href="@Url.Action("Category", "Product", new { id = item.categorySeo, idp = item.strCodigo, language = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName })">
@@ -425,7 +428,6 @@
         $(document).ready(function () {
             new WOW().init();
             $.AdminJs.Countdown.activate();
-            $.AdminJs.LogInUp.activate();
         });
     </script>
 }

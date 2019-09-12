@@ -18,6 +18,7 @@ namespace WebStore.Models
         public tblUsers()
         {
             this.tblAddresses = new HashSet<tblAddresses>();
+            this.tblQuotingQue = new HashSet<tblQuotingQue>();
         }
     
         public int idUser { get; set; }
@@ -36,5 +37,7 @@ namespace WebStore.Models
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblAddresses> tblAddresses { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tblQuotingQue> tblQuotingQue { get; set; }
     }
 }

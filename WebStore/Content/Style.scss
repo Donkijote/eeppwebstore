@@ -5713,6 +5713,23 @@ blockquote {
 }
 /*#endregion*/
 
+/*#region ScrollBar Chrome*/
+::-webkit-scrollbar {
+    width: 8px;
+}
+::-webkit-scrollbar-thumb {
+    background: #a8a8a8;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+}
+::-webkit-scrollbar-track {
+    background: #ddd;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+}
+
+/*#endregion*/
+
 /*#region Keyframes */
 @-o-keyframes floating-arrow {
     from {

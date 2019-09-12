@@ -16,6 +16,13 @@ namespace WebStore.Models
     {
         public IEnumerable<Family> family { get; set; }
         public IEnumerable<tblCategories> category { get; set; }
+        public Notification Notification { get; set; }
+    }
+
+    public class Notification
+    {
+        public int Quotings { get; set; }
+        public int Cart { get; set; }
     }
 
     public class LeftMenu

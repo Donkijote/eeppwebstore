@@ -214,7 +214,7 @@ namespace WebStore.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &lt;script src=&quot;https://cdn.jsdelivr.net/npm/sweetalert2@7.26.12/dist/sweetalert2.all.min.js&quot; integrity=&quot;sha256-Y+WJP3jVjJgfw+/m2N5/GGUgxqXDCz7S3zstxj8pqng=&quot; crossorigin=&quot;anonymous&quot; async&gt;&lt;/script&gt;.
+        ///   Looks up a localized string similar to &lt;script src=&quot;https://cdn.jsdelivr.net/npm/sweetalert2@7.26.12/dist/sweetalert2.all.min.js&quot; integrity=&quot;sha256-Y+WJP3jVjJgfw+/m2N5/GGUgxqXDCz7S3zstxj8pqng=&quot; crossorigin=&quot;anonymous&quot;&gt;&lt;/script&gt;.
         /// </summary>
         public static string SweetAlert {
             get {

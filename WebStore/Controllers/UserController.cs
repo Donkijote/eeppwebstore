@@ -178,7 +178,145 @@ namespace WebStore.Controllers
 
         public ActionResult Quote()
         {
-            return View();
+            /*if(Session["id"] != null)
+            {
+                using(webstoreEntities db = new webstoreEntities())
+                {
+                    int UserId = Int32.Parse(Session["id"].ToString());
+                    List<QuotingsProductList> productLists = (from a in db.tblQuotingQue
+                                                              join b in db.tblQuotingQueDet
+                                                              on a.IdQuotingQue equals b.refQuotingQue
+                                                              where a.refUser == UserId
+                                                              select new QuotingsProductList
+                                                              {
+                                                                  Code = b.refCodProd,
+                                                                  Quantity = b.Quantity
+                                                              }).ToList();
+                    return View(productLists);
+                }
+            }
+            else
+            {
+                List<QuotingsProductList> productLists = System.Web.HttpContext.Current.Session["QuotingList"] as List<QuotingsProductList>;
+
+                return View(productLists);
+            }*/
+            List<QuotingsProductList> productLists = Session["QuotingList"] as List<QuotingsProductList>;
+
+            return View(productLists);
+        }
+        [HttpPost]
+        public JsonResult AddProductToQuoting(QuotingsProductList quotingsProduct)
+        {
+            try
+            {
+                List<QuotingsProductList> productLists = Session["QuotingList"] as List<QuotingsProductList>;
+                
+
+                if(productLists != null)
+                {
+                    if(productLists.Any(x => x.Code == quotingsProduct.Code))
+                    {
+                        foreach(var i in productLists)
+                        {
+                            if(i.Code == quotingsProduct.Code)
+                            {
+                                i.Quantity += quotingsProduct.Quantity;
+                            }
+                        }
+                    }
+                    else{
+                        productLists.Add(quotingsProduct);
+                    }
+                    Session["QuotingList"] = productLists;
+                    return Json(new { status = "OK" });
+                }
+                else
+                {
+                    List<QuotingsProductList> Products = new List<QuotingsProductList>
+                    {
+                        quotingsProduct
+                    };
+                    Session["QuotingList"] = Products;
+                    return Json(new { status = "OK" });
+                }
+            }catch(Exception ex)
+            {
+                return Json(new { status = "error", responseText = ex.ToString() });
+            }
+        }
+        [HttpPost]
+        public JsonResult RemoveItemFromQuotingList(string id)
+        {
+            if (Session["id"] != null)
+            {
+                return Json(new { });
+            }
+            else
+            {
+                List<QuotingsProductList> productLists = Session["QuotingList"] as List<QuotingsProductList>;
+                var toRemove = productLists.Single(x => x.Code == id);
+                productLists.Remove(toRemove);
+
+                if (productLists.Count() > 0)
+                {
+                    return Json(new { status = "OK", reload = false });
+                }
+                else
+                {
+                    Session.Remove("QuotingList");
+                    return Json(new { status = "OK", reload = true });
+                }
+            }
+        }
+        [HttpPost]
+        public JsonResult DeleteQuotingList()
+        {
+            if(Session["id"] != null)
+            {
+                return Json(new { });
+            }
+            else
+            {
+                Session.Remove("QuotingList");
+
+                if (Session["QuotingList"] == null)
+                {
+                    return Json(new { status = "OK", reload = true });
+                }
+                else
+                {
+                    return Json(new { status = "error", title = "Up...!", responseText = "Algo salió mal, no se pudo vaciar su lista, recargue la página e intente nuevamente." });
+                }
+            }
+        }
+        [HttpPost]
+        public JsonResult UpdateItemQuantityFromQuotingList(string code, int quantity)
+        {
+            if(Session["id"] != null)
+            {
+                return Json(new { });
+            }
+            else
+            {
+                try
+                {
+                    List<QuotingsProductList> productLists = Session["QuotingList"] as List<QuotingsProductList>;
+                    foreach (var i in productLists)
+                    {
+                        if (i.Code == code)
+                        {
+                            i.Quantity = quantity;
+                        }
+                    }
+
+                    Session["QuotingList"] = productLists;
+                    return Json(new { status = "OK" });
+                }catch(Exception ex)
+                {
+                    return Json(new { status = "error", title = "Ups...!", responseText = ex.ToString() });
+                }
+            }
         }
 
         public ActionResult Continue(string id)

@@ -12,23 +12,19 @@ namespace WebStore.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class tblProvincias
+    public partial class tblQuotingQue
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public tblProvincias()
+        public tblQuotingQue()
         {
-            this.tblComunas = new HashSet<tblComunas>();
-            this.tblAddresses = new HashSet<tblAddresses>();
+            this.tblQuotingQueDet = new HashSet<tblQuotingQueDet>();
         }
     
-        public int idProvincia { get; set; }
-        public string strNombre { get; set; }
-        public int refRegion { get; set; }
+        public int IdQuotingQue { get; set; }
+        public int refUser { get; set; }
     
+        public virtual tblUsers tblUsers { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tblComunas> tblComunas { get; set; }
-        public virtual tblRegiones tblRegiones { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tblAddresses> tblAddresses { get; set; }
+        public virtual ICollection<tblQuotingQueDet> tblQuotingQueDet { get; set; }
     }
 }

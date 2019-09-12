@@ -63,38 +63,223 @@ namespace WebStore.Controllers
             return View();
         }
 
-        public ActionResult Address(string id = null)
+        public ActionResult Address(string id = null, int? idp = null)
         {
 
-            ViewBag.url = "Address";
             if (String.IsNullOrWhiteSpace(id))
             {
-                return View();
+                using(webstoreEntities db = new webstoreEntities())
+                {
+                    int userId = Int32.Parse(Session["id"].ToString());
+                    var Address = (from a in db.tblAddresses
+                                   join b in db.tblRegiones
+                                   on a.refRegion equals b.idRegion
+                                   join c in db.tblProvincias
+                                   on a.refProvince equals c.idProvincia
+                                   join d in db.tblComunas
+                                   on a.refComuna equals d.idComuna
+                                   join e in db.tblUsers
+                                   on a.refuser equals e.idUser
+                                   where a.refuser == userId
+                                   select new Addresses
+                                   {
+                                       Id = a.idAddress,
+                                       Region = b.strNombre,
+                                       Province = c.strNombre,
+                                       Comuna = d.strNombre,
+                                       City = a.strCity,
+                                       Address = a.strAddress,
+                                       AddressTwo = a.strAddressTwo,
+                                       Poste = a.intPostalCode,
+                                       Type = a.strType,
+                                       Default = a.boolDefault == null ? false: (bool)a.boolDefault,
+                                       Third = a.boolThird == null ? false: (bool)a.boolThird,
+                                       Tlf = e.intPhone
+                                   }).ToList();
+                    foreach(var i in Address)
+                    {
+                        if (i.Third)
+                        {
+                            var f = db.tblAddressesDet.Where(x => x.refAddress == i.Id).FirstOrDefault();
+                            i.Names = f.strName;
+                            i.LastNames = f.strLastName;
+                            i.Phone = (int)f.intPhone;
+                        }
+                    }
+                    return View(Address);
+                }                
             }
             else
             {
                 if(id == "Add")
                 {
-                    using(WebStore.Models.webstoreEntities db = new WebStore.Models.webstoreEntities())
+                    using(webstoreEntities db = new webstoreEntities())
                     {
-                        var viewModel = new BindSelect();
+                        var viewModel = new BindSelect
+                        {
+                            countries = db.tblCountry.Select(x => x).ToList(),
 
-                        viewModel.countries = db.tblCountry.Select(x=> x).ToList();
+                            regions = db.tblRegiones.Select(x => x).ToList(),
 
-                        viewModel.regions = db.tblRegiones.Select(x=>x).ToList();
-
-                        viewModel.comunes = db.tblComunas.Where(x => x.refProvincia == 1).ToList();
+                            comunes = db.tblComunas.Where(x => x.refProvincia == 1).ToList()
+                        };
 
                         return View("addAddress", viewModel);
                     }
                 }
                 else if (id == "Edit")
                 {
-                    return View("editAddress");
+                    if(idp != null)
+                    {
+                        using (webstoreEntities db = new webstoreEntities())
+                        {
+                            string email = Session["email"].ToString();
+                            int idUser = Int32.Parse(Session["id"].ToString());
+                            var user = db.tblUsers.Where(x => x.strEmail == email && x.idUser == idUser).FirstOrDefault();
+                            var address = GetAddresses(db, user.idUser).Where(x => x.Id == idp).FirstOrDefault();
+                            var addressDet = db.tblAddressesDet.Where(x => x.refAddress == address.Id).FirstOrDefault();
+
+                            BindingAddress ViewModel = new BindingAddress()
+                            {
+                                Regiones = db.tblRegiones.Select(x => x).ToList(),
+                                Provinces = db.tblProvincias.Select(x => x).ToList(),
+                                Comunes = db.tblComunas.Select(x => x).ToList(),
+                                Addresses = address,
+                                AddressesDet = addressDet,
+                                User = user,
+
+                            };
+                            return View("editAddress", ViewModel);
+                        }
+                    }
+                    else
+                    {
+                        return View();
+                    }
                 }
                 else
                 {
                     return View();
+                }
+            }
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public JsonResult AddNewAddress(AddNewAddress newAddress)
+        {
+            using(webstoreEntities db = new webstoreEntities())
+            {
+                int UserId = Int32.Parse(Session["id"].ToString());
+                tblAddresses addresses = new tblAddresses
+                {
+                    refuser = UserId,
+                    refRegion = newAddress.States,
+                    refProvince = newAddress.Provincia,
+                    refComuna = newAddress.Comuna,
+                    intPostalCode = newAddress.PosteCode,
+                    strCity = newAddress.City,
+                    strAddress = newAddress.Address,
+                    strAddressTwo = newAddress.AddressTwo,
+                    strType = newAddress.Type
+                };
+
+                var ifAny = db.tblAddresses.Where(x => x.refuser == UserId).ToList();
+                if (ifAny.Any())
+                {
+                    addresses.boolDefault = false;
+                }
+                else
+                {
+                    addresses.boolDefault = true;
+                }
+
+                try
+                {
+                    db.tblAddresses.Add(addresses);
+                    db.SaveChanges();
+                    return Json(new { status = "OK", title = "Dirección añadida", responseText = "La dirección ha sido añadida correctamente." }, JsonRequestBehavior.AllowGet);
+                }
+                catch (Exception ex)
+                {
+                    return Json(new { status = "error", title = "Ups...!", responseText = ex.ToString() }, JsonRequestBehavior.AllowGet);
+                }
+            }
+        }
+
+        [HttpPost]
+        public JsonResult SetDefaultAddress(int id)
+        {
+            using(webstoreEntities db = new webstoreEntities())
+            {
+                int UserId = Int32.Parse(Session["id"].ToString());
+                List<tblAddresses> addresses = db.tblAddresses.Where(x => x.refuser == UserId).Select(x => x).ToList();
+
+                foreach(var i in addresses)
+                {
+                    if(i.idAddress == id)
+                    {
+                        i.boolDefault = true;
+                    }
+                    else
+                    {
+                        i.boolDefault = false;
+                    }
+                }
+
+                try
+                {
+                    db.SaveChanges();
+                    return Json(new { status = "OK" });
+                }catch(Exception ex)
+                {
+                    return Json(new { status = "error", title = "Ups...!", responseText = ex.ToString() }, JsonRequestBehavior.AllowGet);
+                }
+            }
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public JsonResult EditAddress(AddNewAddress newAddress)
+        {
+            using(webstoreEntities db = new webstoreEntities())
+            {
+                tblAddresses Dir = db.tblAddresses.Where(x => x.idAddress == newAddress.PreviousId).FirstOrDefault();
+
+                Dir.refRegion = newAddress.States;
+                Dir.refProvince = newAddress.Provincia;
+                Dir.refComuna = newAddress.Comuna;
+                Dir.strAddress = newAddress.Address;
+                Dir.strAddressTwo = newAddress.AddressTwo;
+                Dir.strCity = newAddress.City;
+                Dir.intPostalCode = newAddress.PosteCode;
+                Dir.strType = newAddress.Type;
+                try
+                {
+                    db.SaveChanges();
+                    return Json(new { status = "OK", title = "Dirección actualizada", responseText = "La dirección fue actualizada correctamente." });
+                }catch(Exception ex)
+                {
+                    return Json(new { status = "error", title = "Ups...!", responseText = ex.ToString() });
+                }
+            }
+        }
+
+        [HttpPost]
+        public JsonResult SetDeleteAddress(int id)
+        {
+            using(webstoreEntities db = new webstoreEntities())
+            {
+                try
+                {
+                    var Dir = new tblAddresses { idAddress = id };
+                    db.tblAddresses.Attach(Dir);
+                    db.tblAddresses.Remove(Dir);
+                    db.SaveChanges();
+                    return Json(new { status = "OK" });
+                }catch(Exception ex)
+                {
+                    return Json(new { status = "error", title = "Ups...!", responseText = ex.ToString() });
                 }
             }
         }
@@ -129,31 +314,7 @@ namespace WebStore.Controllers
                 string email = Session["email"].ToString();
                 int id = Int32.Parse(Session["id"].ToString());
                 var user = db.tblUsers.Where(x => x.strEmail == email && x.idUser == id).FirstOrDefault();
-                var address = (from a in db.tblAddresses
-                               join b in db.tblRegiones
-                               on a.refRegion equals b.idRegion
-                               join c in db.tblProvincias
-                               on a.refProvince equals c.idProvincia
-                               join d in db.tblComunas
-                               on a.refComuna equals d.idComuna
-                               join e in db.tblUsers
-                               on a.refuser equals e.idUser
-                               where a.refuser == user.idUser && a.boolDefault == true
-                               select new Addresses
-                               {
-                                   Id = a.idAddress,
-                                   Country = a.strCountry,
-                                   RegionId = b.idRegion,
-                                   Region = b.strNombre,
-                                   ProvinceId = c.idProvincia,
-                                   Province = c.strNombre,
-                                   ComunaId = d.idComuna,
-                                   Comuna = d.strNombre,
-                                   City = a.strCity,
-                                   Address = a.strAddress,
-                                   Poste = a.intPostalCode,
-                                   Type = a.strType
-                               }).FirstOrDefault();
+                var address = GetAddresses(db, user.idUser).Where(x => x.Default == false).FirstOrDefault();
                 
                 BindingAddress ViewModel = new BindingAddress()
                 {
@@ -208,6 +369,54 @@ namespace WebStore.Controllers
                 }
             }
         }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public JsonResult PasswordChange(string ValidationCode, string Password, string ConfirmPassword)
+        {
+            using(webstoreEntities db = new webstoreEntities())
+            {
+                int id = Int32.Parse(Session["id"].ToString());
+                var user = db.tblUsers.Where(x => x.idUser == id).FirstOrDefault();
+                if (user != null)
+                {
+                    if(user.strRecoveryCode == ValidationCode)
+                    {
+                        if (user.timeRecoveryCode.Value.AddMinutes(30) > DateTime.Now)
+                        {
+                            if (Password == ConfirmPassword)
+                            {
+                                user.strPassword = Crypto.Hash(Password);
+                                try
+                                {
+                                    db.SaveChanges();
+                                    return Json(new { status = "OK", title = "Contraseña", responseText = "Su contraseña fue actualizada con éxito." }, JsonRequestBehavior.AllowGet);
+                                }
+                                catch (Exception ex)
+                                {
+                                    return Json(new { status = "error", title = "Ups...!", responseText = ex.ToString() }, JsonRequestBehavior.AllowGet);
+                                }
+                            }
+                            else
+                            {
+                                return Json(new { status = "warning", title = "Contraseña", responseText = "Contraseñas no coinciden." }, JsonRequestBehavior.AllowGet);
+                            }
+                        }
+                        else
+                        {
+                            return Json(new { status = "warning", title = "Expiración", responseText = "El código de validación ha expirado." }, JsonRequestBehavior.AllowGet);
+                        }
+                    }
+                    else{
+                        return Json(new { status = "warning", title = "Código", responseText = "El código de validación no es válido." }, JsonRequestBehavior.AllowGet);
+                    }
+                    
+                }
+                else
+                {
+                    return Json(new { status = "error", title = "Código", responseText = "Código de validación incorrecto." }, JsonRequestBehavior.AllowGet);
+                }
+            }
+        }
 
         public ActionResult WishList()
         {
@@ -253,6 +462,7 @@ namespace WebStore.Controllers
                     addressInfo.strAddress = user.Address;
                     addressInfo.strType = user.Type;
                     addressInfo.intPostalCode = user.PosteCode;
+                    addressInfo.boolThird = false;
                     try
                     {
                         db.SaveChanges();
@@ -274,6 +484,7 @@ namespace WebStore.Controllers
                         strType = user.Type,
                         intPostalCode = user.PosteCode,
                         boolDefault = true,
+                        boolThird = false,
                         refuser = UserId
                     };
                     try
@@ -296,7 +507,7 @@ namespace WebStore.Controllers
             var toEmail = new MailAddress(Email);
             var divice = HttpContext.Request.Browser.IsMobileDevice;
             string fromDivice = divice ? "Móvil" : "Escritorio";
-            string imgDivice = divice ? "/Content/img/bg/mobile.png" : "/Content/img/bg/desktop.png";
+            string imgDivice = divice ? "http:eeppwebstore.ddns.net/Content/img/bg/mobile.png" : "http:eeppwebstore.ddns.net/Content/img/bg/desktop.png";
             string subject = "Solicitud para cambio de contraseña";
             string body = $@"<br/><br/>Hemos recibido una solicitud para cambiar su contraseña.
                             <br/><br/> Desde un dispositivo: <strong>{fromDivice}</strong>&nbsp;&nbsp;&nbsp;<img src='{imgDivice}' style='width: 25px; max-width: 25px;'/>
@@ -315,6 +526,38 @@ namespace WebStore.Controllers
             {
                 return ex.ToString();
             }
+        }
+
+        private List<Addresses> GetAddresses(webstoreEntities db, int id)
+        {
+            return (from a in db.tblAddresses
+             join b in db.tblRegiones
+             on a.refRegion equals b.idRegion
+             join c in db.tblProvincias
+             on a.refProvince equals c.idProvincia
+             join d in db.tblComunas
+             on a.refComuna equals d.idComuna
+             join e in db.tblUsers
+             on a.refuser equals e.idUser
+             where a.refuser == id
+             select new Addresses
+             {
+                 Id = a.idAddress,
+                 Country = a.strCountry,
+                 RegionId = b.idRegion,
+                 Region = b.strNombre,
+                 ProvinceId = c.idProvincia,
+                 Province = c.strNombre,
+                 ComunaId = d.idComuna,
+                 Comuna = d.strNombre,
+                 City = a.strCity,
+                 Address = a.strAddress,
+                 AddressTwo = a.strAddressTwo,
+                 Poste = a.intPostalCode,
+                 Type = a.strType,
+                 Default = (bool)a.boolDefault,
+                 Third = a.boolThird == null ? false: (bool)a.boolThird
+             }).ToList();
         }
     }
 }

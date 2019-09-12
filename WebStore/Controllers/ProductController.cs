@@ -17,7 +17,6 @@ namespace WebStore.Controllers
             webstoreEntities db = new webstoreEntities();
             ElectropEntities dbE = new ElectropEntities();
             Warehouse stock = new Warehouse();
-            Function function = new Function();
             var o = dbE.iw_tlprprod.Where(i => i.CodLista == "16").ToList();
             var x = (from a in dbE.iw_tprod
                      join b in dbE.iw_tlprprod
@@ -39,9 +38,9 @@ namespace WebStore.Controllers
                          Cod = p.strCodigo,
                          strCodigo = p.strCod,
                          strNombre = p.strNombre.ToLower(),
-                         intPrecio = function.FormatNumber((int)(p.intPrecio + (p.intPrecio * (p.intPercent / 100)))),
+                         intPrecio = Function.FormatNumber((int)(p.intPrecio + (p.intPrecio * (p.intPercent / 100)))),
                          intPrecentOff = o.Any(l => l.CodProd == p.strCodigo) ? o.Where(i => i.CodProd == p.strCodigo).Select(j => (int)j.ValorPct).FirstOrDefault() + "%" : "0",
-                         intPrecioOff = o.Any(l => l.CodProd == p.strCodigo) ? function.FormatNumber((int)(p.intPrecio + (p.intPrecio * (p.intPercent / 100))) - (int)(((p.intPrecio + (p.intPrecio * (p.intPercent / 100))) * o.Where(i => i.CodProd == p.strCodigo).Select(j => (int)j.ValorPct).FirstOrDefault() / 100))) : "0",
+                         intPrecioOff = o.Any(l => l.CodProd == p.strCodigo) ? Function.FormatNumber((int)(p.intPrecio + (p.intPrecio * (p.intPercent / 100))) - (int)(((p.intPrecio + (p.intPrecio * (p.intPercent / 100))) * o.Where(i => i.CodProd == p.strCodigo).Select(j => (int)j.ValorPct).FirstOrDefault() / 100))) : "0",
                          intPercent = p.intPercent + "%",
                          categorySeo = id
                      })
@@ -68,7 +67,7 @@ namespace WebStore.Controllers
                     {
                         a.TimeOffer = true;
                         a.intPrecentOff = percentOff + "%";
-                        a.intPrecioOff = function.FormatNumber((int)Decimal.Parse(a.intPrecio) - (int)(Double.Parse(a.intPrecio) * percentOff / 100));
+                        a.intPrecioOff = Function.FormatNumber((int)Decimal.Parse(a.intPrecio) - (int)(Double.Parse(a.intPrecio) * percentOff / 100));
                         a.Time = string.Format("{0:D2}:{1:D2}:{2:D2}:{3:D2}", timeDiff.Days, timeDiff.Hours, timeDiff.Minutes, timeDiff.Seconds);
                     }
                 }
@@ -88,17 +87,8 @@ namespace WebStore.Controllers
             {
                 p.Stock = stock.GetStock(p.Cod);
 
-                if (Ficha.Any(f => f.refCodProd == p.strCodigo))
-                {
-                    p.Ficha = Ficha;
-                }
-                else
-                {
-                    p.Ficha = new List<tblFicha>()
-                    {
+                p.Ficha = db.tblFicha.Where(w => w.refCodProd == p.strCodigo).FirstOrDefault();
 
-                    };
-                }
             }
 
             return View("Product", x);

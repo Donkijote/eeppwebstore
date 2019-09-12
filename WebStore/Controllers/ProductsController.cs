@@ -39,7 +39,6 @@ namespace WebStore.Controllers
             ViewBag.type = isAllowed;
             string culture = CultureInfo.CurrentUICulture.TwoLetterISOLanguageName;
             Translate dir = new Translate();
-            Function function = new Function();
             webstoreEntities db = new webstoreEntities();
             ElectropEntities dbE = new ElectropEntities();
 
@@ -68,10 +67,10 @@ namespace WebStore.Controllers
                         .Select(x => new Products
                         {
                             strCodigo = x.strCod,
-                            strNombre = function.Truncate(x.strNombre, 60).ToLower(),
-                            intPrecio = function.FormatNumber((int)(x.intPrecio + (x.intPrecio * (30 / 100)))),
+                            strNombre = Function.Truncate(x.strNombre, 60).ToLower(),
+                            intPrecio = Function.FormatNumber((int)(x.intPrecio + (x.intPrecio * (30 / 100)))),
                             intPrecentOff = x.percent + "%",
-                            intPrecioOff = function.FormatNumber((int)(x.intPrecio + (x.intPrecio * (30 / 100))) - (int)(((x.intPrecio + (x.intPrecio * (30 / 100))) * x.percent / 100))),
+                            intPrecioOff = Function.FormatNumber((int)(x.intPrecio + (x.intPrecio * (30 / 100))) - (int)(((x.intPrecio + (x.intPrecio * (30 / 100))) * x.percent / 100))),
                             intPercent = "30%",
                             intPrecioNum = (int)(x.intPrecio + (x.intPrecio * (30 / 100))) - (int)(((x.intPrecio + (x.intPrecio * (x.percent / 100))) * x.percent / 100)),
                             categorySeo = cate.Any(c => c.strNombre == x.category) ? CultureInfo.CurrentCulture.TextInfo.ToTitleCase(cate.Where(c => c.strNombre == x.category).Select(c => c.strSeo).FirstOrDefault()) : ""
@@ -103,7 +102,7 @@ namespace WebStore.Controllers
                     {
                         a.TimeOffer = true;
                         a.intPrecentOff = percentOff + "%";
-                        a.intPrecioOff = function.FormatNumber((int)Decimal.Parse(a.intPrecio) - (int)(Decimal.Parse(a.intPrecio) * percentOff / 100));
+                        a.intPrecioOff = Function.FormatNumber((int)Decimal.Parse(a.intPrecio) - (int)(Decimal.Parse(a.intPrecio) * percentOff / 100));
                         a.Time = string.Format("{0:D2}:{1:D2}:{2:D2}:{3:D2}", timeDiff.Days, timeDiff.Hours, timeDiff.Minutes, timeDiff.Seconds);
                     }
                 }

@@ -166,7 +166,7 @@
     <value>&lt;script src="/Scripts/jquery.steps.js"&gt;&lt;/script&gt;</value>
   </data>
   <data name="SweetAlert" xml:space="preserve">
-    <value>&lt;script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.26.12/dist/sweetalert2.all.min.js" integrity="sha256-Y+WJP3jVjJgfw+/m2N5/GGUgxqXDCz7S3zstxj8pqng=" crossorigin="anonymous" async&gt;&lt;/script&gt;</value>
+    <value>&lt;script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.26.12/dist/sweetalert2.all.min.js" integrity="sha256-Y+WJP3jVjJgfw+/m2N5/GGUgxqXDCz7S3zstxj8pqng=" crossorigin="anonymous"&gt;&lt;/script&gt;</value>
   </data>
   <data name="WowJs" xml:space="preserve">
     <value>&lt;script src="/Scripts/Animation/wow.min.js"&gt;&lt;/script&gt;</value>

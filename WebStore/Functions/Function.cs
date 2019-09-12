@@ -13,17 +13,17 @@ namespace WebStore.Functions
 {
     public class Function
     {
-        public string Truncate(string value, int maxChars)
+        public static string Truncate(string value, int maxChars)
         {
             return value.Length <= maxChars ? value : value.Substring(0, maxChars) + "...";
         }
 
-        public string FormatNumber(int number)
+        public static string FormatNumber(int number)
         {
             return number.ToString("N0", CultureInfo.GetCultureInfo("es-CL"));
         }
 
-        public string getTitle(string id)
+        public static string getTitle(string id)
         {
             using (webstoreEntities db = new webstoreEntities())
             {

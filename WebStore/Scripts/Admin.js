@@ -13,7 +13,7 @@ $.Dir ={
     },
     es: function (x) {
         var spanishDic = {
-            "quoteAdd": "Este producto ha sido añadido a su lista de cotización.",
+            "quoteAdd": "Este producto ha sido añadido a su lista de cotización.<br/> Clic aquí para ver lista.",
             "quoteRemove": "Este producto ha sido removido de su lista de cotización."
         }
 
@@ -57,7 +57,7 @@ $.AdminJs.LogInUp = {
                     data: x,
                     action: function (e) {
                         if (e.status == "OK") {
-                            $.AdminJs.Alert.success(e.title, e.responseText);
+                            $.AdminJs.Alert.success(e.title, e.responseText, window.location);
                         }
                     }
                 });
@@ -181,7 +181,7 @@ $.AdminJs.LogInUp = {
                     console.log(code);
                     if (code.status == "OK") {
                         $.AdminJs.Loading.stop();
-                        $.AdminJs.Alert.success(code.title, code.responseText);
+                        $.AdminJs.Alert.success(code.title, code.responseText, window.location);
                         return form.valid();
                     }
                     else {
@@ -299,37 +299,19 @@ $.AdminJs.LogInUp = {
 }
 
 $.AdminJs.compare = {
-	activate: function () {
-        $('.mg-product-wish').on('click', function () {
-			if ($(this).hasClass('active')) {
-				$(this).removeClass('active');
-				var data = {
-					icon: 'far fa-times-circle',
-                    title: '',
-                    message: TranslateText("quoteRemove"),
-					type: 'danger',
-					from: 'top',
-					align: 'right',
-					mouse: 'pause',
-					enter: 'animated fadeInRight',
-					exit: 'animated fadeOutRight'
-				}
-				myAlert(data)
-			} else {
-				$(this).addClass('active');
-				var data = {
-					icon: 'far fa-check-circle',
-					title: '',
-                    message: TranslateText("quoteAdd"),
-					type: 'success',
-					from: 'top',
-					align: 'right',
-					mouse: 'pause',
-					enter: 'animated fadeInRight',
-					exit: 'animated fadeOutRight'
-				}
-				myAlert(data)
-			}
+    activate: function () {
+        var _this = this;
+        $('.mg-product-wish').on('click', function (e) {
+            e.preventDefault()
+            var data = {
+                Code: $(this).data('code'),
+                Name: $(this).data('name'),
+                Price: $(this).data('price'),
+                PriceOff: $(this).data('off-price'),
+                PercentageOff: $(this).data('off-percentage'),
+                Quantity: $(this).data('quantity') == "" || $(this).data('quantity') == undefined ? $('select[name="Quantity"]').val() : $(this).data('quantity')
+            }
+            _this.sendAddProductToQuoting($.param(data));
 		})
 		$('.btn-compare').on('click', function () {
 			if ($(this).hasClass('active')) {
@@ -362,11 +344,127 @@ $.AdminJs.compare = {
 				myAlert(data)
 			}
 		})
-	}
+    },
+    sendAddProductToQuoting: (x) => {
+        $.AdminJs.Ajax.init({
+            type: 'POST',
+            url: '/en/User/AddProductToQuoting/',
+            data: x,
+            action: (resp) => {
+                if (resp.status == "OK") {
+                    $(this).addClass('active');
+                    var data = {
+                        icon: 'far fa-check-circle',
+                        title: '',
+                        message: TranslateText("quoteAdd"),
+                        type: 'success',
+                        from: 'top',
+                        align: 'right',
+                        mouse: 'pause',
+                        enter: 'animated fadeInRight',
+                        exit: 'animated fadeOutRight',
+                        url: '/es/Usuario/Cotizar'
+                    }
+                    myAlert(data)
+                } else {
+                    $(this).removeClass('active');
+                    var data = {
+                        icon: 'far fa-times-circle',
+                        title: '',
+                        message: "No se puedo añadir este producto a la cotización.<br /> Intente nuevamente.",
+                        type: 'danger',
+                        from: 'top',
+                        align: 'right',
+                        mouse: 'pause',
+                        enter: 'animated fadeInRight',
+                        exit: 'animated fadeOutRight'
+                    }
+                    myAlert(data)
+                }
+            }
+        })
+    }
+}
+
+$.AdminJs.addresses = {
+    activate: function () {
+        var _this = this;
+        $('.setDefault').on('click', function (e) {
+            e.preventDefault();
+            var id = $(this).data('id');
+
+            $.AdminJs.Ajax.init({
+                type: 'POST',
+                url: '/en/Account/SetDefaultAddress/',
+                data: { id: id },
+                action: (resp) => {
+                    if (resp.status == "OK") {
+                        window.location.reload();
+                    }
+                }
+            })
+        })
+
+        $('.setDelete').on('click', function (e) {
+            e.preventDefault();
+            var id = $(this).data('id');
+
+            $.AdminJs.Ajax.init({
+                type: 'POST',
+                url: '/en/Account/SetDeleteAddress/',
+                data: { id: id },
+                action: (resp) => {
+                    if (resp.status == "OK") {
+                        window.location.reload();
+                    }
+                }
+            })
+        })
+    }
+}
+
+$.AdminJs.editAddress = {
+    activate: function () {
+        var _this = this;
+        $('input[name="ShippingType"]').on('change', function (e) {
+            e.preventDefault();
+            var id = $(this).val();
+            if (id == 1) {
+                $('#formDisplay .col-lg-4:lt(3)').hide();
+                $('#formDisplay .col-lg-4:lt(3) input').attr('disabled', true);
+            } else {
+                $('#formDisplay .col-lg-4:lt(3)').show();
+                $('#formDisplay .col-lg-4:lt(3) input').attr('disabled', false);
+            }
+            $('#formDisplay').removeClass('d-none');
+        })
+        $('#addNewNationalAddress').on('submit', function (e) {
+            e.preventDefault();
+            var form = $(this);
+            if (form.valid()) {
+                _this.sendEditNewAddress(form.serialize());
+            }
+        })
+    },
+    sendEditNewAddress: (x) => {
+        $.AdminJs.Ajax.init({
+            type: 'POST',
+            url: '/en/Account/EditAddress/',
+            data: x,
+            action: (resp) => {
+                if (resp.status == "OK") {
+                    $.AdminJs.Alert.success(resp.title, resp.responseText, '/es/Cuenta/Direcciones');
+                } else {
+                    $.AdminJs.Alert.error(resp.title, resp.responseText);
+                }
+            }
+        },true)
+    }
 }
 
 $.AdminJs.addAddress = {
     activate: function () {
+        var _this = this;
         $('input[name="strType"]').on('change', function () {
             var id = $(this).attr('id');
             if (id === "strInternational") {
@@ -390,7 +488,7 @@ $.AdminJs.addAddress = {
                 url: '/en/Account/Provinces/',
                 data: { id: id },
                 success: function (e) {
-                    var modelsHtml = "<option value=''></option>";
+                    var modelsHtml = "<option value=''>Provincia</option>";
                     $.each(e, function (a, b) {
                         modelsHtml += "<option value='" + b.id + "'>" + b.nombre + "</option>";
                     })
@@ -407,7 +505,7 @@ $.AdminJs.addAddress = {
                 url: '/en/Account/Communes/',
                 data: { id: id },
                 success: function (e) {
-                    var modelsHtml = "<option value=''></option>";
+                    var modelsHtml = "<option value=''>Comuna</option>";
                     $.each(e, function (a, b) {
                         modelsHtml += "<option value='" + b.id + "'>" + b.nombre + "</option>";
                     })
@@ -415,6 +513,28 @@ $.AdminJs.addAddress = {
                 }
             })
         })
+
+        $('#addNewNationalAddress').on('submit', function (e) {
+            e.preventDefault();
+            var form = $(this);
+            if (form.valid()) {
+                _this.sendAddNewAddress(form.serialize());
+            }
+        })
+    },
+    sendAddNewAddress: (x) => {
+        $.AdminJs.Ajax.init({
+            type: 'POST',
+            url: '/en/Account/AddNewAddress/',
+            data: x,
+            action: (resp) => {
+                if (resp.status == "OK") {
+                    $.AdminJs.Alert.success(resp.title, resp.responseText, '/es/Cuenta/Direcciones');
+                } else {
+                    $.AdminJs.Alert.error(resp.title, resp.responseText);
+                }
+            }
+        },true)
     }
 }
 
@@ -432,6 +552,96 @@ $.AdminJs.cart = {
                     $(this).closest('tr').remove();
                 });
         })
+    }
+}
+
+$.AdminJs.quoting = {
+    activate: function () {
+        var _this = this;
+        $('.remove-from-cart').on('click', function () {
+            var id = $(this).data('id');
+            $.AdminJs.Ajax.init({
+                type: 'POST',
+                url: '/en/User/RemoveItemFromQuotingList/',
+                data: { id: id },
+                action: (resp) => {
+                    if (resp.status == "OK") {
+                        if (resp.reload == true) {
+                            window.location.reload();
+                        } else {
+                            $(this).parents('tr')
+                                .children('td, th')
+                                .animate({
+                                    padding: 0
+                                })
+                                .wrapInner('<div />')
+                                .children()
+                                .slideUp(function () {
+                                    $(this).closest('tr').remove();
+                                });
+                        }
+                    }
+                }
+            })
+        })
+        $('#EmptyQuotingList').on('click', function (e){
+            e.preventDefault();
+            $.AdminJs.Ajax.init({
+                type: 'POST',
+                url: '/en/User/DeleteQuotingList/',
+                data: "",
+                action: (resp) => {
+                    if (resp.status == "OK") {
+                        window.location.reload();
+                    }
+                }
+            })
+        })
+        $('.selectQuantity').on('change', function (e) {
+            var id = $(this).data("id");
+            var quantity = $(this).val();
+            if (quantity == 7) {
+                $(this).parent().find("input").attr("disabled", false);
+                $(this).hide();
+                $(this).parent().find(".form-group").removeClass("d-none");
+            } else {
+                _this.updateQuotingItemQuantity(id, quantity);
+            }
+        })
+        $('input[name="quantityBox"]').on('focusout', function () {
+            var quantity = $(this).val();
+            var id = $(this).data('id');
+            if (quantity < 7) {
+                var select = $(this).parents('.count-input').find('select');
+                $(this).parent().addClass("d-none");
+                $(this).attr("disabled", true);
+                select.val(quantity);
+                select.find('option').each(function (i, val) {
+                    if ($(this).val() != quantity) {
+                        if ($(this).attr('selected')) {
+                            $(this).attr("selected", false);
+                        }
+                    } else {
+                        $(this).attr("selected", true);
+                    }
+                })
+                
+                select.show();
+                _this.updateQuotingItemQuantity(id, quantity);
+            } else {
+                _this.updateQuotingItemQuantity(id, quantity);
+            }
+        })
+    },
+    updateQuotingItemQuantity: (x, y) => {
+        $.AdminJs.Ajax.init({
+            type: 'POST',
+            url: '/en/User/UpdateItemQuantityFromQuotingList/',
+            data: { code: x, quantity: y },
+            action: (resp) => {
+
+            }
+        },true)
     }
 }
 
@@ -701,7 +911,7 @@ $.AdminJs.userSettings = {
             url: '/en/Account/UpdateUserInfo/',
             data: x,
             action: (resp) => {
-                $.AdminJs.Alert.success(resp.title, resp.responseText);
+                $.AdminJs.Alert.success(resp.title, resp.responseText, window.location);
             }
         }, true)
     }
@@ -709,6 +919,8 @@ $.AdminJs.userSettings = {
 
 $.AdminJs.passwordChange = {
     activate: function (x) {
+        var _this = this;
+        $.AdminJs.reveal.activate();
         if (x.status == "OK") {
             $.AdminJs.Alert.info(x.title, x.responseText);
         } else if (x.status == "warning") {
@@ -716,6 +928,29 @@ $.AdminJs.passwordChange = {
         } else {
             $.AdminJs.Alert.error(x.title, x.responseText);
         }
+
+        $('#changePassword').on('submit', function(e){
+            e.preventDefault();
+            var form = $(this);
+            if (form.valid()) {
+                _this.sendPasswordChange(form.serialize());
+            }
+        })
+    },
+    sendPasswordChange: (x) => {
+        console.log(x)
+        $.AdminJs.Ajax.init({
+            type: 'POST',
+            url: '/en/Account/PasswordChange/',
+            data: x,
+            action: (resp) => {
+                if (resp.status == "OK") {
+                    $.AdminJs.Alert.success(resp.title, resp.responseText, '/es/Cuenta/Configuracion');
+                } else {
+                    $.AdminJs.Alert.error(resp.title, resp.responseText);
+                }
+            }
+        },true)
     }
 }
 
@@ -1142,7 +1377,7 @@ $.AdminJs.Countdown = {
 }
 
 $.AdminJs.Alert = {
-    success: function (x, r) {
+    success: function (x, r, y) {
         Swal.fire({
             title: x,
             html: r,
@@ -1150,7 +1385,7 @@ $.AdminJs.Alert = {
             confirmButtonText: 'Ok',
             confirmButtonClass: 'bg-success',
         }).then(function () {
-            window.location.reload();
+            window.location.href = y;
         });
     },
     warning: function (x, r) {
@@ -1198,6 +1433,7 @@ $.AdminJs.Ajax = {
                 if (e.status == "OK" || partial || e.status == "info") {
                     x.action(e);
                 } else if (e.status == "error") {
+                    console.log(e)
                     $.AdminJs.Alert.error(e.title, e.responseText);
                 } else if (e.status == "warning") {
                     $.AdminJs.Alert.warning(e.title, e.responseText);
@@ -1211,6 +1447,7 @@ $.AdminJs.Ajax = {
                 }
             },
             error: function (e) {
+                console.log(e.Params)
                 $('#errorReport').html(e.responseText);
             }
         })
@@ -1247,7 +1484,9 @@ function myAlert(x) {
 	$.notify({
 		icon: x['icon'],
 		title: x['title'],
-		message: x['message']
+        message: x['message'],
+        url: x.url,
+        target: '_self'
 	},
 		{
             type: x['type'],

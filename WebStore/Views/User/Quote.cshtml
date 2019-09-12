@@ -1,4 +1,4 @@
-﻿
+﻿@model IEnumerable<WebStore.Models.QuotingsProductList>
 @{
     ViewBag.Title = WebStore.Resources.Titles.Quote;
 }
@@ -30,131 +30,76 @@
 
 <div class="container mb-5">
     <div class="table-responsive shopping-cart">
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>@WebStore.Resources.Cart.Product</th>
-                    <th class="text-center">@WebStore.Resources.Cart.Quantity</th>
+        @{
+            if (Model != null)
+            {
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>@WebStore.Resources.Cart.Product</th>
+                            <th class="text-center">@WebStore.Resources.Cart.Quantity</th>
 
-                    <th class="text-center"><a class="btn btn-sm btn-outline-danger" href="#">@WebStore.Resources.Buttons.EmptyList</a></th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>
-                        <div class="product-item">
-                            <a class="product-thumb" href="#">
-                                <img src="~/Content/img/products/25040806-1.jpg" alt="Product" />
-                            </a>
-                            <div class="product-info">
-                                <h4 class="product-title">
-                                    <a href="#">Proyector Bree 240w</a>
-                                </h4>
-                                <div class="text-lg mb-1">$910.00</div>
-                                <div class="text-sm">
-                                    Disponibilidad:
-                                    <div class="d-inline text-success">En Stock</div>
-                                </div>
-                            </div>
-                        </div>
-                    </td>
+                            <th class="text-center"><a class="btn btn-sm btn-outline-danger" id="EmptyQuotingList" href="#">@WebStore.Resources.Buttons.EmptyList</a></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var i in Model)
+                        {
+                            <tr>
+                                <td>
+                                    <div class="product-item">
+                                        <a class="product-thumb" href="#">
+                                            <img src="~/Content/img/products/@i.Code-1.jpg" alt="Product" />
+                                        </a>
+                                        <div class="product-info">
+                                            <h4 class="product-title">
+                                                <a href="#">@i.Name</a>
+                                            </h4>
+                                            <div class="text-lg mb-1">$ @i.Price</div>
+                                            <div class="text-sm">
+                                                Disponibilidad:
+                                                <div class="d-inline text-success">En Stock</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
 
-                    <td class="text-center">
-                        <div class="count-input">
-                            <select class="form-control">
-                                <option>1</option>
-                                <option>2</option>
-                                <option>3</option>
-                                <option>4</option>
-                                <option>5</option>
-                            </select>
-                        </div>
-                    </td>
+                                <td class="text-center">
+                                    <div class="count-input">
+                                        <select class="form-control selectQuantity @(i.Quantity >= 7 ? "d-none":"")" data-id="@i.Code" @(i.Quantity >= 7 ? "disabled":"")>
+                                            @for (int j = 1; j < 7; j++)
+                                            {
+                                                <option value="@j" @(j == i.Quantity ? "selected" : "")>@j</option>
+                                            }
+                                            <option value="7" class="plusSix">+6</option>
+                                        </select>
+                                        <div class="form-group mb-0 @(i.Quantity < 7 ? "d-none":"")">
+											<input type="text" name="quantityBox" class="form-control" placeholder="Cantidad" value="@i.Quantity" data-old="" maxlegth="3" data-id="@i.Code" @(i.Quantity < 7 ? "disabled":"")>
+                                        </div>
+                                    </div>
+                                </td>
 
-                    <td class="text-center">
-                        <a class="remove-from-cart" href="#" data-toggle="tooltip" title="" data-original-title="Quitar Artículo">
-                            <i class="fas fa-times"></i>
-                        </a>
-                    </td>
-                </tr>
+                                <td class="text-center">
+                                    <a class="remove-from-cart" href="#" data-toggle="tooltip" title="" data-original-title="Quitar Artículo" data-id="@i.Code">
+                                        <i class="fas fa-times"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+            else
+            {
+                <h3>No tiene productos para cotizar su lista está vacía.</h3>
+            }
 
-                <tr>
-                    <td>
-                        <div class="product-item">
-                            <a class="product-thumb" href="#">
-                                <img src="~/Content/img/products/25040902-1.jpg" alt="Product" />
-                            </a>
-                            <div class="product-info">
-                                <h4 class="product-title"><a href="#">Proyector Bree 360w</a></h4>
-                                <div class="text-lg mb-1">$1,450.00</div>
-                                <div class="text-sm">
-                                    Disponibilidad:
-                                    <div class="d-inline text-warning">2 - 3 Semanas</div>
-                                </div>
-                            </div>
-                        </div>
-                    </td>
-
-                    <td class="text-center">
-                        <div class="count-input">
-                            <select class="form-control">
-                                <option>1</option>
-                                <option>2</option>
-                                <option>3</option>
-                                <option>4</option>
-                                <option>5</option>
-                            </select>
-                        </div>
-                    </td>
-
-                    <td class="text-center">
-                        <a class="remove-from-cart" href="#" data-toggle="tooltip" title="" data-original-title="Quitar Artículo">
-                            <i class="fas fa-times"></i>
-                        </a>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td>
-                        <div class="product-item">
-                            <a class="product-thumb" href="shop-single.html">
-                                <img src="~/Content/img/products/25041002-1.jpg" alt="Product">
-                            </a>
-                            <div class="product-info">
-                                <h4 class="product-title"><a href="shop-single.html">Proyector Bree 480W</a></h4>
-                                <div class="text-lg mb-1">$188,000.50</div>
-                                <div class="text-sm">
-                                    Disponibilidad:
-                                    <div class="d-inline text-success">En Stock</div>
-                                </div>
-                            </div>
-                        </div>
-                    </td>
-
-                    <td class="text-center">
-                        <div class="count-input">
-                            <select class="form-control">
-                                <option>1</option>
-                                <option>2</option>
-                                <option>3</option>
-                                <option>4</option>
-                                <option>5</option>
-                            </select>
-                        </div>
-                    </td>
-                    <td class="text-center">
-                        <a class="remove-from-cart" href="#" data-toggle="tooltip" title="" data-original-title="Quitar Artículo">
-                            <i class="fas fa-times"></i>
-                        </a>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+        }
     </div>
 
     <div class="custom-control custom-checkbox">
         <input class="filled-in chk-col-deep-orange" type="checkbox" id="inform_me" checked="">
-        <label for="inform_me">Infórmame when los Productos de mi lista de desos estén disponibles</label>
+        <label for="inform_me">Infórmame cuando los Productos de mi lista de desos estén disponibles</label>
     </div>
 
     <div class="row col-md-6">
@@ -173,7 +118,7 @@
                 <div class="row col-12">
                     <label class="font-weight-bold" for="checkout-fn">@WebStore.Resources.Placeholder.FullName</label>
                     <div class="form-group input-group">
-                        <input class="form-control" required autocomplete="off" type="text" name="quote-fn" id="quote-fn" placeholder="@WebStore.Resources.Placeholder.FullName">
+                        <input class="form-control" required autocomplete="off" type="text" name="quote-fn" id="quote-fn" value="@(Session["id"] != null ? Session["names"].ToString()+" "+Session["lastname"].ToString():"")" placeholder="@WebStore.Resources.Placeholder.FullName">
                         <span class="input-group-addon">
                             <i class="fas fa-file-signature"></i>
                         </span>
@@ -182,7 +127,7 @@
                 <div class="row col-12">
                     <label class="font-weight-bold" for="checkout-email">@WebStore.Resources.Placeholder.Email</label>
                     <div class="form-group input-group">
-                        <input class="form-control" required autocomplete="off" type="email" name="quote-email" id="quote-email" placeholder="@WebStore.Resources.Placeholder.Email">
+                        <input class="form-control" required autocomplete="off" type="email" name="quote-email" id="quote-email" value="@(Session["id"] != null ? Session["email"].ToString():"")" placeholder="@WebStore.Resources.Placeholder.Email">
                         <span class="input-group-addon">
                             <i class="fas fa-at"></i>
                         </span>
@@ -222,7 +167,7 @@
 @section Scripts{
     <script>
         $(function () {
-
+            $.AdminJs.quoting.activate();
         })
     </script>
 }

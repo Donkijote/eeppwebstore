@@ -13,6 +13,7 @@
           <Property Name="strCountry" Type="varchar" MaxLength="50" />
           <Property Name="strCity" Type="varchar" MaxLength="50" />
           <Property Name="strAddress" Type="text" />
+          <Property Name="strAddressTwo" Type="varchar" MaxLength="150" />
           <Property Name="strType" Type="varchar" MaxLength="50" />
           <Property Name="intPostalCode" Type="int" />
           <Property Name="refRegion" Type="int" />
@@ -20,6 +21,17 @@
           <Property Name="refComuna" Type="int" />
           <Property Name="refuser" Type="int" />
           <Property Name="boolDefault" Type="bit" />
+          <Property Name="boolThird" Type="bit" />
+        </EntityType>
+        <EntityType Name="tblAddressesDet">
+          <Key>
+            <PropertyRef Name="idAddressDet" />
+          </Key>
+          <Property Name="idAddressDet" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="refAddress" Type="int" Nullable="false" />
+          <Property Name="strName" Type="varchar" MaxLength="50" />
+          <Property Name="strLastName" Type="varchar" MaxLength="50" />
+          <Property Name="intPhone" Type="int" />
         </EntityType>
         <EntityType Name="tblBrand">
           <Key>
@@ -198,6 +210,22 @@
           <Property Name="strNombre" Type="nvarchar" MaxLength="70" Nullable="false" />
           <Property Name="refRegion" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="tblQuotingQue">
+          <Key>
+            <PropertyRef Name="IdQuotingQue" />
+          </Key>
+          <Property Name="IdQuotingQue" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="refUser" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblQuotingQueDet">
+          <Key>
+            <PropertyRef Name="IdQuotingQueDet" />
+          </Key>
+          <Property Name="IdQuotingQueDet" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="refQuotingQue" Type="int" Nullable="false" />
+          <Property Name="refCodProd" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Quantity" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="tblRegiones">
           <Key>
             <PropertyRef Name="idRegion" />
@@ -244,6 +272,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_tblAddresses_tblProvincias">
+          <End Role="tblProvincias" Type="Self.tblProvincias" Multiplicity="0..1" />
+          <End Role="tblAddresses" Type="Self.tblAddresses" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblProvincias">
+              <PropertyRef Name="idProvincia" />
+            </Principal>
+            <Dependent Role="tblAddresses">
+              <PropertyRef Name="refProvince" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_tblAddresses_tblRegiones">
           <End Role="tblRegiones" Type="Self.tblRegiones" Multiplicity="0..1" />
           <End Role="tblAddresses" Type="Self.tblAddresses" Multiplicity="*" />
@@ -265,6 +305,18 @@
             </Principal>
             <Dependent Role="tblAddresses">
               <PropertyRef Name="refuser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblAddressesDet_tblAddresses">
+          <End Role="tblAddresses" Type="Self.tblAddresses" Multiplicity="1" />
+          <End Role="tblAddressesDet" Type="Self.tblAddressesDet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblAddresses">
+              <PropertyRef Name="idAddress" />
+            </Principal>
+            <Dependent Role="tblAddressesDet">
+              <PropertyRef Name="refAddress" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -448,6 +500,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_tblQuotingQue_tblUsers">
+          <End Role="tblUsers" Type="Self.tblUsers" Multiplicity="1" />
+          <End Role="tblQuotingQue" Type="Self.tblQuotingQue" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblUsers">
+              <PropertyRef Name="idUser" />
+            </Principal>
+            <Dependent Role="tblQuotingQue">
+              <PropertyRef Name="refUser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblQuotingQueDet_tblQuotingQue">
+          <End Role="tblQuotingQue" Type="Self.tblQuotingQue" Multiplicity="1" />
+          <End Role="tblQuotingQueDet" Type="Self.tblQuotingQueDet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblQuotingQue">
+              <PropertyRef Name="IdQuotingQue" />
+            </Principal>
+            <Dependent Role="tblQuotingQueDet">
+              <PropertyRef Name="refQuotingQue" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_tblRelBrand_tblBrand">
           <End Role="tblBrand" Type="Self.tblBrand" Multiplicity="0..1" />
           <End Role="tblRelBrand" Type="Self.tblRelBrand" Multiplicity="*" />
@@ -462,6 +538,7 @@
         </Association>
         <EntityContainer Name="webstoreModelStoreContainer">
           <EntitySet Name="tblAddresses" EntityType="Self.tblAddresses" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblAddressesDet" EntityType="Self.tblAddressesDet" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblBrand" EntityType="Self.tblBrand" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblCategories" EntityType="Self.tblCategories" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblCategoryRelation" EntityType="Self.tblCategoryRelation" Schema="dbo" store:Type="Tables" />
@@ -476,11 +553,17 @@
           <EntitySet Name="tblOffertTime" EntityType="Self.tblOffertTime" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblProducts" EntityType="Self.tblProducts" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblProvincias" EntityType="Self.tblProvincias" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblQuotingQue" EntityType="Self.tblQuotingQue" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblQuotingQueDet" EntityType="Self.tblQuotingQueDet" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblRegiones" EntityType="Self.tblRegiones" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblRelBrand" EntityType="Self.tblRelBrand" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblUsers" EntityType="Self.tblUsers" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_tblAddresses_tblComunas" Association="Self.FK_tblAddresses_tblComunas">
             <End Role="tblComunas" EntitySet="tblComunas" />
+            <End Role="tblAddresses" EntitySet="tblAddresses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblAddresses_tblProvincias" Association="Self.FK_tblAddresses_tblProvincias">
+            <End Role="tblProvincias" EntitySet="tblProvincias" />
             <End Role="tblAddresses" EntitySet="tblAddresses" />
           </AssociationSet>
           <AssociationSet Name="FK_tblAddresses_tblRegiones" Association="Self.FK_tblAddresses_tblRegiones">
@@ -490,6 +573,10 @@
           <AssociationSet Name="FK_tblAddresses_tblUsers" Association="Self.FK_tblAddresses_tblUsers">
             <End Role="tblUsers" EntitySet="tblUsers" />
             <End Role="tblAddresses" EntitySet="tblAddresses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblAddressesDet_tblAddresses" Association="Self.FK_tblAddressesDet_tblAddresses">
+            <End Role="tblAddresses" EntitySet="tblAddresses" />
+            <End Role="tblAddressesDet" EntitySet="tblAddressesDet" />
           </AssociationSet>
           <AssociationSet Name="FK_tblBrand_tblBrand" Association="Self.FK_tblBrand_tblBrand">
             <End Role="tblImg" EntitySet="tblImg" />
@@ -550,6 +637,14 @@
           <AssociationSet Name="FK_tblProvincias_tblRegiones" Association="Self.FK_tblProvincias_tblRegiones">
             <End Role="tblRegiones" EntitySet="tblRegiones" />
             <End Role="tblProvincias" EntitySet="tblProvincias" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblQuotingQue_tblUsers" Association="Self.FK_tblQuotingQue_tblUsers">
+            <End Role="tblUsers" EntitySet="tblUsers" />
+            <End Role="tblQuotingQue" EntitySet="tblQuotingQue" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblQuotingQueDet_tblQuotingQue" Association="Self.FK_tblQuotingQueDet_tblQuotingQue">
+            <End Role="tblQuotingQue" EntitySet="tblQuotingQue" />
+            <End Role="tblQuotingQueDet" EntitySet="tblQuotingQueDet" />
           </AssociationSet>
           <AssociationSet Name="FK_tblRelBrand_tblBrand" Association="Self.FK_tblRelBrand_tblBrand">
             <End Role="tblBrand" EntitySet="tblBrand" />
@@ -659,6 +754,7 @@
           <EntitySet Name="tblFicha" EntityType="webstoreModel.tblFicha" />
           <EntitySet Name="tblUsers" EntityType="webstoreModel.tblUsers" />
           <EntitySet Name="tblAddresses" EntityType="webstoreModel.tblAddresses" />
+          <EntitySet Name="tblAddressesDet" EntityType="webstoreModel.tblAddressesDet" />
           <AssociationSet Name="FK_tblAddresses_tblComunas" Association="webstoreModel.FK_tblAddresses_tblComunas">
             <End Role="tblComunas" EntitySet="tblComunas" />
             <End Role="tblAddresses" EntitySet="tblAddresses" />
@@ -669,6 +765,24 @@
           </AssociationSet>
           <AssociationSet Name="FK_tblAddresses_tblUsers" Association="webstoreModel.FK_tblAddresses_tblUsers">
             <End Role="tblUsers" EntitySet="tblUsers" />
+            <End Role="tblAddresses" EntitySet="tblAddresses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblAddressesDet_tblAddresses" Association="webstoreModel.FK_tblAddressesDet_tblAddresses">
+            <End Role="tblAddresses" EntitySet="tblAddresses" />
+            <End Role="tblAddressesDet" EntitySet="tblAddressesDet" />
+          </AssociationSet>
+          <EntitySet Name="tblQuotingQue" EntityType="webstoreModel.tblQuotingQue" />
+          <EntitySet Name="tblQuotingQueDet" EntityType="webstoreModel.tblQuotingQueDet" />
+          <AssociationSet Name="FK_tblQuotingQue_tblUsers" Association="webstoreModel.FK_tblQuotingQue_tblUsers">
+            <End Role="tblUsers" EntitySet="tblUsers" />
+            <End Role="tblQuotingQue" EntitySet="tblQuotingQue" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblQuotingQueDet_tblQuotingQue" Association="webstoreModel.FK_tblQuotingQueDet_tblQuotingQue">
+            <End Role="tblQuotingQue" EntitySet="tblQuotingQue" />
+            <End Role="tblQuotingQueDet" EntitySet="tblQuotingQueDet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblAddresses_tblProvincias" Association="webstoreModel.FK_tblAddresses_tblProvincias">
+            <End Role="tblProvincias" EntitySet="tblProvincias" />
             <End Role="tblAddresses" EntitySet="tblAddresses" />
           </AssociationSet>
         </EntityContainer>
@@ -740,6 +854,7 @@
           <Property Name="refRegion" Type="Int32" Nullable="false" />
           <NavigationProperty Name="tblComunas" Relationship="webstoreModel.FK_tblComunas_tblProvincias" FromRole="tblProvincias" ToRole="tblComunas" />
           <NavigationProperty Name="tblRegiones" Relationship="webstoreModel.FK_tblProvincias_tblRegiones" FromRole="tblProvincias" ToRole="tblRegiones" />
+          <NavigationProperty Name="tblAddresses" Relationship="webstoreModel.FK_tblAddresses_tblProvincias" FromRole="tblProvincias" ToRole="tblAddresses" />
         </EntityType>
         <EntityType Name="tblRegiones">
           <Key>
@@ -1093,6 +1208,7 @@
           <Property Name="intId" Type="Int32" />
           <Property Name="intPhone" Type="Int32" />
           <NavigationProperty Name="tblAddresses" Relationship="webstoreModel.FK_tblAddresses_tblUsers" FromRole="tblUsers" ToRole="tblAddresses" />
+          <NavigationProperty Name="tblQuotingQue" Relationship="webstoreModel.FK_tblQuotingQue_tblUsers" FromRole="tblUsers" ToRole="tblQuotingQue" />
         </EntityType>
         <EntityType Name="tblAddresses">
           <Key>
@@ -1102,6 +1218,7 @@
           <Property Name="strCountry" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="strCity" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="strAddress" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="strAddressTwo" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
           <Property Name="strType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="intPostalCode" Type="Int32" />
           <Property Name="refRegion" Type="Int32" />
@@ -1109,9 +1226,23 @@
           <Property Name="refComuna" Type="Int32" />
           <Property Name="refuser" Type="Int32" />
           <Property Name="boolDefault" Type="Boolean" />
+          <Property Name="boolThird" Type="Boolean" />
           <NavigationProperty Name="tblComunas" Relationship="webstoreModel.FK_tblAddresses_tblComunas" FromRole="tblAddresses" ToRole="tblComunas" />
           <NavigationProperty Name="tblRegiones" Relationship="webstoreModel.FK_tblAddresses_tblRegiones" FromRole="tblAddresses" ToRole="tblRegiones" />
           <NavigationProperty Name="tblUsers" Relationship="webstoreModel.FK_tblAddresses_tblUsers" FromRole="tblAddresses" ToRole="tblUsers" />
+          <NavigationProperty Name="tblAddressesDet" Relationship="webstoreModel.FK_tblAddressesDet_tblAddresses" FromRole="tblAddresses" ToRole="tblAddressesDet" />
+          <NavigationProperty Name="tblProvincias" Relationship="webstoreModel.FK_tblAddresses_tblProvincias" FromRole="tblAddresses" ToRole="tblProvincias" />
+        </EntityType>
+        <EntityType Name="tblAddressesDet">
+          <Key>
+            <PropertyRef Name="idAddressDet" />
+          </Key>
+          <Property Name="idAddressDet" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="refAddress" Type="Int32" Nullable="false" />
+          <Property Name="strName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="strLastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="intPhone" Type="Int32" />
+          <NavigationProperty Name="tblAddresses" Relationship="webstoreModel.FK_tblAddressesDet_tblAddresses" FromRole="tblAddressesDet" ToRole="tblAddresses" />
         </EntityType>
         <Association Name="FK_tblAddresses_tblComunas">
           <End Type="webstoreModel.tblComunas" Role="tblComunas" Multiplicity="0..1" />
@@ -1146,6 +1277,73 @@
             </Principal>
             <Dependent Role="tblAddresses">
               <PropertyRef Name="refuser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblAddressesDet_tblAddresses">
+          <End Type="webstoreModel.tblAddresses" Role="tblAddresses" Multiplicity="1" />
+          <End Type="webstoreModel.tblAddressesDet" Role="tblAddressesDet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblAddresses">
+              <PropertyRef Name="idAddress" />
+            </Principal>
+            <Dependent Role="tblAddressesDet">
+              <PropertyRef Name="refAddress" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="tblQuotingQue">
+          <Key>
+            <PropertyRef Name="IdQuotingQue" />
+          </Key>
+          <Property Name="IdQuotingQue" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="refUser" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="tblUsers" Relationship="webstoreModel.FK_tblQuotingQue_tblUsers" FromRole="tblQuotingQue" ToRole="tblUsers" />
+          <NavigationProperty Name="tblQuotingQueDet" Relationship="webstoreModel.FK_tblQuotingQueDet_tblQuotingQue" FromRole="tblQuotingQue" ToRole="tblQuotingQueDet" />
+        </EntityType>
+        <EntityType Name="tblQuotingQueDet">
+          <Key>
+            <PropertyRef Name="IdQuotingQueDet" />
+          </Key>
+          <Property Name="IdQuotingQueDet" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="refQuotingQue" Type="Int32" Nullable="false" />
+          <Property Name="refCodProd" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Quantity" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="tblQuotingQue" Relationship="webstoreModel.FK_tblQuotingQueDet_tblQuotingQue" FromRole="tblQuotingQueDet" ToRole="tblQuotingQue" />
+        </EntityType>
+        <Association Name="FK_tblQuotingQue_tblUsers">
+          <End Type="webstoreModel.tblUsers" Role="tblUsers" Multiplicity="1" />
+          <End Type="webstoreModel.tblQuotingQue" Role="tblQuotingQue" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblUsers">
+              <PropertyRef Name="idUser" />
+            </Principal>
+            <Dependent Role="tblQuotingQue">
+              <PropertyRef Name="refUser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblQuotingQueDet_tblQuotingQue">
+          <End Type="webstoreModel.tblQuotingQue" Role="tblQuotingQue" Multiplicity="1" />
+          <End Type="webstoreModel.tblQuotingQueDet" Role="tblQuotingQueDet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblQuotingQue">
+              <PropertyRef Name="IdQuotingQue" />
+            </Principal>
+            <Dependent Role="tblQuotingQueDet">
+              <PropertyRef Name="refQuotingQue" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblAddresses_tblProvincias">
+          <End Type="webstoreModel.tblProvincias" Role="tblProvincias" Multiplicity="0..1" />
+          <End Type="webstoreModel.tblAddresses" Role="tblAddresses" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblProvincias">
+              <PropertyRef Name="idProvincia" />
+            </Principal>
+            <Dependent Role="tblAddresses">
+              <PropertyRef Name="refProvince" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1386,6 +1584,7 @@
           <EntitySetMapping Name="tblAddresses">
             <EntityTypeMapping TypeName="webstoreModel.tblAddresses">
               <MappingFragment StoreEntitySet="tblAddresses">
+                <ScalarProperty Name="boolThird" ColumnName="boolThird" />
                 <ScalarProperty Name="boolDefault" ColumnName="boolDefault" />
                 <ScalarProperty Name="refuser" ColumnName="refuser" />
                 <ScalarProperty Name="refComuna" ColumnName="refComuna" />
@@ -1393,10 +1592,40 @@
                 <ScalarProperty Name="refRegion" ColumnName="refRegion" />
                 <ScalarProperty Name="intPostalCode" ColumnName="intPostalCode" />
                 <ScalarProperty Name="strType" ColumnName="strType" />
+                <ScalarProperty Name="strAddressTwo" ColumnName="strAddressTwo" />
                 <ScalarProperty Name="strAddress" ColumnName="strAddress" />
                 <ScalarProperty Name="strCity" ColumnName="strCity" />
                 <ScalarProperty Name="strCountry" ColumnName="strCountry" />
                 <ScalarProperty Name="idAddress" ColumnName="idAddress" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblAddressesDet">
+            <EntityTypeMapping TypeName="webstoreModel.tblAddressesDet">
+              <MappingFragment StoreEntitySet="tblAddressesDet">
+                <ScalarProperty Name="intPhone" ColumnName="intPhone" />
+                <ScalarProperty Name="strLastName" ColumnName="strLastName" />
+                <ScalarProperty Name="strName" ColumnName="strName" />
+                <ScalarProperty Name="refAddress" ColumnName="refAddress" />
+                <ScalarProperty Name="idAddressDet" ColumnName="idAddressDet" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblQuotingQue">
+            <EntityTypeMapping TypeName="webstoreModel.tblQuotingQue">
+              <MappingFragment StoreEntitySet="tblQuotingQue">
+                <ScalarProperty Name="refUser" ColumnName="refUser" />
+                <ScalarProperty Name="IdQuotingQue" ColumnName="IdQuotingQue" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblQuotingQueDet">
+            <EntityTypeMapping TypeName="webstoreModel.tblQuotingQueDet">
+              <MappingFragment StoreEntitySet="tblQuotingQueDet">
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="refCodProd" ColumnName="refCodProd" />
+                <ScalarProperty Name="refQuotingQue" ColumnName="refQuotingQue" />
+                <ScalarProperty Name="IdQuotingQueDet" ColumnName="IdQuotingQueDet" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

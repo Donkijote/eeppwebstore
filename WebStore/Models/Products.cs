@@ -40,7 +40,7 @@ namespace WebStore.Models
         public string productSeo { get; set; }
         public bool TimeOffer { get; set; }
         public string Time { get; set; }
-        public IEnumerable<tblFicha> Ficha { get; set; }
+        public tblFicha Ficha { get; set; }
         public IEnumerable<Stock> Stock { get; set; }
     }
 }

@@ -67,6 +67,18 @@
 
     <script src="~/Scripts/Admin.min.js"></script>
 
+    @{ 
+        if (HttpContext.Current.Session["email"] == null)
+        {
+            <script type="text/javascript">
+                $(function () {
+                    $.AdminJs.LogInUp.activate();
+                })
+            </script>
+        }
+
+ }
+
     @RenderSection("scripts", required: false)
 </body>
 </html>

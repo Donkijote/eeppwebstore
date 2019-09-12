@@ -8,6 +8,9 @@ namespace WebStore.Models
     public class Addresses
     {
         public int Id { get; set; }
+        public string Names { get; set; }
+        public string LastNames { get; set; }
+        public int Phone { get; set; }
         public string Country { get; set; }
         public int RegionId { get; set; }
         public string Region { get; set; }
@@ -17,7 +20,34 @@ namespace WebStore.Models
         public string Comuna { get; set; }
         public string City { get; set; }
         public string Address { get; set; }
+        public string AddressTwo { get; set; }
         public int? Poste { get; set; }
+        public string Type { get; set; }
+        public bool Default { get; set; }
+        public bool Third { get; set; }
+        public int? Tlf { get; set; }
+    }
+
+    public class AddNewAddress
+    {
+        public int PreviousId { get; set; }
+        public string Names { get; set; }
+        public string LastNames { get; set; }
+        public int? Phone { get; set; }
+        [Required]
+        public int States { get; set; }
+        [Required]
+        public int Provincia { get; set; }
+        [Required]
+        public int Comuna { get; set; }
+        [Required]
+        public string City { get; set; }
+        [Required]
+        public int PosteCode { get; set; }
+        [Required]
+        public string Address { get; set; }
+        public string AddressTwo { get; set; }
+        [Required]
         public string Type { get; set; }
     }
 
@@ -56,7 +86,7 @@ namespace WebStore.Models
         [Required(ErrorMessage = "Campo requerido")]
         [StringLength(6, MinimumLength = 6, ErrorMessage = "El código no puede ser menor o mayor a 6 dígitos.")]
         [RegularExpression("([0-9]+)", ErrorMessage = "Solo números son aceptados.")]
-        public int ValidationCode { get; set; }
+        public string ValidationCode { get; set; }
         [Required(ErrorMessage = "Este campo es requerido.")]
         [StringLength(30, MinimumLength = 8, ErrorMessage = "Debe tener mínimo 8 caracteres.")]
         [RegularExpression("^((?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])|(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[^a-zA-Z0-9])|(?=.*?[A-Z])(?=.*?[0-9])(?=.*?[^a-zA-Z0-9])|(?=.*?[a-z])(?=.*?[0-9])(?=.*?[^a-zA-Z0-9])).{8,}$", ErrorMessage = "La clave debe ser de 8 caracteres y al menos contener 3 de 4 de: mayúscula (A-Z), minúscula (a-z), número (0-9) y caracter especial (e.g. !@#$%^&*)(opcional)")]
@@ -64,7 +94,7 @@ namespace WebStore.Models
         public string Password { get; set; }
         [Required(ErrorMessage = "Este campo es requerido.")]
         [StringLength(30, MinimumLength = 8, ErrorMessage = "Debe tener mínimo 8 caracteres.")]
-        [EqualTo("PassRecovery", ErrorMessage = "Las contraseñas deben coincidir.")]
+        [EqualTo("Password", ErrorMessage = "Las contraseñas deben coincidir.")]
         [DataType(DataType.Password)]
         public string ConfirmPassword { get; set; }
     }
@@ -72,6 +102,7 @@ namespace WebStore.Models
     public class BindingAddress
     {
         public Addresses Addresses { get; set; }
+        public tblAddressesDet AddressesDet { get; set; }
         public tblUsers User { get; set; }
         public UserInfoUpdate UserInfo { get; set; }
         public IEnumerable<tblRegiones> Regiones { get; set; }
