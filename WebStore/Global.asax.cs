@@ -74,7 +74,7 @@ namespace WebStore
 
                 var rd = new RouteData();
                 rd.Values["controller"] = "Error";
-                rd.Values["action"] = "Http404";
+                rd.Values["action"] = "Error404";
 
                 var rc = new RequestContext(new HttpContextWrapper(Context), rd);
                 var c = ControllerBuilder.Current.GetControllerFactory().CreateController(rc, "Error");

@@ -8,7 +8,7 @@
         <EntityTypeShape EntityType="webstoreModel.tblCategories" Width="1.5" PointX="2.375" PointY="1.125" IsExpanded="true" />
         <EntityTypeShape EntityType="webstoreModel.tblProducts" Width="1.5" PointX="0.5" PointY="1.125" />
         <AssociationConnector Association="webstoreModel.FK_tblProducts_tblCategories1" />
-        <EntityTypeShape EntityType="webstoreModel.tblCountry" Width="1.5" PointX="4.125" PointY="9.625" />
+        <EntityTypeShape EntityType="webstoreModel.tblCountry" Width="1.5" PointX="7.75" PointY="11" />
         <EntityTypeShape EntityType="webstoreModel.tblComunas" Width="1.5" PointX="11.25" PointY="8.625" />
         <EntityTypeShape EntityType="webstoreModel.tblProvincias" Width="1.5" PointX="9.5" PointY="8.625" />
         <EntityTypeShape EntityType="webstoreModel.tblRegiones" Width="1.5" PointX="7.75" PointY="8.625" />
@@ -49,6 +49,8 @@
         <AssociationConnector Association="webstoreModel.FK_tblQuotingQue_tblUsers" />
         <AssociationConnector Association="webstoreModel.FK_tblQuotingQueDet_tblQuotingQue" />
         <AssociationConnector Association="webstoreModel.FK_tblAddresses_tblProvincias" />
+        <EntityTypeShape EntityType="webstoreModel.tblProjects" Width="1.5" PointX="4.25" PointY="10.25" />
+        <AssociationConnector Association="webstoreModel.FK_tblProjects_tblImg" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

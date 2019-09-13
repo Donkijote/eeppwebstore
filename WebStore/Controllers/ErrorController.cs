@@ -9,18 +9,9 @@ namespace WebStore.Controllers
     public class ErrorController : Controller
     {
         // GET: Error
-        public ActionResult Http404()
+        public ActionResult Error404()
         {
-            ActionResult result;
-
-            object model = Request.Url.PathAndQuery;
-
-            if (!Request.IsAjaxRequest())
-                result = View(model);
-            else
-                result = PartialView("Http404", model);
-
-            return result;
+            return View("Http404");
         }
     }
 }

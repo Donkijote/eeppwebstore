@@ -1319,7 +1319,7 @@ $.AdminJs.productstooltips = {
     }
 }
 
-$.AdminJs.gallery = {
+$.AdminJs.staticGallery = {
     activate: function () {
         var container = [];
 
@@ -1346,6 +1346,44 @@ $.AdminJs.gallery = {
             var gallery = new PhotoSwipe($pswp, PhotoSwipeUI_Default, container, options);
             gallery.init();
         })
+    }
+}
+
+$.AdminJs.carouselGallery = {
+    activate: function () {
+        var _this = this;
+
+        $('.gallery-wrapper a').on('click', function (e) {
+            e.preventDefault();
+            var galleryWrapper = $(this).parents('.gallery-wrapper');
+            var container = _this.getContainerElements(galleryWrapper);
+            console.log(container)
+            var $pswp = $('.pswp')[0],
+                options = {
+                    index: galleryWrapper.find('.owl-item:not(.cloned) a').index(this),
+                    bgOpacity: 0.85,
+                    showHideOpacity: true
+                };
+
+            var gallery = new PhotoSwipe($pswp, PhotoSwipeUI_Default, container, options);
+            gallery.init();
+        })
+    },
+    getContainerElements: (x) => {
+        var container = [];
+
+        $(x).find('.owl-item').not('.cloned').each(function () {
+            var $link = $(this).find('a'),
+                item = {
+                    src: $link.attr('href'),
+                    w: $link.data('width'),
+                    h: $link.data('height'),
+                    title: $(this).find('.caption').text()
+                };
+            container.push(item);
+        });
+
+        return container;
     }
 }
 

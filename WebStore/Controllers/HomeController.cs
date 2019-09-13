@@ -164,7 +164,27 @@ namespace WebStore.Controllers
 
         public ActionResult Projects()
         {
-            return View();
+            using(webstoreEntities db = new webstoreEntities())
+            {
+                List<Projects> projects = (from a in db.tblProjects
+                                     join b in db.tblImg
+                                     on a.refImg equals b.idImg
+                                     select new Projects
+                                     {
+                                         Title = a.strTitle,
+                                         Description = a.strDescription,
+                                         Date = a.strDate,
+                                         Location = a.strLocation,
+                                         Category = a.strCategory,
+                                         ImgOne = b.strImgOne,
+                                         ImgTwo = b.strImgTwo,
+                                         ImgThree = b.strImgThree,
+                                         ImgFour = b.strImgFour,
+                                         ImgFive = b.strImgFive,
+                                         ImgSix = b.strImgSix
+                                     }).ToList();
+                return View(projects);
+            }
         }
 
         public ActionResult FAQ()

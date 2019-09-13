@@ -279,6 +279,7 @@
       <DependentUpon>EEPP.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Products.cs" />
+    <Compile Include="Models\Projects.cs" />
     <Compile Include="Models\Quotings.cs" />
     <Compile Include="Models\Stock.cs" />
     <Compile Include="Models\tblAddresses.cs">
@@ -324,6 +325,9 @@
       <DependentUpon>Connection.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tblProducts.cs">
+      <DependentUpon>Connection.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tblProjects.cs">
       <DependentUpon>Connection.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tblProvincias.cs">
@@ -557,6 +561,8 @@
     </Content>
     <Content Include="Content\img\bannerCategories\estacas.jpg" />
     <Content Include="Content\img\bannerCategories\sodimac.jpg" />
+    <Content Include="Content\img\bg\404-bg.png" />
+    <Content Include="Content\img\bg\404_art.jpg" />
     <Content Include="Content\img\bg\desktop.png" />
     <Content Include="Content\img\bg\EN.png" />
     <Content Include="Content\img\bg\footer-bg.png" />

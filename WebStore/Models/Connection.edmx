@@ -142,10 +142,12 @@
             <PropertyRef Name="idImg" />
           </Key>
           <Property Name="idImg" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="strImgOne" Type="varchar" MaxLength="50" />
-          <Property Name="strImgTwo" Type="varchar" MaxLength="50" />
-          <Property Name="strImgThree" Type="varchar" MaxLength="50" />
-          <Property Name="strImgFour" Type="varchar" MaxLength="50" />
+          <Property Name="strImgOne" Type="text" Nullable="false" />
+          <Property Name="strImgTwo" Type="text" />
+          <Property Name="strImgThree" Type="text" />
+          <Property Name="strImgFour" Type="text" />
+          <Property Name="strImgFive" Type="text" />
+          <Property Name="strImgSix" Type="text" />
         </EntityType>
         <EntityType Name="tblModel">
           <Key>
@@ -201,6 +203,18 @@
           <Property Name="refOffert" Type="int" />
           <Property Name="refOfferTime" Type="int" />
           <Property Name="refImg" Type="int" />
+        </EntityType>
+        <EntityType Name="tblProjects">
+          <Key>
+            <PropertyRef Name="IdProject" />
+          </Key>
+          <Property Name="IdProject" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="strTitle" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="strDescription" Type="text" Nullable="false" />
+          <Property Name="refImg" Type="int" Nullable="false" />
+          <Property Name="strDate" Type="datetime" Nullable="false" />
+          <Property Name="strLocation" Type="text" Nullable="false" />
+          <Property Name="strCategory" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="tblProvincias">
           <Key>
@@ -488,6 +502,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_tblProjects_tblImg">
+          <End Role="tblImg" Type="Self.tblImg" Multiplicity="1" />
+          <End Role="tblProjects" Type="Self.tblProjects" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblImg">
+              <PropertyRef Name="idImg" />
+            </Principal>
+            <Dependent Role="tblProjects">
+              <PropertyRef Name="refImg" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_tblProvincias_tblRegiones">
           <End Role="tblRegiones" Type="Self.tblRegiones" Multiplicity="1" />
           <End Role="tblProvincias" Type="Self.tblProvincias" Multiplicity="*" />
@@ -552,6 +578,7 @@
           <EntitySet Name="tblOffert" EntityType="Self.tblOffert" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblOffertTime" EntityType="Self.tblOffertTime" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblProducts" EntityType="Self.tblProducts" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblProjects" EntityType="Self.tblProjects" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblProvincias" EntityType="Self.tblProvincias" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblQuotingQue" EntityType="Self.tblQuotingQue" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblQuotingQueDet" EntityType="Self.tblQuotingQueDet" Schema="dbo" store:Type="Tables" />
@@ -633,6 +660,10 @@
           <AssociationSet Name="FK_tblProducts_tblOffertTime" Association="Self.FK_tblProducts_tblOffertTime">
             <End Role="tblOffertTime" EntitySet="tblOffertTime" />
             <End Role="tblProducts" EntitySet="tblProducts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblProjects_tblImg" Association="Self.FK_tblProjects_tblImg">
+            <End Role="tblImg" EntitySet="tblImg" />
+            <End Role="tblProjects" EntitySet="tblProjects" />
           </AssociationSet>
           <AssociationSet Name="FK_tblProvincias_tblRegiones" Association="Self.FK_tblProvincias_tblRegiones">
             <End Role="tblRegiones" EntitySet="tblRegiones" />
@@ -784,6 +815,11 @@
           <AssociationSet Name="FK_tblAddresses_tblProvincias" Association="webstoreModel.FK_tblAddresses_tblProvincias">
             <End Role="tblProvincias" EntitySet="tblProvincias" />
             <End Role="tblAddresses" EntitySet="tblAddresses" />
+          </AssociationSet>
+          <EntitySet Name="tblProjects" EntityType="webstoreModel.tblProjects" />
+          <AssociationSet Name="FK_tblProjects_tblImg" Association="webstoreModel.FK_tblProjects_tblImg">
+            <End Role="tblImg" EntitySet="tblImg" />
+            <End Role="tblProjects" EntitySet="tblProjects" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="tblProducts">
@@ -1078,13 +1114,16 @@
             <PropertyRef Name="idImg" />
           </Key>
           <Property Name="idImg" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="strImgOne" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="strImgTwo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="strImgThree" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="strImgFour" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="strImgOne" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="strImgTwo" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="strImgThree" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="strImgFour" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="tblBrand" Relationship="webstoreModel.FK_tblBrand_tblBrand" FromRole="tblImg" ToRole="tblBrand" />
           <NavigationProperty Name="tblProducts" Relationship="webstoreModel.FK_tblProducts_tblImg" FromRole="tblImg" ToRole="tblProducts" />
           <NavigationProperty Name="tblFamily" Relationship="webstoreModel.FK_tblFamily_tblImg" FromRole="tblImg" ToRole="tblFamily" />
+          <Property Name="strImgFive" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="strImgSix" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tblProjects" Relationship="webstoreModel.FK_tblProjects_tblImg" FromRole="tblImg" ToRole="tblProjects" />
         </EntityType>
         <Association Name="FK_tblBrand_tblBrand">
           <End Type="webstoreModel.tblImg" Role="tblImg" Multiplicity="0..1" />
@@ -1347,6 +1386,31 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="tblProjects">
+          <Key>
+            <PropertyRef Name="IdProject" />
+          </Key>
+          <Property Name="IdProject" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="strTitle" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="strDescription" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="refImg" Type="Int32" Nullable="false" />
+          <Property Name="strDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="strLocation" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="strCategory" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tblImg" Relationship="webstoreModel.FK_tblProjects_tblImg" FromRole="tblProjects" ToRole="tblImg" />
+        </EntityType>
+        <Association Name="FK_tblProjects_tblImg">
+          <End Type="webstoreModel.tblImg" Role="tblImg" Multiplicity="1" />
+          <End Type="webstoreModel.tblProjects" Role="tblProjects" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblImg">
+              <PropertyRef Name="idImg" />
+            </Principal>
+            <Dependent Role="tblProjects">
+              <PropertyRef Name="refImg" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1497,6 +1561,8 @@
           <EntitySetMapping Name="tblImg">
             <EntityTypeMapping TypeName="webstoreModel.tblImg">
               <MappingFragment StoreEntitySet="tblImg">
+                <ScalarProperty Name="strImgSix" ColumnName="strImgSix" />
+                <ScalarProperty Name="strImgFive" ColumnName="strImgFive" />
                 <ScalarProperty Name="strImgFour" ColumnName="strImgFour" />
                 <ScalarProperty Name="strImgThree" ColumnName="strImgThree" />
                 <ScalarProperty Name="strImgTwo" ColumnName="strImgTwo" />
@@ -1626,6 +1692,19 @@
                 <ScalarProperty Name="refCodProd" ColumnName="refCodProd" />
                 <ScalarProperty Name="refQuotingQue" ColumnName="refQuotingQue" />
                 <ScalarProperty Name="IdQuotingQueDet" ColumnName="IdQuotingQueDet" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblProjects">
+            <EntityTypeMapping TypeName="webstoreModel.tblProjects">
+              <MappingFragment StoreEntitySet="tblProjects">
+                <ScalarProperty Name="strCategory" ColumnName="strCategory" />
+                <ScalarProperty Name="strLocation" ColumnName="strLocation" />
+                <ScalarProperty Name="strDate" ColumnName="strDate" />
+                <ScalarProperty Name="refImg" ColumnName="refImg" />
+                <ScalarProperty Name="strDescription" ColumnName="strDescription" />
+                <ScalarProperty Name="strTitle" ColumnName="strTitle" />
+                <ScalarProperty Name="IdProject" ColumnName="IdProject" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
