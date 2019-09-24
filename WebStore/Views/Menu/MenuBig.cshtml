@@ -198,14 +198,14 @@
                                         </h5>
                                         <div class="form-group">
                                             <div class="col-xs-5 pull-right">
-                                                <button type="submit" name="login-submit" id="login-submit" tabindex="4" class="btn mg-google">
+                                                <button type="button" tabindex="4" class="btn mg-google" id="GoogleLogInNavbar">
                                                     <i class="fab fa-google-plus-g"></i> Google
                                                 </button>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <div class="col-xs-5 pull-right">
-                                                <button type="submit" name="login-submit" id="login-submit" tabindex="4" class="btn mg-facebook">
+                                                <button type="button" tabindex="4" class="btn mg-facebook FacebookLogIn">
                                                     <i class="fab fa-facebook-f"></i> Facebook
                                                 </button>
                                             </div>
@@ -243,7 +243,7 @@
                                     @using (Html.BeginForm("LogOut", "User", FormMethod.Post, new { id = "logoutForm" }))
                                     { }
                                     <li>
-                                        <a href="javascript:document.getElementById('logoutForm').submit()">
+                                        <a href="javascript:void(0);" id="Logout" data-provider="@Session["provider"]">
                                             <i class="fas fa-unlock"></i>
                                             @WebStore.Resources.Buttons.Exit
                                         </a>

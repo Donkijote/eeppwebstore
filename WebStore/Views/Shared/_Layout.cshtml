@@ -12,6 +12,10 @@
     <!--Resposive Tag-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
+    <!--Google Tag-->
+
+    <!--<meta name="google-signin-client_id" content="338858308946-6vc4hpn2g48hmgjd94stkqf21a49trlh.apps.googleusercontent.com">-->
+
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
     <!-- Font Awesome Icons -->
@@ -19,7 +23,7 @@
 
     <link rel="stylesheet" href="~/Content/Loading.min.css" />
 
-    @RenderSection("linkscss",required:false)
+    @RenderSection("linkscss", required: false)
 
     @Styles.Render("~/Content/css")
 
@@ -27,7 +31,9 @@
 </head>
 <body data-spy="scroll" data-target="#mg-vertical-nav" data-offset="120" data-lang="@System.Threading.Thread.CurrentThread.CurrentCulture.TwoLetterISOLanguageName">
     <div id="fb-root"></div>
-    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/es_LA/sdk.js#xfbml=1&version=v3.3"></script>
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/es_LA/sdk.js#xfbml=1&version=v4.0&appId=911137429247663&autoLogAppEvents=1"></script>
+    <script src="https://apis.google.com/js/api:client.js"></script>
+
     <div class="page-loader-wrapper" id="page-loader-wrapper">
         <div class="loader">
             <div class="preloader size-xl">
@@ -63,11 +69,11 @@
 
     @Scripts.Render("~/bundles/jquery")
 
-    @RenderSection("included", required:false)
+    @RenderSection("included", required: false)
 
     <script src="~/Scripts/Admin.min.js"></script>
 
-    @{ 
+    @{
         if (HttpContext.Current.Session["email"] == null)
         {
             <script type="text/javascript">
@@ -76,8 +82,16 @@
                 })
             </script>
         }
+        else
+        {
+            <script type="text/javascript">
+                $(function () {
+                    $.AdminJs.LogInUp.LogOut();
+                })
+            </script>
+        }
 
- }
+    }
 
     @RenderSection("scripts", required: false)
 </body>

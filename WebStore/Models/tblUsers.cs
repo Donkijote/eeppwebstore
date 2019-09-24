@@ -34,6 +34,7 @@ namespace WebStore.Models
         public Nullable<System.DateTime> strRegistrationDate { get; set; }
         public Nullable<int> intId { get; set; }
         public Nullable<int> intPhone { get; set; }
+        public string strProvider { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblAddresses> tblAddresses { get; set; }

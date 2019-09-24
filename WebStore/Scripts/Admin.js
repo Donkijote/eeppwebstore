@@ -1,6 +1,7 @@
 if (typeof jQuery === "undefined") {
 	throw new Error("jQuery plugins need to be before this file");
 }
+var googleUser;
 
 $.Dir ={
     en: function (x) {
@@ -46,7 +47,9 @@ $.AdminJs.Test = {
 }
 
 $.AdminJs.LogInUp = {
-	activate: function () {
+    activate: function () {
+        var _this = this;
+        $.AdminJs.reveal.activate();
 		$('#LogUp').on('submit', function (e) {
 			e.preventDefault();
 			var x = $(this).serialize();
@@ -93,7 +96,20 @@ $.AdminJs.LogInUp = {
                 });
             }
         });
-        $.AdminJs.reveal.activate();
+        
+        $('.FacebookLogIn').on('click', function (e) {
+            e.preventDefault();
+            FB.login(function (response) {
+                if (response.status === 'connected') {
+                    _this.sendFacebookLogIn();
+                } else {
+                    console.log('Please log into this webpage.');
+                }
+            }, { scope: 'email, public_profile', return_scopes: true });
+        });
+
+        _this.GoogleAppiSetUp("beforeLogin");
+        _this.FacebookAppiSetUp("beforeLogin");
     },
     recoveryPassword: function () {
         var _this = this;
@@ -295,7 +311,172 @@ $.AdminJs.LogInUp = {
             }
         });
         return resp;
+    },
+    sendFacebookLogIn: () =>{
+        FB.api('/me', { fields: 'id,name,email' }, function (response) {
+            $.AdminJs.Ajax.init({
+                type: 'POST',
+                url: '/en/User/FacebookLogIn/',
+                data: { Id: response.id, Name: response.name, Email: response.email },
+                action: (x) => {
+                    if (x.status == "info") {
+                        FB.logout(function (response) {
+                            if (response.status == "unknown") {
+                                $.AdminJs.Alert.warning(x.title, x.responseText);
+                            }
+                        });
+                    } else {
+                        window.location.reload()
+                    }
+                }
+            })
+        });
+    },
+    LogOut: function () {
+        var _this = this;
+        _this.FacebookAppiSetUp();
+        _this.GoogleAppiSetUp();
+        $('#Logout').on('click', function(e) {
+            e.preventDefault();
+            var provider = $(this).data("provider");
+            if (provider == "Facebook") {
+                FB.logout(function (response) {
+                    if (response.status == "unknown") {
+                        $.AdminJs.Ajax.init({
+                            type: 'POST',
+                            url: '/en/User/LogOut/',
+                            data: {},
+                            action: (x) => {
+                                window.location.reload();
+                            }
+                        });
+                    }
+                });
+            } else if (provider == "Local") {
+                $.AdminJs.Ajax.init({
+                    type: 'POST',
+                    url: '/en/User/LogOut/',
+                    data: {},
+                    action: (x) => {
+                        window.location.reload();
+                    }
+                });
+            } else if (provider == "Google") {
+                var auth2 = gapi.auth2.getAuthInstance();
+                auth2.signOut().then(function () {
+                    $.AdminJs.Ajax.init({
+                        type: 'POST',
+                        url: '/en/User/LogOut/',
+                        data: {},
+                        action: (x) => {
+                            window.location.reload();
+                        }
+                    });
+                });
+            }
+        })
+    },
+    attachSignin: function (element) {
+        var _this = this;
+        auth2.attachClickHandler(element, {}, _this.onGoogleLoginSuccess, _this.onGoogleLoginFailure);
+    },
+    onGoogleLoginSuccess: function (user) {
+        var _this = this;
+        googleUser = user.getBasicProfile();
+        $.AdminJs.Ajax.init({
+            type: 'POST',
+            url: '/en/User/GoogleLogIn/',
+            data: { Id: googleUser.getId(), Name: googleUser.getName(), Email: googleUser.getEmail() },
+            action: (x) => {
+                if (x.status == "info") {
+                    var auth2 = gapi.auth2.getAuthInstance();
+                    auth2.signOut().then(function () {
+                        console.log('User signed out.');
+                        $.AdminJs.Alert.warning(x.title, x.responseText);
+                    });
+                } else {
+                    window.location.reload()
+                }
+            }
+        })
+    },
+    onGoogleLoginFailure: function (error) {
+        console.log(error);
+    },
+    signinChanged: function (val) {
+        console.log('Signin state changed to ', val);
+    },
+    sendGoogleLogIn: function (user) {
+        if (user.getBasicProfile() != undefined) {
+            console.log("iside if")
+            googleUser = user.getBasicProfile();
+            $.AdminJs.Ajax.init({
+                type: 'POST',
+                url: '/en/User/GoogleLogIn/',
+                data: { Id: googleUser.getId(), Name: googleUser.getName(), Email: googleUser.getEmail() },
+                action: (x) => {
+                    if (x.status == "info") {
+                        var auth2 = gapi.auth2.getAuthInstance();
+                        auth2.signOut().then(function () {
+                            console.log('User signed out.');
+                            $.AdminJs.Alert.warning(x.title, x.responseText);
+                        });
+                    } else {
+                        window.location.reload()
+                    }
+                }
+            })
+        }
+    },
+    refreshValues: function () {
+        if (auth2) {
+            console.log('Refreshing values...');
+
+            googleUser = auth2.currentUser.get();
+
+            console.log(googleUser, googleUser.getBasicProfile(), googleUser.getAuthResponse());
+        }
+    },
+    GoogleAppiSetUp: function (x) {
+        var _this = this;
+        var appStart = function () {
+            gapi.load('auth2', initSigninV2);
+        };
+
+        var initSigninV2 = function () {
+            auth2 = gapi.auth2.init({
+                client_id: '338858308946-6vc4hpn2g48hmgjd94stkqf21a49trlh.apps.googleusercontent.com',
+                cookiepolicy: 'single_host_origin',
+                // Request scopes in addition to 'profile' and 'email'
+                //scope: 'profile email name'
+            });
+            if (x == "beforeLogin") {
+                _this.attachSignin(document.getElementById('GoogleLogInNavbar'));
+                _this.attachSignin(document.getElementById('GoogleLogIn'));
+                auth2.currentUser.listen(_this.sendGoogleLogIn);
+            }
+            //auth2.isSignedIn.listen(_this.signinChanged);
+            //_this.refreshValues();
+        };
+        appStart();
+    },
+    FacebookAppiSetUp: function (x) {
+        window.fbAsyncInit = () => {
+            FB.init({
+                appId: '911137429247663',
+                xfbml: true,
+                version: 'v4.0'
+            });
+            if (x == "beforeLogin") {
+                FB.getLoginStatus((response) => {
+                    if (response.status === 'connected') {
+                        _this.sendFacebookLogIn();
+                    }
+                });
+            }
+        };
     }
+
 }
 
 $.AdminJs.compare = {
@@ -965,7 +1146,6 @@ $(function () {
     
     $('[data-toggle="tooltip"]').tooltip();
     $('[data-toggle="popover"]').popover();
-
 });
 
 /*$('#loading-image').bind('ajaxStart', function () {
@@ -1567,3 +1747,18 @@ function getUrlParameter(sParam) {
         }
     }
 };
+
+function onSignIn(googleUser) {
+    var profile = googleUser.getBasicProfile();
+    console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+    console.log('Name: ' + profile.getName());
+    console.log('Image URL: ' + profile.getImageUrl());
+    console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+};
+
+function signOut() {
+    var auth2 = gapi.auth2.getAuthInstance();
+    auth2.signOut().then(function () {
+        console.log('User signed out.');
+    });
+}

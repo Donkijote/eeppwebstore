@@ -140,8 +140,21 @@ namespace WebStore.Controllers
                     })
                     .ToList();
             var cate = db.tblCategories.Select(x => x).ToList();
+            var brands = (from a in db.tblRelBrand
+                          join b in db.tblBrand
+                          on a.refBrand equals b.idBrand
+                          select new
+                          {
+                              refProd = a.refProd,
+                              brand = b.strName
+                          }).ToList();
+
             foreach (var i in p)
             {
+                if (brands.Any(b => b.refProd == i.strCodigo))
+                {
+                    i.Brand = brands.Where(b => b.refProd == i.strCodigo).Select(l => l.brand).FirstOrDefault();
+                }
                 i.categorySeo = cate.Where(x => x.strNombre == i.categoryName).Select(x => x.strSeo).FirstOrDefault();
             }
             viewModel.ProductsList = p.Take(12);

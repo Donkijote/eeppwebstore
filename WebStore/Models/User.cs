@@ -38,6 +38,12 @@ namespace WebStore.Models
         public string Pass { get; set; }
         public bool RememberMe { get; set; }
     }
+    public class ExternalLogin
+    {
+        public string Id { get; set; }
+        public string Email { get; set; }
+        public string Name { get; set; }
+    }
     public class RecoveryPassword
     {
         [Required(ErrorMessage = "Campo Requerido.")]

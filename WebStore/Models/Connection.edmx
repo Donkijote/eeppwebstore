@@ -273,6 +273,7 @@
           <Property Name="boolValidate" Type="bit" />
           <Property Name="strRecoveryCode" Type="varchar" MaxLength="6" />
           <Property Name="timeRecoveryCode" Type="datetime" />
+          <Property Name="strProvider" Type="varchar" MaxLength="50" />
         </EntityType>
         <Association Name="FK_tblAddresses_tblComunas">
           <End Role="tblComunas" Type="Self.tblComunas" Multiplicity="0..1" />
@@ -1248,6 +1249,7 @@
           <Property Name="intPhone" Type="Int32" />
           <NavigationProperty Name="tblAddresses" Relationship="webstoreModel.FK_tblAddresses_tblUsers" FromRole="tblUsers" ToRole="tblAddresses" />
           <NavigationProperty Name="tblQuotingQue" Relationship="webstoreModel.FK_tblQuotingQue_tblUsers" FromRole="tblUsers" ToRole="tblQuotingQue" />
+          <Property Name="strProvider" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="tblAddresses">
           <Key>
@@ -1631,6 +1633,7 @@
           <EntitySetMapping Name="tblUsers">
             <EntityTypeMapping TypeName="webstoreModel.tblUsers">
               <MappingFragment StoreEntitySet="tblUsers">
+                <ScalarProperty Name="strProvider" ColumnName="strProvider" />
                 <ScalarProperty Name="intPhone" ColumnName="intPhone" />
                 <ScalarProperty Name="intId" ColumnName="intId" />
                 <ScalarProperty Name="strRegistrationDate" ColumnName="strRegistrationDate" />

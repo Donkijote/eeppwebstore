@@ -36,7 +36,14 @@ namespace WebStore.Controllers
         [AllowAnonymous]
         public ActionResult LogIn()
         {
-            return View();
+            if(Session["email"] != null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                return View();
+            }
         }
 
         [Authorize]
@@ -46,7 +53,7 @@ namespace WebStore.Controllers
             FormsAuthentication.SignOut();
             System.Web.HttpContext.Current.Session.Abandon();
             System.Web.HttpContext.Current.Session.Clear();
-            return RedirectToAction("Index", "Home");
+            return Json(new { status = "OK" });
         }
 
         [AllowAnonymous]
@@ -76,6 +83,104 @@ namespace WebStore.Controllers
             else
             {
                 return Json(new { status = "error", title = "Ups...!", responseText = "Usuario o contraseña no son correctos." });
+            }
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        public JsonResult FacebookLogIn(ExternalLogin facebook)
+        {
+            using (webstoreEntities db = new webstoreEntities())
+            {
+                var Email = db.tblUsers.Where(x => x.strEmail == facebook.Email).FirstOrDefault();
+                if (Email != null)
+                {
+                    if(Email.strProvider != "Facebook")
+                    {
+                        return Json(new { status = "info", title = "Email", responseText = $"El email: <strong>{facebook.Email}</strong> ya ha sido registrado, no como cuenta de Facebook." });
+                    }
+                    else
+                    {
+                        string logging = FacebookLogOn(facebook);
+                        if (logging == "OK")
+                        {
+                            return Json(new { status = "OK" });
+                        }
+                        else
+                        {
+                            return Json(new { status = "error", title = "Ups...!", responseText = logging });
+                        }
+                    }
+                }
+                else
+                {
+                    string signing = FacebookSignUp(facebook);
+                    if(signing == "OK")
+                    {
+                        string logging = FacebookLogOn(facebook);
+                        if (logging == "OK")
+                        {
+                            return Json(new { status = "OK" });
+                        }
+                        else
+                        {
+                            return Json(new { status = "error", title = "Ups...!", responseText = logging });
+                        }
+                    }
+                    else
+                    {
+                        return Json(new { status = "error", title = "Ups...!", responseText = signing });
+                    }
+                }
+            }
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        public JsonResult GoogleLogIn(ExternalLogin google)
+        {
+            using (webstoreEntities db = new webstoreEntities())
+            {
+                var Email = db.tblUsers.Where(x => x.strEmail == google.Email).FirstOrDefault();
+                if (Email != null)
+                {
+                    if (Email.strProvider != "Google")
+                    {
+                        return Json(new { status = "info", title = "Email", responseText = $"El email: <strong>{google.Email}</strong> ya ha sido registrado, no como cuenta de Google." });
+                    }
+                    else
+                    {
+                        string logging = GoogleLogOn(google);
+                        if (logging == "OK")
+                        {
+                            return Json(new { status = "OK" });
+                        }
+                        else
+                        {
+                            return Json(new { status = "error", title = "Ups...!", responseText = logging });
+                        }
+                    }
+                }
+                else
+                {
+                    string signing = GoogleSignUp(google);
+                    if (signing == "OK")
+                    {
+                        string logging = GoogleLogOn(google);
+                        if (logging == "OK")
+                        {
+                            return Json(new { status = "OK" });
+                        }
+                        else
+                        {
+                            return Json(new { status = "error", title = "Ups...!", responseText = logging });
+                        }
+                    }
+                    else
+                    {
+                        return Json(new { status = "error", title = "Ups...!", responseText = signing });
+                    }
+                }
             }
         }
 
@@ -336,9 +441,9 @@ namespace WebStore.Controllers
                     ModelState.AddModelError("EmailExist", "Email already exist.");
                     return Json(new
                     {
-                        status = "email",
-                        title = "Ups...!",
-                        responseText = "El email ya está siendo usado."
+                        status = "warning",
+                        title = "Email",
+                        responseText = $"El email <strong>{user.Email}</strong> ya está siendo usado."
                     }, JsonRequestBehavior.AllowGet);
                 }
 
@@ -347,8 +452,8 @@ namespace WebStore.Controllers
                     ModelState.AddModelError("Password", "Contraseñas no coinciden.");
                     return Json(new
                     {
-                        status = "password",
-                        title = "Ups...!",
+                        status = "warning",
+                        title = "Password",
                         responseText = "Las contraseñas no coinciden."
                     }, JsonRequestBehavior.AllowGet);
                 }
@@ -362,7 +467,8 @@ namespace WebStore.Controllers
                     strPassword = Crypto.Hash(user.Pass),
                     intLevel = 1,
                     boolValidate = false,
-                    strRegistrationDate = DateTime.Now
+                    strRegistrationDate = DateTime.Now,
+                    strProvider = "Local"
                 };
 
                 using (webstoreEntities db = new webstoreEntities())
@@ -519,6 +625,7 @@ namespace WebStore.Controllers
                         System.Web.HttpContext.Current.Session["email"] = valid.strEmail;
                         System.Web.HttpContext.Current.Session["names"] = valid.strNames;
                         System.Web.HttpContext.Current.Session["lastname"] = valid.strLastNames;
+                        System.Web.HttpContext.Current.Session["Provider"] = "Local";
                         return "OK";
                     }
                     else
@@ -536,6 +643,96 @@ namespace WebStore.Controllers
                 return "invalid";
             }
         }
-        
+
+        private string FacebookLogOn(ExternalLogin facebook)
+        {
+            try
+            {
+                CookieHelper newCookieHelper = new CookieHelper(HttpContext.Request, HttpContext.Response);
+                newCookieHelper.SetLoginCookie(facebook.Email, "", false);
+                System.Web.HttpContext.Current.Session["id"] = facebook.Id;
+                System.Web.HttpContext.Current.Session["email"] = facebook.Email;
+                System.Web.HttpContext.Current.Session["names"] = facebook.Name.Split(' ')[0];
+                System.Web.HttpContext.Current.Session["lastname"] = facebook.Name.Split(' ')[1];
+                System.Web.HttpContext.Current.Session["Provider"] = "Facebook";
+                return "OK";
+            }catch(Exception ex)
+            {
+                return ex.ToString();
+            }
+        }
+
+        private string GoogleLogOn(ExternalLogin google)
+        {
+            try
+            {
+                CookieHelper newCookieHelper = new CookieHelper(HttpContext.Request, HttpContext.Response);
+                newCookieHelper.SetLoginCookie(google.Email, "", false);
+                System.Web.HttpContext.Current.Session["id"] = google.Id;
+                System.Web.HttpContext.Current.Session["email"] = google.Email;
+                System.Web.HttpContext.Current.Session["names"] = google.Name.Split(' ')[0];
+                System.Web.HttpContext.Current.Session["lastname"] = google.Name.Split(' ')[1];
+                System.Web.HttpContext.Current.Session["Provider"] = "Google";
+                return "OK";
+            }
+            catch (Exception ex)
+            {
+                return ex.ToString();
+            }
+        }
+
+        private string FacebookSignUp(ExternalLogin facebook)
+        {
+            using(webstoreEntities db = new webstoreEntities())
+            {
+                tblUsers newUser = new tblUsers
+                {
+                    strEmail = facebook.Email,
+                    strNames = facebook.Name.Split(' ')[0],
+                    strLastNames = facebook.Name.Split(' ')[1],
+                    strProvider = "Facebook",
+                    strRegistrationDate = DateTime.Now,
+                    boolValidate = true,
+                    intLevel = 1
+                };
+                try
+                {
+                    db.tblUsers.Add(newUser);
+                    db.SaveChanges();
+                    return "OK";
+                }catch(Exception ex)
+                {
+                    return ex.ToString();
+                }
+            }
+        }
+
+        private string GoogleSignUp(ExternalLogin google)
+        {
+            using (webstoreEntities db = new webstoreEntities())
+            {
+                tblUsers newUser = new tblUsers
+                {
+                    strEmail = google.Email,
+                    strNames = google.Name.Split(' ')[0],
+                    strLastNames = google.Name.Split(' ')[1],
+                    strProvider = "Google",
+                    strRegistrationDate = DateTime.Now,
+                    boolValidate = true,
+                    intLevel = 1
+                };
+                try
+                {
+                    db.tblUsers.Add(newUser);
+                    db.SaveChanges();
+                    return "OK";
+                }
+                catch (Exception ex)
+                {
+                    return ex.ToString();
+                }
+            }
+        }
+
     }
 }
