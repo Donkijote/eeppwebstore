@@ -39,8 +39,10 @@ namespace WebStore.Controllers
                          strCodigo = p.strCod,
                          strNombre = p.strNombre.ToLower(),
                          intPrecio = Function.FormatNumber((int)(p.intPrecio + (p.intPrecio * (p.intPercent / 100)))),
+                         intPrecioNum = (int)(p.intPrecio + (p.intPrecio * (p.intPercent / 100))),
                          intPrecentOff = o.Any(l => l.CodProd == p.strCodigo) ? o.Where(i => i.CodProd == p.strCodigo).Select(j => (int)j.ValorPct).FirstOrDefault() + "%" : "0",
                          intPrecioOff = o.Any(l => l.CodProd == p.strCodigo) ? Function.FormatNumber((int)(p.intPrecio + (p.intPrecio * (p.intPercent / 100))) - (int)(((p.intPrecio + (p.intPrecio * (p.intPercent / 100))) * o.Where(i => i.CodProd == p.strCodigo).Select(j => (int)j.ValorPct).FirstOrDefault() / 100))) : "0",
+                         intPrecioOffNum = o.Any(l => l.CodProd == p.strCodigo) ? (int)(p.intPrecio + (p.intPrecio * (p.intPercent / 100))) - (int)(((p.intPrecio + (p.intPrecio * (p.intPercent / 100))) * o.Where(i => i.CodProd == p.strCodigo).Select(j => (int)j.ValorPct).FirstOrDefault() / 100)) : 0,
                          intPercent = p.intPercent + "%",
                          categorySeo = id
                      })
@@ -89,6 +91,57 @@ namespace WebStore.Controllers
 
                 p.Ficha = db.tblFicha.Where(w => w.refCodProd == p.strCodigo).FirstOrDefault();
 
+            }
+            
+
+            if(Session["id"] != null)
+            {
+
+            }
+            else
+            {
+                if (Request.Cookies["History"] != null)
+                {
+                    var History = Request.Cookies["History"];
+                    var items = History.Values.AllKeys.SelectMany(History.Values.GetValues, (k, v) => new { key = k, value = v });
+                    string newName = "Object-" + (Int32.Parse(items.Last().key.ToString().Split('-')[1]) + 1);
+
+                    History.Expires = DateTime.Now.AddHours(24);
+
+                    foreach (var i in x)
+                    {
+                        if(!items.Any(a => a.value == i.Cod))
+                        {
+                            History[newName] = i.Cod;
+                            Response.Cookies.Add(History);
+                        }
+                       /* History["strCodigo"] = i.strCodigo;
+                        History["strNombre"] = i.strNombre;
+                        History["intPrecio"] = i.intPrecio;
+                        History["intPrecioOff"] = i.intPrecioOff;
+                        History["categorySeo"] = i.categorySeo;
+                        History["Date"] = $"{DateTime.Today}";*/
+                    }
+                }
+                else
+                {
+                    HttpCookie History = new HttpCookie("History");
+                    History.Expires = DateTime.Now.AddHours(24);
+
+                    foreach (var i in x)
+                    {
+                        History["Object-1"] = i.Cod;
+                        /* History["strCodigo"] = i.strCodigo;
+                         History["strNombre"] = i.strNombre;
+                         History["intPrecio"] = i.intPrecio;
+                         History["intPrecioOff"] = i.intPrecioOff;
+                         History["categorySeo"] = i.categorySeo;
+                         History["Date"] = $"{DateTime.Today}";*/
+                    }
+
+
+                    Response.Cookies.Add(History);
+                }
             }
 
             return View("Product", x);

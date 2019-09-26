@@ -2260,8 +2260,8 @@ button {
   .mg-widget-cart > .entry .entry-delete {
     position: absolute;
     top: -1px;
-    right: 0;
-    color: #f44336;
+    right: 5px;
+    color: #f44336 !important;
     cursor: pointer; }
   .mg-widget-cart > .entry .entry-thumb, .mg-widget-cart > .entry .entry-content {
     display: table-cell;

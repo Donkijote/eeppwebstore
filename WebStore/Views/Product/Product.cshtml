@@ -211,10 +211,11 @@
 
                     <div class="col-sm-8">
                         <div class="pt-4 hidden-sm-up"></div>
-                        <button class="btn btn-orangered btn-block m-0" data-toast="" data-toast-type="success"
-                                data-toast-position="topRight" data-toast-icon="icon-check-circle" data-toast-title="Product"
-                                data-toast-message="successfuly added to cart!">
-                            <i class="icon-bag"></i> Añadir al carro
+                        <button class="btn btn-orangered btn-block m-0" id="addProductToCart" data-code="@item.strCodigo" data-name="@item.strNombre" data-price="@item.intPrecio"
+                            data-priceint="@item.intPrecioNum" data-off-priceint="@(item.intPrecioOffNum != 0 ? item.intPrecioOffNum:0)"
+                           data-off-percentage="@(item.intPrecioOff != "0" ? item.intPrecentOff:"")" data-off-price="@(item.intPrecioOff != "0" ? item.intPrecioOff:"")"
+                           data-quantity="" data-category="@item.categorySeo">
+                            <i class="fas fa-shopping-bag pr-2" style="font-size:18px;"></i> Añadir al carro
                         </button>
                     </div>
                 </div>
@@ -275,7 +276,9 @@
         <div id="details"></div>
     </div>
 }
-<div id="errorReport"></div>
+<div id="errorReport">
+</div>
+
 <div class="bg-secondary padding-top-3x padding-bottom-2x mb-3">
     <div class="container">
         <div class="row">
@@ -764,6 +767,7 @@
     <script type="text/javascript">
         $(function () {
             $.AdminJs.Countdown.activate();
+            $.AdminJs.cart.addProductToCart();
         })
     </script>
 }

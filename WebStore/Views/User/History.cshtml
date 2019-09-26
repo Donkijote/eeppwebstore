@@ -1,0 +1,121 @@
+﻿@model IEnumerable<WebStore.Models.ProductsSingle>
+@{
+    ViewBag.Title = WebStore.Resources.Titles.History;
+}
+<section>
+    <header class="header">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                    <h1>
+                        @ViewBag.Title
+                    </h1>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                    <ul class="breadcrumbs">
+                        <li>
+                            <a href="@Url.Action("Index","Home", new { language = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName}, null)">@WebStore.Resources.Titles.Home</a>
+                        </li>
+                        <li class="separator">&nbsp;</li>
+                        <li>
+                            @ViewBag.Title
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </header>
+</section>
+
+<div class="container padding-bottom-3x">
+
+    <div class="row">
+        @{
+            if (Model != null)
+            {
+                Random rand = new Random();
+                foreach (var item in Model)
+                {
+                    <div class="col-md-3 col-sm-3 col-3 element-item">
+                        <div class="mg-product-card mb-3">
+                            @if (item.intPrecioOff != "0")
+                            {
+                                <span class="mg-product-badge bg-success">Oferta</span>
+                            }
+                            <a class="mg-product-wish bg-secondary" data-toggle="tooltip" data-placement="top" title="@WebStore.Resources.Buttons.Quote" data-original-title="@WebStore.Resources.Buttons.Quote"
+                               data-code="@item.strCodigo" data-name="@item.strNombre" data-price="@item.intPrecio"
+                               data-off-percentage="@(item.intPrecioOff != "0" ? item.intPrecentOff:"")"
+                               data-off-price="@(item.intPrecioOff != "0" ? item.intPrecioOff:"")"
+                               data-quantity="1">
+                                <i></i>
+                            </a>
+                            <a class="mg-product-thumb" href="@Url.Action("Category","Product", new { id = item.categorySeo, idp = item.strCodigo, language=System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName })">
+                                <img class="img-fuild" src="~/Content/img/products/@item.strCodigo-1.jpg"
+                                     alt="Producto">
+
+
+                                <div class="mg-product-card-body">
+                                    @if (item.TimeOffer)
+                                    {
+                                        <div class="mg-product-countdown-wrapper">
+                                            @if (!ViewBag.Mobile)
+                                            {
+
+                                                <div class="countdown xs" style="height:30px;" data-time="@item.Time"></div>
+
+                                            }
+                                            <span class="mg-product-badge bg-danger">TIEMPO LIMITADO</span>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="mg-rating-stars stars">
+                                            @{
+                                                int stars = rand.Next(5);
+                                                for (var i = 1; i < 6; i++)
+                                                {
+                                                    <i class="fas fa-star @(i <= stars ? "filled": "")"></i>
+                                                }
+                                            }
+                                        </div>
+                                    }
+                                    <h4 class="mg-product-price">
+                                        @if (item.intPrecioOff != "0")
+                                        {
+                                            <del>$@item.intPrecio</del><br />
+                                            <span class="price">$ @item.intPrecioOff</span>
+                                            <label class="off">@item.intPrecentOff DCTO</label>
+                                        }
+                                        else
+                                        {
+                                            <span class="price">$@item.intPrecio</span>
+                                        }
+
+                                    </h4>
+                                    <div class="mg-product-category">
+                                        <!--@WebStore.Resources.Texts.Brand <span class="number"></span>-->
+                                    </div>
+                                    <h3 class="mg-product-title name text-capitalize">
+                                        @item.strNombre
+                                    </h3>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                <h2>Su historial está vacío.</h2><br />
+            }
+        }
+    </div>
+</div>
+
+@section Scripts{
+    <script type="text/javascript">
+        $(function(){
+            
+        })
+    </script>
+    }

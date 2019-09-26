@@ -28,7 +28,7 @@
                                 @Html.DisplayName(WebStore.Resources.Menu.left)
                             </a>
                         </li>
-                        <li class="nav-item mg-li-menu mg-has-submenu" style="margin-right:auto;">
+                        <li class="nav-item mg-li-menu mg-has-submenu">
                             <a class="nav-link mg-link-menu" href="javascript:void(0);">
                                 @Html.DisplayName(WebStore.Resources.Menu.middle)
                             </a>
@@ -61,6 +61,11 @@
                                     </div>
                                 </div>
                             </ul>
+                        </li>
+                        <li class="nav-item mg-li-menu" style="margin-right:auto;">
+                            <a class="nav-link mg-link-menu" href="@Url.Action("History","User", new { language = System.Threading.Thread.CurrentThread.CurrentCulture.TwoLetterISOLanguageName})">
+                                Historial
+                            </a>
                         </li>
                     </ul>
                 </div>
@@ -256,60 +261,78 @@
                     <li class="nav-item mg-li-social dropdown">
                         <a class="nav-link" href="@Url.Action("Quote", "User", new { language = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName }, null)">
                             <i class="far fa-file-alt"></i>
-                            @{
-                                if (Model.Notification.Quotings > 0)
+                            <span class="mg-navbar-compare">
+                                @if (Model.Notification.Quotings > 0)
                                 {
-                                    <span class="mg-navbar-compare">
-                                        <span class="mg-count-label">@Model.Notification.Quotings</span>
-                                    </span>
-                                }
-
-                            }
-
+                                    <span class="mg-count-label">@Model.Notification.Quotings</span>
+                                }                                                            
+                            </span>
                         </a>
                     </li>
 
                     <li class="nav-item mg-li-social mg-shopping-cart dropdown">
                         <a class="nav-link" href="@Url.Action("Cart", "User", new { language = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName }, null)">
                             <i class="fas fa-shopping-cart"></i>
-                            <span class="mg-navbar-cart">
-                                <span class="mg-count-label">3</span>
-                            </span>
+                            @{
+                                if (Model.Notification.Cart > 0)
+                                {
+                                    <span class="mg-navbar-cart">
+                                        <span class="mg-count-label">@Model.Notification.Cart</span>
+                                    </span>
+                                }
+                            }
+                            
                         </a>
                         <div class="mg-toolbar-dropdown mg-cart-dropdown mg-widget-cart mg-hidden-on-mobile">
-                            <div class="entry">
-                                <div class="entry-thumb">
-                                    <a href="shop-single.html">
-                                        <img src="~/Content/img/products/25040806-1.jpg" alt="Product">
-                                    </a>
-                                </div>
-                                <div class="entry-content">
-                                    <h4 class="entry-title">
-                                        <a href="shop-single.html">Proyector Bree 240w</a>
-                                    </h4>
-                                    <span class="entry-meta">1 x $910.00</span>
-                                </div>
-                                <div class="entry-delete">
-                                    <i class="fas fa-times"></i>
-                                </div>
-                            </div>
-                            <div class="text-right">
-                                <p class="text-gray-dark py-2 mb-0">
-                                    <span class="text-muted">Subtotal:</span> &nbsp;$2,548.50
-                                </p>
-                            </div>
-                            <div class="d-flex">
-                                <div class="pr-2 w-50">
-                                    <a href="@Url.Action("Cart", "User", new { language = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName })" style="text-decoration:none;">
-                                        <div class="btn btn-secondary btn-sm btn-block mb-0" href="cart.html">@WebStore.Resources.Buttons.ShowCart</div>
-                                    </a>
-                                </div>
-                                <div class="pl-2 w-50">
-                                    <a href="@Url.Action("CheckOut", "User", new { language = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName })" style="text-decoration:none;">
-                                        <div class="btn btn-orangered btn-sm btn-block mb-0">@WebStore.Resources.Buttons.Checkout</div>
-                                    </a>
-                                </div>
-                            </div>
+                            @{ if (Model.ProductList != null)
+                                {
+                                    foreach (var i in Model.ProductList)
+                                    {
+                                        <div class="entry">
+                                            <div class="entry-thumb">
+                                                <a href="shop-single.html">
+                                                    <img src="~/Content/img/products/@i.Code-1.jpg" alt="Product">
+                                                </a>
+                                            </div>
+                                            <div class="entry-content">
+                                                <h4 class="entry-title">
+                                                    <a href="@Url.Action("Category", "Product", new { id = i.Category, idp = i.Code, language = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName})">@i.Name</a>
+                                                </h4>
+                                                <span class="entry-meta">@i.Quantity x $@i.Price</span>
+                                            </div>
+                                            <a class="entry-delete removeItemFromCart" data-id="@i.Code" href="javascript:void(0);">
+                                                <i class="fas fa-times"></i>
+                                            </a>
+                                        </div>
+                                    }
+                                    int total = 0;
+                                    foreach (var i in Model.ProductList)
+                                    {
+                                        total += i.PriceInt;
+                                    }
+                                    <div class="text-right">
+                                        <p class="text-gray-dark py-2 mb-0">
+                                            <span class="text-muted">Subtotal:</span> &nbsp;$@total.ToString("N0", System.Threading.Thread.CurrentThread.CurrentCulture)
+                                        </p>
+                                    </div>
+                                    <div class="d-flex">
+                                        <div class="pr-2 w-50">
+                                            <a href="@Url.Action("Cart", "User", new { language = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName })" style="text-decoration:none;">
+                                                <div class="btn btn-secondary btn-sm btn-block mb-0" href="cart.html">@WebStore.Resources.Buttons.ShowCart</div>
+                                            </a>
+                                        </div>
+                                        <div class="pl-2 w-50">
+                                            <a href="@Url.Action("CheckOut", "User", new { language = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName })" style="text-decoration:none;">
+                                                <div class="btn btn-orangered btn-sm btn-block mb-0">@WebStore.Resources.Buttons.Checkout</div>
+                                            </a>
+                                        </div>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <h5>Carrito vacío.</h5>
+                                }
+                            }
                         </div>
                     </li>
                 </ul>

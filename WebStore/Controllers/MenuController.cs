@@ -13,19 +13,36 @@ namespace WebStore.Controllers
         public ActionResult MenuBig()
         {
             var viewModel = new BindingCateogyFamilyChild();
-            List<QuotingsProductList> productLists = System.Web.HttpContext.Current.Session["QuotingList"] as List<QuotingsProductList>;
             using (webstoreEntities db = new webstoreEntities())
             {
                 viewModel.family = db.tblFamily.Select(x => new Family { IdFamily = x.idFamily, StrName = x.strName, StrSeo = x.strSeo, IntOrder = x.intOrder }).OrderBy(y => y.IntOrder).ToList();
                 viewModel.category = db.tblCategories.Select(x => x).ToList();
             }
-            if (productLists != null)
+            if(Session["id"] != null)
             {
-                viewModel.Notification = new Notification { Quotings = productLists.Count() };
+
             }
             else
             {
-                viewModel.Notification = new Notification { Quotings = 0 };
+                List<QuotingsProductList> QuoteProductList = System.Web.HttpContext.Current.Session["QuotingList"] as List<QuotingsProductList>;
+                List<CartProductList> CartProductList = System.Web.HttpContext.Current.Session["CartList"] as List<CartProductList>;
+                if (QuoteProductList != null)
+                {
+                    viewModel.Notification = new Notification { Quotings = QuoteProductList.Count() };
+                }
+                else
+                {
+                    viewModel.Notification = new Notification { Quotings = 0 };
+                }
+                if (CartProductList != null)
+                {
+                    viewModel.Notification = new Notification { Cart = CartProductList.Count() };
+                }
+                else
+                {
+                    viewModel.Notification = new Notification { Cart = 0 };
+                }
+                viewModel.ProductList = CartProductList;
             }
             return PartialView(viewModel);
         }

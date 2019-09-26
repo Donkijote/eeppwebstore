@@ -108,4 +108,67 @@
         margin: 0,
         responsiveClass: true
     });
+
+    $("#carouselFirstHistory").owlCarousel({
+        items: 5,
+        nav: true,
+        dots: true,
+        navText: ["<i class='fas fa-angle-left fa-2x'></i>", "<i class='fas fa-angle-right fa-2x'></i>"],
+        loop: true,
+        margin: 10,
+        responsiveClass: true,
+        responsive: {
+            0: {
+                items: 1
+            },
+            600: {
+                items: 2
+            },
+            1000: {
+                items: 5
+            }
+        }
+    });
+
+    $("#carouselSecondHistory").owlCarousel({
+        items: 5,
+        nav: true,
+        dots: true,
+        navText: ["<i class='fas fa-angle-left fa-2x'></i>", "<i class='fas fa-angle-right fa-2x'></i>"],
+        loop: true,
+        margin: 10,
+        responsiveClass: true,
+        responsive: {
+            0: {
+                items: 1
+            },
+            600: {
+                items: 2
+            },
+            1000: {
+                items: 5
+            }
+        }
+    });
+
+    $("#carouselThirdHistory").owlCarousel({
+        items: 5,
+        nav: true,
+        dots: true,
+        navText: ["<i class='fas fa-angle-left fa-2x'></i>", "<i class='fas fa-angle-right fa-2x'></i>"],
+        loop: true,
+        margin: 10,
+        responsiveClass: true,
+        responsive: {
+            0: {
+                items: 1
+            },
+            600: {
+                items: 2
+            },
+            1000: {
+                items: 5
+            }
+        }
+    });
 })

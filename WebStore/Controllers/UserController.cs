@@ -8,6 +8,8 @@ using System.Web.Mvc;
 using WebStore.Models;
 using WebStore.Functions;
 using System.Web.Security;
+using System.Globalization;
+using WebStore.Routing;
 
 namespace WebStore.Controllers
 {
@@ -16,19 +18,168 @@ namespace WebStore.Controllers
         // GET: User
         public ActionResult Cart()
         {
-            return View();
+            List<CartProductList> productLists = Session["CartList"] as List<CartProductList>;
+            return View(productLists);
+        }
+        [HttpPost]
+        public JsonResult AddProductToCart(CartProductList CartProduct)
+        {
+            try
+            {
+                if(Session["id"] != null)
+                {
+                    return Json(new {});
+                }
+                else
+                {
+                    List<CartProductList> productLists = Session["CartList"] as List<CartProductList>;
+
+
+                    if (productLists != null)
+                    {
+                        if (productLists.Any(x => x.Code == CartProduct.Code))
+                        {
+                            foreach (var i in productLists)
+                            {
+                                if (i.Code == CartProduct.Code)
+                                {
+                                    i.Quantity += CartProduct.Quantity;
+                                }
+                            }
+                        }
+                        else
+                        {
+                            productLists.Add(CartProduct);
+                        }
+                        Session["CartList"] = productLists;
+                        return Json(new { status = "OK" });
+                    }
+                    else
+                    {
+                        List<CartProductList> Products = new List<CartProductList>
+                        {
+                            new CartProductList
+                            {
+                                Code = CartProduct.Code,
+                                Price = CartProduct.Price,
+                                Name = CartProduct.Name,
+                                PriceInt = CartProduct.PriceInt,
+                                PercentageOff = CartProduct.PercentageOff,
+                                PriceOff = CartProduct.PriceOff,
+                                PriceOffInt = CartProduct.PriceOffInt,
+                                Quantity = CartProduct.Quantity,
+                                Category = CartProduct.Category
+                            }
+                        };
+                        Session["CartList"] = Products;
+                        return Json(new { status = "OK" });
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json(new { status = "error", responseText = ex.ToString() });
+            }
+        }
+        [HttpPost]
+        public JsonResult RemoveItemFromCartList(string id)
+        {
+            if (Session["id"] != null)
+            {
+                return Json(new { });
+            }
+            else
+            {
+                List<CartProductList> productLists = Session["CartList"] as List<CartProductList>;
+                var toRemove = productLists.Single(x => x.Code == id);
+                productLists.Remove(toRemove);
+
+                if (productLists.Count() > 0)
+                {
+                    return Json(new { status = "OK", reload = false });
+                }
+                else
+                {
+                    Session.Remove("CartList");
+                    return Json(new { status = "OK", reload = true });
+                }
+            }
+        }
+        [HttpPost]
+        public JsonResult DeleteCartList()
+        {
+            if (Session["id"] != null)
+            {
+                return Json(new { });
+            }
+            else
+            {
+                Session.Remove("CartList");
+
+                if (Session["CartList"] == null)
+                {
+                    return Json(new { status = "OK", reload = true });
+                }
+                else
+                {
+                    return Json(new { status = "error", title = "Up...!", responseText = "Algo salió mal, no se pudo vaciar su lista, recargue la página e intente nuevamente." });
+                }
+            }
+        }
+        [HttpPost]
+        public JsonResult UpdateItemQuantityFromCartList(string code, int quantity)
+        {
+            if (Session["id"] != null)
+            {
+                return Json(new { });
+            }
+            else
+            {
+                try
+                {
+                    List<CartProductList> productLists = Session["CartList"] as List<CartProductList>;
+                    foreach (var i in productLists)
+                    {
+                        if (i.Code == code)
+                        {
+                            i.Quantity = quantity;
+                        }
+                    }
+
+                    Session["CartList"] = productLists;
+                    return Json(new { status = "OK" });
+                }
+                catch (Exception ex)
+                {
+                    return Json(new { status = "error", title = "Ups...!", responseText = ex.ToString() });
+                }
+            }
         }
 
         public ActionResult CheckOut()
         {
             webstoreEntities db = new webstoreEntities();
-            var viewModel = new BindSelect();
+            var viewModel = new Checkout
+            {
+                BindSelect = new BindSelect
+                {
+                    countries = db.tblCountry.Select(x => x).ToList(),
 
-            viewModel.countries = db.tblCountry.Select(x => x).ToList();
+                    regions = db.tblRegiones.Select(x => x).ToList(),
 
-            viewModel.regions = db.tblRegiones.Select(x => x).ToList();
+                    comunes = db.tblComunas.Where(x => x.refProvincia == 1).ToList()
+                }
+            };
 
-            viewModel.comunes = db.tblComunas.Where(x => x.refProvincia == 1).ToList();
+            if(Session["id"] != null)
+            {
+
+            }
+            else
+            {
+                List<CartProductList> CartProductList = System.Web.HttpContext.Current.Session["CartList"] as List<CartProductList>;
+                viewModel.ProductList = CartProductList;
+            }
 
             return View(viewModel);
         }
@@ -283,7 +434,7 @@ namespace WebStore.Controllers
 
         public ActionResult Quote()
         {
-            /*if(Session["id"] != null)
+            if(Session["id"] != null)
             {
                 using(webstoreEntities db = new webstoreEntities())
                 {
@@ -305,10 +456,10 @@ namespace WebStore.Controllers
                 List<QuotingsProductList> productLists = System.Web.HttpContext.Current.Session["QuotingList"] as List<QuotingsProductList>;
 
                 return View(productLists);
-            }*/
-            List<QuotingsProductList> productLists = Session["QuotingList"] as List<QuotingsProductList>;
+            }
+            //List<QuotingsProductList> productLists = Session["QuotingList"] as List<QuotingsProductList>;
 
-            return View(productLists);
+            //return View(productLists);
         }
         [HttpPost]
         public JsonResult AddProductToQuoting(QuotingsProductList quotingsProduct)
@@ -551,8 +702,112 @@ namespace WebStore.Controllers
             return View();
         }
 
+        public ActionResult History()
+        {
+            if (Request.Browser.IsMobileDevice)
+            {
+                ViewBag.Mobile = true;
+            }
+            else
+            {
+                ViewBag.Mobile = false;
+            }
+            if (Session["id"] != null)
+            {
+                return View();
+            }
+            else
+            {
+                if(Request.Cookies["History"] != null)
+                {
+                    webstoreEntities db = new webstoreEntities();
+                    ElectropEntities dbE = new ElectropEntities();
+                    var History = Request.Cookies["History"];
+                    var items = History.Values.AllKeys.SelectMany(History.Values.GetValues, (k, v) => new { key = k, value = v });
+                    var o = dbE.iw_tlprprod.Where(i => i.CodLista == "16").ToList();
+                    List<ProductsSingle> x = new List<ProductsSingle>();
+                    Translate dir = new Translate();
+                    foreach (var w in items)
+                    {
+                        var product = (from a in dbE.iw_tprod
+                                        join b in dbE.iw_tlprprod
+                                        on a.CodProd equals b.CodProd
+                                        join c in dbE.iw_tlispre
+                                        on b.CodLista equals c.CodLista
+                                        join d in dbE.iw_tsubgr
+                                        on a.CodSubGr equals d.CodSubGr
+                                        where a.CodProd == w.value && c.CodLista == "15"
+                                        select new
+                                         {
+                                             strNombre = a.DesProd,
+                                             strCodigo = a.CodProd,
+                                             strCod = a.CodBarra,
+                                             intPrecio = a.PrecioVta,
+                                             intPercent = b.ValorPct,
+                                             category = d.DesSubGr
+                                         })
+                                         .AsEnumerable()
+                                         .Select(p => new ProductsSingle
+                                         {
+                                             Cod = p.strCodigo,
+                                             strCodigo = p.strCod,
+                                             strNombre = p.strNombre.ToLower(),
+                                             intPrecio = Function.FormatNumber((int)(p.intPrecio + (p.intPrecio * (p.intPercent / 100)))),
+                                             intPrecioNum = (int)(p.intPrecio + (p.intPrecio * (p.intPercent / 100))),
+                                             intPrecentOff = o.Any(l => l.CodProd == p.strCodigo) ? o.Where(i => i.CodProd == p.strCodigo).Select(j => (int)j.ValorPct).FirstOrDefault() + "%" : "0",
+                                             intPrecioOff = o.Any(l => l.CodProd == p.strCodigo) ? Function.FormatNumber((int)(p.intPrecio + (p.intPrecio * (p.intPercent / 100))) - (int)(((p.intPrecio + (p.intPrecio * (p.intPercent / 100))) * o.Where(i => i.CodProd == p.strCodigo).Select(j => (int)j.ValorPct).FirstOrDefault() / 100))) : "0",
+                                             intPrecioOffNum = o.Any(l => l.CodProd == p.strCodigo) ? (int)(p.intPrecio + (p.intPrecio * (p.intPercent / 100))) - (int)(((p.intPrecio + (p.intPrecio * (p.intPercent / 100))) * o.Where(i => i.CodProd == p.strCodigo).Select(j => (int)j.ValorPct).FirstOrDefault() / 100)) : 0,
+                                             intPercent = p.intPercent + "%",
+                                             categorySeo = dir.Translation(p.category.ToLower(), "en", "es")
+                                        })
+                                         .FirstOrDefault();
+                        if (x.Any())
+                        {
+                            x.Insert(0, product);
+                        }
+                        else
+                        {
+                            x.Add(product);
+                        }
+                        
+                    }
+                    
+
+                    var tList = db.tblOffertTime.Where(t => t.strTime >= DateTime.Now).Select(j => j).ToList();
+
+                    if (tList.Any())
+                    {
+                        foreach (var a in x)
+                        {
+                            ViewBag.Title = Resources.Titles.Product + " " + a.strNombre;
+                            ViewBag.Breadcrumbs = Resources.Titles.Product + " #" + a.strCodigo;
+
+                            var first = (from t in tList
+                                         where t.strTime > DateTime.Now
+                                         orderby t.strTime ascending
+                                         select t.strTime).First();
+                            ViewBag.first = first;
+                            TimeSpan timeDiff = first - DateTime.Now;
+                            int percentOff = tList.Where(t => t.refCodProd == a.strCodigo && t.strTime == first).Select(t => (int)t.intPercentageTime).FirstOrDefault();
+                            if (tList.Any(t => t.refCodProd == a.strCodigo && t.strTime == first))
+                            {
+                                a.TimeOffer = true;
+                                a.intPrecentOff = percentOff + "%";
+                                a.intPrecioOff = Function.FormatNumber((int)Decimal.Parse(a.intPrecio) - (int)(Double.Parse(a.intPrecio) * percentOff / 100));
+                                a.Time = string.Format("{0:D2}:{1:D2}:{2:D2}:{3:D2}", timeDiff.Days, timeDiff.Hours, timeDiff.Minutes, timeDiff.Seconds);
+                            }
+                        }
+                    }
+
+                    return View(x);
+                }
+                return View();
+            }
+            
+        }
+
         [NonAction]
-        private String SendVerificationLinkEmail(string emailID, string activationCode)
+        private string SendVerificationLinkEmail(string emailID, string activationCode)
         {
             var culture = System.Threading.Thread.CurrentThread.CurrentCulture.TwoLetterISOLanguageName;
             var verifyUrl = "http://eeppwebstore.ddns.net/"+culture+"/"+(culture == "en"? "User/VerifyAccount":"Usuario/VerificarCuenta")+"/"+activationCode;
@@ -577,7 +832,7 @@ namespace WebStore.Controllers
             }
         }
 
-        private String SendValidationCode(string Email, string r)
+        private string SendValidationCode(string Email, string r)
         {
             var smtp = Configuration.GetSmtp();
             var toEmail = new MailAddress(Email);

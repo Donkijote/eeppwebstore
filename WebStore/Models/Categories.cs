@@ -12,11 +12,17 @@ namespace WebStore.Models
         public bool intActivo { get; set; }
     }
 
+    public class CategoryList
+    {
+        public string CategoryCode { get; set; }
+    }
+
     public class BindingCateogyFamilyChild
     {
         public IEnumerable<Family> family { get; set; }
         public IEnumerable<tblCategories> category { get; set; }
         public Notification Notification { get; set; }
+        public List<CartProductList> ProductList { get; set; }
     }
 
     public class Notification

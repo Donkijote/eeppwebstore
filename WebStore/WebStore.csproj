@@ -244,6 +244,7 @@
     <Compile Include="Models\Account.cs" />
     <Compile Include="Models\BindSelect.cs" />
     <Compile Include="Models\Categories.cs" />
+    <Compile Include="Models\Checkout.cs" />
     <Compile Include="Models\Connection.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -305,6 +306,7 @@
     </Compile>
     <Compile Include="Models\Products.cs" />
     <Compile Include="Models\Projects.cs" />
+    <Compile Include="Models\Cart.cs" />
     <Compile Include="Models\Quotings.cs" />
     <Compile Include="Models\Stock.cs" />
     <Compile Include="Models\tblAddresses.cs">
@@ -959,6 +961,7 @@
     <Content Include="Views\User\VerifyAccount.cshtml" />
     <Content Include="Views\User\RetrievePassword.cshtml" />
     <Content Include="Views\Account\Password.cshtml" />
+    <Content Include="Views\User\History.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

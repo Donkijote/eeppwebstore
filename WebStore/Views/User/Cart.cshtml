@@ -1,4 +1,4 @@
-﻿
+﻿@model IEnumerable<WebStore.Models.CartProductList>
 @{
     ViewBag.Title = WebStore.Resources.Titles.Cart;
 }
@@ -38,131 +38,107 @@
     </div>
 
     <div class="table-responsive shopping-cart">
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>@WebStore.Resources.Cart.Product</th>
-                    <th class="text-center">@WebStore.Resources.Cart.Quantity</th>
-                    <th class="text-center">@WebStore.Resources.Cart.Subtotal</th>
-                    <th class="text-center">@WebStore.Resources.Cart.Discount</th>
-                    <th class="text-center"><a class="btn btn-sm btn-outline-danger" href="#">@WebStore.Resources.Buttons.EmptyCart</a></th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>
-                        <div class="product-item">
-                            <a class="product-thumb" href="#">
-                                <img src="~/Content/img/products/25040806-1.jpg" alt="Product">
-                            </a>
-                            <div class="product-info">
-                                <h4 class="product-title"><a href="#">Proyector Bree 240w</a></h4><span><em>Type:</em> Mirrorless</span><span><em>Color:</em> Black</span>
-                            </div>
-                        </div>
-                    </td>
-                    <td class="text-center">
-                        <div class="count-input">
-                            <select class="form-control">
-                                <option>1</option>
-                                <option>2</option>
-                                <option>3</option>
-                                <option>4</option>
-                                <option>5</option>
-                            </select>
-                        </div>
-                    </td>
-                    <td class="text-center text-lg">$910.00</td>
-                    <td class="text-center text-lg">$35.00</td>
-                    <td class="text-center">
-                        <a class="remove-from-cart" href="#" data-toggle="tooltip" title="" data-original-title="Quitar Artículo">
-                            <i class="fas fa-times"></i>
-                        </a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <div class="product-item">
-                            <a class="product-thumb" href="#">
-                                <img src="~/Content/img/products/25040902-1.jpg" alt="Product">
-                            </a>
-                            <div class="product-info">
-                                <h4 class="product-title"><a href="#">Proyector Bree 360w</a></h4><span><em>Memory:</em> 256 GB</span><span><em>Color:</em> Space Gray</span>
-                            </div>
-                        </div>
-                    </td>
-                    <td class="text-center">
-                        <div class="count-input">
-                            <select class="form-control">
-                                <option>1</option>
-                                <option>2</option>
-                                <option>3</option>
-                                <option>4</option>
-                                <option>5</option>
-                            </select>
-                        </div>
-                    </td>
-                    <td class="text-center text-lg">$1,450.00</td>
-                    <td class="text-center">—</td>
-                    <td class="text-center">
-                        <a class="remove-from-cart" href="#" data-toggle="tooltip" title="" data-original-title="Quitar Artículo">
-                            <i class="fas fa-times"></i>
-                        </a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <div class="product-item">
-                            <a class="product-thumb" href="#">
-                                <img src="~/Content/img/products/25041002-1.jpg" alt="Product">
-                            </a>
-                            <div class="product-info">
-                                <h4 class="product-title"><a href="#">Proyector Bree 480w</a></h4><span><em>Type:</em> Laser</span><span><em>Color:</em> White</span>
-                            </div>
-                        </div>
-                    </td>
-                    <td class="text-center">
-                        <div class="count-input">
-                            <select class="form-control">
-                                <option>1</option>
-                                <option>2</option>
-                                <option>3</option>
-                                <option>4</option>
-                                <option>5</option>
-                            </select>
-                        </div>
-                    </td>
-                    <td class="text-center text-lg">$188.50</td>
-                    <td class="text-center">—</td>
-                    <td class="text-center">
-                        <a class="remove-from-cart" href="#" data-toggle="tooltip" title="" data-original-title="Quitar Artículo">
-                            <i class="fas fa-times"></i>
-                        </a>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+        @{
+            if (Model != null)
+            {
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>@WebStore.Resources.Cart.Product</th>
+                            <th class="text-center">@WebStore.Resources.Cart.Quantity</th>
+                            <th class="text-center">@WebStore.Resources.Cart.Subtotal</th>
+                            <th class="text-center">@WebStore.Resources.Cart.Discount</th>
+                            <th class="text-center">Total</th>
+                            <th class="text-center"><a class="btn btn-sm btn-outline-danger" href="#">@WebStore.Resources.Buttons.EmptyCart</a></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{ int subTotal = 0; int discount = 0; double total = 0; double Iva = 0;}
+                        @foreach (var i in Model)
+                        {
+                            subTotal += i.PriceInt;
+                            if(i.PriceOffInt > 0){
+                                discount += i.PriceInt - i.PriceOffInt;
+                            }
 
-    <div class="shopping-cart-footer">
-        <div class="column">
-            <form class="coupon-form" method="post">
-                <input class="form-control" type="text" placeholder="@WebStore.Resources.Placeholder.Cupon" required="">
-                <button class="btn btn-outline-orangered btn-sm" type="submit">@WebStore.Resources.Buttons.Cupon</button>
-            </form>
-        </div>
-        <div class="column text-lg"><span class="text-muted">@WebStore.Resources.Cart.Subtotal:&nbsp; </span><span class="text-gray-dark">$2,548.50</span></div>
-    </div>
+                            <tr>
+                                <td>
+                                    <div class="product-item">
+                                        <a class="product-thumb" href="#">
+                                            <img src="~/Content/img/products/@i.Code-1.jpg" alt="Product">
+                                        </a>
+                                        <div class="product-info">
+                                            <h4 class="product-title"><a href="@Url.Action("Category", "Product", new { id = i.Category, idp = i.Code, language = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName})">@i.Name</a></h4><span><em>Type:</em> Mirrorless</span><span><em>Color:</em> Black</span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="text-center">
+                                    <div class="count-input">
+                                        <select class="form-control selectQuantity @(i.Quantity >= 7 ? "d-none":"")" data-id="@i.Code" @(i.Quantity >= 7 ? "disabled" : "")>
+                                            @for (int j = 1; j < 7; j++)
+                                            {
+                                                <option value="@j" @(j == i.Quantity ? "selected" : "")>@j</option>
+                                            }
+                                            <option value="7" class="plusSix">+6</option>
+                                        </select>
+                                        <div class="form-group mb-0 @(i.Quantity < 7 ? "d-none":"")">
+                                            <input type="text" name="quantityBox" class="form-control" placeholder="Cantidad" value="@i.Quantity" data-old="" maxlegth="3" data-id="@i.Code" @(i.Quantity < 7 ? "disabled" : "")>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="text-center text-lg">$@i.Price</td>
+                                <td class="text-center text-lg">@i.PercentageOff</td>
+                                <td class="text-center text-lg">$@(i.PriceOffInt > 0 ? i.PriceOff:i.Price)</td>
+                                <td class="text-center">
+                                    <a class="remove-from-cart" href="javascript:void(0);" data-id="@i.Code" data-toggle="tooltip" title="" data-original-title="Quitar Artículo">
+                                        <i class="fas fa-times"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                            Iva = (subTotal - discount) * 0.19;
+                            total = (subTotal - discount) + ((subTotal - discount) * 0.19);
 
-    <div class="shopping-cart-footer">
-        <div class="column">
-            <a class="btn btn-view-more" href="shop-grid-ls.html">
-                <i class="icon-arrow-left"></i>&nbsp;@WebStore.Resources.Buttons.BackShop
-            </a>
-        </div>
-        <div class="column">
-            <a class="btn btn-view-more" href="#" data-toast="" data-toast-type="success" data-toast-position="topRight" data-toast-icon="icon-check-circle" data-toast-title="Your cart" data-toast-message="is updated successfully!">@WebStore.Resources.Buttons.UpdateCart</a>
-            <a class="btn btn-orangered" href="@Url.Action("CheckOut", "User", new { language = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName})">@WebStore.Resources.Buttons.Checkout</a>
-        </div>
+                <div class="shopping-cart-footer">
+                    <div class="column">
+                        <form class="coupon-form" method="post">
+                            <input class="form-control" type="text" placeholder="@WebStore.Resources.Placeholder.Cupon" required="">
+                            <button class="btn btn-outline-orangered btn-sm" type="submit">@WebStore.Resources.Buttons.Cupon</button>
+                        </form>
+                    </div>
+                    <div class="column text-lg">
+                        <span class="text-muted">@WebStore.Resources.Cart.Subtotal:&nbsp; </span>
+                        <span class="text-gray-dark">$@subTotal.ToString("N0", System.Threading.Thread.CurrentThread.CurrentCulture)</span><br />
+                        <span class="text-muted">@WebStore.Resources.Cart.Discount:&nbsp; </span>
+                        <span class="text-gray-dark">$@discount.ToString("N0", System.Threading.Thread.CurrentThread.CurrentCulture)</span>
+                        <br />
+                        <span class="text-muted">IVA (19%):&nbsp; </span>
+                        <span class="text-gray-dark">$@Iva.ToString("N0", System.Threading.Thread.CurrentThread.CurrentCulture)</span>
+                        <br />
+                        <span class="text-muted">Total:&nbsp; </span>
+                        <span class="text-gray-dark">$@total.ToString("N0", System.Threading.Thread.CurrentThread.CurrentCulture)</span>
+                    </div>
+                </div>
+
+                <div class="shopping-cart-footer">
+                    <div class="column">
+                        <a class="btn btn-view-more" href="shop-grid-ls.html">
+                            <i class="icon-arrow-left"></i>&nbsp;@WebStore.Resources.Buttons.BackShop
+                        </a>
+                    </div>
+                    <div class="column">
+                        <a class="btn btn-view-more" href="#" data-toast="" data-toast-type="success" data-toast-position="topRight" data-toast-icon="icon-check-circle" data-toast-title="Your cart" data-toast-message="is updated successfully!">@WebStore.Resources.Buttons.UpdateCart</a>
+                        <a class="btn btn-orangered" href="@Url.Action("CheckOut", "User", new { language = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName})">@WebStore.Resources.Buttons.Checkout</a>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <h3>Su carrito está vacío.</h3>
+            }
+        }
     </div>
 
     <div class="container mb-1">

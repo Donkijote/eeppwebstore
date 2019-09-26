@@ -91,6 +91,15 @@
             </script>
         }
 
+        if (HttpContext.Current.Session["CartList"] != null)
+        {
+            <script type="text/javascript">
+                $(function () {
+                    $.AdminJs.cart.removeFromCart();
+                })
+            </script>
+        }
+
     }
 
     @RenderSection("scripts", required: false)

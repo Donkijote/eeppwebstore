@@ -35,6 +35,7 @@ namespace WebStore.Models
         public string intPrecentOff { get; set; }
         public int refCategoria { get; set; }
         public int intPrecioNum { get; set; }
+        public int intPrecioOffNum { get; set; }
         public string categoryName { get; set; }
         public string categorySeo { get; set; }
         public string productSeo { get; set; }

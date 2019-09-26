@@ -61,7 +61,7 @@ namespace WebStore
                 new RouteValueTranslation(cultureES, "About", "Nosotros"),
                 new RouteValueTranslation(cultureES, "Contact", "Contactos"),
                 new RouteValueTranslation(cultureES, "FAQ", "FAQ"),
-                new RouteValueTranslation(cultureES, "History", "Historia"),
+                new RouteValueTranslation(cultureES, "History", "Historial"),
                 new RouteValueTranslation(cultureES, "Knowus", "Conocenos"),
                 new RouteValueTranslation(cultureES, "Projects", "Proyectos"),
                 new RouteValueTranslation(cultureES, "Account", "Cuenta"),

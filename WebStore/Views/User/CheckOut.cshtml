@@ -1,4 +1,4 @@
-﻿@model WebStore.Models.BindSelect
+﻿@model WebStore.Models.Checkout
 @{
     ViewBag.Title = WebStore.Resources.Titles.CheckOut;
 }
@@ -127,7 +127,7 @@
                             <div class="form-group input-group">
                                 <select class="form-control" type="text" name="checkout-states" id="strStatesNationale" placeholder="@WebStore.Resources.Placeholder.Region">
                                     <option value="">@WebStore.Resources.Placeholder.Region</option>
-                                    @foreach (var region in Model.regions)
+                                    @foreach (var region in Model.BindSelect.regions)
                                     {
                                         <option value="@Html.DisplayFor(a => region.idRegion)">@Html.DisplayFor(a => region.strNombre) @Html.DisplayFor(a => region.intNumber)</option>
                                     }
@@ -261,7 +261,7 @@
                                 <div class="col-sm-6">
                                     <label class="font-weight-bold" for="checkout-fn">@WebStore.Resources.Placeholder.Names</label>
                                     <div class="form-group input-group">
-                                        <input class="form-control" autocomplete="off" type="text" name="anotherPersonName" id="checkout-fn" placeholder="@WebStore.Resources.Placeholder.Names">
+                                        <input class="form-control" autocomplete="off" type="text" name="anotherPersonName" id="anotherPersonName" placeholder="@WebStore.Resources.Placeholder.Names">
                                         <span class="input-group-addon">
                                             <i class="fas fa-file-signature"></i>
                                         </span>
@@ -270,7 +270,7 @@
                                 <div class="col-sm-6">
                                     <label class="font-weight-bold" for="checkout-ln">@WebStore.Resources.Placeholder.LastNames</label>
                                     <div class="form-group input-group">
-                                        <input class="form-control" autocomplete="off" type="text" name="anotherPersonLastName" id="checkout-ln" placeholder="@WebStore.Resources.Placeholder.LastNames">
+                                        <input class="form-control" autocomplete="off" type="text" name="anotherPersonLastName" id="anotherPersonLastName" placeholder="@WebStore.Resources.Placeholder.LastNames">
                                         <span class="input-group-addon">
                                             <i class="fas fa-file-signature"></i>
                                         </span>
@@ -314,7 +314,7 @@
                                     <div class="form-group input-group">
                                         <select class="form-control" type="text" name="checkout-Anotherstates" id="strStatesNationaleAnother" placeholder="@WebStore.Resources.Placeholder.Region">
                                             <option value="">@WebStore.Resources.Placeholder.Region</option>
-                                            @foreach (var region in Model.regions)
+                                            @foreach (var region in Model.BindSelect.regions)
                                             {
                                                 <option value="@Html.DisplayFor(a => region.idRegion)">@Html.DisplayFor(a => region.strNombre) @Html.DisplayFor(a => region.intNumber)</option>
                                             }
@@ -351,7 +351,7 @@
                                 <div class="col-sm-6">
                                     <label class="font-weight-bold" for="checkout-address1">@WebStore.Resources.Placeholder.Address 1</label>
                                     <div class="form-group input-group">
-                                        <input class="form-control" type="text" name="checkout-Anotheraddress1" id="checkout-address1" required autocomplete="off" placeholder="@WebStore.Resources.Placeholder.Address 1">
+                                        <input class="form-control" type="text" name="checkout-Anotheraddress1" id="checkout-Anotheraddress1" required autocomplete="off" placeholder="@WebStore.Resources.Placeholder.Address 1">
                                         <span class="input-group-addon">
                                             <i class="fas fa-map-marker-alt"></i>
                                         </span>
@@ -362,7 +362,7 @@
                                 <div class="col-sm-6">
                                     <label class="font-weight-bold" for="checkout-address2">@WebStore.Resources.Placeholder.Address 2</label>
                                     <div class="form-group input-group">
-                                        <input class="form-control" type="text" name="checkout-Anotheraddress2" id="checkout-address2" required autocomplete="off" placeholder="@WebStore.Resources.Placeholder.Address 2">
+                                        <input class="form-control" type="text" name="checkout-Anotheraddress2" id="checkout-Anotheraddress2" required autocomplete="off" placeholder="@WebStore.Resources.Placeholder.Address 2">
                                         <span class="input-group-addon">
                                             <i class="fas fa-map-marker-alt"></i>
                                         </span>
@@ -371,7 +371,7 @@
                                 <div class="col-sm-6">
                                     <label class="font-weight-bold" for="checkout-zip">@WebStore.Resources.Placeholder.PostCode</label>
                                     <div class="form-group input-group">
-                                        <input class="form-control" required autocomplete="off" type="text" name="checkout-zip" id="checkout-zip" placeholder="@WebStore.Resources.Placeholder.PostCode">
+                                        <input class="form-control" required autocomplete="off" type="text" name="anothercheckout-zip" id="Anothercheckout-zip" placeholder="@WebStore.Resources.Placeholder.PostCode">
                                         <span class="input-group-addon">
                                             <i class="fas fa-map-marked-alt"></i>
                                         </span>
@@ -647,24 +647,46 @@
                 <section class="mg-widget mg-widget-order-summary">
                     <h3 class="mg-widget-title">@WebStore.Resources.Check.ShoppingR</h3>
                     <table class="table">
-                        <tbody>
-                            <tr>
-                                <td>@WebStore.Resources.Check.Subtotal:</td>
-                                <td class="text-gray-dark">$2,548.50</td>
-                            </tr>
-                            <tr>
-                                <td>@WebStore.Resources.Check.Shipping:</td>
-                                <td class="text-gray-dark">$26.50</td>
-                            </tr>
-                            <tr>
-                                <td>@WebStore.Resources.Check.Tax:</td>
-                                <td class="text-gray-dark">$9.72</td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td class="text-lg text-gray-dark">$2,584.72</td>
-                            </tr>
-                        </tbody>
+                        @{
+                            int SubTotal = 0;
+                            int Discount = 0;
+                            int Shipping = 0;
+                            double Iva = 0;
+
+                            foreach(var i in Model.ProductList)
+                            {
+                                SubTotal += i.PriceInt;
+                                if(i.PriceOffInt > 0)
+                                {
+                                    Discount += i.PriceInt - i.PriceOffInt;
+                                }
+
+                            }
+                            Iva = (SubTotal - Discount) * 0.19;
+                            double Total = (SubTotal - Discount) + ((SubTotal - Discount) * 0.19);
+                            <tbody>
+                                <tr>
+                                    <td>@WebStore.Resources.Check.Subtotal:</td>
+                                    <td class="text-gray-dark">$@SubTotal.ToString("N0", System.Threading.Thread.CurrentThread.CurrentCulture)</td>
+                                </tr>
+                                <tr>
+                                    <td>@WebStore.Resources.Cart.Discount:</td>
+                                    <td class="text-gray-dark">$@Discount.ToString("N0", System.Threading.Thread.CurrentThread.CurrentCulture)</td>
+                                </tr>
+                                <tr>
+                                    <td>@WebStore.Resources.Check.Shipping:</td>
+                                    <td class="text-gray-dark">$@Shipping</td>
+                                </tr>
+                                <tr>
+                                    <td>IVA (19%):</td>
+                                    <td class="text-gray-dark">$@Iva.ToString("N0", System.Threading.Thread.CurrentThread.CurrentCulture)</td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td class="text-lg text-gray-dark">$@Total.ToString("N0", System.Threading.Thread.CurrentThread.CurrentCulture)</td>
+                                </tr>
+                            </tbody>
+                        }
                     </table>
                 </section>
                 <section class="mg-widget mg-widget-featured-products">
