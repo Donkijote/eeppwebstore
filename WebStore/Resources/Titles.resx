@@ -258,4 +258,7 @@
   <data name="PasswordChange" xml:space="preserve">
     <value>Change Password</value>
   </data>
+  <data name="Search" xml:space="preserve">
+    <value>Search</value>
+  </data>
 </root>

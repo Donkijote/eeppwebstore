@@ -85,6 +85,7 @@ $.AdminJs.LogInUp = {
         });
         $('#LogInPage').on('submit', function (e) {
             e.preventDefault();
+            var url = $(this).data("url");
             if ($(this).valid()) {
                 $.AdminJs.Ajax.init({
                     type: 'POST',
@@ -92,7 +93,12 @@ $.AdminJs.LogInUp = {
                     data: $(this).serialize(),
                     action: function (e) {
                         if (e.status == "OK") {
-                            window.location.href = $('#url_return').attr('href');
+                            if (url != "" || url != undefined) {
+                                window.location.href = url;
+                            } else {
+                                window.location.href = $('#url_return').attr('href');
+                            }
+                            
                         }
                     }
                 });
@@ -1287,6 +1293,36 @@ $.AdminJs.passwordChange = {
     }
 }
 
+$.AdminJs.question = {
+    activate: function () {
+        var _this = this;
+        $('#QuestionProductForm').on('submit', function (e) {
+            e.preventDefault();
+            var form = $(this).serialize();
+            var code = $('#addProductToCart').data("code");
+            if ($('textarea[name="Question"]').val() != "" || $('textarea[name="Question"]').val() != undefined) {
+                _this.sendQuestionForm(form+"&Code="+code);
+            }
+        })
+    },
+    sendQuestionForm: (x) => {
+        $.AdminJs.Ajax.init({
+            type: 'POST',
+            url: '/en/Product/AddQuestion/',
+            data: x,
+            action: (resp) => {
+                if (resp.status == "OK") {
+                    if (resp.isLoggedIn) {
+                        $.AdminJs.Alert.success(resp.title, resp.responseText, window.location);
+                    } else {
+                        window.location.href = resp.redirectToAction;
+                    }
+                }
+            }
+        }, true)
+    }
+}
+
 $(function () {
 	//$.AdminJs.input.activate();
 	$.AdminJs.totop.activate();
@@ -1295,6 +1331,7 @@ $(function () {
 	$.AdminJs.leftMenu.activate();
 	$.AdminJs.compare.activate();
     $.AdminJs.animateLinks.activate();
+    $.AdminJs.Search.activate();
     
     $('[data-toggle="tooltip"]').tooltip();
     $('[data-toggle="popover"]').popover();
@@ -1353,20 +1390,7 @@ $.AdminJs.navBar = {
 			return this.on("click", cb);
         };
 
-		$('.mg-fix-bugg').clickToggle(function () {
-			$('.mg-search-overlay').show();
-			$('.mg-search').addClass('off-view');
-			$('.mg-site-search').addClass('in-view');
-			$('.icon-default').addClass('icon-default-hover');
-			$('.icon-hover').addClass('icon-hover-hover');
-        },
-            function () {
-			$('.mg-site-search').removeClass('in-view');
-			$('.mg-search').removeClass('off-view');
-			$('.icon-default').removeClass('icon-default-hover');
-			$('.icon-hover').removeClass('icon-hover-hover');
-			$('.mg-search-overlay').hide();
-            });
+        $('.mg-fix-bugg').clickToggle(_this.addOnToggle, _this.removeOnToggle);
 
         $('#mg-profile-toggle').on('click', function () {
             $('#profileMenuMobile').toggleClass('open');
@@ -1382,6 +1406,95 @@ $.AdminJs.navBar = {
     },
     showNav: function () {
         $("[data-nav-status='toggle']").removeClass("is-hidden").addClass("is-visible");
+    },
+    addOnToggle: () => {
+        $('.mg-search-overlay').show();
+        $('.mg-search').addClass('off-view');
+        $('.mg-site-search').addClass('in-view');
+        $('.icon-default').addClass('icon-default-hover');
+        $('.icon-hover').addClass('icon-hover-hover');
+    },
+    removeOnToggle: () => {
+        $('.mg-site-search').removeClass('in-view');
+        $('.mg-search').removeClass('off-view');
+        $('.icon-default').removeClass('icon-default-hover');
+        $('.icon-hover').removeClass('icon-hover-hover');
+        $('.mg-search-overlay').hide();
+        $('#searchBoxWrapper').hide();
+        $('input[name="search"]').val("");
+        $('#searchBoxContainer').html("");
+    }
+}
+
+$.AdminJs.Search = {
+    activate: function () {
+        var _this = this;
+        var typingTimer;
+        var doneTypingInterval = 1500; 
+        var $input = $('input[name="search"]');
+        var form = $('#SearchForm');
+        $input.on('keyup', function () {
+            clearTimeout(typingTimer);
+            typingTimer = setTimeout(_this.doneTyping, doneTypingInterval)
+        })
+
+        $input.on('keydown', function () {
+            clearTimeout(typingTimer);
+        });
+
+        form.on('submit', function (e) {
+            e.preventDefault();
+            if ($(this).find("input").val() != "") {
+                window.location.href = "/es/Buscar/" + $(this).find("input").val();
+            }
+        })
+
+    },
+    doneTyping: () => {
+        $('#searchBoxWrapper').fadeIn('fast');
+        $('#searchBoxWrapper').css({
+            overflow: 'hidden'
+        });
+        /*var $Html = "";
+
+        for (var i = 0; i < 16; i++) {
+            $Html += `<div class="mg-searchBoxContainer-item">
+                                <a href="#">
+                                    <i class="fab fa-sistrix"></i>
+                                    <span>Element `+i+`</span>
+                                </a>
+                            </div>`;
+        }
+
+        $('#searchBoxContainer').html($Html);*/
+        var $input = $('input[name="search"]');
+
+        if ($input.val() != "") {
+            $.ajax({
+                type: 'POST',
+                url: '/en/categories/GetSearchData/',
+                data: { id: $input.val() },
+                beforeSend: () => {
+                    $('#loadingSearch').show();
+                },
+                success: (resp) => {
+                    $('#searchBoxContainer').html(resp);
+                },
+                complete: () => {
+                    $('#searchBoxWrapper').css({
+                        overflow: 'auto'
+                    });
+                    $('#loadingSearch').hide();
+                }
+            })
+        } else {
+            $('#searchBoxWrapper').fadeOut('fast');
+            $('#searchBoxContainer').html("");
+            $('#searchBoxWrapper').css({
+                overflow: 'hidden'
+            });
+        }
+        
     }
 }
 

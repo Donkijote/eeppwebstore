@@ -27,7 +27,7 @@
             <div class="col-lg-6 col-sm-6 col-md-6 col-xs-6 text-left mb-3">
                 <div class="col-lg-12">
                     <h3 class="mb-3">@WebStore.Resources.Titles.LogIn</h3>
-                    <form id="LogInPage" autocomplete="off">
+                    <form id="LogInPage" autocomplete="off" data-url="@ViewBag.ReturnUrl">
                         @Html.AntiForgeryToken()
                         <div class="col-sm-10">
                             <div class="form-group input-group">

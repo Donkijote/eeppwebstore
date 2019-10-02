@@ -33,6 +33,16 @@
           <Property Name="strLastName" Type="varchar" MaxLength="50" />
           <Property Name="intPhone" Type="int" />
         </EntityType>
+        <EntityType Name="tblAnswers">
+          <Key>
+            <PropertyRef Name="idAnswered" />
+          </Key>
+          <Property Name="idAnswered" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="strAnswer" Type="text" Nullable="false" />
+          <Property Name="strDate" Type="datetime" Nullable="false" />
+          <Property Name="refUser" Type="int" Nullable="false" />
+          <Property Name="refQuestion" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="tblBrand">
           <Key>
             <PropertyRef Name="idBrand" />
@@ -224,6 +234,18 @@
           <Property Name="strNombre" Type="nvarchar" MaxLength="70" Nullable="false" />
           <Property Name="refRegion" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="tblQuestions">
+          <Key>
+            <PropertyRef Name="idQuestion" />
+          </Key>
+          <Property Name="idQuestion" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="strQuestion" Type="text" Nullable="false" />
+          <Property Name="strDate" Type="datetime" Nullable="false" />
+          <Property Name="refUser" Type="int" Nullable="false" />
+          <Property Name="refProduct" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="boolAnswered" Type="bit" Nullable="false" />
+          <Property Name="intStatus" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="tblQuotingQue">
           <Key>
             <PropertyRef Name="IdQuotingQue" />
@@ -332,6 +354,18 @@
             </Principal>
             <Dependent Role="tblAddressesDet">
               <PropertyRef Name="refAddress" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblAnswers_tblQuestions">
+          <End Role="tblQuestions" Type="Self.tblQuestions" Multiplicity="1" />
+          <End Role="tblAnswers" Type="Self.tblAnswers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblQuestions">
+              <PropertyRef Name="idQuestion" />
+            </Principal>
+            <Dependent Role="tblAnswers">
+              <PropertyRef Name="refQuestion" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -566,6 +600,7 @@
         <EntityContainer Name="webstoreModelStoreContainer">
           <EntitySet Name="tblAddresses" EntityType="Self.tblAddresses" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblAddressesDet" EntityType="Self.tblAddressesDet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblAnswers" EntityType="Self.tblAnswers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblBrand" EntityType="Self.tblBrand" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblCategories" EntityType="Self.tblCategories" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblCategoryRelation" EntityType="Self.tblCategoryRelation" Schema="dbo" store:Type="Tables" />
@@ -581,6 +616,7 @@
           <EntitySet Name="tblProducts" EntityType="Self.tblProducts" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblProjects" EntityType="Self.tblProjects" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblProvincias" EntityType="Self.tblProvincias" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblQuestions" EntityType="Self.tblQuestions" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblQuotingQue" EntityType="Self.tblQuotingQue" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblQuotingQueDet" EntityType="Self.tblQuotingQueDet" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblRegiones" EntityType="Self.tblRegiones" Schema="dbo" store:Type="Tables" />
@@ -605,6 +641,10 @@
           <AssociationSet Name="FK_tblAddressesDet_tblAddresses" Association="Self.FK_tblAddressesDet_tblAddresses">
             <End Role="tblAddresses" EntitySet="tblAddresses" />
             <End Role="tblAddressesDet" EntitySet="tblAddressesDet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblAnswers_tblQuestions" Association="Self.FK_tblAnswers_tblQuestions">
+            <End Role="tblQuestions" EntitySet="tblQuestions" />
+            <End Role="tblAnswers" EntitySet="tblAnswers" />
           </AssociationSet>
           <AssociationSet Name="FK_tblBrand_tblBrand" Association="Self.FK_tblBrand_tblBrand">
             <End Role="tblImg" EntitySet="tblImg" />
@@ -821,6 +861,12 @@
           <AssociationSet Name="FK_tblProjects_tblImg" Association="webstoreModel.FK_tblProjects_tblImg">
             <End Role="tblImg" EntitySet="tblImg" />
             <End Role="tblProjects" EntitySet="tblProjects" />
+          </AssociationSet>
+          <EntitySet Name="tblAnswers" EntityType="webstoreModel.tblAnswers" />
+          <EntitySet Name="tblQuestions" EntityType="webstoreModel.tblQuestions" />
+          <AssociationSet Name="FK_tblAnswers_tblQuestions" Association="webstoreModel.FK_tblAnswers_tblQuestions">
+            <End Role="tblQuestions" EntitySet="tblQuestions" />
+            <End Role="tblAnswers" EntitySet="tblAnswers" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="tblProducts">
@@ -1413,6 +1459,42 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="tblAnswers">
+          <Key>
+            <PropertyRef Name="idAnswered" />
+          </Key>
+          <Property Name="idAnswered" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="strAnswer" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="strDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="refUser" Type="Int32" Nullable="false" />
+          <Property Name="refQuestion" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="tblQuestions" Relationship="webstoreModel.FK_tblAnswers_tblQuestions" FromRole="tblAnswers" ToRole="tblQuestions" />
+        </EntityType>
+        <EntityType Name="tblQuestions">
+          <Key>
+            <PropertyRef Name="idQuestion" />
+          </Key>
+          <Property Name="idQuestion" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="strQuestion" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="strDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="refUser" Type="Int32" Nullable="false" />
+          <Property Name="refProduct" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="boolAnswered" Type="Boolean" Nullable="false" />
+          <Property Name="intStatus" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="tblAnswers" Relationship="webstoreModel.FK_tblAnswers_tblQuestions" FromRole="tblQuestions" ToRole="tblAnswers" />
+        </EntityType>
+        <Association Name="FK_tblAnswers_tblQuestions">
+          <End Type="webstoreModel.tblQuestions" Role="tblQuestions" Multiplicity="1" />
+          <End Type="webstoreModel.tblAnswers" Role="tblAnswers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblQuestions">
+              <PropertyRef Name="idQuestion" />
+            </Principal>
+            <Dependent Role="tblAnswers">
+              <PropertyRef Name="refQuestion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1708,6 +1790,30 @@
                 <ScalarProperty Name="strDescription" ColumnName="strDescription" />
                 <ScalarProperty Name="strTitle" ColumnName="strTitle" />
                 <ScalarProperty Name="IdProject" ColumnName="IdProject" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblAnswers">
+            <EntityTypeMapping TypeName="webstoreModel.tblAnswers">
+              <MappingFragment StoreEntitySet="tblAnswers">
+                <ScalarProperty Name="refQuestion" ColumnName="refQuestion" />
+                <ScalarProperty Name="refUser" ColumnName="refUser" />
+                <ScalarProperty Name="strDate" ColumnName="strDate" />
+                <ScalarProperty Name="strAnswer" ColumnName="strAnswer" />
+                <ScalarProperty Name="idAnswered" ColumnName="idAnswered" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblQuestions">
+            <EntityTypeMapping TypeName="webstoreModel.tblQuestions">
+              <MappingFragment StoreEntitySet="tblQuestions">
+                <ScalarProperty Name="intStatus" ColumnName="intStatus" />
+                <ScalarProperty Name="boolAnswered" ColumnName="boolAnswered" />
+                <ScalarProperty Name="refProduct" ColumnName="refProduct" />
+                <ScalarProperty Name="refUser" ColumnName="refUser" />
+                <ScalarProperty Name="strDate" ColumnName="strDate" />
+                <ScalarProperty Name="strQuestion" ColumnName="strQuestion" />
+                <ScalarProperty Name="idQuestion" ColumnName="idQuestion" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

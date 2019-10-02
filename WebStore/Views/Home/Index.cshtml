@@ -35,7 +35,7 @@
 </section>
 
 @{
-    if (Model.FirstHistory != null)
+    if (Model.FirstHistory != null && Model.FirstHistory.Any())
     {
         <section id="RelatedToHistory" class="mg-content">
             <div class="block-separator mt-3"></div>
@@ -110,7 +110,7 @@
             </div>
         </section>
     }
-    if (Model.SecondHistory != null)
+    if (Model.SecondHistory != null && Model.SecondHistory.Any())
     {
         <section id="RelatedToHistory" class="mg-content">
             <div class="container pb-5">
@@ -178,7 +178,7 @@
             </div>
         </section>
     }
-    if (Model.ThirdHistory != null)
+    if (Model.ThirdHistory != null && Model.ThirdHistory.Any())
     {
         <section id="RelatedToHistory" class="mg-content">
             <div class="container pb-5">

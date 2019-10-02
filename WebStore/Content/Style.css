@@ -1189,6 +1189,60 @@ html * {
             transition: color .25s;
             cursor: pointer;
             vertical-align: middle; }
+      .navbar.mg-big-screen .navbar-collapse .mg-search-wrapper .mg-searchBoxWrapper {
+        display: none;
+        position: absolute;
+        width: 107%;
+        margin-top: 10px;
+        max-height: 500px;
+        z-index: 10;
+        overflow: auto; }
+        .navbar.mg-big-screen .navbar-collapse .mg-search-wrapper .mg-searchBoxWrapper .mg-loadingSearch {
+          display: none;
+          position: absolute;
+          z-index: 5;
+          top: 0;
+          bottom: 0;
+          left: 0;
+          right: 0;
+          background: #eee;
+          border-radius: 5px; }
+          .navbar.mg-big-screen .navbar-collapse .mg-search-wrapper .mg-searchBoxWrapper .mg-loadingSearch .mg-loadingSearch-loader {
+            position: relative;
+            top: calc(50% - 30px); }
+        .navbar.mg-big-screen .navbar-collapse .mg-search-wrapper .mg-searchBoxWrapper .mg-searchBoxContainer {
+          min-height: 60px;
+          border-radius: 5px; }
+          .navbar.mg-big-screen .navbar-collapse .mg-search-wrapper .mg-searchBoxWrapper .mg-searchBoxContainer .mg-searchBoxContainer-item {
+            cursor: pointer;
+            padding: 5px 10px;
+            text-align: left; }
+            .navbar.mg-big-screen .navbar-collapse .mg-search-wrapper .mg-searchBoxWrapper .mg-searchBoxContainer .mg-searchBoxContainer-item:first-child:hover {
+              border-top-left-radius: 5px;
+              border-top-right-radius: 5px; }
+            .navbar.mg-big-screen .navbar-collapse .mg-search-wrapper .mg-searchBoxWrapper .mg-searchBoxContainer .mg-searchBoxContainer-item:last-child:hover {
+              border-bottom-left-radius: 5px;
+              border-bottom-right-radius: 5px; }
+            .navbar.mg-big-screen .navbar-collapse .mg-search-wrapper .mg-searchBoxWrapper .mg-searchBoxContainer .mg-searchBoxContainer-item:hover {
+              background: #f3f3f3; }
+            .navbar.mg-big-screen .navbar-collapse .mg-search-wrapper .mg-searchBoxWrapper .mg-searchBoxContainer .mg-searchBoxContainer-item a {
+              border: none;
+              text-decoration: none;
+              font-size: 14px;
+              margin-left: 5px;
+              color: #333;
+              display: inline-block;
+              width: 100%; }
+              .navbar.mg-big-screen .navbar-collapse .mg-search-wrapper .mg-searchBoxWrapper .mg-searchBoxContainer .mg-searchBoxContainer-item a i {
+                color: #adadad;
+                display: inline-block;
+                margin-right: 7px; }
+              .navbar.mg-big-screen .navbar-collapse .mg-search-wrapper .mg-searchBoxWrapper .mg-searchBoxContainer .mg-searchBoxContainer-item a .mg-searchBoxContainer-item-img {
+                display: inline-block;
+                max-width: 50px;
+                padding-right: 10px; }
+                .navbar.mg-big-screen .navbar-collapse .mg-search-wrapper .mg-searchBoxWrapper .mg-searchBoxContainer .mg-searchBoxContainer-item a .mg-searchBoxContainer-item-img img {
+                  max-width: 50px; }
     .navbar.mg-big-screen .navbar-toggler {
       color: rgba(0, 0, 0, 0.5);
       font-size: 25px;
@@ -2995,6 +3049,24 @@ button {
     .mg-product-thumbnails a img {
       width: 100%; }
 
+.mg-question-wrapper {
+  position: relative;
+  margin: 15px 0 32px; }
+  .mg-question-wrapper .mg-question, .mg-question-wrapper .mg-answer {
+    overflow: hidden;
+    margin: 10px 20px 0 10px;
+    margin-bottom: 15px; }
+    .mg-question-wrapper .mg-question i, .mg-question-wrapper .mg-answer i {
+      display: inline-block;
+      font-size: 18px;
+      vertical-align: middle; }
+    .mg-question-wrapper .mg-question p, .mg-question-wrapper .mg-answer p {
+      display: inline; }
+  .mg-question-wrapper .mg-answer {
+    margin: 10px 20px 0 20px; }
+    .mg-question-wrapper .mg-answer p {
+      color: #999; }
+
 /*#endregion*/
 /*#region Comments*/
 .mg-comment {
@@ -4262,6 +4334,13 @@ body {
 textarea.form-control {
   padding-top: 12px;
   padding-bottom: 12px; }
+
+textarea.question-input {
+  width: 100%;
+  border-color: #ddd;
+  padding: 14px 16px;
+  height: 52px;
+  resize: vertical; }
 
 select:focus {
   background-color: transparent !important; }

@@ -1,0 +1,16 @@
+﻿@model IEnumerable<WebStore.Models.Products>
+
+@{
+    foreach (var i in Model)
+    {
+        <div class="mg-searchBoxContainer-item">
+            <a href="@Url.Action("Category","Product",new { language = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName, id = i.categorySeo, idp = i.strCodigo})">
+                <i class="fab fa-sistrix"></i>
+                <div class="mg-searchBoxContainer-item-img">
+                    <img class="img-fluid" src="~/Content/img/products/@i.strCodigo-1.jpg" />
+                </div>
+                <span>@i.strNombre</span>
+            </a>
+        </div>
+    }
+}

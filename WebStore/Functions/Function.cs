@@ -8,6 +8,7 @@ using WebStore.Models;
 using System.Web.Security;
 using System.Net.Mail;
 using System.Net;
+using System.Text.RegularExpressions;
 
 namespace WebStore.Functions
 {
@@ -21,6 +22,28 @@ namespace WebStore.Functions
         public static string FormatNumber(int number)
         {
             return number.ToString("N0", CultureInfo.GetCultureInfo("es-CL"));
+        }
+
+        public static string HighlightKeywords(string input, string keywords)
+        {
+            if (input == string.Empty || keywords == string.Empty)
+            {
+                return input;
+            }
+
+            string[] sKeywords = keywords.Split(' ');
+            foreach (string sKeyword in sKeywords)
+            {
+                try
+                {
+                    input = Regex.Replace(input, sKeyword, string.Format("<strong>{0}</strong>", "$0"), RegexOptions.IgnoreCase);
+                }
+                catch(Exception ex)
+                {
+                    input = ex.ToString();
+                }
+            }
+            return input;
         }
 
         public static string getTitle(string id)

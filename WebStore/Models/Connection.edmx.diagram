@@ -51,6 +51,9 @@
         <AssociationConnector Association="webstoreModel.FK_tblAddresses_tblProvincias" />
         <EntityTypeShape EntityType="webstoreModel.tblProjects" Width="1.5" PointX="4.25" PointY="10.25" />
         <AssociationConnector Association="webstoreModel.FK_tblProjects_tblImg" />
+        <EntityTypeShape EntityType="webstoreModel.tblAnswers" Width="1.5" PointX="11.75" PointY="11.25" />
+        <EntityTypeShape EntityType="webstoreModel.tblQuestions" Width="1.5" PointX="9.875" PointY="11.25" />
+        <AssociationConnector Association="webstoreModel.FK_tblAnswers_tblQuestions" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

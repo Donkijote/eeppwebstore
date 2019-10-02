@@ -44,4 +44,11 @@ namespace WebStore.Models
         public tblFicha Ficha { get; set; }
         public IEnumerable<Stock> Stock { get; set; }
     }
+
+    public class BindProductPageModels
+    {
+        public List<ProductsSingle> Products { get; set; }
+        public List<Questions> UserQuestions { get; set; }
+        public List<Questions> OthersQuestions { get; set; }
+    }
 }

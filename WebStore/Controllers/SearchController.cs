@@ -13,31 +13,10 @@ using WebStore.Functions;
 
 namespace WebStore.Controllers
 {
-    public class CategoriesController : Controller
+    public class SearchController : Controller
     {
-        // GET: Categories
-        public ActionResult All()
-        {
-            var viewModel = new BindingCateogyFamilyChild();
-            using(webstoreEntities db = new webstoreEntities())
-            {
-                viewModel.family = (from a in db.tblFamily
-                                    join b in db.tblImg
-                                    on a.refImg equals b.idImg
-                                    select new Family {
-                                        IdFamily = a.idFamily,
-                                        StrName = a.strName,
-                                        StrSeo = a.strSeo,
-                                        StrImgOne = b.strImgOne,
-                                        StrImgTwo = b.strImgTwo,
-                                        StrImgThree = b.strImgThree
-                                    }).ToList();
-                viewModel.category = db.tblCategories.Select(x => x).ToList();
-            }
-            return View(viewModel);
-        }
-
-        public ActionResult s(string id, int? Page, int? PerPage, string SortedBy)
+        // GET: Search
+        public ActionResult Index(string id, int? Page, int? PerPage, string SortedBy)
         {
             using (webstoreEntities db = new webstoreEntities())
             {
@@ -111,33 +90,11 @@ namespace WebStore.Controllers
                 {
                     ViewBag.Mobile = false;
                 }
-                return View("s", sorted.ToPagedList(Page ?? 1, PerPage ?? 15));
+                return View(sorted.ToPagedList(Page ?? 1, PerPage ?? 15));
             }
         }
 
-        [HttpPost]
-        public ActionResult GetSearchData(string id)
-        {
-            using (webstoreEntities db = new webstoreEntities())
-            {
-                string culture = CultureInfo.CurrentUICulture.TwoLetterISOLanguageName;
-                string translatedId = "";
-                if (culture != "en")
-                {
-                    Translate dir = new Translate();
-                    translatedId = dir.Translation(id, "es", "en");
-                }
-
-                string v = db.tblCategories.Where(a => a.strSeo == (culture != "en" ? translatedId : id))
-                        .Select(i => i.strNombre).FirstOrDefault();
-
-                var s = FamilyOrCategory((culture != "en" ? translatedId : id), v, true);
-
-                return PartialView(s);
-            }
-        }
-
-        private List<Products> FamilyOrCategory(string id, string categoryName, bool high = false)
+        private List<Products> FamilyOrCategory(string id, string categoryName)
         {
             webstoreEntities db = new webstoreEntities();
             ElectropEntities dbE = new ElectropEntities();
@@ -169,8 +126,8 @@ namespace WebStore.Controllers
                         .Select(x => new Products
                         {
                             strCodigo = x.strCod,
-                            strNombre = high ? Function.HighlightKeywords(Function.Truncate(x.strNombre, 60).ToLower(), id) : Function.Truncate(x.strNombre, 60).ToLower(),
-                            intPrecio = Function.FormatNumber((int)(x.intPrecio + (x.intPrecio * ( x.percent / 100 ) ))),
+                            strNombre = Function.Truncate(x.strNombre, 60).ToLower(),
+                            intPrecio = Function.FormatNumber((int)(x.intPrecio + (x.intPrecio * (x.percent / 100)))),
                             intPrecentOff = o.Any(l => l.CodProd == x.strCodigo) ? o.Where(i => i.CodProd == x.strCodigo).Select(j => (int)j.ValorPct).FirstOrDefault() + "%" : "0",
                             intPrecioOff = o.Any(l => l.CodProd == x.strCodigo) ? Function.FormatNumber((int)(x.intPrecio + (x.intPrecio * (x.percent / 100))) - (int)(((x.intPrecio + (x.intPrecio * (x.percent / 100))) * o.Where(i => i.CodProd == x.strCodigo).Select(j => (int)j.ValorPct).FirstOrDefault() / 100))) : "0",
                             intPercent = x.percent + "%",
@@ -192,14 +149,15 @@ namespace WebStore.Controllers
                 var brands = (from a in db.tblRelBrand
                               join b in db.tblBrand
                               on a.refBrand equals b.idBrand
-                              select new {
+                              select new
+                              {
                                   refProd = a.refProd,
                                   brand = b.strName
                               }).ToList();
 
-                foreach(var i in s)
+                foreach (var i in s)
                 {
-                    if(brands.Any(b => b.refProd == i.strCodigo))
+                    if (brands.Any(b => b.refProd == i.strCodigo))
                     {
                         i.Brand = brands.Where(b => b.refProd == i.strCodigo).Select(l => l.brand).FirstOrDefault();
                     }
@@ -228,7 +186,7 @@ namespace WebStore.Controllers
 
                 return s;
             }
-            else 
+            else
             {
                 var o = dbE.iw_tlprprod.Where(x => x.CodLista == "16").ToList();
                 var s = (from a in dbE.iw_tprod
@@ -252,9 +210,9 @@ namespace WebStore.Controllers
                             {
                                 strCodigo = x.strCod,
                                 strNombre = Function.Truncate(x.strNombre, 60).ToLower(),
-                                intPrecio = Function.FormatNumber( (int)(x.intPrecio + (x.intPrecio * ( x.percent / 100 ) ) ) ),
+                                intPrecio = Function.FormatNumber((int)(x.intPrecio + (x.intPrecio * (x.percent / 100)))),
                                 intPrecentOff = o.Any(l => l.CodProd == x.strCodigo) ? o.Where(i => i.CodProd == x.strCodigo).Select(j => (int)j.ValorPct).FirstOrDefault() + "%" : "0",
-                                intPrecioOff = o.Any(l => l.CodProd == x.strCodigo) ? Function.FormatNumber( (int)( x.intPrecio + (x.intPrecio * (x.percent / 100)) )  -  (int)( ( (x.intPrecio + (x.intPrecio * (x.percent / 100))) * o.Where(i => i.CodProd == x.strCodigo).Select(j => (int)j.ValorPct).FirstOrDefault() / 100) ) ) : "0",
+                                intPrecioOff = o.Any(l => l.CodProd == x.strCodigo) ? Function.FormatNumber((int)(x.intPrecio + (x.intPrecio * (x.percent / 100))) - (int)(((x.intPrecio + (x.intPrecio * (x.percent / 100))) * o.Where(i => i.CodProd == x.strCodigo).Select(j => (int)j.ValorPct).FirstOrDefault() / 100))) : "0",
                                 intPercent = x.percent + "%",
                                 categorySeo = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(id),
                                 intPrecioNum = o.Any(l => l.CodProd == x.strCodigo) ? (int)(x.intPrecio + (x.intPrecio * (x.percent / 100))) - (int)(((x.intPrecio + (x.intPrecio * (x.percent / 100))) * o.Where(i => i.CodProd == x.strCodigo).Select(j => (int)j.ValorPct).FirstOrDefault() / 100)) : (int)(x.intPrecio + (x.intPrecio * (x.percent / 100)))
@@ -289,8 +247,8 @@ namespace WebStore.Controllers
                 }
 
                 var tList = db.tblOffertTime.Where(t => t.strTime >= DateTime.Now).Select(j => j).ToList();
-                
-                if(tList.Any())
+
+                if (tList.Any())
                 {
                     foreach (var a in s)
                     {
@@ -309,10 +267,9 @@ namespace WebStore.Controllers
                         }
                     }
                 }
-                
+
                 return s;
             }
         }
-
     }
 }

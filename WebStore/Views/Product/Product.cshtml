@@ -1,4 +1,4 @@
-﻿@model IEnumerable<WebStore.Models.ProductsSingle>
+﻿@model WebStore.Models.BindProductPageModels
 
 @section MetaContent{
     <meta name="keywords" content="shop, e-commerce, modern, flat style, responsive, online store, business, mobile, blog, bootstrap 4, html5, css3, jquery, js, gallery, slider, touch, creative, clean">
@@ -39,7 +39,7 @@
     </header>
 </section>
 
-@foreach (var item in Model)
+@foreach (var item in Model.Products)
 {
     <div class="container py-5">
         <div class="row">
@@ -212,9 +212,9 @@
                     <div class="col-sm-8">
                         <div class="pt-4 hidden-sm-up"></div>
                         <button class="btn btn-orangered btn-block m-0" id="addProductToCart" data-code="@item.strCodigo" data-name="@item.strNombre" data-price="@item.intPrecio"
-                            data-priceint="@item.intPrecioNum" data-off-priceint="@(item.intPrecioOffNum != 0 ? item.intPrecioOffNum:0)"
-                           data-off-percentage="@(item.intPrecioOff != "0" ? item.intPrecentOff:"")" data-off-price="@(item.intPrecioOff != "0" ? item.intPrecioOff:"")"
-                           data-quantity="" data-category="@item.categorySeo">
+                                data-priceint="@item.intPrecioNum" data-off-priceint="@(item.intPrecioOffNum != 0 ? item.intPrecioOffNum:0)"
+                                data-off-percentage="@(item.intPrecioOff != "0" ? item.intPrecentOff:"")" data-off-price="@(item.intPrecioOff != "0" ? item.intPrecioOff:"")"
+                                data-quantity="" data-category="@item.categorySeo">
                             <i class="fas fa-shopping-bag pr-2" style="font-size:18px;"></i> Añadir al carro
                         </button>
                     </div>
@@ -282,7 +282,7 @@
 <div class="bg-secondary padding-top-3x padding-bottom-2x mb-3">
     <div class="container">
         <div class="row">
-            @foreach (var i in Model)
+            @foreach (var i in Model.Products)
             {
                 if (i.Ficha != null)
                 {
@@ -522,9 +522,6 @@
         <div class="col-md-8">
             <h3 class="padding-bottom-1x">Latest Reviews</h3>
             <div class="mg-comment">
-                <div class="mg-comment-author-ava">
-                    <img src="http://themes.rokaux.com/unishop/v3.0/template-3/img/reviews/02.jpg" alt="mg-Comment author">
-                </div>
                 <div class="mg-comment-body">
                     <div class="mg-comment-header d-flex flex-wrap justify-content-between">
                         <h4 class="mg-comment-title">My husband love his new...</h4>
@@ -546,9 +543,6 @@
                 </div>
             </div>
             <div class="mg-comment">
-                <div class="mg-comment-author-ava">
-                    <img src="http://themes.rokaux.com/unishop/v3.0/template-3/img/reviews/03.jpg" alt="mg-Comment author">
-                </div>
                 <div class="mg-comment-body">
                     <div class="mg-comment-header d-flex flex-wrap justify-content-between">
                         <h4 class="mg-comment-title">Awesome quality for the price</h4>
@@ -572,6 +566,74 @@
             <a class="btn btn-view-more btn-block" href="#">View All Reviews</a>
         </div>
     </div>
+</div>
+
+<div class="container padding-top-2x">
+    <h3 class="padding-top-2x mt-2 padding-bottom-1x">Preguntas y respuestas</h3>
+    <form id="QuestionProductForm">
+        @Html.AntiForgeryToken()
+        <div class="row">
+            <div class="col-8">
+                <div class="form-group">
+                    <textarea class="form-control question-input" name="Question"></textarea>
+                </div>
+            </div>
+            <div class="col-4">
+                <button type="submit" class="btn btn-orangered">Preguntar</button>
+            </div>
+        </div>
+    </form>
+    @{
+        if (Model.UserQuestions != null)
+        {
+            <div class="row mt-5">
+                <div class="col-8">
+                    <h5>Tus preguntas</h5>
+                    @foreach (var i in Model.UserQuestions)
+                    {
+                        <div class="mg-question-wrapper">
+                            <div class="mg-question">
+                                <i class="far fa-comment-dots"></i>
+                                <p>@i.Question, @i.QuestionDate</p>
+                            </div>
+                            @if (i.Answer != null)
+                            {
+                                <div class="mg-answer">
+                                    <i class="far fa-comments"></i>
+                                    <p>@i.Answer.Answer, @i.Answer.AnswerDate</p>
+                                </div>
+                            }
+                        </div>
+                    }
+                </div>
+            </div>
+                        }
+        if (Model.OthersQuestions != null)
+        {
+            <div class="row mt-5">
+                <div class="col-8">
+                    <h5 class="mb-3">Otras preguntas</h5>
+                    @foreach (var i in Model.OthersQuestions)
+                    {
+                        <div class="mg-question-wrapper">
+                            <div class="mg-question">
+                                <i class="far fa-comment-dots"></i>
+                                <p>@i.Question, @i.QuestionDate</p>
+                            </div>
+                            @if (i.Answer != null)
+                            {
+                                <div class="mg-answer">
+                                    <i class="far fa-comments"></i>
+                                    <p>@i.Answer.Answer, @i.Answer.AnswerDate</p>
+                                </div>
+                            }
+                        </div>
+                    }
+                </div>
+            </div>
+        }
+
+    }
 </div>
 
 <div class="container padding-bottom-3x mb-1">
@@ -768,6 +830,18 @@
         $(function () {
             $.AdminJs.Countdown.activate();
             $.AdminJs.cart.addProductToCart();
+            $.AdminJs.question.activate();
         })
     </script>
+    @if(ViewBag.addQuestionFromRedirect != null && ViewBag.addQuestionFromRedirect != "")
+    {
+        <script type="text/javascript">
+                $(function () {
+                    var response = '@ViewBag.addQuestionFromRedirect';
+                    if (response == "OK") {
+                        $.AdminJs.Alert.success("Pregunta", "Su pregunta ha sido enviada exitosamente", window.location);
+                    }
+                })
+        </script>
+    }
 }

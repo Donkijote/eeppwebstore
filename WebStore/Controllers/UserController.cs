@@ -185,7 +185,8 @@ namespace WebStore.Controllers
         }
 
         [AllowAnonymous]
-        public ActionResult LogIn()
+        [HttpGet]
+        public ActionResult LogIn(string ReturnUrl)
         {
             if(Session["email"] != null)
             {
@@ -193,6 +194,7 @@ namespace WebStore.Controllers
             }
             else
             {
+                ViewBag.ReturnUrl = ReturnUrl;
                 return View();
             }
         }

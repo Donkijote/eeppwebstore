@@ -70,7 +70,7 @@
                     </ul>
                 </div>
                 <div class="mg-search-wrapper">
-                    <form class="mg-site-search" method="get">
+                    <form class="mg-site-search" method="get" id="SearchForm">
                         <input class="form-control" type="text" name="search" placeholder="@WebStore.Resources.Placeholder.Search...">
                         <div class="mg-search-tools">
                             <span class="mg-clear-search">@WebStore.Resources.Placeholder.Clear</span>
@@ -79,6 +79,24 @@
                             </span>
                         </div>
                     </form>
+                    <div class="mg-searchBoxWrapper" id="searchBoxWrapper">
+                        <div class="mg-loadingSearch" id="loadingSearch">
+                            <div class="mg-loadingSearch-loader">
+                                <span class="font-weight-bold"><i class="fas fa-cog fa-2x fa-spin"></i> Cargando...</span>
+                            </div>
+                        </div>
+                        <div class="mg-searchBoxContainer bg-white" id="searchBoxContainer">
+                            <div class="mg-searchBoxContainer-item">
+                                <a href="#">
+                                    <i class="fab fa-sistrix"></i>
+                                    <div class="mg-searchBoxContainer-item-img">
+                                        <img class="img-fluid" src="~/Content/img/products/20010109-1.jpg"/>
+                                    </div>
+                                    <span>luminaria app led union 120 w 5k ip66</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -259,10 +277,10 @@
                         }
                     }
                     <li class="nav-item mg-li-social dropdown">
-                        <a class="nav-link" href="@Url.Action("Quote", "User", new { language = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName }, null)">
+                        <a class="nav-link" href="@Url.Action("Quote", "User", new { language = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName }, null)" data-toggle="tooltip" data-title="Cotizar" data-original-title="Cotizar">
                             <i class="far fa-file-alt"></i>
                             <span class="mg-navbar-compare">
-                                @if (Model.Notification.Quotings > 0)
+                                @if (Model.Notification.Quotings != null && Model.Notification.Quotings > 0)
                                 {
                                     <span class="mg-count-label">@Model.Notification.Quotings</span>
                                 }                                                            

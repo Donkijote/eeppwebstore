@@ -47,5 +47,7 @@ namespace WebStore.Models
         public virtual DbSet<tblQuotingQue> tblQuotingQue { get; set; }
         public virtual DbSet<tblQuotingQueDet> tblQuotingQueDet { get; set; }
         public virtual DbSet<tblProjects> tblProjects { get; set; }
+        public virtual DbSet<tblAnswers> tblAnswers { get; set; }
+        public virtual DbSet<tblQuestions> tblQuestions { get; set; }
     }
 }

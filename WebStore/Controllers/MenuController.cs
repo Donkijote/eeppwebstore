@@ -20,7 +20,8 @@ namespace WebStore.Controllers
             }
             if(Session["id"] != null)
             {
-
+                viewModel.Notification = new Notification { Quotings = 0 };
+                viewModel.Notification = new Notification { Cart = 0 };
             }
             else
             {

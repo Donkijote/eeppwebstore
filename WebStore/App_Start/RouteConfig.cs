@@ -57,6 +57,7 @@ namespace WebStore
                 new RouteValueTranslation(cultureEN, "ProductSecCertificationPDF", "ProductSecCertificationPDF"),
                 new RouteValueTranslation(cultureEN, "ProductDs43CertificationPDF", "ProductDs43CertificationPDF"),
                 new RouteValueTranslation(cultureEN, "Error", "Error"),
+                new RouteValueTranslation(cultureEN, "Search", "Search"),
                 new RouteValueTranslation(cultureES, "Home", "Inicio"),
                 new RouteValueTranslation(cultureES, "About", "Nosotros"),
                 new RouteValueTranslation(cultureES, "Contact", "Contactos"),
@@ -97,12 +98,19 @@ namespace WebStore
                 new RouteValueTranslation(cultureES, "ProductSecCertificationPDF", "CertificationSecProductoDPF"),
                 new RouteValueTranslation(cultureES, "ProductDs43CertificationPDF", "CertificationDs43ProductoDPF"),
                 new RouteValueTranslation(cultureES, "Error", "Error"),
+                new RouteValueTranslation(cultureES, "Search", "Buscar"),
                 new RouteValueTranslation(cultureJA, "Home", "いえ"),
                 new RouteValueTranslation(cultureJA, "Index", "インデッ")
                 }
             );
 
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
+
+            routes.MapRoute("Search", "{language}/Search/{id}",
+                         new { language = System.Threading.Thread.CurrentThread.CurrentUICulture.Name, controller = "Search", action = "Index", id = UrlParameter.Optional });
+
+            routes.MapRoute("Buscar", "{language}/Buscar/{id}",
+                         new { language = System.Threading.Thread.CurrentThread.CurrentUICulture.Name, controller = "Search", action = "Index", id = UrlParameter.Optional });
 
             routes.MapTranslatedRoute(
                 "TranslatedRoute",
@@ -117,6 +125,8 @@ namespace WebStore
                 url: "{language}/{controller}/{action}/{id}/{idp}",
                 defaults: new { language = System.Threading.Thread.CurrentThread.CurrentUICulture.Name, controller = "Home", action = "Lang", id = UrlParameter.Optional, idp = UrlParameter.Optional }
             );
+
+            
 
         }
     }

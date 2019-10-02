@@ -7,7 +7,9 @@
 @{
     var pages = (IPagedList)Model;
 }
-
+@{
+    ViewBag.Title = WebStore.Resources.Titles.Search;
+}
 <section>
     <header class="header">
         <div class="container">
@@ -20,11 +22,7 @@
                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                     <ul class="breadcrumbs">
                         <li>
-                            <a href="@Url.Action("Index","Home", new { language = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName})">@WebStore.Resources.Titles.Home</a>
-                        </li>
-                        <li class="separator">&nbsp;</li>
-                        <li>
-                            <a href="@Url.Action("All","Categories", new { language = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName})">@WebStore.Resources.Titles.Categories</a>
+                            <a href="@Url.Action("Index","Home", new { language = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName}, null)">@WebStore.Resources.Titles.Home</a>
                         </li>
                         <li class="separator">&nbsp;</li>
                         <li>
@@ -37,7 +35,7 @@
     </header>
 </section>
 
-<section name="categories" class="container mb-5">
+<div class="container padding-bottom-3x">
     <div class="row">
         <div class="col-lg-3">
             @{ Html.RenderAction("LeftMenu", "Menu", new { childAction = true, active = ViewBag.active, seoLocation = ViewBag.SeoLocation, minPrice = ViewBag.minPrice, maxPrice = ViewBag.maxPrice });}
@@ -277,7 +275,7 @@
             })
         </div>
     </div>
-</section>
+</div>
 
 @section Linkscss{
     @Html.Raw(WebStore.Resources.Linkscss.PageList)
@@ -300,4 +298,3 @@
         })
     </script>
 }
-

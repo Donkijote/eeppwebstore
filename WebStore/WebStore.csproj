@@ -234,6 +234,7 @@
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Controllers\PromotionsController.cs" />
+    <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Functions\Crypto.cs" />
     <Compile Include="Functions\Function.cs" />
@@ -245,6 +246,7 @@
     <Compile Include="Models\BindSelect.cs" />
     <Compile Include="Models\Categories.cs" />
     <Compile Include="Models\Checkout.cs" />
+    <Compile Include="Models\Comments.cs" />
     <Compile Include="Models\Connection.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -315,6 +317,9 @@
     <Compile Include="Models\tblAddressesDet.cs">
       <DependentUpon>Connection.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\tblAnswers.cs">
+      <DependentUpon>Connection.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\tblBrand.cs">
       <DependentUpon>Connection.tt</DependentUpon>
     </Compile>
@@ -358,6 +363,9 @@
       <DependentUpon>Connection.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tblProvincias.cs">
+      <DependentUpon>Connection.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tblQuestions.cs">
       <DependentUpon>Connection.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tblQuotingQue.cs">
@@ -962,6 +970,8 @@
     <Content Include="Views\User\RetrievePassword.cshtml" />
     <Content Include="Views\Account\Password.cshtml" />
     <Content Include="Views\User\History.cshtml" />
+    <Content Include="Views\Search\Index.cshtml" />
+    <Content Include="Views\Categories\GetSearchData.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -705,6 +705,87 @@ html * {
                         }
                     }
                 }
+
+                .mg-searchBoxWrapper {
+                    display: none;
+                    position: absolute;
+                    width: 107%;
+                    margin-top: 10px;
+                    max-height: 500px;
+                    z-index: 10;
+                    overflow: auto;
+
+                    .mg-loadingSearch {
+                        display: none;
+                        position: absolute;
+                        z-index: 5;
+                        top: 0;
+                        bottom: 0;
+                        left: 0;
+                        right: 0;
+                        background: #eee;
+                        border-radius: 5px;
+
+                        .mg-loadingSearch-loader {
+                            position: relative;
+                            top: calc(50% - 30px);
+                        }
+                    }
+
+                    .mg-searchBoxContainer {
+                        min-height: 60px;
+                        border-radius: 5px;
+
+                        .mg-searchBoxContainer-item {
+                            cursor: pointer;
+                            padding: 5px 10px;
+                            text-align: left;
+
+                            &:first-child {
+                                &:hover {
+                                    border-top-left-radius: 5px;
+                                    border-top-right-radius: 5px;
+                                }
+                            }
+
+                            &:last-child {
+                                &:hover {
+                                    border-bottom-left-radius: 5px;
+                                    border-bottom-right-radius: 5px;
+                                }
+                            }
+
+                            &:hover {
+                                background: #f3f3f3;
+                            }
+
+                            a {
+                                border: none;
+                                text-decoration: none;
+                                font-size: 14px;
+                                margin-left: 5px;
+                                color: #333;
+                                display: inline-block;
+                                width: 100%;
+
+                                i {
+                                    color: #adadad;
+                                    display: inline-block;
+                                    margin-right: 7px;
+                                }
+
+                                .mg-searchBoxContainer-item-img{
+                                    display:inline-block;
+                                    max-width: 50px;
+                                    padding-right: 10px;
+                                    img{
+                                        max-width: 50px;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
             }
         }
         /*#endregion */
@@ -3326,8 +3407,36 @@ button {
         }
     }
 }
-/*#endregion*/
 
+.mg-question-wrapper {
+    position: relative;
+    margin: 15px 0 32px;
+
+    .mg-question, .mg-answer {
+        overflow: hidden;
+        margin: 10px 20px 0 10px;
+        margin-bottom: 15px;
+
+        i {
+            display: inline-block;
+            font-size: 18px;
+            vertical-align: middle;
+        }
+
+        p {
+            display: inline;
+        }
+    }
+
+    .mg-answer {
+        margin: 10px 20px 0 20px;
+
+        p {
+            color: #999;
+        }
+    }
+}
+/*#endregion*/
 /*#region Comments*/
 .mg-comment {
     display: block;
@@ -5166,6 +5275,14 @@ textarea {
     &.form-control {
         padding-top: 12px;
         padding-bottom: 12px;
+    }
+
+    &.question-input {
+        width: 100%;
+        border-color: #ddd;
+        padding: 14px 16px;
+        height: 52px;
+        resize: vertical;
     }
 }
 

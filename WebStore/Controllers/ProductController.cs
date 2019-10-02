@@ -6,17 +6,19 @@ using System.Web.Mvc;
 using WebStore.Models;
 using WebStore.Functions;
 using WebStore.Routing;
+using System.Threading;
 
 namespace WebStore.Controllers
 {
     public class ProductController : Controller
     {
         // GET: Product
-        public ActionResult Category(string id, string idp, int? Page, int? PerPage, string SortedBy)
+        public ActionResult Category(string id, string idp)
         {
             webstoreEntities db = new webstoreEntities();
             ElectropEntities dbE = new ElectropEntities();
             Warehouse stock = new Warehouse();
+            BindProductPageModels models = new BindProductPageModels();
             var o = dbE.iw_tlprprod.Where(i => i.CodLista == "16").ToList();
             var x = (from a in dbE.iw_tprod
                      join b in dbE.iw_tlprprod
@@ -144,7 +146,119 @@ namespace WebStore.Controllers
                 }
             }
 
-            return View("Product", x);
+            if(Session["Question"] != null && Session["Question"].ToString() != "")
+            {
+                string addQuestion = AddQuestionByRedirecction(x.FirstOrDefault().strCodigo);
+                if(addQuestion == "OK")
+                {
+                    ViewBag.addQuestionFromRedirect = "OK";
+                }
+                else
+                {
+                    ViewBag.addQuestionFromRedirect = addQuestion;
+                }
+            }
+            List<Questions> question = new List<Questions>();
+            string code = x.FirstOrDefault().strCodigo;
+            var questions = (from q in db.tblQuestions
+                             where q.refProduct == code && q.intStatus == 2
+                             select new
+                             {
+                                 Id = q.idQuestion,
+                                 Question = q.strQuestion,
+                                 QuestionDate = q.strDate,
+                                 User = q.refUser
+                             }).ToList();
+            foreach(var i in questions)
+            {
+                Answers ans = (from a in db.tblAnswers
+                               where a.refQuestion == i.Id
+                               select new Answers
+                               {
+                                   Answer = a.strAnswer,
+                                   AnswerDate = a.strDate
+                               }).FirstOrDefault();
+                question.Add(new Questions {
+                    Question = i.Question,
+                    QuestionDate = i.QuestionDate,
+                    Answer = ans,
+                    User = i.User
+                });
+            }
+
+            
+            if(Session["id"] != null)
+            {
+                int UserId = (int)Session["id"];
+                models.UserQuestions = question.Where(q => q.User == UserId).ToList();
+                models.OthersQuestions = question.Where(q => q.User != UserId).ToList();
+            }
+            else
+            {
+                models.OthersQuestions = question;
+            }
+
+            models.Products = x;
+
+            return View("Product", models);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult AddQuestion(string Question, string Code)
+        {
+            if(Session["id"] != null)
+            {
+                string response = AddQuestionToDB(Question, Code);
+
+                if(response == "OK")
+                {
+                    return Json(new { status = "OK", title = "Pregunta", responseText = "Su pregunta ha sido enviada", isLoggedIn = true });
+                }
+                else
+                {
+                    return Json(new { status = "error", title = "Ups...!", responseText = response, isLoggedIn = true });
+                }
+            }
+            else
+            {
+                Session["Question"] = Question;
+                return Json(new { status = "OK", title = "Pregunta", responseText = "", isLoggedIn = false, redirectToAction = Url.Action("LogIn", "User", new { ReturnUrl = Request.UrlReferrer.AbsoluteUri }) });
+            }
+        }
+
+        private string AddQuestionByRedirecction(string Code)
+        {
+            string resp = AddQuestionToDB(Session["Question"].ToString(), Code);
+            Session.Remove("Question");
+            return resp;
+        }
+
+        private string AddQuestionToDB(string Question, string Code)
+        {
+            using(webstoreEntities db = new webstoreEntities())
+            {
+                try
+                {
+                    tblQuestions question = new tblQuestions()
+                    {
+                        strQuestion = Question,
+                        strDate = DateTime.Now,
+                        refUser = (int)Session["id"],
+                        refProduct = Code,
+                        boolAnswered = false,
+                        intStatus = 1
+                    };
+
+                    db.tblQuestions.Add(question);
+                    db.SaveChanges();
+                    return "OK";
+                }
+                catch (Exception ex)
+                {
+                    return ex.ToString();
+                }
+            }
         }
     }
 }
