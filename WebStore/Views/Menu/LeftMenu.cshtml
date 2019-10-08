@@ -15,7 +15,7 @@
                     <a href="#" class=@(ViewBag.active == i.strName ? "active":"")>@WebStore.Resources.Categories.ResourceManager.GetString(i.strName)</a>
                     @foreach(var j in Model.FamilyTotal)
                     {
-                        if(i.strName == j.FamilyName)
+                        if(i.idFamily == j.FamilyId)
                         {
                             <span>(@j.TotalProducts)</span>
                         }
@@ -29,7 +29,7 @@
                                     <a href="@Url.Action("s","Categories", new { id = WebStore.Resources.Seo.ResourceManager.GetString(k.strNombre), language = System.Threading.Thread.CurrentThread.CurrentCulture.TwoLetterISOLanguageName})" class=@(ViewBag.active == k.strNombre ? "active":"")>@WebStore.Resources.Categories.ResourceManager.GetString(k.strNombre)</a>
                                     @foreach (var l in Model.CategoryTotal)
                                     {
-                                        if (k.strNombre == l.CategoryName)
+                                        if (k.idCategoria == l.CategoryId)
                                         {
                                             <span>(@l.TotalProducts)</span>
                                         }

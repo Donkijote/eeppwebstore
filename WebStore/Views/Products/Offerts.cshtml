@@ -99,7 +99,7 @@
                         {
                             <div class="col-md-4 col-sm-6 col-6 element-item">
                                 <div class="mg-product-card mb-3">
-                                    @if (item.intPrecioOff != "0")
+                                    @if (item.intPrecioOff != null)
                                     {
                                         <span class="mg-product-badge bg-success">Oferta</span>
                                     }
@@ -137,7 +137,7 @@
                                                 </div>
                                             }
                                             <h4 class="mg-product-price">
-                                                @if (item.intPrecioOff != "0")
+                                                @if (item.intPrecioOff != null)
                                                 {
                                                     <del>$@Html.DisplayFor(modelItem => item.intPrecio)</del><br />
                                                     <span class="price">$ @Html.DisplayFor(modelItem => item.intPrecioOff)</span>
@@ -188,7 +188,7 @@
                                 </a>
                                 <div class="mg-product-card-body">
                                     <h4 class="mg-product-price">
-                                        @if (item.intPrecioOff != "0")
+                                        @if (item.intPrecioOff != null)
                                         {
                                             <del>$@Html.DisplayFor(modelItem => item.intPrecio)</del><br />
                                             <span class="price">$ @Html.DisplayFor(modelItem => item.intPrecioOff)</span>
@@ -229,7 +229,7 @@
                     }
                     else
                     {
-                        <h2>No hay Productos</h2>
+                        <h2>No hay Productos en oferta</h2>
                     }
                 }
             </div>

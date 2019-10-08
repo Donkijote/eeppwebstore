@@ -7,11 +7,10 @@ using WebStore.Models;
 using WebStore.Functions;
 using WebStore.Routing;
 using System.Threading;
-using System.Globalization;
 
 namespace WebStore.Controllers
 {
-    public class ProductController : Controller
+    /*public class ProductController : Controller
     {
         // GET: Product
         public ActionResult Category(string id, string idp)
@@ -20,51 +19,39 @@ namespace WebStore.Controllers
             ElectropEntities dbE = new ElectropEntities();
             Warehouse stock = new Warehouse();
             BindProductPageModels models = new BindProductPageModels();
-            var x = (from p in db.tblProducts
-                     join f in db.tblFamily
-                     on p.refFamily equals f.idFamily
-                     join c in db.tblCategories
-                     on p.refCategory equals c.idCategoria
-                     where p.strCode == idp
+            var o = dbE.iw_tlprprod.Where(i => i.CodLista == "16").ToList();
+            var x = (from a in dbE.iw_tprod
+                     join b in dbE.iw_tlprprod
+                     on a.CodProd equals b.CodProd
+                     join c in dbE.iw_tlispre
+                     on b.CodLista equals c.CodLista
+                     where a.CodBarra == idp && c.CodLista == "15"
                      select new
                      {
-                         Codigo = p.strCode,
-                         CodigoS = p.strCodeS,
-                         Name = p.strName,
-                         Price = p.intPrice,
-                         Category = c.strSeo,
-                         Offert = p.refOffert,
-                         OffertTime = p.refOfferTime
-                     }).AsEnumerable()
-                        .Select(p => new ProductsSingle
-                        {
-                            strCodigo = p.Codigo,
-                            Cod = p.CodigoS,
-                            strNombre = p.Name,
-                            intPrecio = Function.FormatNumber(p.Price),
-                            intPrecioNum = p.Price,
-                            categorySeo = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(p.Category),
-                            Offert = p.Offert,
-                            OffertTime = p.OffertTime
-                        }).ToList();
+                         strNombre = a.DesProd,
+                         strCodigo = a.CodProd,
+                         strCod = a.CodBarra,
+                         intPrecio = a.PrecioVta,
+                         intPercent = b.ValorPct
+                     })
+                     .AsEnumerable()
+                     .Select(p => new ProductsSingle
+                     {
+                         Cod = p.strCodigo,
+                         strCodigo = p.strCod,
+                         strNombre = p.strNombre.ToLower(),
+                         intPrecio = Function.FormatNumber((int)(p.intPrecio + (p.intPrecio * (p.intPercent / 100)))),
+                         intPrecioNum = (int)(p.intPrecio + (p.intPrecio * (p.intPercent / 100))),
+                         intPrecentOff = o.Any(l => l.CodProd == p.strCodigo) ? o.Where(i => i.CodProd == p.strCodigo).Select(j => (int)j.ValorPct).FirstOrDefault() + "%" : "0",
+                         intPrecioOff = o.Any(l => l.CodProd == p.strCodigo) ? Function.FormatNumber((int)(p.intPrecio + (p.intPrecio * (p.intPercent / 100))) - (int)(((p.intPrecio + (p.intPrecio * (p.intPercent / 100))) * o.Where(i => i.CodProd == p.strCodigo).Select(j => (int)j.ValorPct).FirstOrDefault() / 100))) : "0",
+                         intPrecioOffNum = o.Any(l => l.CodProd == p.strCodigo) ? (int)(p.intPrecio + (p.intPrecio * (p.intPercent / 100))) - (int)(((p.intPrecio + (p.intPrecio * (p.intPercent / 100))) * o.Where(i => i.CodProd == p.strCodigo).Select(j => (int)j.ValorPct).FirstOrDefault() / 100)) : 0,
+                         intPercent = p.intPercent + "%",
+                         categorySeo = id
+                     })
+                     .ToList();
             ViewBag.Category = id;
 
             var tList = db.tblOffertTime.Where(t => t.strTime >= DateTime.Now).Select(j => j).ToList();
-
-            var oList = db.tblOffert.Select(r => r).ToList();
-
-            if (oList.Any())
-            {
-                foreach (var i in x)
-                {
-                    if (i.Offert != null && i.Offert > 0)
-                    {
-                        int percet = (int)oList.Where(o => o.idOffert == i.Offert).Select(r => r.intPercentage).FirstOrDefault();
-                        i.intPercent = percet + "%";
-                        i.intPrecioOff = Function.FormatNumber(i.intPrecioNum - (i.intPrecioNum * percet / 100));
-                    }
-                }
-            }
 
             if (tList.Any())
             {
@@ -73,21 +60,19 @@ namespace WebStore.Controllers
                     ViewBag.Title = Resources.Titles.Product + " " + a.strNombre;
                     ViewBag.Breadcrumbs = Resources.Titles.Product + " #" + a.strCodigo;
 
-                    if (a.OffertTime != null && a.OffertTime > 0)
+                    var first = (from t in tList
+                                 where t.strTime > DateTime.Now
+                                 orderby t.strTime ascending
+                                 select t.strTime).First();
+                    ViewBag.first = first;
+                    TimeSpan timeDiff = first - DateTime.Now;
+                    int percentOff = tList.Where(t => t.refCodProd == a.strCodigo && t.strTime == first).Select(t => (int)t.intPercentageTime).FirstOrDefault();
+                    if (tList.Any(t => t.refCodProd == a.strCodigo && t.strTime == first))
                     {
-                        var first = (from t in tList
-                                     where t.strTime > DateTime.Now
-                                     orderby t.strTime ascending
-                                     select t.strTime).First();
-                        TimeSpan timeDiff = first - DateTime.Now;
-                        int percentOff = tList.Where(t => t.idOffertTime == a.OffertTime && t.strTime == first).Select(t => (int)t.intPercentageTime).FirstOrDefault();
-                        if (tList.Any(t => t.idOffertTime == a.OffertTime && t.strTime == first))
-                        {
-                            a.TimeOffer = true;
-                            a.intPrecentOff = percentOff + "%";
-                            a.intPrecioOff = Function.FormatNumber((int)Decimal.Parse(a.intPrecio) - (int)(Decimal.Parse(a.intPrecio) * percentOff / 100));
-                            a.Time = string.Format("{0:D2}:{1:D2}:{2:D2}:{3:D2}", timeDiff.Days, timeDiff.Hours, timeDiff.Minutes, timeDiff.Seconds);
-                        }
+                        a.TimeOffer = true;
+                        a.intPrecentOff = percentOff + "%";
+                        a.intPrecioOff = Function.FormatNumber((int)Decimal.Parse(a.intPrecio) - (int)(Double.Parse(a.intPrecio) * percentOff / 100));
+                        a.Time = string.Format("{0:D2}:{1:D2}:{2:D2}:{3:D2}", timeDiff.Days, timeDiff.Hours, timeDiff.Minutes, timeDiff.Seconds);
                     }
                 }
             }
@@ -127,11 +112,17 @@ namespace WebStore.Controllers
 
                     foreach (var i in x)
                     {
-                        if(!items.Any(a => a.value == i.strCodigo))
+                        if(!items.Any(a => a.value == i.Cod))
                         {
-                            History[newName] = i.strCodigo;
+                            History[newName] = i.Cod;
                             Response.Cookies.Add(History);
                         }
+                       /* History["strCodigo"] = i.strCodigo;
+                        History["strNombre"] = i.strNombre;
+                        History["intPrecio"] = i.intPrecio;
+                        History["intPrecioOff"] = i.intPrecioOff;
+                        History["categorySeo"] = i.categorySeo;
+                        History["Date"] = $"{DateTime.Today}";
                     }
                 }
                 else
@@ -141,7 +132,13 @@ namespace WebStore.Controllers
 
                     foreach (var i in x)
                     {
-                        History["Object-1"] = i.strCodigo;
+                        History["Object-1"] = i.Cod;
+                        /* History["strCodigo"] = i.strCodigo;
+                         History["strNombre"] = i.strNombre;
+                         History["intPrecio"] = i.intPrecio;
+                         History["intPrecioOff"] = i.intPrecioOff;
+                         History["categorySeo"] = i.categorySeo;
+                         History["Date"] = $"{DateTime.Today}";
                     }
 
 
@@ -263,5 +260,5 @@ namespace WebStore.Controllers
                 }
             }
         }
-    }
+    }*/
 }

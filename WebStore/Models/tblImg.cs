@@ -18,9 +18,9 @@ namespace WebStore.Models
         public tblImg()
         {
             this.tblBrand = new HashSet<tblBrand>();
-            this.tblProducts = new HashSet<tblProducts>();
             this.tblFamily = new HashSet<tblFamily>();
             this.tblProjects = new HashSet<tblProjects>();
+            this.tblProducts = new HashSet<tblProducts>();
         }
     
         public int idImg { get; set; }
@@ -34,10 +34,10 @@ namespace WebStore.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblBrand> tblBrand { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tblProducts> tblProducts { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblFamily> tblFamily { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblProjects> tblProjects { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tblProducts> tblProducts { get; set; }
     }
 }

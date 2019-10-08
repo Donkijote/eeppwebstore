@@ -14,15 +14,16 @@ namespace WebStore.Models
     
     public partial class tblProducts
     {
-        public int idProdcuto { get; set; }
-        public string strNombre { get; set; }
-        public string strCodigo { get; set; }
-        public decimal intPrecio { get; set; }
-        public Nullable<int> refCategoria { get; set; }
-        public Nullable<decimal> intPrecioTwo { get; set; }
+        public int idProduct { get; set; }
+        public string strCode { get; set; }
+        public string strName { get; set; }
+        public int intPrice { get; set; }
+        public Nullable<int> intPriceTwo { get; set; }
         public Nullable<int> intStock { get; set; }
-        public Nullable<bool> intNew { get; set; }
-        public Nullable<bool> intActive { get; set; }
+        public Nullable<bool> boolNew { get; set; }
+        public Nullable<bool> boolActive { get; set; }
+        public Nullable<int> refFamily { get; set; }
+        public Nullable<int> refCategory { get; set; }
         public Nullable<int> refModel { get; set; }
         public Nullable<int> refCategoryRelation { get; set; }
         public Nullable<int> refBrand { get; set; }
@@ -30,12 +31,13 @@ namespace WebStore.Models
         public Nullable<int> refOffert { get; set; }
         public Nullable<int> refOfferTime { get; set; }
         public Nullable<int> refImg { get; set; }
+        public string strCodeS { get; set; }
     
-        public virtual tblCategories tblCategories { get; set; }
-        public virtual tblModel tblModel { get; set; }
         public virtual tblBrand tblBrand { get; set; }
+        public virtual tblCategories tblCategories { get; set; }
+        public virtual tblImg tblImg { get; set; }
+        public virtual tblModel tblModel { get; set; }
         public virtual tblOffert tblOffert { get; set; }
         public virtual tblOffertTime tblOffertTime { get; set; }
-        public virtual tblImg tblImg { get; set; }
     }
 }

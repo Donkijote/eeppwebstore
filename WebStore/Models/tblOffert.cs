@@ -21,7 +21,7 @@ namespace WebStore.Models
         }
     
         public int idOffert { get; set; }
-        public Nullable<int> intPercentage { get; set; }
+        public int intPercentage { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblProducts> tblProducts { get; set; }

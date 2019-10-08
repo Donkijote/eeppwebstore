@@ -13,7 +13,7 @@ using WebStore.Functions;
 
 namespace WebStore.Controllers
 {
-    public class CategoriesController : Controller
+    /*public class CategoriesController : Controller
     {
         // GET: Categories
         public ActionResult All()
@@ -52,7 +52,7 @@ namespace WebStore.Controllers
                 string v = db.tblCategories.Where(a => a.strSeo == (culture != "en" ? translatedId : id))
                         .Select(i => i.strNombre).FirstOrDefault();
 
-                var s = FamilyOrCategory((culture != "en" ? translatedId : id), v, db);
+                var s = FamilyOrCategory((culture != "en" ? translatedId : id), v);
 
                 string url = Request.RawUrl;
                 string query = Request.Url.Query;
@@ -131,42 +131,53 @@ namespace WebStore.Controllers
                 string v = db.tblCategories.Where(a => a.strSeo == (culture != "en" ? translatedId : id))
                         .Select(i => i.strNombre).FirstOrDefault();
 
-                var s = FamilyOrCategory((culture != "en" ? translatedId : id), v, db, true);
+                var s = FamilyOrCategory((culture != "en" ? translatedId : id), v, true);
 
                 return PartialView(s);
             }
         }
 
-        private List<Products> FamilyOrCategory(string id, string categoryName, webstoreEntities db, bool high = false)
+        private List<Products> FamilyOrCategory(string id, string categoryName, bool high = false)
         {
+            webstoreEntities db = new webstoreEntities();
             ElectropEntities dbE = new ElectropEntities();
             if (categoryName == null)
             {
-                var s = (from p in db.tblProducts
-                                join f in db.tblFamily
-                                on p.refFamily equals f.idFamily
-                                join c in db.tblCategories
-                                on p.refCategory equals c.idCategoria
-                                where f.strSeo == id
-                                select new
-                                {
-                                    Codigo = p.strCode,
-                                    Name = p.strName,
-                                    Price = p.intPrice,
-                                    Category = c.strSeo,
-                                    Offert = p.refOffert,
-                                    OffertTime = p.refOfferTime
-                                }).AsEnumerable()
-                                .Select(x => new Products
-                                {
-                                    strCodigo = x.Codigo,
-                                    strNombre = x.Name,
-                                    intPrecio = Function.FormatNumber(x.Price),
-                                    intPrecioNum = x.Price,
-                                    categorySeo = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(x.Category),
-                                    Offert = x.Offert,
-                                    OffertTime = x.OffertTime
-                                }).ToList();
+                var family = db.tblFamily.Where(a => a.strSeo == id).FirstOrDefault();
+                var categories = db.tblCategories.Where(a => a.refFamily == family.idFamily).ToList();
+                var o = dbE.iw_tlprprod.Where(x => x.CodLista == "16").ToList();
+                var s = (from a in dbE.iw_tprod
+                         join b in dbE.iw_tgrupo
+                         on a.CodGrupo equals b.CodGrupo
+                         join ct in dbE.iw_tsubgr
+                         on a.CodSubGr equals ct.CodSubGr
+                         join c in dbE.iw_tlprprod
+                         on a.CodProd equals c.CodProd
+                         join d in dbE.iw_tlispre
+                         on c.CodLista equals d.CodLista
+                         where b.DesGrupo == family.strName && d.CodLista == "15"
+                         select new
+                         {
+                             strCodigo = a.CodProd,
+                             strCod = a.CodBarra,
+                             strNombre = a.DesProd,
+                             intPrecio = a.PrecioVta,
+                             percent = c.ValorPct,
+                             category = ct.DesSubGr
+                         })
+                        .AsEnumerable()
+                        .Select(x => new Products
+                        {
+                            strCodigo = x.strCod,
+                            strNombre = high ? Function.HighlightKeywords(Function.Truncate(x.strNombre, 60).ToLower(), id) : Function.Truncate(x.strNombre, 60).ToLower(),
+                            intPrecio = Function.FormatNumber((int)(x.intPrecio + (x.intPrecio * ( x.percent / 100 ) ))),
+                            intPrecentOff = o.Any(l => l.CodProd == x.strCodigo) ? o.Where(i => i.CodProd == x.strCodigo).Select(j => (int)j.ValorPct).FirstOrDefault() + "%" : "0",
+                            intPrecioOff = o.Any(l => l.CodProd == x.strCodigo) ? Function.FormatNumber((int)(x.intPrecio + (x.intPrecio * (x.percent / 100))) - (int)(((x.intPrecio + (x.intPrecio * (x.percent / 100))) * o.Where(i => i.CodProd == x.strCodigo).Select(j => (int)j.ValorPct).FirstOrDefault() / 100))) : "0",
+                            intPercent = x.percent + "%",
+                            categorySeo = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(categories.Where(a => a.strNombre == x.category).Select(a => a.strSeo).FirstOrDefault()),
+                            intPrecioNum = o.Any(l => l.CodProd == x.strCodigo) ? (int)(x.intPrecio + (x.intPrecio * (x.percent / 100))) - (int)(((x.intPrecio + (x.intPrecio * (x.percent / 100))) * o.Where(i => i.CodProd == x.strCodigo).Select(j => (int)j.ValorPct).FirstOrDefault() / 100)) : (int)(x.intPrecio + (x.intPrecio * (x.percent / 100)))
+                        })
+                        .ToList();
                 if (s.Any())
                 {
                     ViewBag.minPrice = s.Min(x => x.intPrecioNum);
@@ -194,41 +205,23 @@ namespace WebStore.Controllers
                     }
                 }
 
-                var oList = db.tblOffert.Select(x => x).ToList();
-
-                if (oList.Any())
-                {
-                    foreach(var i in s)
-                    {
-                        if(i.Offert != null && i.Offert > 0)
-                        {
-                            int percet = (int)oList.Where(o => o.idOffert == i.Offert).Select(x => x.intPercentage).FirstOrDefault();
-                            i.intPercent = percet+"%";
-                            i.intPrecioOff = Function.FormatNumber(i.intPrecioNum - (i.intPrecioNum * percet / 100));
-                        }
-                    }
-                }
-
                 var tList = db.tblOffertTime.Where(t => t.strTime >= DateTime.Now).Select(j => j).ToList();
                 if (tList.Any())
                 {
                     foreach (var a in s)
                     {
-                        if(a.OffertTime != null && a.OffertTime > 0)
+                        var first = (from t in tList
+                                     where t.strTime > DateTime.Now
+                                     orderby t.strTime ascending
+                                     select t.strTime).First();
+                        TimeSpan timeDiff = first - DateTime.Now;
+                        int percentOff = tList.Where(t => t.refCodProd == a.strCodigo && t.strTime == first).Select(t => (int)t.intPercentageTime).FirstOrDefault();
+                        if (tList.Any(t => t.refCodProd == a.strCodigo && t.strTime == first))
                         {
-                            var first = (from t in tList
-                                         where t.strTime > DateTime.Now
-                                         orderby t.strTime ascending
-                                         select t.strTime).First();
-                            TimeSpan timeDiff = first - DateTime.Now;
-                            int percentOff = tList.Where(t => t.idOffertTime == a.OffertTime && t.strTime == first).Select(t => (int)t.intPercentageTime).FirstOrDefault();
-                            if (tList.Any(t => t.idOffertTime == a.OffertTime && t.strTime == first))
-                            {
-                                a.TimeOffer = true;
-                                a.intPrecentOff = percentOff + "%";
-                                a.intPrecioOff = Function.FormatNumber((int)Decimal.Parse(a.intPrecio) - (int)(Decimal.Parse(a.intPrecio) * percentOff / 100));
-                                a.Time = string.Format("{0:D2}:{1:D2}:{2:D2}:{3:D2}", timeDiff.Days, timeDiff.Hours, timeDiff.Minutes, timeDiff.Seconds);
-                            }
+                            a.TimeOffer = true;
+                            a.intPrecentOff = percentOff + "%";
+                            a.intPrecioOff = Function.FormatNumber((int)Decimal.Parse(a.intPrecio) - (int)(Decimal.Parse(a.intPrecio) * percentOff / 100));
+                            a.Time = string.Format("{0:D2}:{1:D2}:{2:D2}:{3:D2}", timeDiff.Days, timeDiff.Hours, timeDiff.Minutes, timeDiff.Seconds);
                         }
                     }
                 }
@@ -237,31 +230,36 @@ namespace WebStore.Controllers
             }
             else 
             {
-                var s = (from p in db.tblProducts
-                         join f in db.tblFamily
-                         on p.refFamily equals f.idFamily
-                         join c in db.tblCategories
-                         on p.refCategory equals c.idCategoria
-                         where c.strNombre == categoryName
+                var o = dbE.iw_tlprprod.Where(x => x.CodLista == "16").ToList();
+                var s = (from a in dbE.iw_tprod
+                         join b in dbE.iw_tsubgr
+                         on a.CodSubGr equals b.CodSubGr
+                         join c in dbE.iw_tlprprod
+                         on a.CodProd equals c.CodProd
+                         join d in dbE.iw_tlispre
+                         on c.CodLista equals d.CodLista
+                         where b.DesSubGr == categoryName && d.CodLista == "15"
                          select new
                          {
-                             Codigo = p.strCode,
-                             Name = p.strName,
-                             Price = p.intPrice,
-                             Category = c.strSeo,
-                             Offert = p.refOffert,
-                             OffertTime = p.refOfferTime
-                         }).AsEnumerable()
-                                .Select(x => new Products
-                                {
-                                    strCodigo = x.Codigo,
-                                    strNombre = x.Name,
-                                    intPrecio = Function.FormatNumber(x.Price),
-                                    intPrecioNum = x.Price,
-                                    categorySeo = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(x.Category),
-                                    Offert = x.Offert,
-                                    OffertTime = x.OffertTime
-                                }).ToList();
+                             strCodigo = a.CodProd,
+                             strCod = a.CodBarra,
+                             strNombre = a.DesProd,
+                             intPrecio = a.PrecioVta,
+                             percent = c.ValorPct
+                         })
+                            .AsEnumerable()
+                            .Select(x => new Products
+                            {
+                                strCodigo = x.strCod,
+                                strNombre = Function.Truncate(x.strNombre, 60).ToLower(),
+                                intPrecio = Function.FormatNumber( (int)(x.intPrecio + (x.intPrecio * ( x.percent / 100 ) ) ) ),
+                                intPrecentOff = o.Any(l => l.CodProd == x.strCodigo) ? o.Where(i => i.CodProd == x.strCodigo).Select(j => (int)j.ValorPct).FirstOrDefault() + "%" : "0",
+                                intPrecioOff = o.Any(l => l.CodProd == x.strCodigo) ? Function.FormatNumber( (int)( x.intPrecio + (x.intPrecio * (x.percent / 100)) )  -  (int)( ( (x.intPrecio + (x.intPrecio * (x.percent / 100))) * o.Where(i => i.CodProd == x.strCodigo).Select(j => (int)j.ValorPct).FirstOrDefault() / 100) ) ) : "0",
+                                intPercent = x.percent + "%",
+                                categorySeo = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(id),
+                                intPrecioNum = o.Any(l => l.CodProd == x.strCodigo) ? (int)(x.intPrecio + (x.intPrecio * (x.percent / 100))) - (int)(((x.intPrecio + (x.intPrecio * (x.percent / 100))) * o.Where(i => i.CodProd == x.strCodigo).Select(j => (int)j.ValorPct).FirstOrDefault() / 100)) : (int)(x.intPrecio + (x.intPrecio * (x.percent / 100)))
+                            })
+                            .ToList();
                 if (s.Any())
                 {
                     ViewBag.minPrice = s.Min(x => x.intPrecioNum);
@@ -290,48 +288,31 @@ namespace WebStore.Controllers
                     }
                 }
 
-                var oList = db.tblOffert.Select(x => x).ToList();
-
-                if (oList.Any())
-                {
-                    foreach (var i in s)
-                    {
-                        if (i.Offert != null && i.Offert > 0)
-                        {
-                            int percet = (int)oList.Where(o => o.idOffert == i.Offert).Select(x => x.intPercentage).FirstOrDefault();
-                            i.intPercent = percet + "%";
-                            i.intPrecioOff = Function.FormatNumber(i.intPrecioNum - (i.intPrecioNum * percet / 100));
-                        }
-                    }
-                }
-
                 var tList = db.tblOffertTime.Where(t => t.strTime >= DateTime.Now).Select(j => j).ToList();
-                if (tList.Any())
+                
+                if(tList.Any())
                 {
                     foreach (var a in s)
                     {
-                        if (a.OffertTime != null && a.OffertTime > 0)
+                        var first = (from t in tList
+                                     where t.strTime > DateTime.Now
+                                     orderby t.strTime ascending
+                                     select t.strTime).First();
+                        TimeSpan timeDiff = first - DateTime.Now;
+                        int percentOff = tList.Where(t => t.refCodProd == a.strCodigo && t.strTime == first).Select(t => (int)t.intPercentageTime).FirstOrDefault();
+                        if (tList.Any(t => t.refCodProd == a.strCodigo && t.strTime == first))
                         {
-                            var first = (from t in tList
-                                         where t.strTime > DateTime.Now
-                                         orderby t.strTime ascending
-                                         select t.strTime).First();
-                            TimeSpan timeDiff = first - DateTime.Now;
-                            int percentOff = tList.Where(t => t.idOffertTime == a.OffertTime && t.strTime == first).Select(t => (int)t.intPercentageTime).FirstOrDefault();
-                            if (tList.Any(t => t.idOffertTime == a.OffertTime && t.strTime == first))
-                            {
-                                a.TimeOffer = true;
-                                a.intPrecentOff = percentOff + "%";
-                                a.intPrecioOff = Function.FormatNumber((int)Decimal.Parse(a.intPrecio) - (int)(Decimal.Parse(a.intPrecio) * percentOff / 100));
-                                a.Time = string.Format("{0:D2}:{1:D2}:{2:D2}:{3:D2}", timeDiff.Days, timeDiff.Hours, timeDiff.Minutes, timeDiff.Seconds);
-                            }
+                            a.TimeOffer = true;
+                            a.intPrecentOff = percentOff + "%";
+                            a.intPrecioOff = Function.FormatNumber((int)Decimal.Parse(a.intPrecio) - (int)(Decimal.Parse(a.intPrecio) * percentOff / 100));
+                            a.Time = string.Format("{0:D2}:{1:D2}:{2:D2}:{3:D2}", timeDiff.Days, timeDiff.Hours, timeDiff.Minutes, timeDiff.Seconds);
                         }
                     }
                 }
-
+                
                 return s;
             }
         }
 
-    }
+    }*/
 }

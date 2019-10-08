@@ -83,18 +83,18 @@ namespace WebStore.Controllers
         private static List<TotalProductByCategory> CategoryTotal()
         {
             webstoreEntities db = new webstoreEntities();
-            ElectropEntities dbE = new ElectropEntities();
-            /* var s = (from a in db.tblProducts
+            //ElectropEntities dbE = new ElectropEntities();
+            var s = (from a in db.tblProducts
                         join b in db.tblCategories
-                        on a.refCategoria equals b.idCategoria
+                        on a.refCategory equals b.idCategoria
                         join c in db.tblFamily
                         on b.refFamily equals c.idFamily
-                        select new { totalCategories = b.idCategoria, totalfamily = c.idFamily, products = a.idProdcuto })
+                        select new { totalCategories = b.idCategoria, totalfamily = c.idFamily, products = a.idProduct })
                         .GroupBy(cate => cate.totalCategories)
                         .Select(x => new TotalProductByCategory { TotalProducts = x.Count(), CategoryId = x.Key })
-                        .ToList();*/
+                        .ToList();
 
-            var s = (from a in dbE.iw_tprod
+            /*var s = (from a in dbE.iw_tprod
                         join b in dbE.iw_tsubgr
                         on a.CodSubGr equals b.CodSubGr
                         join c in dbE.iw_tgrupo
@@ -105,7 +105,7 @@ namespace WebStore.Controllers
                         select new { Category = b.DesSubGr, Family = c.DesGrupo, Product = a.CodBarra })
                         .GroupBy(c => c.Category)
                         .Select(x => new TotalProductByCategory { TotalProducts = x.Count(), CategoryName = x.Key})
-                        .ToList();
+                        .ToList();*/
             return s;
 
         }
@@ -113,17 +113,17 @@ namespace WebStore.Controllers
         private static List<TotalProductByFamily> FamilyTotal()
         {
             webstoreEntities db = new webstoreEntities();
-            ElectropEntities dbE = new ElectropEntities();
-            /*var s = (from a in db.tblProducts
+            //ElectropEntities dbE = new ElectropEntities();
+            var s = (from a in db.tblProducts
                         join b in db.tblCategories
-                        on a.refCategoria equals b.idCategoria
+                        on a.refCategory equals b.idCategoria
                         join c in db.tblFamily
                         on b.refFamily equals c.idFamily
-                        select new { totalCategories = b.idCategoria, totalfamily = c.idFamily, products = a.idProdcuto })
+                        select new { totalCategories = b.idCategoria, totalfamily = c.idFamily, products = a.idProduct })
                         .GroupBy(cate => cate.totalfamily)
                         .Select(x => new TotalProductByFamily { TotalProducts = x.Count(), FamilyId = x.Key })
-                        .ToList();*/
-            var s = (from a in dbE.iw_tprod
+                        .ToList();
+            /*var s = (from a in dbE.iw_tprod
                      join b in dbE.iw_tsubgr
                      on a.CodSubGr equals b.CodSubGr
                      join c in dbE.iw_tgrupo
@@ -134,7 +134,7 @@ namespace WebStore.Controllers
                      select new { Category = b.DesSubGr, Family = c.DesGrupo, Product = a.CodBarra })
             .GroupBy(c => c.Family)
             .Select(x => new TotalProductByFamily { TotalProducts = x.Count(), FamilyName = x.Key })
-            .ToList();
+            .ToList();*/
 
             return s;
         }
@@ -142,7 +142,6 @@ namespace WebStore.Controllers
         private static List<TotalProductByBrand> BrandTotal(string seo)
         {
             webstoreEntities db = new webstoreEntities();
-            ElectropEntities dbE = new ElectropEntities();
 
             if(seo != "offerts")
             {
@@ -152,41 +151,19 @@ namespace WebStore.Controllers
                             .FirstOrDefault();
                 if (category != null)
                 {
-                    var prod = (from a in dbE.iw_tprod
-                                join b in dbE.iw_tlprprod
-                                on a.CodProd equals b.CodProd
-                                join c in dbE.iw_tsubgr
-                                on a.CodSubGr equals c.CodSubGr
-                                where b.CodLista == "15" && c.DesSubGr == category.strNombre
-                                select new
+                    var prod = (from p in db.tblProducts
+                                join f in db.tblFamily
+                                on p.refFamily equals f.idFamily
+                                join c in db.tblCategories
+                                on p.refCategory equals c.idCategoria
+                                where c.strSeo == seo
+                                select new TwoCode
                                 {
-                                    codProS = a.CodProd,
-                                    codProW = a.CodBarra,
-                                    category = c.DesSubGr
+                                    codProS = p.strCodeS,
+                                    codProW = p.strCode
                                 })
                                 .ToList();
-                    var brand = (from a in db.tblRelBrand
-                                 join b in db.tblBrand
-                                 on a.refBrand equals b.idBrand
-                                 select new { brandName = b.strName, brandId = b.idBrand, refProd = a.refProd })
-                                 .ToList();
-                    var group = (from p in prod
-                                 join b in brand
-                                 on p.codProW equals b.refProd
-                                 select new
-                                 {
-                                     products = p.codProW,
-                                     category = p.category,
-                                     brand = b.brandName,
-                                     brandId = b.brandId
-                                 })
-                                 .GroupBy(g => g.brand)
-                                 .Select(x => new TotalProductByBrand
-                                 {
-                                     TotalProducts = x.Count(),
-                                     BrandName = x.Key
-                                 })
-                                 .ToList();
+                    var group = GetTotalProductByBrandsReducer(prod, db);
                     return group;
                 }
                 else
@@ -195,83 +172,65 @@ namespace WebStore.Controllers
                                   where a.strSeo == seo
                                   select a)
                                 .FirstOrDefault();
-                    var prod = (from a in dbE.iw_tprod
-                                join b in dbE.iw_tlprprod
-                                on a.CodProd equals b.CodProd
-                                join c in dbE.iw_tgrupo
-                                on a.CodGrupo equals c.CodGrupo
-                                where b.CodLista == "15" && c.DesGrupo == family.strName
-                                select new
+                    var prod = (from p in db.tblProducts
+                                join f in db.tblFamily
+                                on p.refFamily equals f.idFamily
+                                join c in db.tblCategories
+                                on p.refCategory equals c.idCategoria
+                                where f.strSeo == seo
+                                select new TwoCode
                                 {
-                                    codProS = a.CodProd,
-                                    codProW = a.CodBarra,
-                                    category = c.DesGrupo
+                                    codProS = p.strCodeS,
+                                    codProW = p.strCode
                                 })
                                 .ToList();
-                    var brand = (from a in db.tblRelBrand
-                                 join b in db.tblBrand
-                                 on a.refBrand equals b.idBrand
-                                 select new { brandName = b.strName, brandId = b.idBrand, refProd = a.refProd })
-                                 .ToList();
-                    var group = (from p in prod
-                                 join b in brand
-                                 on p.codProW equals b.refProd
-                                 select new
-                                 {
-                                     products = p.codProW,
-                                     category = p.category,
-                                     brand = b.brandName,
-                                     brandId = b.brandId
-                                 })
-                                 .GroupBy(g => g.brand)
-                                 .Select(x => new TotalProductByBrand
-                                 {
-                                     TotalProducts = x.Count(),
-                                     BrandName = x.Key
-                                 })
-                                 .ToList();
+                    var group = GetTotalProductByBrandsReducer(prod, db);
                     return group;
                 }
             }
             else
             {
-                var prod = (from a in dbE.iw_tprod
-                            join b in dbE.iw_tlprprod
-                            on a.CodProd equals b.CodProd
-                            join c in dbE.iw_tsubgr
-                            on a.CodSubGr equals c.CodSubGr
-                            where b.CodLista == "16"
-                            select new
+                var prod = (from p in db.tblProducts
+                            join c in db.tblCategories
+                            on p.refCategory equals c.idCategoria
+                            join o in db.tblOffert
+                            on p.refOffert equals o.idOffert
+                            select new TwoCode
                             {
-                                codProS = a.CodProd,
-                                codProW = a.CodBarra,
-                                category = c.DesSubGr
-                            })
-                                .ToList();
-                var brand = (from a in db.tblRelBrand
-                             join b in db.tblBrand
-                             on a.refBrand equals b.idBrand
-                             select new { brandName = b.strName, brandId = b.idBrand, refProd = a.refProd })
-                             .ToList();
-                var group = (from p in prod
-                             join b in brand
-                             on p.codProW equals b.refProd
-                             select new
-                             {
-                                 products = p.codProW,
-                                 category = p.category,
-                                 brand = b.brandName,
-                                 brandId = b.brandId
-                             })
-                             .GroupBy(g => g.brand)
-                             .Select(x => new TotalProductByBrand
-                             {
-                                 TotalProducts = x.Count(),
-                                 BrandName = x.Key
-                             })
-                             .ToList();
+                                codProS = p.strCodeS,
+                                codProW = p.strCode
+                            }).ToList();
+
+                var group = GetTotalProductByBrandsReducer(prod, db);
                 return group;
             }
+        }
+
+        private static List<TotalProductByBrand> GetTotalProductByBrandsReducer(List<TwoCode> prod, webstoreEntities db)
+        {
+
+            var brand = (from a in db.tblRelBrand
+                         join b in db.tblBrand
+                         on a.refBrand equals b.idBrand
+                         select new { brandName = b.strName, brandId = b.idBrand, refProd = a.refProd })
+                             .ToList();
+            var group = (from p in prod
+                         join b in brand
+                         on p.codProW equals b.refProd
+                         select new
+                         {
+                             products = p.codProW,
+                             brand = b.brandName,
+                             brandId = b.brandId
+                         })
+                         .GroupBy(g => g.brand)
+                         .Select(x => new TotalProductByBrand
+                         {
+                             TotalProducts = x.Count(),
+                             BrandName = x.Key
+                         })
+                         .ToList();
+            return group;
         }
 
         private static List<PriceRange> BetweenPrices(string seo)
@@ -371,5 +330,11 @@ namespace WebStore.Controllers
                 return listPrice;
             }
         }
+    }
+
+    public class TwoCode
+    {
+        public string codProS { get; set; }
+        public string codProW { get; set; }
     }
 }

@@ -17,10 +17,10 @@ namespace WebStore.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public tblCategories()
         {
-            this.tblProducts = new HashSet<tblProducts>();
             this.tblCategoryRelation = new HashSet<tblCategoryRelation>();
             this.tblCategoryRelation1 = new HashSet<tblCategoryRelation>();
             this.tblCategoryRelation2 = new HashSet<tblCategoryRelation>();
+            this.tblProducts = new HashSet<tblProducts>();
         }
     
         public int idCategoria { get; set; }
@@ -30,8 +30,6 @@ namespace WebStore.Models
         public Nullable<int> refFamily { get; set; }
         public string strSeo { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tblProducts> tblProducts { get; set; }
         public virtual tblFamily tblFamily { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblCategoryRelation> tblCategoryRelation { get; set; }
@@ -39,5 +37,7 @@ namespace WebStore.Models
         public virtual ICollection<tblCategoryRelation> tblCategoryRelation1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblCategoryRelation> tblCategoryRelation2 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tblProducts> tblProducts { get; set; }
     }
 }

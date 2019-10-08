@@ -180,7 +180,7 @@
             <PropertyRef Name="idOffert" />
           </Key>
           <Property Name="idOffert" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="intPercentage" Type="int" />
+          <Property Name="intPercentage" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="tblOffertTime">
           <Key>
@@ -195,17 +195,19 @@
         </EntityType>
         <EntityType Name="tblProducts">
           <Key>
-            <PropertyRef Name="idProdcuto" />
+            <PropertyRef Name="idProduct" />
           </Key>
-          <Property Name="idProdcuto" Type="int" Nullable="false" />
-          <Property Name="strNombre" Type="varchar" MaxLength="150" />
-          <Property Name="strCodigo" Type="varchar" MaxLength="50" />
-          <Property Name="intPrecio" Type="decimal" Precision="18" Scale="2" Nullable="false" />
-          <Property Name="intPrecioTwo" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="idProduct" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="strCode" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="strCodeS" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="strName" Type="text" Nullable="false" />
+          <Property Name="intPrice" Type="int" Nullable="false" />
+          <Property Name="intPriceTwo" Type="int" />
           <Property Name="intStock" Type="int" />
-          <Property Name="intNew" Type="bit" />
-          <Property Name="intActive" Type="bit" />
-          <Property Name="refCategoria" Type="int" />
+          <Property Name="boolNew" Type="bit" />
+          <Property Name="boolActive" Type="bit" />
+          <Property Name="refFamily" Type="int" />
+          <Property Name="refCategory" Type="int" />
           <Property Name="refModel" Type="int" />
           <Property Name="refCategoryRelation" Type="int" />
           <Property Name="refBrand" Type="int" />
@@ -485,7 +487,7 @@
               <PropertyRef Name="idCategoria" />
             </Principal>
             <Dependent Role="tblProducts">
-              <PropertyRef Name="refCategoria" />
+              <PropertyRef Name="refCategory" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -734,7 +736,6 @@
           <Property Name="idCategoria" Type="Int32" Nullable="false" />
           <Property Name="strNombre" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="intActivo" Type="Boolean" />
-          <NavigationProperty Name="tblProducts" Relationship="webstoreModel.FK_tblProducts_tblCategories1" FromRole="tblCategories" ToRole="tblProducts" />
           <Property Name="intOrder" Type="Int32" />
           <Property Name="refFamily" Type="Int32" />
           <NavigationProperty Name="tblFamily" Relationship="webstoreModel.FK_tblCategories_tblFamily" FromRole="tblCategories" ToRole="tblFamily" />
@@ -742,14 +743,10 @@
           <NavigationProperty Name="tblCategoryRelation1" Relationship="webstoreModel.FK_tblCategoryRelation_tblCategories_Three" FromRole="tblCategories" ToRole="tblCategoryRelation" />
           <NavigationProperty Name="tblCategoryRelation2" Relationship="webstoreModel.FK_tblCategoryRelation_tblCategories_Two" FromRole="tblCategories" ToRole="tblCategoryRelation" />
           <Property Name="strSeo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tblProducts" Relationship="webstoreModel.FK_tblProducts_tblCategories" FromRole="tblCategories" ToRole="tblProducts" />
         </EntityType>
         <EntityContainer Name="webstoreEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="tblCategories" EntityType="Self.tblCategories" />
-          <EntitySet Name="tblProducts" EntityType="webstoreModel.tblProducts" />
-          <AssociationSet Name="FK_tblProducts_tblCategories1" Association="webstoreModel.FK_tblProducts_tblCategories1">
-            <End Role="tblCategories" EntitySet="tblCategories" />
-            <End Role="tblProducts" EntitySet="tblProducts" />
-          </AssociationSet>
           <EntitySet Name="tblCountry" EntityType="webstoreModel.tblCountry" />
           <EntitySet Name="tblComunas" EntityType="webstoreModel.tblComunas" />
           <EntitySet Name="tblProvincias" EntityType="webstoreModel.tblProvincias" />
@@ -773,10 +770,6 @@
             <End Role="tblModel" EntitySet="tblModel" />
             <End Role="tblModelDetail" EntitySet="tblModelDetail" />
           </AssociationSet>
-          <AssociationSet Name="FK_tblProducts_tblModel" Association="webstoreModel.FK_tblProducts_tblModel">
-            <End Role="tblModel" EntitySet="tblModel" />
-            <End Role="tblProducts" EntitySet="tblProducts" />
-          </AssociationSet>
           <EntitySet Name="tblCategoryRelation" EntityType="webstoreModel.tblCategoryRelation" />
           <AssociationSet Name="FK_tblCategoryRelation_tblCategories_One" Association="webstoreModel.FK_tblCategoryRelation_tblCategories_One">
             <End Role="tblCategories" EntitySet="tblCategories" />
@@ -791,28 +784,12 @@
             <End Role="tblCategoryRelation" EntitySet="tblCategoryRelation" />
           </AssociationSet>
           <EntitySet Name="tblBrand" EntityType="webstoreModel.tblBrand" />
-          <AssociationSet Name="FK_tblProducts_tblBrand" Association="webstoreModel.FK_tblProducts_tblBrand">
-            <End Role="tblBrand" EntitySet="tblBrand" />
-            <End Role="tblProducts" EntitySet="tblProducts" />
-          </AssociationSet>
           <EntitySet Name="tblOffert" EntityType="webstoreModel.tblOffert" />
           <EntitySet Name="tblOffertTime" EntityType="webstoreModel.tblOffertTime" />
-          <AssociationSet Name="FK_tblProducts_tblOffert" Association="webstoreModel.FK_tblProducts_tblOffert">
-            <End Role="tblOffert" EntitySet="tblOffert" />
-            <End Role="tblProducts" EntitySet="tblProducts" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tblProducts_tblOffertTime" Association="webstoreModel.FK_tblProducts_tblOffertTime">
-            <End Role="tblOffertTime" EntitySet="tblOffertTime" />
-            <End Role="tblProducts" EntitySet="tblProducts" />
-          </AssociationSet>
           <EntitySet Name="tblImg" EntityType="webstoreModel.tblImg" />
           <AssociationSet Name="FK_tblBrand_tblBrand" Association="webstoreModel.FK_tblBrand_tblBrand">
             <End Role="tblImg" EntitySet="tblImg" />
             <End Role="tblBrand" EntitySet="tblBrand" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tblProducts_tblImg" Association="webstoreModel.FK_tblProducts_tblImg">
-            <End Role="tblImg" EntitySet="tblImg" />
-            <End Role="tblProducts" EntitySet="tblProducts" />
           </AssociationSet>
           <AssociationSet Name="FK_tblFamily_tblImg" Association="webstoreModel.FK_tblFamily_tblImg">
             <End Role="tblImg" EntitySet="tblImg" />
@@ -868,46 +845,32 @@
             <End Role="tblQuestions" EntitySet="tblQuestions" />
             <End Role="tblAnswers" EntitySet="tblAnswers" />
           </AssociationSet>
+          <EntitySet Name="tblProducts" EntityType="webstoreModel.tblProducts" />
+          <AssociationSet Name="FK_tblProducts_tblBrand" Association="webstoreModel.FK_tblProducts_tblBrand">
+            <End Role="tblBrand" EntitySet="tblBrand" />
+            <End Role="tblProducts" EntitySet="tblProducts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblProducts_tblCategories" Association="webstoreModel.FK_tblProducts_tblCategories">
+            <End Role="tblCategories" EntitySet="tblCategories" />
+            <End Role="tblProducts" EntitySet="tblProducts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblProducts_tblImg" Association="webstoreModel.FK_tblProducts_tblImg">
+            <End Role="tblImg" EntitySet="tblImg" />
+            <End Role="tblProducts" EntitySet="tblProducts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblProducts_tblModel" Association="webstoreModel.FK_tblProducts_tblModel">
+            <End Role="tblModel" EntitySet="tblModel" />
+            <End Role="tblProducts" EntitySet="tblProducts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblProducts_tblOffert" Association="webstoreModel.FK_tblProducts_tblOffert">
+            <End Role="tblOffert" EntitySet="tblOffert" />
+            <End Role="tblProducts" EntitySet="tblProducts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblProducts_tblOffertTime" Association="webstoreModel.FK_tblProducts_tblOffertTime">
+            <End Role="tblOffertTime" EntitySet="tblOffertTime" />
+            <End Role="tblProducts" EntitySet="tblProducts" />
+          </AssociationSet>
         </EntityContainer>
-        <EntityType Name="tblProducts">
-          <Key>
-            <PropertyRef Name="idProdcuto" />
-          </Key>
-          <Property Name="idProdcuto" Type="Int32" Nullable="false" />
-          <Property Name="strNombre" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
-          <Property Name="strCodigo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="intPrecio" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
-          <Property Name="refCategoria" Type="Int32" />
-          <NavigationProperty Name="tblCategories" Relationship="webstoreModel.FK_tblProducts_tblCategories1" FromRole="tblProducts" ToRole="tblCategories" />
-          <Property Name="intPrecioTwo" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="intStock" Type="Int32" />
-          <Property Name="intNew" Type="Boolean" />
-          <Property Name="intActive" Type="Boolean" />
-          <Property Name="refModel" Type="Int32" />
-          <Property Name="refCategoryRelation" Type="Int32" />
-          <Property Name="refBrand" Type="Int32" />
-          <NavigationProperty Name="tblModel" Relationship="webstoreModel.FK_tblProducts_tblModel" FromRole="tblProducts" ToRole="tblModel" />
-          <NavigationProperty Name="tblBrand" Relationship="webstoreModel.FK_tblProducts_tblBrand" FromRole="tblProducts" ToRole="tblBrand" />
-          <Property Name="refFicha" Type="Int32" />
-          <Property Name="refOffert" Type="Int32" />
-          <Property Name="refOfferTime" Type="Int32" />
-          <NavigationProperty Name="tblOffert" Relationship="webstoreModel.FK_tblProducts_tblOffert" FromRole="tblProducts" ToRole="tblOffert" />
-          <NavigationProperty Name="tblOffertTime" Relationship="webstoreModel.FK_tblProducts_tblOffertTime" FromRole="tblProducts" ToRole="tblOffertTime" />
-          <Property Name="refImg" Type="Int32" />
-          <NavigationProperty Name="tblImg" Relationship="webstoreModel.FK_tblProducts_tblImg" FromRole="tblProducts" ToRole="tblImg" />
-        </EntityType>
-        <Association Name="FK_tblProducts_tblCategories1">
-          <End Type="webstoreModel.tblCategories" Role="tblCategories" Multiplicity="0..1" />
-          <End Type="webstoreModel.tblProducts" Role="tblProducts" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblCategories">
-              <PropertyRef Name="idCategoria" />
-            </Principal>
-            <Dependent Role="tblProducts">
-              <PropertyRef Name="refCategoria" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="tblCountry">
           <Key>
             <PropertyRef Name="iso" />
@@ -1028,18 +991,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_tblProducts_tblModel">
-          <End Type="webstoreModel.tblModel" Role="tblModel" Multiplicity="0..1" />
-          <End Type="webstoreModel.tblProducts" Role="tblProducts" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblModel">
-              <PropertyRef Name="idModel" />
-            </Principal>
-            <Dependent Role="tblProducts">
-              <PropertyRef Name="refModel" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="tblCategoryRelation">
           <Key>
             <PropertyRef Name="idCategoryRelation" />
@@ -1095,29 +1046,17 @@
           <Property Name="idBrand" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="strName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="intOrder" Type="Int32" />
-          <NavigationProperty Name="tblProducts" Relationship="webstoreModel.FK_tblProducts_tblBrand" FromRole="tblBrand" ToRole="tblProducts" />
           <Property Name="refImg" Type="Int32" />
           <NavigationProperty Name="tblImg" Relationship="webstoreModel.FK_tblBrand_tblBrand" FromRole="tblBrand" ToRole="tblImg" />
           <NavigationProperty Name="tblRelBrand" Relationship="webstoreModel.FK_tblRelBrand_tblBrand" FromRole="tblBrand" ToRole="tblRelBrand" />
+          <NavigationProperty Name="tblProducts" Relationship="webstoreModel.FK_tblProducts_tblBrand" FromRole="tblBrand" ToRole="tblProducts" />
         </EntityType>
-        <Association Name="FK_tblProducts_tblBrand">
-          <End Type="webstoreModel.tblBrand" Role="tblBrand" Multiplicity="0..1" />
-          <End Type="webstoreModel.tblProducts" Role="tblProducts" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblBrand">
-              <PropertyRef Name="idBrand" />
-            </Principal>
-            <Dependent Role="tblProducts">
-              <PropertyRef Name="refBrand" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="tblOffert">
           <Key>
             <PropertyRef Name="idOffert" />
           </Key>
           <Property Name="idOffert" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="intPercentage" Type="Int32" />
+          <Property Name="intPercentage" Type="Int32" Nullable="false" />
           <NavigationProperty Name="tblProducts" Relationship="webstoreModel.FK_tblProducts_tblOffert" FromRole="tblOffert" ToRole="tblProducts" />
         </EntityType>
         <EntityType Name="tblOffertTime">
@@ -1127,35 +1066,11 @@
           <Property Name="idOffertTime" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="intPercentageTime" Type="Int32" />
           <Property Name="strTime" Type="DateTime" Precision="3" Nullable="false" />
-          <NavigationProperty Name="tblProducts" Relationship="webstoreModel.FK_tblProducts_tblOffertTime" FromRole="tblOffertTime" ToRole="tblProducts" />
           <Property Name="strName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="strDescription" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="refCodProd" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tblProducts" Relationship="webstoreModel.FK_tblProducts_tblOffertTime" FromRole="tblOffertTime" ToRole="tblProducts" />
         </EntityType>
-        <Association Name="FK_tblProducts_tblOffert">
-          <End Type="webstoreModel.tblOffert" Role="tblOffert" Multiplicity="0..1" />
-          <End Type="webstoreModel.tblProducts" Role="tblProducts" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblOffert">
-              <PropertyRef Name="idOffert" />
-            </Principal>
-            <Dependent Role="tblProducts">
-              <PropertyRef Name="refOffert" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tblProducts_tblOffertTime">
-          <End Type="webstoreModel.tblOffertTime" Role="tblOffertTime" Multiplicity="0..1" />
-          <End Type="webstoreModel.tblProducts" Role="tblProducts" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblOffertTime">
-              <PropertyRef Name="idOffertTime" />
-            </Principal>
-            <Dependent Role="tblProducts">
-              <PropertyRef Name="refOfferTime" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="tblImg">
           <Key>
             <PropertyRef Name="idImg" />
@@ -1166,11 +1081,11 @@
           <Property Name="strImgThree" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="strImgFour" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="tblBrand" Relationship="webstoreModel.FK_tblBrand_tblBrand" FromRole="tblImg" ToRole="tblBrand" />
-          <NavigationProperty Name="tblProducts" Relationship="webstoreModel.FK_tblProducts_tblImg" FromRole="tblImg" ToRole="tblProducts" />
           <NavigationProperty Name="tblFamily" Relationship="webstoreModel.FK_tblFamily_tblImg" FromRole="tblImg" ToRole="tblFamily" />
           <Property Name="strImgFive" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="strImgSix" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="tblProjects" Relationship="webstoreModel.FK_tblProjects_tblImg" FromRole="tblImg" ToRole="tblProjects" />
+          <NavigationProperty Name="tblProducts" Relationship="webstoreModel.FK_tblProducts_tblImg" FromRole="tblImg" ToRole="tblProducts" />
         </EntityType>
         <Association Name="FK_tblBrand_tblBrand">
           <End Type="webstoreModel.tblImg" Role="tblImg" Multiplicity="0..1" />
@@ -1180,18 +1095,6 @@
               <PropertyRef Name="idImg" />
             </Principal>
             <Dependent Role="tblBrand">
-              <PropertyRef Name="refImg" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tblProducts_tblImg">
-          <End Type="webstoreModel.tblImg" Role="tblImg" Multiplicity="0..1" />
-          <End Type="webstoreModel.tblProducts" Role="tblProducts" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblImg">
-              <PropertyRef Name="idImg" />
-            </Principal>
-            <Dependent Role="tblProducts">
               <PropertyRef Name="refImg" />
             </Dependent>
           </ReferentialConstraint>
@@ -1495,6 +1398,107 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="tblProducts">
+          <Key>
+            <PropertyRef Name="idProduct" />
+          </Key>
+          <Property Name="idProduct" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="strCode" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="strName" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="intPrice" Type="Int32" Nullable="false" />
+          <Property Name="intPriceTwo" Type="Int32" />
+          <Property Name="intStock" Type="Int32" />
+          <Property Name="boolNew" Type="Boolean" />
+          <Property Name="boolActive" Type="Boolean" />
+          <Property Name="refFamily" Type="Int32" />
+          <Property Name="refCategory" Type="Int32" />
+          <Property Name="refModel" Type="Int32" />
+          <Property Name="refCategoryRelation" Type="Int32" />
+          <Property Name="refBrand" Type="Int32" />
+          <Property Name="refFicha" Type="Int32" />
+          <Property Name="refOffert" Type="Int32" />
+          <Property Name="refOfferTime" Type="Int32" />
+          <Property Name="refImg" Type="Int32" />
+          <NavigationProperty Name="tblBrand" Relationship="webstoreModel.FK_tblProducts_tblBrand" FromRole="tblProducts" ToRole="tblBrand" />
+          <NavigationProperty Name="tblCategories" Relationship="webstoreModel.FK_tblProducts_tblCategories" FromRole="tblProducts" ToRole="tblCategories" />
+          <NavigationProperty Name="tblImg" Relationship="webstoreModel.FK_tblProducts_tblImg" FromRole="tblProducts" ToRole="tblImg" />
+          <NavigationProperty Name="tblModel" Relationship="webstoreModel.FK_tblProducts_tblModel" FromRole="tblProducts" ToRole="tblModel" />
+          <NavigationProperty Name="tblOffert" Relationship="webstoreModel.FK_tblProducts_tblOffert" FromRole="tblProducts" ToRole="tblOffert" />
+          <NavigationProperty Name="tblOffertTime" Relationship="webstoreModel.FK_tblProducts_tblOffertTime" FromRole="tblProducts" ToRole="tblOffertTime" />
+          <Property Name="strCodeS" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <Association Name="FK_tblProducts_tblBrand">
+          <End Type="webstoreModel.tblBrand" Role="tblBrand" Multiplicity="0..1" />
+          <End Type="webstoreModel.tblProducts" Role="tblProducts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblBrand">
+              <PropertyRef Name="idBrand" />
+            </Principal>
+            <Dependent Role="tblProducts">
+              <PropertyRef Name="refBrand" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblProducts_tblCategories">
+          <End Type="webstoreModel.tblCategories" Role="tblCategories" Multiplicity="0..1" />
+          <End Type="webstoreModel.tblProducts" Role="tblProducts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblCategories">
+              <PropertyRef Name="idCategoria" />
+            </Principal>
+            <Dependent Role="tblProducts">
+              <PropertyRef Name="refCategory" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblProducts_tblImg">
+          <End Type="webstoreModel.tblImg" Role="tblImg" Multiplicity="0..1" />
+          <End Type="webstoreModel.tblProducts" Role="tblProducts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblImg">
+              <PropertyRef Name="idImg" />
+            </Principal>
+            <Dependent Role="tblProducts">
+              <PropertyRef Name="refImg" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblProducts_tblModel">
+          <End Type="webstoreModel.tblModel" Role="tblModel" Multiplicity="0..1" />
+          <End Type="webstoreModel.tblProducts" Role="tblProducts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblModel">
+              <PropertyRef Name="idModel" />
+            </Principal>
+            <Dependent Role="tblProducts">
+              <PropertyRef Name="refModel" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblProducts_tblOffert">
+          <End Type="webstoreModel.tblOffert" Role="tblOffert" Multiplicity="0..1" />
+          <End Type="webstoreModel.tblProducts" Role="tblProducts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblOffert">
+              <PropertyRef Name="idOffert" />
+            </Principal>
+            <Dependent Role="tblProducts">
+              <PropertyRef Name="refOffert" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblProducts_tblOffertTime">
+          <End Type="webstoreModel.tblOffertTime" Role="tblOffertTime" Multiplicity="0..1" />
+          <End Type="webstoreModel.tblProducts" Role="tblProducts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblOffertTime">
+              <PropertyRef Name="idOffertTime" />
+            </Principal>
+            <Dependent Role="tblProducts">
+              <PropertyRef Name="refOfferTime" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1510,28 +1514,6 @@
                 <ScalarProperty Name="idCategoria" ColumnName="idCategoria" />
                 <ScalarProperty Name="strNombre" ColumnName="strNombre" />
                 <ScalarProperty Name="intActivo" ColumnName="intActivo" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="tblProducts">
-            <EntityTypeMapping TypeName="webstoreModel.tblProducts">
-              <MappingFragment StoreEntitySet="tblProducts">
-                <ScalarProperty Name="refImg" ColumnName="refImg" />
-                <ScalarProperty Name="refOfferTime" ColumnName="refOfferTime" />
-                <ScalarProperty Name="refOffert" ColumnName="refOffert" />
-                <ScalarProperty Name="refFicha" ColumnName="refFicha" />
-                <ScalarProperty Name="refBrand" ColumnName="refBrand" />
-                <ScalarProperty Name="refCategoryRelation" ColumnName="refCategoryRelation" />
-                <ScalarProperty Name="refModel" ColumnName="refModel" />
-                <ScalarProperty Name="intActive" ColumnName="intActive" />
-                <ScalarProperty Name="intNew" ColumnName="intNew" />
-                <ScalarProperty Name="intStock" ColumnName="intStock" />
-                <ScalarProperty Name="intPrecioTwo" ColumnName="intPrecioTwo" />
-                <ScalarProperty Name="refCategoria" ColumnName="refCategoria" />
-                <ScalarProperty Name="intPrecio" ColumnName="intPrecio" />
-                <ScalarProperty Name="strCodigo" ColumnName="strCodigo" />
-                <ScalarProperty Name="strNombre" ColumnName="strNombre" />
-                <ScalarProperty Name="idProdcuto" ColumnName="idProdcuto" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1814,6 +1796,30 @@
                 <ScalarProperty Name="strDate" ColumnName="strDate" />
                 <ScalarProperty Name="strQuestion" ColumnName="strQuestion" />
                 <ScalarProperty Name="idQuestion" ColumnName="idQuestion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblProducts">
+            <EntityTypeMapping TypeName="webstoreModel.tblProducts">
+              <MappingFragment StoreEntitySet="tblProducts">
+                <ScalarProperty Name="strCodeS" ColumnName="strCodeS" />
+                <ScalarProperty Name="refImg" ColumnName="refImg" />
+                <ScalarProperty Name="refOfferTime" ColumnName="refOfferTime" />
+                <ScalarProperty Name="refOffert" ColumnName="refOffert" />
+                <ScalarProperty Name="refFicha" ColumnName="refFicha" />
+                <ScalarProperty Name="refBrand" ColumnName="refBrand" />
+                <ScalarProperty Name="refCategoryRelation" ColumnName="refCategoryRelation" />
+                <ScalarProperty Name="refModel" ColumnName="refModel" />
+                <ScalarProperty Name="refCategory" ColumnName="refCategory" />
+                <ScalarProperty Name="refFamily" ColumnName="refFamily" />
+                <ScalarProperty Name="boolActive" ColumnName="boolActive" />
+                <ScalarProperty Name="boolNew" ColumnName="boolNew" />
+                <ScalarProperty Name="intStock" ColumnName="intStock" />
+                <ScalarProperty Name="intPriceTwo" ColumnName="intPriceTwo" />
+                <ScalarProperty Name="intPrice" ColumnName="intPrice" />
+                <ScalarProperty Name="strName" ColumnName="strName" />
+                <ScalarProperty Name="strCode" ColumnName="strCode" />
+                <ScalarProperty Name="idProduct" ColumnName="idProduct" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

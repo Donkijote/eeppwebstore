@@ -14,7 +14,7 @@ namespace WebStore.Models
 
     public class CategoryList
     {
-        public string CategoryCode { get; set; }
+        public int CategoryCode { get; set; }
     }
 
     public class BindingCateogyFamilyChild

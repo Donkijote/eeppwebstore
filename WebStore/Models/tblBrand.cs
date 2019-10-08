@@ -17,8 +17,8 @@ namespace WebStore.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public tblBrand()
         {
-            this.tblProducts = new HashSet<tblProducts>();
             this.tblRelBrand = new HashSet<tblRelBrand>();
+            this.tblProducts = new HashSet<tblProducts>();
         }
     
         public int idBrand { get; set; }
@@ -26,10 +26,10 @@ namespace WebStore.Models
         public Nullable<int> intOrder { get; set; }
         public Nullable<int> refImg { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tblProducts> tblProducts { get; set; }
         public virtual tblImg tblImg { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblRelBrand> tblRelBrand { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tblProducts> tblProducts { get; set; }
     }
 }

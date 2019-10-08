@@ -13,7 +13,7 @@ using X.PagedList.Mvc;
 
 namespace WebStore.Controllers
 {
-    public class ProductsController : Controller
+    /*public class ProductsController : Controller
     {
         // GET: Products
         public ActionResult Offerts(int? Page, int? PerPage, string SortedBy)
@@ -40,35 +40,42 @@ namespace WebStore.Controllers
             string culture = CultureInfo.CurrentUICulture.TwoLetterISOLanguageName;
             Translate dir = new Translate();
             webstoreEntities db = new webstoreEntities();
+            ElectropEntities dbE = new ElectropEntities();
 
-            var s = (from p in db.tblProducts
-                     join f in db.tblFamily
-                     on p.refFamily equals f.idFamily
-                     join c in db.tblCategories
-                     on p.refCategory equals c.idCategoria
-                     join o in db.tblOffert
-                     on p.refOffert equals o.idOffert
+            var cate = db.tblCategories.Select(x => x).ToList();
+
+            var s = (from a in dbE.iw_tprod
+                     join b in dbE.iw_tgrupo
+                     on a.CodGrupo equals b.CodGrupo
+                     join e in dbE.iw_tsubgr
+                     on a.CodSubGr equals e.CodSubGr
+                     join c in dbE.iw_tlprprod
+                     on a.CodProd equals c.CodProd
+                     join d in dbE.iw_tlispre
+                     on c.CodLista equals d.CodLista
+                     where d.CodLista == "16"
                      select new
                      {
-                         Codigo = p.strCode,
-                         CodigoS = p.strCodeS,
-                         Name = p.strName,
-                         Price = p.intPrice,
-                         Category = c.strSeo,
-                         Percent = o.intPercentage,
-                         OffertTime = p.refOfferTime
-                     }).AsEnumerable()
+                         strCodigo = a.CodProd,
+                         strCod = a.CodBarra,
+                         strNombre = a.DesProd,
+                         intPrecio = a.PrecioVta,
+                         percent = c.ValorPct,
+                         category = e.DesSubGr
+                     })
+                        .AsEnumerable()
                         .Select(x => new Products
                         {
-                            strCodigo = x.Codigo,
-                            strNombre = x.Name,
-                            intPrecio = Function.FormatNumber(x.Price),
-                            intPrecioNum = x.Price,
-                            categorySeo = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(x.Category),
-                            intPrecentOff = x.Percent+"%",
-                            OffertTime = x.OffertTime,
-                            intPrecioOff = Function.FormatNumber(x.Price - (x.Price * x.Percent / 100))
-                        }).ToList();
+                            strCodigo = x.strCod,
+                            strNombre = Function.Truncate(x.strNombre, 60).ToLower(),
+                            intPrecio = Function.FormatNumber((int)(x.intPrecio + (x.intPrecio * (30 / 100)))),
+                            intPrecentOff = x.percent + "%",
+                            intPrecioOff = Function.FormatNumber((int)(x.intPrecio + (x.intPrecio * (30 / 100))) - (int)(((x.intPrecio + (x.intPrecio * (30 / 100))) * x.percent / 100))),
+                            intPercent = "30%",
+                            intPrecioNum = (int)(x.intPrecio + (x.intPrecio * (30 / 100))) - (int)(((x.intPrecio + (x.intPrecio * (x.percent / 100))) * x.percent / 100)),
+                            categorySeo = cate.Any(c => c.strNombre == x.category) ? CultureInfo.CurrentCulture.TextInfo.ToTitleCase(cate.Where(c => c.strNombre == x.category).Select(c => c.strSeo).FirstOrDefault()) : ""
+                        })
+                        .ToList();
             if (s.Any())
             {
                 ViewBag.minPrice = s.Min(x => Math.Round(Decimal.Parse(x.intPrecio), 0));
@@ -85,21 +92,18 @@ namespace WebStore.Controllers
             {
                 foreach (var a in s)
                 {
-                    if (a.OffertTime != null && a.OffertTime > 0)
+                    var first = (from t in tList
+                                 where t.strTime > DateTime.Now
+                                 orderby t.strTime ascending
+                                 select t.strTime).First();
+                    TimeSpan timeDiff = first - DateTime.Now;
+                    int percentOff = tList.Where(t => t.refCodProd == a.strCodigo && t.strTime == first).Select(t => (int)t.intPercentageTime).FirstOrDefault();
+                    if (tList.Any(t => t.refCodProd == a.strCodigo && t.strTime == first))
                     {
-                        var first = (from t in tList
-                                     where t.strTime > DateTime.Now
-                                     orderby t.strTime ascending
-                                     select t.strTime).First();
-                        TimeSpan timeDiff = first - DateTime.Now;
-                        int percentOff = tList.Where(t => t.idOffertTime == a.OffertTime && t.strTime == first).Select(t => (int)t.intPercentageTime).FirstOrDefault();
-                        if (tList.Any(t => t.idOffertTime == a.OffertTime && t.strTime == first))
-                        {
-                            a.TimeOffer = true;
-                            a.intPrecentOff = percentOff + "%";
-                            a.intPrecioOff = Function.FormatNumber((int)Decimal.Parse(a.intPrecio) - (int)(Decimal.Parse(a.intPrecio) * percentOff / 100));
-                            a.Time = string.Format("{0:D2}:{1:D2}:{2:D2}:{3:D2}", timeDiff.Days, timeDiff.Hours, timeDiff.Minutes, timeDiff.Seconds);
-                        }
+                        a.TimeOffer = true;
+                        a.intPrecentOff = percentOff + "%";
+                        a.intPrecioOff = Function.FormatNumber((int)Decimal.Parse(a.intPrecio) - (int)(Decimal.Parse(a.intPrecio) * percentOff / 100));
+                        a.Time = string.Format("{0:D2}:{1:D2}:{2:D2}:{3:D2}", timeDiff.Days, timeDiff.Hours, timeDiff.Minutes, timeDiff.Seconds);
                     }
                 }
             }
@@ -142,5 +146,5 @@ namespace WebStore.Controllers
 
             return View(sorted.ToPagedList(Page ?? 1, PerPage ?? 15));
         }
-    }
+    }*/
 }

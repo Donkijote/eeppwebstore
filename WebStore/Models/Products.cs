@@ -22,6 +22,8 @@ namespace WebStore.Models
         public string Brand { get; set; }
         public bool TimeOffer { get; set; }
         public string Time { get; set; }
+        public int? Offert { get; set; }
+        public int? OffertTime { get; set; }
     }
 
     public class ProductsSingle
@@ -41,6 +43,8 @@ namespace WebStore.Models
         public string productSeo { get; set; }
         public bool TimeOffer { get; set; }
         public string Time { get; set; }
+        public int? Offert { get; set; }
+        public int? OffertTime { get; set; }
         public tblFicha Ficha { get; set; }
         public IEnumerable<Stock> Stock { get; set; }
     }

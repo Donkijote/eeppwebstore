@@ -26,7 +26,6 @@ namespace WebStore.Models
         }
     
         public virtual DbSet<tblCategories> tblCategories { get; set; }
-        public virtual DbSet<tblProducts> tblProducts { get; set; }
         public virtual DbSet<tblCountry> tblCountry { get; set; }
         public virtual DbSet<tblComunas> tblComunas { get; set; }
         public virtual DbSet<tblProvincias> tblProvincias { get; set; }
@@ -49,5 +48,6 @@ namespace WebStore.Models
         public virtual DbSet<tblProjects> tblProjects { get; set; }
         public virtual DbSet<tblAnswers> tblAnswers { get; set; }
         public virtual DbSet<tblQuestions> tblQuestions { get; set; }
+        public virtual DbSet<tblProducts> tblProducts { get; set; }
     }
 }

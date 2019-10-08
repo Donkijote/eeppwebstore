@@ -82,7 +82,7 @@
                     </div>
                     <div class="col-md-9">
                         <div class="mg-product-gallery">
-                            @if (item.intPrecioOff != "0")
+                            @if (item.intPrecioOff != null)
                             {
                                 <span class="mg-product-badge bg-success">Oferta</span>
                             }
@@ -132,7 +132,7 @@
                             @Html.DisplayFor(x => item.strNombre)
                         </h5>
                         <h2 class="d-block">
-                            @if (item.intPrecioOff != "0")
+                            @if (item.intPrecioOff != null)
                             {
                                 <del class="text-muted" style="font-size:18px;">$@item.intPrecio</del><br />
                                 <span>$ @item.intPrecioOff</span>
