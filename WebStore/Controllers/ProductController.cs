@@ -28,6 +28,7 @@ namespace WebStore.Controllers
                      where p.strCode == idp
                      select new
                      {
+                         Id = p.idProduct,
                          Codigo = p.strCode,
                          CodigoS = p.strCodeS,
                          Name = p.strName,
@@ -38,6 +39,7 @@ namespace WebStore.Controllers
                      }).AsEnumerable()
                         .Select(p => new ProductsSingle
                         {
+                            IdCode = p.Id,
                             strCodigo = p.Codigo,
                             Cod = p.CodigoS,
                             strNombre = p.Name,
@@ -46,7 +48,7 @@ namespace WebStore.Controllers
                             categorySeo = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(p.Category),
                             Offert = p.Offert,
                             OffertTime = p.OffertTime
-                        }).ToList();
+                        }).FirstOrDefault();
             ViewBag.Category = id;
 
             var tList = db.tblOffertTime.Where(t => t.strTime >= DateTime.Now).Select(j => j).ToList();
@@ -55,65 +57,99 @@ namespace WebStore.Controllers
 
             if (oList.Any())
             {
-                foreach (var i in x)
+                if (x.Offert != null && x.Offert > 0)
                 {
-                    if (i.Offert != null && i.Offert > 0)
-                    {
-                        int percet = (int)oList.Where(o => o.idOffert == i.Offert).Select(r => r.intPercentage).FirstOrDefault();
-                        i.intPercent = percet + "%";
-                        i.intPrecioOff = Function.FormatNumber(i.intPrecioNum - (i.intPrecioNum * percet / 100));
-                    }
+                    int percet = (int)oList.Where(o => o.idOffert == x.Offert).Select(r => r.intPercentage).FirstOrDefault();
+                    x.intPercent = percet + "%";
+                    x.intPrecioOff = Function.FormatNumber(x.intPrecioNum - (x.intPrecioNum * percet / 100));
                 }
             }
 
             if (tList.Any())
             {
-                foreach (var a in x)
+                if (x.OffertTime != null && x.OffertTime > 0)
                 {
-                    ViewBag.Title = Resources.Titles.Product + " " + a.strNombre;
-                    ViewBag.Breadcrumbs = Resources.Titles.Product + " #" + a.strCodigo;
-
-                    if (a.OffertTime != null && a.OffertTime > 0)
+                    var first = (from t in tList
+                                    where t.strTime > DateTime.Now
+                                    orderby t.strTime ascending
+                                    select t.strTime).First();
+                    TimeSpan timeDiff = first - DateTime.Now;
+                    int percentOff = tList.Where(t => t.idOffertTime == x.OffertTime && t.strTime == first).Select(t => (int)t.intPercentageTime).FirstOrDefault();
+                    if (tList.Any(t => t.idOffertTime == x.OffertTime && t.strTime == first))
                     {
-                        var first = (from t in tList
-                                     where t.strTime > DateTime.Now
-                                     orderby t.strTime ascending
-                                     select t.strTime).First();
-                        TimeSpan timeDiff = first - DateTime.Now;
-                        int percentOff = tList.Where(t => t.idOffertTime == a.OffertTime && t.strTime == first).Select(t => (int)t.intPercentageTime).FirstOrDefault();
-                        if (tList.Any(t => t.idOffertTime == a.OffertTime && t.strTime == first))
-                        {
-                            a.TimeOffer = true;
-                            a.intPrecentOff = percentOff + "%";
-                            a.intPrecioOff = Function.FormatNumber((int)Decimal.Parse(a.intPrecio) - (int)(Decimal.Parse(a.intPrecio) * percentOff / 100));
-                            a.Time = string.Format("{0:D2}:{1:D2}:{2:D2}:{3:D2}", timeDiff.Days, timeDiff.Hours, timeDiff.Minutes, timeDiff.Seconds);
-                        }
+                        x.TimeOffer = true;
+                        x.intPrecentOff = percentOff + "%";
+                        x.intPrecioOff = Function.FormatNumber((int)Decimal.Parse(x.intPrecio) - (int)(Decimal.Parse(x.intPrecio) * percentOff / 100));
+                        x.Time = string.Format("{0:D2}:{1:D2}:{2:D2}:{3:D2}", timeDiff.Days, timeDiff.Hours, timeDiff.Minutes, timeDiff.Seconds);
                     }
                 }
             }
-            else
-            {
-                foreach (var a in x)
-                {
-                    ViewBag.Title = Resources.Titles.Product + " " + a.strNombre;
-                    ViewBag.Breadcrumbs = Resources.Titles.Product + " #" + a.strCodigo;
-                }
-            }
 
-            var Ficha = db.tblFicha.Select(f => f);
+            ViewBag.Title = Resources.Titles.Product + " " + x.strNombre;
+            ViewBag.Breadcrumbs = Resources.Titles.Product + " #" + x.strCodigo;
 
-            foreach (var p in x)
-            {
-                p.Stock = stock.GetStock(p.Cod);
+            x.Stock = stock.GetStock(x.Cod);
 
-                p.Ficha = db.tblFicha.Where(w => w.refCodProd == p.strCodigo).FirstOrDefault();
-
-            }
-            
+            x.Ficha = db.tblFicha.Where(w => w.refCodProd == x.strCodigo).FirstOrDefault();
 
             if(Session["id"] != null)
             {
+                int UserId = Int32.Parse(Session["id"].ToString());
+                var History = db.tblHistory.Where(h => h.refUser == UserId).FirstOrDefault();
+                if(History != null)
+                {
+                    var HistoryDet = (from a in db.tblHistoryDet
+                                      where a.refHistory == History.IdHistory && a.refProduct == x.IdCode
+                                      select new { 
+                                        Codigo = a.refProduct
+                                      }).FirstOrDefault();
 
+                    if(HistoryDet == null)
+                    {
+                        try
+                        {
+                            var newHistoryDet = new tblHistoryDet()
+                            {
+                                refHistory = History.IdHistory,
+                                refProduct = x.IdCode
+                            };
+                            db.tblHistoryDet.Add(newHistoryDet);
+                            db.SaveChanges();
+                        }catch(Exception ex)
+                        {
+                            
+                        }
+                    }
+
+                }
+                else
+                {
+                    var newHistory = new tblHistory()
+                    {
+                        refUser = UserId
+                    };
+                    try
+                    {
+                        db.tblHistory.Add(newHistory);
+                        db.SaveChanges();
+                        try
+                        {
+                            var newHistoryDet = new tblHistoryDet
+                            {
+                                refHistory = newHistory.IdHistory,
+                                refProduct = x.IdCode
+                            };
+                            db.tblHistoryDet.Add(newHistoryDet);
+                            db.SaveChanges();
+                        }catch(Exception ex)
+                        {
+                            
+                        }
+                    }catch(Exception ex)
+                    {
+
+                    }
+                }
             }
             else
             {
@@ -125,13 +161,10 @@ namespace WebStore.Controllers
 
                     History.Expires = DateTime.Now.AddHours(24);
 
-                    foreach (var i in x)
+                    if(!items.Any(a => a.value == x.strCodigo))
                     {
-                        if(!items.Any(a => a.value == i.strCodigo))
-                        {
-                            History[newName] = i.strCodigo;
-                            Response.Cookies.Add(History);
-                        }
+                        History[newName] = x.strCodigo;
+                        Response.Cookies.Add(History);
                     }
                 }
                 else
@@ -139,11 +172,7 @@ namespace WebStore.Controllers
                     HttpCookie History = new HttpCookie("History");
                     History.Expires = DateTime.Now.AddHours(24);
 
-                    foreach (var i in x)
-                    {
-                        History["Object-1"] = i.strCodigo;
-                    }
-
+                    History["Object-1"] = x.strCodigo;
 
                     Response.Cookies.Add(History);
                 }
@@ -151,7 +180,7 @@ namespace WebStore.Controllers
 
             if(Session["Question"] != null && Session["Question"].ToString() != "")
             {
-                string addQuestion = AddQuestionByRedirecction(x.FirstOrDefault().strCodigo);
+                string addQuestion = AddQuestionByRedirecction(x.strCodigo);
                 if(addQuestion == "OK")
                 {
                     ViewBag.addQuestionFromRedirect = "OK";
@@ -162,7 +191,7 @@ namespace WebStore.Controllers
                 }
             }
             List<Questions> question = new List<Questions>();
-            string code = x.FirstOrDefault().strCodigo;
+            string code = x.strCodigo;
             var questions = (from q in db.tblQuestions
                              where q.refProduct == code && q.intStatus == 2
                              select new

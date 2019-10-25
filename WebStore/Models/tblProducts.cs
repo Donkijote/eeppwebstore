@@ -14,6 +14,12 @@ namespace WebStore.Models
     
     public partial class tblProducts
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public tblProducts()
+        {
+            this.tblHistoryDet = new HashSet<tblHistoryDet>();
+        }
+    
         public int idProduct { get; set; }
         public string strCode { get; set; }
         public string strName { get; set; }
@@ -39,5 +45,7 @@ namespace WebStore.Models
         public virtual tblModel tblModel { get; set; }
         public virtual tblOffert tblOffert { get; set; }
         public virtual tblOffertTime tblOffertTime { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tblHistoryDet> tblHistoryDet { get; set; }
     }
 }

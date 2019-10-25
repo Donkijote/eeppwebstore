@@ -344,6 +344,12 @@
     <Compile Include="Models\tblFicha.cs">
       <DependentUpon>Connection.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\tblHistory.cs">
+      <DependentUpon>Connection.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tblHistoryDet.cs">
+      <DependentUpon>Connection.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\tblImg.cs">
       <DependentUpon>Connection.tt</DependentUpon>
     </Compile>

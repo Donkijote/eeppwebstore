@@ -72,7 +72,7 @@ namespace WebStore.Controllers
                              Codigo = p.strCode,
                              Name = p.strName,
                              Price = p.intPrice,
-                             Category = c.strSeo,
+                             Category = c.strNombre,
                              Offert = p.refOffert,
                              OffertTime = p.refOfferTime,
                              CategoryName = c.strNombre
@@ -109,7 +109,7 @@ namespace WebStore.Controllers
                            Codigo = p.strCode,
                            Name = p.strName,
                            Price = p.intPrice,
-                           Category = c.strSeo,
+                           Category = c.strNombre,
                            Offert = p.refOffert,
                            OffertTime = p.refOfferTime
                        }).AsEnumerable()
@@ -124,7 +124,6 @@ namespace WebStore.Controllers
                             OffertTime = x.OffertTime
                         }).ToList();
 
-            var cate = db.tblCategories.Select(x => x).ToList();
             var brands = (from a in db.tblRelBrand
                           join b in db.tblBrand
                           on a.refBrand equals b.idBrand
@@ -142,20 +141,7 @@ namespace WebStore.Controllers
                 }
             }
 
-            var oList = db.tblOffert.Select(x => x).ToList();
-
-            if (oList.Any())
-            {
-                foreach (var i in pro)
-                {
-                    if (i.Offert != null && i.Offert > 0)
-                    {
-                        int percet = (int)oList.Where(o => o.idOffert == i.Offert).Select(x => x.intPercentage).FirstOrDefault();
-                        i.intPrecentOff = percet + "%";
-                        i.intPrecioOff = Function.FormatNumber(i.intPrecioNum - (i.intPrecioNum * percet / 100));
-                    }
-                }
-            }
+            pro = Function.GetOffertOrOffertTime(pro, db);
 
             viewModel.ProductsList = pro.Take(12);
             viewModel.ProductsOffer = pro.Where(x => x.intPrecioOff != null);
@@ -207,7 +193,7 @@ namespace WebStore.Controllers
                                            Codigo = p.strCode,
                                            Name = p.strName,
                                            Price = p.intPrice,
-                                           Category = c.strSeo,
+                                           Category = c.strNombre,
                                            Offert = p.refOffert,
                                            OffertTime = p.refOfferTime
                                        }).AsEnumerable()
@@ -222,29 +208,7 @@ namespace WebStore.Controllers
                                     OffertTime = x.OffertTime
                                 }).ToList();
 
-                        if (tList.Any())
-                        {
-                            foreach (var a in product)
-                            {
-                                if (a.OffertTime != null && a.OffertTime > 0)
-                                {
-                                    var z = (from t in tList
-                                         where t.strTime > DateTime.Now
-                                         orderby t.strTime ascending
-                                         select t.strTime).First();
-                                    ViewBag.first = z;
-                                    TimeSpan timeDiff = z - DateTime.Now;
-                                    int percentOff = tList.Where(t => t.refCodProd == a.strCodigo && t.strTime == z).Select(t => (int)t.intPercentageTime).FirstOrDefault();
-                                    if (tList.Any(t => t.refCodProd == a.strCodigo && t.strTime == z))
-                                    {
-                                        a.TimeOffer = true;
-                                        a.intPrecentOff = percentOff + "%";
-                                        a.intPrecioOff = Function.FormatNumber((int)Decimal.Parse(a.intPrecio) - (int)(Double.Parse(a.intPrecio) * percentOff / 100));
-                                        a.Time = string.Format("{0:D2}:{1:D2}:{2:D2}:{3:D2}", timeDiff.Days, timeDiff.Hours, timeDiff.Minutes, timeDiff.Seconds);
-                                    }
-                                }
-                            }
-                        }
+                        Function.GetOffertOrOffertTime(product, db);
 
                         if (counter == 0)
                         {

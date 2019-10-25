@@ -109,6 +109,168 @@ namespace WebStore.Functions
         {
             return HttpContext.Current.Request.UserHostAddress;
         }
+
+        public static string GetRandomBanner()
+        {
+            var rand = new Random();
+            var files = Directory.GetFiles(HttpContext.Current.Server.MapPath("~/Content/img/bannerCategories/"), "*.jpg");
+            return Path.GetFileName(files[rand.Next(files.Length)]);
+        }
+
+        public static List<Products> GetOffertOrOffertTime(List<Products> pro, webstoreEntities db)
+        {
+            return CheckOffertOrOffertTime(pro, db);
+        }
+        private static List<Products> CheckOffertOrOffertTime(List<Products> pro, webstoreEntities db)
+        {
+            var oList = db.tblOffert.Select(x => x).ToList();
+            var tList = db.tblOffertTime.Where(t => t.strTime >= DateTime.Now).Select(j => j).ToList();
+            if (oList.Any())
+            {
+                foreach (var i in pro)
+                {
+                    if (i.Offert != null && i.Offert > 0)
+                    {
+                        int percet = (int)oList.Where(o => o.idOffert == i.Offert).Select(x => x.intPercentage).FirstOrDefault();
+                        i.intPrecentOff = percet + "%";
+                        i.intPrecioOff = Function.FormatNumber(i.intPrecioNum - (i.intPrecioNum * percet / 100));
+                    }
+                }
+            }
+
+            if (tList.Any())
+            {
+                foreach (var a in pro)
+                {
+                    if (a.OffertTime != null && a.OffertTime > 0)
+                    {
+                        var z = (from t in tList
+                                 where t.strTime > DateTime.Now
+                                 orderby t.strTime ascending
+                                 select t.strTime).First();
+                        TimeSpan timeDiff = z - DateTime.Now;
+                        int percentOff = tList.Where(t => t.refCodProd == a.strCodigo && t.strTime == z).Select(t => (int)t.intPercentageTime).FirstOrDefault();
+                        if (tList.Any(t => t.refCodProd == a.strCodigo && t.strTime == z))
+                        {
+                            a.TimeOffer = true;
+                            a.intPrecentOff = percentOff + "%";
+                            a.intPrecioOff = Function.FormatNumber((int)Decimal.Parse(a.intPrecio) - (int)(Double.Parse(a.intPrecio) * percentOff / 100));
+                            a.Time = string.Format("{0:D2}:{1:D2}:{2:D2}:{3:D2}", timeDiff.Days, timeDiff.Hours, timeDiff.Minutes, timeDiff.Seconds);
+                        }
+                    }
+                }
+            }
+
+            return pro;
+        }
+
+        public static List<Products> GetFamilyOrCategory(string id, string categoryName, webstoreEntities db)
+        {
+            return FamilyOrCategory(id, categoryName, db);
+        }
+        private static List<Products> FamilyOrCategory(string id, string categoryName, webstoreEntities db)
+        {
+            ElectropEntities dbE = new ElectropEntities();
+            if (categoryName == null)
+            {
+                var s = (from p in db.tblProducts
+                         join f in db.tblFamily
+                         on p.refFamily equals f.idFamily
+                         join c in db.tblCategories
+                         on p.refCategory equals c.idCategoria
+                         where f.strSeo == id
+                         select new
+                         {
+                             Codigo = p.strCode,
+                             Name = p.strName,
+                             Price = p.intPrice,
+                             Category = c.strNombre,
+                             Offert = p.refOffert,
+                             OffertTime = p.refOfferTime
+                         }).AsEnumerable()
+                                .Select(x => new Products
+                                {
+                                    strCodigo = x.Codigo,
+                                    strNombre = x.Name,
+                                    intPrecio = Function.FormatNumber(x.Price),
+                                    intPrecioNum = x.Price,
+                                    categorySeo = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(x.Category),
+                                    Offert = x.Offert,
+                                    OffertTime = x.OffertTime
+                                }).ToList();
+
+                var brands = (from a in db.tblRelBrand
+                              join b in db.tblBrand
+                              on a.refBrand equals b.idBrand
+                              select new
+                              {
+                                  refProd = a.refProd,
+                                  brand = b.strName
+                              }).ToList();
+
+                foreach (var i in s)
+                {
+                    if (brands.Any(b => b.refProd == i.strCodigo))
+                    {
+                        i.Brand = brands.Where(b => b.refProd == i.strCodigo).Select(l => l.brand).FirstOrDefault();
+                    }
+                }
+
+                s = CheckOffertOrOffertTime(s, db);
+
+                return s;
+            }
+            else
+            {
+                var s = (from p in db.tblProducts
+                         join f in db.tblFamily
+                         on p.refFamily equals f.idFamily
+                         join c in db.tblCategories
+                         on p.refCategory equals c.idCategoria
+                         where c.strNombre == categoryName
+                         select new
+                         {
+                             Codigo = p.strCode,
+                             Name = p.strName,
+                             Price = p.intPrice,
+                             Category = c.strNombre,
+                             Offert = p.refOffert,
+                             OffertTime = p.refOfferTime
+                         }).AsEnumerable()
+                                .Select(x => new Products
+                                {
+                                    strCodigo = x.Codigo,
+                                    strNombre = x.Name,
+                                    intPrecio = Function.FormatNumber(x.Price),
+                                    intPrecioNum = x.Price,
+                                    categorySeo = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(x.Category),
+                                    Offert = x.Offert,
+                                    OffertTime = x.OffertTime
+                                }).ToList();
+                
+
+                var brands = (from a in db.tblRelBrand
+                              join b in db.tblBrand
+                              on a.refBrand equals b.idBrand
+                              select new
+                              {
+                                  refProd = a.refProd,
+                                  brand = b.strName
+                              }).ToList();
+
+                foreach (var i in s)
+                {
+                    if (brands.Any(b => b.refProd == i.strCodigo))
+                    {
+                        i.Brand = brands.Where(b => b.refProd == i.strCodigo).Select(l => l.brand).FirstOrDefault();
+                    }
+                }
+
+                s = CheckOffertOrOffertTime(s, db);
+
+                return s;
+            }
+        }
     }
 
     public sealed class Configuration

@@ -726,7 +726,7 @@ namespace WebStore.Controllers
                     ElectropEntities dbE = new ElectropEntities();
                     var History = Request.Cookies["History"];
                     var items = History.Values.AllKeys.SelectMany(History.Values.GetValues, (k, v) => new { key = k, value = v });
-                    List<ProductsSingle> x = new List<ProductsSingle>();
+                    List<Products> x = new List<Products>();
                     Translate dir = new Translate();
                     foreach (var w in items)
                     {
@@ -745,7 +745,7 @@ namespace WebStore.Controllers
                                            Offert = p.refOffert,
                                            OffertTime = p.refOfferTime
                                        }).AsEnumerable()
-                                .Select(s => new ProductsSingle
+                                .Select(s => new Products
                                 {
                                     strCodigo = s.Codigo,
                                     strNombre = s.Name,
@@ -767,49 +767,7 @@ namespace WebStore.Controllers
                         
                     }
 
-                    var oList = db.tblOffert.Select(r => r).ToList();
-
-                    if (oList.Any())
-                    {
-                        foreach (var i in x)
-                        {
-                            if (i.Offert != null && i.Offert > 0)
-                            {
-                                int percet = (int)oList.Where(o => o.idOffert == i.Offert).Select(r => r.intPercentage).FirstOrDefault();
-                                i.intPercent = percet + "%";
-                                i.intPrecioOff = Function.FormatNumber(i.intPrecioNum - (i.intPrecioNum * percet / 100));
-                            }
-                        }
-                    }
-
-
-                    var tList = db.tblOffertTime.Where(t => t.strTime >= DateTime.Now).Select(j => j).ToList();
-
-                    if (tList.Any())
-                    {
-                        foreach (var a in x)
-                        {
-                            ViewBag.Title = Resources.Titles.Product + " " + a.strNombre;
-                            ViewBag.Breadcrumbs = Resources.Titles.Product + " #" + a.strCodigo;
-
-                            if (a.OffertTime != null && a.OffertTime > 0)
-                            {
-                                var first = (from t in tList
-                                             where t.strTime > DateTime.Now
-                                             orderby t.strTime ascending
-                                             select t.strTime).First();
-                                TimeSpan timeDiff = first - DateTime.Now;
-                                int percentOff = tList.Where(t => t.idOffertTime == a.OffertTime && t.strTime == first).Select(t => (int)t.intPercentageTime).FirstOrDefault();
-                                if (tList.Any(t => t.idOffertTime == a.OffertTime && t.strTime == first))
-                                {
-                                    a.TimeOffer = true;
-                                    a.intPrecentOff = percentOff + "%";
-                                    a.intPrecioOff = Function.FormatNumber((int)Decimal.Parse(a.intPrecio) - (int)(Decimal.Parse(a.intPrecio) * percentOff / 100));
-                                    a.Time = string.Format("{0:D2}:{1:D2}:{2:D2}:{3:D2}", timeDiff.Days, timeDiff.Hours, timeDiff.Minutes, timeDiff.Seconds);
-                                }
-                            }
-                        }
-                    }
+                    x = Function.GetOffertOrOffertTime(x, db);
 
                     return View(x);
                 }

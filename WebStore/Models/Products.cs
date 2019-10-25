@@ -28,6 +28,7 @@ namespace WebStore.Models
 
     public class ProductsSingle
     {
+        public int IdCode { get; set; }
         public string Cod { get; set; }
         public string strNombre { get; set; }
         public string strCodigo { get; set; }
@@ -51,7 +52,7 @@ namespace WebStore.Models
 
     public class BindProductPageModels
     {
-        public List<ProductsSingle> Products { get; set; }
+        public ProductsSingle Products { get; set; }
         public List<Questions> UserQuestions { get; set; }
         public List<Questions> OthersQuestions { get; set; }
     }

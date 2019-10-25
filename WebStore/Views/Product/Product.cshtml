@@ -39,8 +39,8 @@
     </header>
 </section>
 
-@foreach (var item in Model.Products)
-{
+@{
+    var item = Model.Products;
     <div class="container py-5">
         <div class="row">
             <div class="col-md-6">
@@ -228,11 +228,11 @@
                     <hr />
 
                     <table>
-                        @foreach (var i in item.Stock)
+                        @foreach (var j in item.Stock)
                         {
                             <tr>
-                                <td class="pr-3"><h6 class="mb-0">@(i.codBode == "1" ? WebStore.Resources.Warehouse.Santiago : (i.codBode == "30" ? WebStore.Resources.Warehouse.Conce : (i.codBode == "50" ? WebStore.Resources.Warehouse.ToCome : "")))</h6></td>
-                                <td class="pr-3">@i.TotalStock Unidades</td>
+                                <td class="pr-3"><h6 class="mb-0">@(j.codBode == "1" ? WebStore.Resources.Warehouse.Santiago : (j.codBode == "30" ? WebStore.Resources.Warehouse.Conce : (j.codBode == "50" ? WebStore.Resources.Warehouse.ToCome : "")))</h6></td>
+                                <td class="pr-3">@j.TotalStock Unidades</td>
                             </tr>
                         }
                     </table>
@@ -282,8 +282,8 @@
 <div class="bg-secondary padding-top-3x padding-bottom-2x mb-3">
     <div class="container">
         <div class="row">
-            @foreach (var i in Model.Products)
-            {
+            @{
+                var i = Model.Products;
                 if (i.Ficha != null)
                 {
                     var f = i.Ficha;
@@ -589,18 +589,18 @@
             <div class="row mt-5">
                 <div class="col-8">
                     <h5>Tus preguntas</h5>
-                    @foreach (var i in Model.UserQuestions)
+                    @foreach (var j in Model.UserQuestions)
                     {
                         <div class="mg-question-wrapper">
                             <div class="mg-question">
                                 <i class="far fa-comment-dots"></i>
-                                <p>@i.Question, @i.QuestionDate</p>
+                                <p>@j.Question, @j.QuestionDate</p>
                             </div>
-                            @if (i.Answer != null)
+                            @if (j.Answer != null)
                             {
                                 <div class="mg-answer">
                                     <i class="far fa-comments"></i>
-                                    <p>@i.Answer.Answer, @i.Answer.AnswerDate</p>
+                                    <p>@j.Answer.Answer, @j.Answer.AnswerDate</p>
                                 </div>
                             }
                         </div>
@@ -613,18 +613,18 @@
             <div class="row mt-5">
                 <div class="col-8">
                     <h5 class="mb-3">Otras preguntas</h5>
-                    @foreach (var i in Model.OthersQuestions)
+                    @foreach (var j in Model.OthersQuestions)
                     {
                         <div class="mg-question-wrapper">
                             <div class="mg-question">
                                 <i class="far fa-comment-dots"></i>
-                                <p>@i.Question, @i.QuestionDate</p>
+                                <p>@j.Question, @j.QuestionDate</p>
                             </div>
-                            @if (i.Answer != null)
+                            @if (j.Answer != null)
                             {
                                 <div class="mg-answer">
                                     <i class="far fa-comments"></i>
-                                    <p>@i.Answer.Answer, @i.Answer.AnswerDate</p>
+                                    <p>@j.Answer.Answer, @j.Answer.AnswerDate</p>
                                 </div>
                             }
                         </div>

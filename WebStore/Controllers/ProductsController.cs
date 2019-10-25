@@ -54,7 +54,7 @@ namespace WebStore.Controllers
                          CodigoS = p.strCodeS,
                          Name = p.strName,
                          Price = p.intPrice,
-                         Category = c.strSeo,
+                         Category = c.strNombre,
                          Percent = o.intPercentage,
                          OffertTime = p.refOfferTime
                      }).AsEnumerable()

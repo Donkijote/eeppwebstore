@@ -61,7 +61,7 @@
                                                data-quantity="1">
                                                 <i></i>
                                             </a>
-                                            <a class="mg-product-thumb" href="@Url.Action("Category","Product", new { id = item.categorySeo, idp = item.strCodigo, language=System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName })">
+                                            <a class="mg-product-thumb" href="@Url.Action("Category","Product", new { id = WebStore.Resources.Seo.ResourceManager.GetString(item.categorySeo), idp = item.strCodigo, language=System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName })">
                                                 <img class="img-fuild" src="~/Content/img/products/@item.strCodigo-1.jpg"
                                                      alt="Producto">
 
@@ -114,7 +114,7 @@
     {
         <section id="RelatedToHistory" class="mg-content">
             <div class="container pb-5">
-                <h3 class="mb-5 wow fadeInDown">Productos relacionados categoría @WebStore.Resources.Categories.ResourceManager.GetString(Model.SecondHistory.Select(x => x.categoryName).FirstOrDefault())</h3>
+                <h3 class="mb-5 wow fadeInDown">Productos relacionados categoría @WebStore.Resources.Categories.ResourceManager.GetString(Model.SecondHistory.Select(x => x.categorySeo).FirstOrDefault())</h3>
                 <div id="carouselSecondHistory" class="owl-carousel owl-grab owl-loaded">
                     <div class="owl-stage-outer">
                         <div class="owl-stage">
@@ -134,7 +134,7 @@
                                                data-quantity="1">
                                                 <i></i>
                                             </a>
-                                            <a class="mg-product-thumb" href="@Url.Action("Category","Product", new { id = item.categorySeo, idp = item.strCodigo, language=System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName })">
+                                            <a class="mg-product-thumb" href="@Url.Action("Category","Product", new { id = WebStore.Resources.Seo.ResourceManager.GetString(item.categorySeo), idp = item.strCodigo, language=System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName })">
                                                 <img class="img-fuild" src="~/Content/img/products/@item.strCodigo-1.jpg"
                                                      alt="Producto">
 
@@ -182,7 +182,7 @@
     {
         <section id="RelatedToHistory" class="mg-content">
             <div class="container pb-5">
-                <h3 class="mb-5 wow fadeInDown">Productos relacionados categoría @WebStore.Resources.Categories.ResourceManager.GetString(Model.ThirdHistory.Select(x => x.categoryName).FirstOrDefault())</h3>
+                <h3 class="mb-5 wow fadeInDown">Productos relacionados categoría @WebStore.Resources.Categories.ResourceManager.GetString(Model.ThirdHistory.Select(x => x.categorySeo).FirstOrDefault())</h3>
                 <div id="carouselThirdHistory" class="owl-carousel owl-grab owl-loaded">
                     <div class="owl-stage-outer">
                         <div class="owl-stage">
@@ -202,7 +202,7 @@
                                                data-quantity="1">
                                                 <i></i>
                                             </a>
-                                            <a class="mg-product-thumb" href="@Url.Action("Category","Product", new { id = item.categorySeo, idp = item.strCodigo, language=System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName })">
+                                            <a class="mg-product-thumb" href="@Url.Action("Category","Product", new { id = WebStore.Resources.Seo.ResourceManager.GetString(item.categorySeo), idp = item.strCodigo, language=System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName })">
                                                 <img class="img-fuild" src="~/Content/img/products/@item.strCodigo-1.jpg"
                                                      alt="Producto">
 
@@ -310,7 +310,7 @@
                                  data-quantity="1">
                                 <i></i>
                             </div>
-                            <a class="mg-product-thumb" href="@Url.Action("Category", "Product", new { id = item.categorySeo, idp = item.strCodigo, language = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName })">
+                            <a class="mg-product-thumb" href="@Url.Action("Category", "Product", new { id = WebStore.Resources.Seo.ResourceManager.GetString(item.categorySeo), idp = item.strCodigo, language = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName })">
                                 <img class="img-fuild" src="~/Content/img/products/@item.strCodigo-1.jpg"
                                      alt="Producto">
 
@@ -413,7 +413,7 @@
                                                     </div>-->
                                                     <div class="countdown" data-time="@i.Time"></div>
                                                 </div><br>
-                                                <a class="mg-buttons__btn btn btn-lg animated fadeInRight delay-3s btn-outline-orangered" href="@Url.Action("s", "Categories", new { id = Html.DisplayFor(modelItem => i.categorySeo), idp = Html.DisplayFor(modelItem => i.strCodigo), language = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName })">@WebStore.Resources.Buttons.ViewOffers</a>
+                                                <a class="mg-buttons__btn btn btn-lg animated fadeInRight delay-3s btn-outline-orangered" href="@Url.Action("Category", "Product", new { id = WebStore.Resources.Seo.ResourceManager.GetString(i.categorySeo), idp = Html.DisplayFor(modelItem => i.strCodigo), language = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName })">@WebStore.Resources.Buttons.ViewOffers</a>
                                             </div>
                                         }
                                     </div>

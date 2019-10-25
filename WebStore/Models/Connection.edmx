@@ -147,6 +147,21 @@
           <Property Name="strDs43" Type="bit" Nullable="false" />
           <Property Name="strFicha" Type="bit" Nullable="false" />
         </EntityType>
+        <EntityType Name="tblHistory">
+          <Key>
+            <PropertyRef Name="IdHistory" />
+          </Key>
+          <Property Name="IdHistory" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="refUser" Type="int" />
+        </EntityType>
+        <EntityType Name="tblHistoryDet">
+          <Key>
+            <PropertyRef Name="IdHistoryDet" />
+          </Key>
+          <Property Name="IdHistoryDet" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="refHistory" Type="int" />
+          <Property Name="refProduct" Type="int" />
+        </EntityType>
         <EntityType Name="tblImg">
           <Key>
             <PropertyRef Name="idImg" />
@@ -455,6 +470,42 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_tblHistory_tblUsers">
+          <End Role="tblUsers" Type="Self.tblUsers" Multiplicity="0..1" />
+          <End Role="tblHistory" Type="Self.tblHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblUsers">
+              <PropertyRef Name="idUser" />
+            </Principal>
+            <Dependent Role="tblHistory">
+              <PropertyRef Name="refUser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblHistoryDet_tblHistory">
+          <End Role="tblHistory" Type="Self.tblHistory" Multiplicity="0..1" />
+          <End Role="tblHistoryDet" Type="Self.tblHistoryDet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblHistory">
+              <PropertyRef Name="IdHistory" />
+            </Principal>
+            <Dependent Role="tblHistoryDet">
+              <PropertyRef Name="refHistory" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblHistoryDet_tblProducts">
+          <End Role="tblProducts" Type="Self.tblProducts" Multiplicity="0..1" />
+          <End Role="tblHistoryDet" Type="Self.tblHistoryDet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblProducts">
+              <PropertyRef Name="idProduct" />
+            </Principal>
+            <Dependent Role="tblHistoryDet">
+              <PropertyRef Name="refProduct" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_tblModelDetail_tblModel">
           <End Role="tblModel" Type="Self.tblModel" Multiplicity="0..1" />
           <End Role="tblModelDetail" Type="Self.tblModelDetail" Multiplicity="*" />
@@ -610,6 +661,8 @@
           <EntitySet Name="tblCountry" EntityType="Self.tblCountry" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblFamily" EntityType="Self.tblFamily" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblFicha" EntityType="Self.tblFicha" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblHistory" EntityType="Self.tblHistory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblHistoryDet" EntityType="Self.tblHistoryDet" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblImg" EntityType="Self.tblImg" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblModel" EntityType="Self.tblModel" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblModelDetail" EntityType="Self.tblModelDetail" Schema="dbo" store:Type="Tables" />
@@ -675,6 +728,18 @@
           <AssociationSet Name="FK_tblFamily_tblImg" Association="Self.FK_tblFamily_tblImg">
             <End Role="tblImg" EntitySet="tblImg" />
             <End Role="tblFamily" EntitySet="tblFamily" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblHistory_tblUsers" Association="Self.FK_tblHistory_tblUsers">
+            <End Role="tblUsers" EntitySet="tblUsers" />
+            <End Role="tblHistory" EntitySet="tblHistory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblHistoryDet_tblHistory" Association="Self.FK_tblHistoryDet_tblHistory">
+            <End Role="tblHistory" EntitySet="tblHistory" />
+            <End Role="tblHistoryDet" EntitySet="tblHistoryDet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblHistoryDet_tblProducts" Association="Self.FK_tblHistoryDet_tblProducts">
+            <End Role="tblProducts" EntitySet="tblProducts" />
+            <End Role="tblHistoryDet" EntitySet="tblHistoryDet" />
           </AssociationSet>
           <AssociationSet Name="FK_tblModelDetail_tblModel" Association="Self.FK_tblModelDetail_tblModel">
             <End Role="tblModel" EntitySet="tblModel" />
@@ -869,6 +934,20 @@
           <AssociationSet Name="FK_tblProducts_tblOffertTime" Association="webstoreModel.FK_tblProducts_tblOffertTime">
             <End Role="tblOffertTime" EntitySet="tblOffertTime" />
             <End Role="tblProducts" EntitySet="tblProducts" />
+          </AssociationSet>
+          <EntitySet Name="tblHistory" EntityType="webstoreModel.tblHistory" />
+          <EntitySet Name="tblHistoryDet" EntityType="webstoreModel.tblHistoryDet" />
+          <AssociationSet Name="FK_tblHistory_tblUsers" Association="webstoreModel.FK_tblHistory_tblUsers">
+            <End Role="tblUsers" EntitySet="tblUsers" />
+            <End Role="tblHistory" EntitySet="tblHistory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblHistoryDet_tblHistory" Association="webstoreModel.FK_tblHistoryDet_tblHistory">
+            <End Role="tblHistory" EntitySet="tblHistory" />
+            <End Role="tblHistoryDet" EntitySet="tblHistoryDet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblHistoryDet_tblProducts" Association="webstoreModel.FK_tblHistoryDet_tblProducts">
+            <End Role="tblProducts" EntitySet="tblProducts" />
+            <End Role="tblHistoryDet" EntitySet="tblHistoryDet" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="tblCountry">
@@ -1199,6 +1278,7 @@
           <NavigationProperty Name="tblAddresses" Relationship="webstoreModel.FK_tblAddresses_tblUsers" FromRole="tblUsers" ToRole="tblAddresses" />
           <NavigationProperty Name="tblQuotingQue" Relationship="webstoreModel.FK_tblQuotingQue_tblUsers" FromRole="tblUsers" ToRole="tblQuotingQue" />
           <Property Name="strProvider" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tblHistory" Relationship="webstoreModel.FK_tblHistory_tblUsers" FromRole="tblUsers" ToRole="tblHistory" />
         </EntityType>
         <EntityType Name="tblAddresses">
           <Key>
@@ -1426,6 +1506,7 @@
           <NavigationProperty Name="tblOffert" Relationship="webstoreModel.FK_tblProducts_tblOffert" FromRole="tblProducts" ToRole="tblOffert" />
           <NavigationProperty Name="tblOffertTime" Relationship="webstoreModel.FK_tblProducts_tblOffertTime" FromRole="tblProducts" ToRole="tblOffertTime" />
           <Property Name="strCodeS" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tblHistoryDet" Relationship="webstoreModel.FK_tblHistoryDet_tblProducts" FromRole="tblProducts" ToRole="tblHistoryDet" />
         </EntityType>
         <Association Name="FK_tblProducts_tblBrand">
           <End Type="webstoreModel.tblBrand" Role="tblBrand" Multiplicity="0..1" />
@@ -1496,6 +1577,61 @@
             </Principal>
             <Dependent Role="tblProducts">
               <PropertyRef Name="refOfferTime" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="tblHistory">
+          <Key>
+            <PropertyRef Name="IdHistory" />
+          </Key>
+          <Property Name="IdHistory" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="refUser" Type="Int32" />
+          <NavigationProperty Name="tblUsers" Relationship="webstoreModel.FK_tblHistory_tblUsers" FromRole="tblHistory" ToRole="tblUsers" />
+          <NavigationProperty Name="tblHistoryDet" Relationship="webstoreModel.FK_tblHistoryDet_tblHistory" FromRole="tblHistory" ToRole="tblHistoryDet" />
+        </EntityType>
+        <EntityType Name="tblHistoryDet">
+          <Key>
+            <PropertyRef Name="IdHistoryDet" />
+          </Key>
+          <Property Name="IdHistoryDet" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="refHistory" Type="Int32" />
+          <Property Name="refProduct" Type="Int32" />
+          <NavigationProperty Name="tblHistory" Relationship="webstoreModel.FK_tblHistoryDet_tblHistory" FromRole="tblHistoryDet" ToRole="tblHistory" />
+          <NavigationProperty Name="tblProducts" Relationship="webstoreModel.FK_tblHistoryDet_tblProducts" FromRole="tblHistoryDet" ToRole="tblProducts" />
+        </EntityType>
+        <Association Name="FK_tblHistory_tblUsers">
+          <End Type="webstoreModel.tblUsers" Role="tblUsers" Multiplicity="0..1" />
+          <End Type="webstoreModel.tblHistory" Role="tblHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblUsers">
+              <PropertyRef Name="idUser" />
+            </Principal>
+            <Dependent Role="tblHistory">
+              <PropertyRef Name="refUser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblHistoryDet_tblHistory">
+          <End Type="webstoreModel.tblHistory" Role="tblHistory" Multiplicity="0..1" />
+          <End Type="webstoreModel.tblHistoryDet" Role="tblHistoryDet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblHistory">
+              <PropertyRef Name="IdHistory" />
+            </Principal>
+            <Dependent Role="tblHistoryDet">
+              <PropertyRef Name="refHistory" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblHistoryDet_tblProducts">
+          <End Type="webstoreModel.tblProducts" Role="tblProducts" Multiplicity="0..1" />
+          <End Type="webstoreModel.tblHistoryDet" Role="tblHistoryDet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblProducts">
+              <PropertyRef Name="idProduct" />
+            </Principal>
+            <Dependent Role="tblHistoryDet">
+              <PropertyRef Name="refProduct" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1820,6 +1956,23 @@
                 <ScalarProperty Name="strName" ColumnName="strName" />
                 <ScalarProperty Name="strCode" ColumnName="strCode" />
                 <ScalarProperty Name="idProduct" ColumnName="idProduct" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblHistory">
+            <EntityTypeMapping TypeName="webstoreModel.tblHistory">
+              <MappingFragment StoreEntitySet="tblHistory">
+                <ScalarProperty Name="refUser" ColumnName="refUser" />
+                <ScalarProperty Name="IdHistory" ColumnName="IdHistory" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblHistoryDet">
+            <EntityTypeMapping TypeName="webstoreModel.tblHistoryDet">
+              <MappingFragment StoreEntitySet="tblHistoryDet">
+                <ScalarProperty Name="refProduct" ColumnName="refProduct" />
+                <ScalarProperty Name="refHistory" ColumnName="refHistory" />
+                <ScalarProperty Name="IdHistoryDet" ColumnName="IdHistoryDet" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
