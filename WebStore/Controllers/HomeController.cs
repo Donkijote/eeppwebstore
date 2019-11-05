@@ -146,9 +146,55 @@ namespace WebStore.Controllers
             viewModel.ProductsList = pro.Take(12);
             viewModel.ProductsOffer = pro.Where(x => x.intPrecioOff != null);
 
+            List<CategoryList> CategoryList = new List<CategoryList>();
+            List<Products> FirstHistory = new List<Products>();
+            List<Products> SecondHistory = new List<Products>();
+            List<Products> ThirdHistory = new List<Products>();
+            var tList = db.tblOffertTime.Where(t => t.strTime >= DateTime.Now).Select(j => j).ToList();
             if (Session["id"]!= null)
             {
+                int UserId = int.Parse(Session["id"].ToString());
+                tblHistory History = db.tblHistory.Where(h => h.refUser == UserId).FirstOrDefault();
+                if(History != null)
+                {
+                    var items = db.tblHistoryDet.Where(x => x.refHistory == History.IdHistory).AsEnumerable();
 
+                    foreach(var i in items.Reverse())
+                    {
+                        var product = (from a in db.tblProducts
+                                       join f in db.tblFamily
+                                       on a.refFamily equals f.idFamily
+                                       join c in db.tblCategories
+                                       on a.refCategory equals c.idCategoria
+                                       where a.idProduct == i.refProduct
+                                       select new CategoryList
+                                       {
+                                           CategoryCode = c.idCategoria
+                                       })
+                                       .FirstOrDefault();
+                        if (!CategoryList.Any(a => a.CategoryCode == product.CategoryCode))
+                            CategoryList.Add(product);
+                    }
+                    int counter = 0;
+                    foreach (var w in CategoryList.Take(3))
+                    {
+                        var product = PopulateHistoryIndex(w.CategoryCode, db);
+
+                        if (counter == 0)
+                        {
+                            FirstHistory = product;
+                        }
+                        else if (counter == 1)
+                        {
+                            SecondHistory = product;
+                        }
+                        else if (counter == 2)
+                        {
+                            ThirdHistory = product;
+                        }
+                        counter++;
+                    }
+                }
             }
             else
             {
@@ -156,13 +202,6 @@ namespace WebStore.Controllers
                 {
                     var History = Request.Cookies["History"];
                     var items = History.Values.AllKeys.SelectMany(History.Values.GetValues, (k, v) => new { key = k, value = v });
-
-                    List<CategoryList> CategoryList = new List<CategoryList>();
-                    List<Products> FirstHistory = new List<Products>();
-                    List<Products> SecondHistory = new List<Products>();
-                    List<Products> ThirdHistory = new List<Products>();
-                    Translate dir = new Translate();
-                    var tList = db.tblOffertTime.Where(t => t.strTime >= DateTime.Now).Select(j => j).ToList();
                     foreach (var w in items.Reverse())
                     {
                         var product = (from a in db.tblProducts
@@ -182,33 +221,7 @@ namespace WebStore.Controllers
                     int counter = 0;
                     foreach(var w in CategoryList.Take(3))
                     {
-                        var product = (from p in db.tblProducts
-                                       join f in db.tblFamily
-                                       on p.refFamily equals f.idFamily
-                                       join c in db.tblCategories
-                                       on p.refCategory equals c.idCategoria
-                                       where c.idCategoria == w.CategoryCode
-                                       select new
-                                       {
-                                           Codigo = p.strCode,
-                                           Name = p.strName,
-                                           Price = p.intPrice,
-                                           Category = c.strNombre,
-                                           Offert = p.refOffert,
-                                           OffertTime = p.refOfferTime
-                                       }).AsEnumerable()
-                                .Select(x => new Products
-                                {
-                                    strCodigo = x.Codigo,
-                                    strNombre = x.Name,
-                                    intPrecio = Function.FormatNumber(x.Price),
-                                    intPrecioNum = x.Price,
-                                    categorySeo = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(x.Category),
-                                    Offert = x.Offert,
-                                    OffertTime = x.OffertTime
-                                }).ToList();
-
-                        Function.GetOffertOrOffertTime(product, db);
+                        var product = PopulateHistoryIndex(w.CategoryCode, db);
 
                         if (counter == 0)
                         {
@@ -223,12 +236,13 @@ namespace WebStore.Controllers
                         }
                         counter++;
                     }
-
-                    viewModel.FirstHistory = FirstHistory;
-                    viewModel.SecondHistory = SecondHistory;
-                    viewModel.ThirdHistory = ThirdHistory;
                 }
             }
+
+            viewModel.FirstHistory = FirstHistory;
+            viewModel.SecondHistory = SecondHistory;
+            viewModel.ThirdHistory = ThirdHistory;
+            ViewBag.Mobile = Request.Browser.IsMobileDevice;
 
             return View(viewModel);
         }
@@ -280,6 +294,39 @@ namespace WebStore.Controllers
             ViewBag.Message = "Your contact page.";
 
             return View();
+        }
+
+        private List<Products> PopulateHistoryIndex(int Code, webstoreEntities db)
+        {
+            var product = (from p in db.tblProducts
+                           join f in db.tblFamily
+                           on p.refFamily equals f.idFamily
+                           join c in db.tblCategories
+                           on p.refCategory equals c.idCategoria
+                           where c.idCategoria == Code
+                           select new
+                           {
+                               Codigo = p.strCode,
+                               Name = p.strName,
+                               Price = p.intPrice,
+                               Category = c.strNombre,
+                               Offert = p.refOffert,
+                               OffertTime = p.refOfferTime
+                           }).AsEnumerable()
+                                .Select(x => new Products
+                                {
+                                    strCodigo = x.Codigo,
+                                    strNombre = x.Name,
+                                    intPrecio = Function.FormatNumber(x.Price),
+                                    intPrecioNum = x.Price,
+                                    categorySeo = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(x.Category),
+                                    Offert = x.Offert,
+                                    OffertTime = x.OffertTime
+                                }).ToList();
+
+            product = Function.GetOffertOrOffertTime(product, db);
+
+            return product;
         }
     }
 }

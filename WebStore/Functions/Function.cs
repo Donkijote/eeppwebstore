@@ -117,6 +117,35 @@ namespace WebStore.Functions
             return Path.GetFileName(files[rand.Next(files.Length)]);
         }
 
+        public static Products GetHistoryMainItems(string Code, webstoreEntities db)
+        {
+            return (from p in db.tblProducts
+                    join f in db.tblFamily
+                    on p.refFamily equals f.idFamily
+                    join c in db.tblCategories
+                    on p.refCategory equals c.idCategoria
+                    where p.strCode == Code
+                    select new
+                    {
+                        Codigo = p.strCode,
+                        Name = p.strName,
+                        Price = p.intPrice,
+                        Category = c.strSeo,
+                        Offert = p.refOffert,
+                        OffertTime = p.refOfferTime
+                    }).AsEnumerable()
+                    .Select(s => new Products
+                    {
+                        strCodigo = s.Codigo,
+                        strNombre = s.Name,
+                        intPrecio = Function.FormatNumber(s.Price),
+                        intPrecioNum = s.Price,
+                        categorySeo = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(s.Category),
+                        Offert = s.Offert,
+                        OffertTime = s.OffertTime
+                    }).FirstOrDefault();
+        }
+
         public static List<Products> GetOffertOrOffertTime(List<Products> pro, webstoreEntities db)
         {
             return CheckOffertOrOffertTime(pro, db);

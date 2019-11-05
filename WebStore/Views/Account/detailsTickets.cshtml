@@ -32,7 +32,7 @@
     </header>
 </section>
 
-@Html.Partial("~/Views/Shared/profileMenu.cshtml")
+@{ Html.RenderAction("ProfileMenu", "Menu", new { childAction = true }); }
 
 <div class="container mb-5">
     <div class="table-responsive margin-bottom-2x">
@@ -90,10 +90,16 @@
     </form>
 </div>
 
+@section Included{
+    @Html.Raw(WebStore.Resources.Scripts.JqueryValidate)
+    @Html.Raw(WebStore.Resources.Scripts.JqueryValidateUnobtrousive)
+    @Html.Raw(WebStore.Resources.Scripts.CustomValidator)
+}
+
 @section Scripts{
     <script>
-    $(function(){
-        $.AdminJs.profileMenu.activate();
-    })
+        $(function () {
+            $.AdminJs.profileMenu.activate();
+        })
     </script>
 }

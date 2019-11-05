@@ -219,6 +219,7 @@ namespace WebStore.Controllers
                 string logging = LogOn(logIn.Email, logIn.Pass, logIn.RememberMe);
                 if (logging == "OK")
                 {
+                    CheckHistory(Int32.Parse(Session["id"].ToString()));
                     return Json(new { status = "OK" });
                 }
                 else if(logging == "invalid")
@@ -706,70 +707,75 @@ namespace WebStore.Controllers
 
         public ActionResult History()
         {
-            if (Request.Browser.IsMobileDevice)
-            {
-                ViewBag.Mobile = true;
-            }
-            else
-            {
-                ViewBag.Mobile = false;
-            }
+            ViewBag.Mobile = Request.Browser.IsMobileDevice;
+
             if (Session["id"] != null)
             {
-                return View();
+                int UserId = Int32.Parse(Session["id"].ToString());
+                using(webstoreEntities db = new webstoreEntities())
+                {
+                    tblHistory History = db.tblHistory.Where(x => x.refUser == UserId).FirstOrDefault();
+                    if(History != null)
+                    {
+                        List<Products> x = new List<Products>();
+
+                        var HistoryDet = (from a in db.tblHistoryDet
+                                          join b in db.tblProducts
+                                          on a.refProduct equals b.idProduct
+                                          where a.refHistory == History.IdHistory
+                                          select b).ToList();
+                        foreach(var i in HistoryDet)
+                        {
+                            var product = Function.GetHistoryMainItems(i.strCode, db);
+
+                            if (x.Any())
+                            {
+                                x.Insert(0, product);
+                            }
+                            else
+                            {
+                                x.Add(product);
+                            }
+                        }
+
+                        x = Function.GetOffertOrOffertTime(x, db);
+
+                        return View(x);
+                    }
+                    else
+                    {
+                        return View();
+                    }
+                }
             }
             else
             {
                 if(Request.Cookies["History"] != null)
                 {
-                    webstoreEntities db = new webstoreEntities();
-                    ElectropEntities dbE = new ElectropEntities();
-                    var History = Request.Cookies["History"];
-                    var items = History.Values.AllKeys.SelectMany(History.Values.GetValues, (k, v) => new { key = k, value = v });
-                    List<Products> x = new List<Products>();
-                    Translate dir = new Translate();
-                    foreach (var w in items)
+                    using (webstoreEntities db = new webstoreEntities())
                     {
-                        var product = (from p in db.tblProducts
-                                       join f in db.tblFamily
-                                       on p.refFamily equals f.idFamily
-                                       join c in db.tblCategories
-                                       on p.refCategory equals c.idCategoria
-                                       where p.strCode == w.value
-                                       select new
-                                       {
-                                           Codigo = p.strCode,
-                                           Name = p.strName,
-                                           Price = p.intPrice,
-                                           Category = c.strSeo,
-                                           Offert = p.refOffert,
-                                           OffertTime = p.refOfferTime
-                                       }).AsEnumerable()
-                                .Select(s => new Products
-                                {
-                                    strCodigo = s.Codigo,
-                                    strNombre = s.Name,
-                                    intPrecio = Function.FormatNumber(s.Price),
-                                    intPrecioNum = s.Price,
-                                    categorySeo = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(s.Category),
-                                    Offert = s.Offert,
-                                    OffertTime = s.OffertTime
-                                }).FirstOrDefault();
+                        var History = Request.Cookies["History"];
+                        var items = History.Values.AllKeys.SelectMany(History.Values.GetValues, (k, v) => new { key = k, value = v });
+                        List<Products> x = new List<Products>();
+                        foreach (var w in items)
+                        {
+                            var product = Function.GetHistoryMainItems(w.value, db);
 
-                        if (x.Any())
-                        {
-                            x.Insert(0, product);
+                            if (x.Any())
+                            {
+                                x.Insert(0, product);
+                            }
+                            else
+                            {
+                                x.Add(product);
+                            }
+
                         }
-                        else
-                        {
-                            x.Add(product);
-                        }
-                        
+
+                        x = Function.GetOffertOrOffertTime(x, db);
+
+                        return View(x);
                     }
-
-                    x = Function.GetOffertOrOffertTime(x, db);
-
-                    return View(x);
                 }
                 return View();
             }
@@ -843,6 +849,7 @@ namespace WebStore.Controllers
                 if(String.Compare(Crypto.Hash(password), valid.strPassword) == 0){
                     if (valid.boolValidate == true)
                     {
+                        var avatar = db.tblAvatars.Where(x => x.refUser == valid.idUser).FirstOrDefault();
                         CookieHelper newCookieHelper = new CookieHelper(HttpContext.Request, HttpContext.Response);
                         newCookieHelper.SetLoginCookie(userName, password, rememberMe);
                         System.Web.HttpContext.Current.Session["lvl"] = valid.intLevel;
@@ -850,7 +857,12 @@ namespace WebStore.Controllers
                         System.Web.HttpContext.Current.Session["email"] = valid.strEmail;
                         System.Web.HttpContext.Current.Session["names"] = valid.strNames;
                         System.Web.HttpContext.Current.Session["lastname"] = valid.strLastNames;
+                        System.Web.HttpContext.Current.Session["date"] = valid.strRegistrationDate;
                         System.Web.HttpContext.Current.Session["Provider"] = "Local";
+                        if(avatar != null)
+                            System.Web.HttpContext.Current.Session["img"] = avatar.strAvatarName;
+                            System.Web.HttpContext.Current.Session["imgType"] = avatar.strAvatarType;
+
                         return "OK";
                     }
                     else
@@ -875,11 +887,16 @@ namespace WebStore.Controllers
             {
                 CookieHelper newCookieHelper = new CookieHelper(HttpContext.Request, HttpContext.Response);
                 newCookieHelper.SetLoginCookie(facebook.Email, "", false);
-                System.Web.HttpContext.Current.Session["id"] = facebook.Id;
+                webstoreEntities db = new webstoreEntities();
+                var user = db.tblUsers.Where(x => x.strEmail == facebook.Email).FirstOrDefault();
+                System.Web.HttpContext.Current.Session["id"] = user.idUser;
+                System.Web.HttpContext.Current.Session["idFacebook"] = facebook.Id;
                 System.Web.HttpContext.Current.Session["email"] = facebook.Email;
-                System.Web.HttpContext.Current.Session["names"] = facebook.Name.Split(' ')[0];
-                System.Web.HttpContext.Current.Session["lastname"] = facebook.Name.Split(' ')[1];
+                System.Web.HttpContext.Current.Session["names"] = user.strNames;
+                System.Web.HttpContext.Current.Session["lastname"] = user.strLastNames;
                 System.Web.HttpContext.Current.Session["Provider"] = "Facebook";
+                System.Web.HttpContext.Current.Session["date"] = user.strRegistrationDate;
+
                 return "OK";
             }catch(Exception ex)
             {
@@ -893,11 +910,15 @@ namespace WebStore.Controllers
             {
                 CookieHelper newCookieHelper = new CookieHelper(HttpContext.Request, HttpContext.Response);
                 newCookieHelper.SetLoginCookie(google.Email, "", false);
-                System.Web.HttpContext.Current.Session["id"] = google.Id;
+                webstoreEntities db = new webstoreEntities();
+                var user = db.tblUsers.Where(x => x.strEmail == google.Email).FirstOrDefault();
+                System.Web.HttpContext.Current.Session["id"] = user.idUser;
+                System.Web.HttpContext.Current.Session["idGoogle"] = google.Id;
                 System.Web.HttpContext.Current.Session["email"] = google.Email;
-                System.Web.HttpContext.Current.Session["names"] = google.Name.Split(' ')[0];
-                System.Web.HttpContext.Current.Session["lastname"] = google.Name.Split(' ')[1];
+                System.Web.HttpContext.Current.Session["names"] = user.strNames;
+                System.Web.HttpContext.Current.Session["lastname"] = user.strLastNames;
                 System.Web.HttpContext.Current.Session["Provider"] = "Google";
+                System.Web.HttpContext.Current.Session["date"] = user.strRegistrationDate;
                 return "OK";
             }
             catch (Exception ex)
@@ -955,6 +976,75 @@ namespace WebStore.Controllers
                 catch (Exception ex)
                 {
                     return ex.ToString();
+                }
+            }
+        }
+
+        private void CheckHistory(int UserId)
+        {
+            if(Request.Cookies["History"] != null)
+            {
+                using (webstoreEntities db = new webstoreEntities())
+                {
+                    var HistoryCookie = Request.Cookies["History"];
+                    var items = HistoryCookie.Values.AllKeys.SelectMany(HistoryCookie.Values.GetValues, (k, v) => new { key = k, value = v });
+                    var History = db.tblHistory.Where(x => x.refUser == UserId).FirstOrDefault();
+                    if (History != null)
+                    {
+                        foreach(var i in items)
+                        {
+                            var HistoryDet = (from a in db.tblHistoryDet
+                                              join b in db.tblProducts
+                                              on a.refProduct equals b.idProduct
+                                              where a.refHistory == History.IdHistory && b.strCode == i.value
+                                              select new
+                                              {
+                                                  Codigo = a.refProduct
+                                              }).FirstOrDefault();
+                            if(HistoryDet == null)
+                            {
+                                tblHistoryDet newHistoryDet = new tblHistoryDet()
+                                {
+                                    refHistory = History.IdHistory,
+                                    refProduct = db.tblProducts.Where(x => x.strCode == i.value).FirstOrDefault().idProduct
+                                };
+                                db.tblHistoryDet.Add(newHistoryDet);
+                                db.SaveChanges();
+                            }
+                        }
+                    }
+                    else
+                    {
+                        tblHistory newHistory = new tblHistory
+                        {
+                            refUser = UserId
+                        };
+                        db.tblHistory.Add(newHistory);
+                        db.SaveChanges();
+                        foreach (var i in items)
+                        {
+                            var HistoryDet = (from a in db.tblHistoryDet
+                                              join b in db.tblProducts
+                                              on a.refProduct equals b.idProduct
+                                              where a.refHistory == newHistory.IdHistory && b.strCode == i.value
+                                              select new
+                                              {
+                                                  Codigo = a.refProduct
+                                              }).FirstOrDefault();
+                            if (HistoryDet == null)
+                            {
+                                tblHistoryDet newHistoryDet = new tblHistoryDet()
+                                {
+                                    refHistory = newHistory.IdHistory,
+                                    refProduct = db.tblProducts.Where(x => x.strCode == i.value).FirstOrDefault().idProduct
+                                };
+                                db.tblHistoryDet.Add(newHistoryDet);
+                                db.SaveChanges();
+                            }
+                        }
+                    }
+
+                    HistoryCookie.Expires = DateTime.Now.AddDays(-1);
                 }
             }
         }

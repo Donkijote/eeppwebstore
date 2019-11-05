@@ -43,6 +43,7 @@ namespace WebStore.Models
         public string Id { get; set; }
         public string Email { get; set; }
         public string Name { get; set; }
+        public string Photo { get; set; }
     }
     public class RecoveryPassword
     {
@@ -66,5 +67,10 @@ namespace WebStore.Models
         [EqualTo("PassRecovery", ErrorMessage = "Las contraseñas deben coincidir.")]
         [DataType(DataType.Password)]
         public string PassRecoveryConfirmation { get; set; }
+    }
+    public class Avatars
+    {
+        public string Icon { get; set; }
+        public bool Selected { get; set; }
     }
 }

@@ -607,7 +607,7 @@
                     }
                 </div>
             </div>
-                        }
+        }
         if (Model.OthersQuestions != null)
         {
             <div class="row mt-5">
@@ -818,6 +818,10 @@
 }
 
 @section Included{
+    @if (Session["email"] != null)
+    {
+        @Html.Raw(WebStore.Resources.Scripts.JqueryValidate)
+    }
     @Html.Raw(WebStore.Resources.Scripts.OwlCarousel)
     @Html.Raw(WebStore.Resources.Scripts.OwlCarouselThumbs)
     @Html.Raw(WebStore.Resources.Scripts.OwlCarouselJs)
@@ -833,7 +837,7 @@
             $.AdminJs.question.activate();
         })
     </script>
-    @if(ViewBag.addQuestionFromRedirect != null && ViewBag.addQuestionFromRedirect != "")
+    @if (ViewBag.addQuestionFromRedirect != null && ViewBag.addQuestionFromRedirect != "")
     {
         <script type="text/javascript">
                 $(function () {

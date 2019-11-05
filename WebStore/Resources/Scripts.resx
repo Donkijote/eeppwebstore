@@ -177,4 +177,10 @@
   <data name="JqueryValidateUnobtrousive" xml:space="preserve">
     <value>&lt;script src="/Scripts/jquery.validate.unobtrusive.min.js"&gt;&lt;/script&gt;</value>
   </data>
+  <data name="CustomValidator" xml:space="preserve">
+    <value>&lt;script src="/Scripts/Custom-validators.min.js" type="text/javascript"&gt;&lt;/script&gt;</value>
+  </data>
+  <data name="JqueryUpload" xml:space="preserve">
+    <value>&lt;script src="https://rawgithub.com/hayageek/jquery-upload-file/master/js/jquery.uploadfile.min.js"&gt;&lt;/script&gt;</value>
+  </data>
 </root>

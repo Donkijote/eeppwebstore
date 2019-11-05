@@ -1,4 +1,4 @@
-﻿@model IEnumerable<WebStore.Models.ProductsSingle>
+﻿@model IEnumerable<WebStore.Models.Products>
 @{
     ViewBag.Title = WebStore.Resources.Titles.History;
 }
@@ -111,11 +111,15 @@
         }
     </div>
 </div>
-
+@section Included{
+    @Html.Raw(WebStore.Resources.Scripts.JqueryValidate)
+    @Html.Raw(WebStore.Resources.Scripts.JqueryValidateUnobtrousive)
+    @Html.Raw(WebStore.Resources.Scripts.SweetAlert)
+}
 @section Scripts{
     <script type="text/javascript">
-        $(function(){
-            
+        $(function () {
+            $.AdminJs.history.activate();
         })
     </script>
-    }
+}

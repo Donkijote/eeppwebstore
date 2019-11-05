@@ -322,10 +322,11 @@ $.AdminJs.LogInUp = {
     },
     sendFacebookLogIn: () =>{
         FB.api('/me', { fields: 'id,name,email' }, function (response) {
+            console.log(response)
             $.AdminJs.Ajax.init({
                 type: 'POST',
                 url: '/en/User/FacebookLogIn/',
-                data: { Id: response.id, Name: response.name, Email: response.email },
+                data: { Id: response.id, Name: response.name, Email: response.email, Photo: response.picture },
                 action: (x) => {
                     if (x.status == "info") {
                         FB.logout(function (response) {
@@ -337,7 +338,7 @@ $.AdminJs.LogInUp = {
                         window.location.reload()
                     }
                 }
-            })
+            });
         });
     },
     LogOut: function () {
@@ -348,18 +349,24 @@ $.AdminJs.LogInUp = {
             e.preventDefault();
             var provider = $(this).data("provider");
             if (provider == "Facebook") {
-                FB.logout(function (response) {
-                    if (response.status == "unknown") {
-                        $.AdminJs.Ajax.init({
-                            type: 'POST',
-                            url: '/en/User/LogOut/',
-                            data: {},
-                            action: (x) => {
-                                window.location.reload();
+                FB.getLoginStatus((response) => {
+                    if (response.status === 'connected') {
+                        FB.logout(function (response) {
+                            console.log(response)
+                            if (response.status == "unknown") {
+                                $.AdminJs.Ajax.init({
+                                    type: 'POST',
+                                    url: '/en/User/LogOut/',
+                                    data: {},
+                                    action: (x) => {
+                                        window.location.reload();
+                                    }
+                                });
                             }
                         });
                     }
                 });
+                
             } else if (provider == "Local") {
                 $.AdminJs.Ajax.init({
                     type: 'POST',
@@ -471,11 +478,13 @@ $.AdminJs.LogInUp = {
         appStart();
     },
     FacebookAppiSetUp: function (x) {
+        var _this = this;
         window.fbAsyncInit = () => {
             FB.init({
-                appId: '911137429247663',
+                appId: '447263509253110',
+                cookie: true,
                 xfbml: true,
-                version: 'v4.0'
+                version: 'v5.0'
             });
             if (x == "beforeLogin") {
                 FB.getLoginStatus((response) => {
@@ -1323,6 +1332,12 @@ $.AdminJs.question = {
     }
 }
 
+$.AdminJs.history = {
+    activate: function () {
+
+    }
+}
+
 $(function () {
 	//$.AdminJs.input.activate();
 	$.AdminJs.totop.activate();
@@ -1560,20 +1575,125 @@ $.AdminJs.leftMenu = {
 
 $.AdminJs.profileMenu = {
     activate: function () {
+        var _this = this;
         $('.mg-profile-toggle').on('click', function () {
             $('.mg-profile').toggleClass('open');
-        })
+        });
+
+        $('#EditAvatar').on('click', function (e) {
+            e.preventDefault();
+            $('.mg-profile').toggleClass('open');
+            $('#avatarModal').modal({
+                backdrop: 'static',
+                keyboard: false
+            });
+        });
 
         $('.avatar').on('click', function () {
-            if(!$(this).hasClass('selected'))
-            {
+            if (!$(this).hasClass('selected')) {
                 $(this).toggleClass('active');
             }
-            if ($('.avatar').not($(this)).hasClass('active'))
-            {
+            if ($('.avatar').not($(this)).hasClass('active')) {
                 $('.avatar').not($(this)).removeClass('active')
             }
-        })
+        });
+
+        $("#AvatarFile").change(function () {
+            var noneAvatar = $('#noneAvatarImg');
+            if (noneAvatar.is(":Visible")) {
+                noneAvatar.addClass("d-none");
+            }
+            _this.readURL(this);
+        });
+
+        $('#removeAvatarImg').click(() => {
+            $.AdminJs.Ajax.init({
+                type: 'POST',
+                url: '/en/Account/RemoveAvatarImg/',
+                data: {},
+                action: (resp) => {
+                    if (resp.status === "OK") {
+                        window.location.reload();
+                    }
+                }
+            })
+        });
+
+        $('#removeAvatarIcon').click(() => {
+            $.AdminJs.Ajax.init({
+                type: 'POST',
+                url: '/en/Account/RemoveAvatarIcon/',
+                data: {},
+                action: (resp) => {
+                    if (resp.status === "OK") {
+                        window.location.reload();
+                    }
+                }
+            })
+        });
+
+        $('#AvatarForm').on('submit', function (e) {
+            e.preventDefault();
+            var fileInput = $('#AvatarFile').get(0).files;
+            var formdata = new FormData();
+            formdata.append("AvatarFile", fileInput[0]);
+            if ($(this).valid()) {
+                _this.sendAvatarChangeImg(formdata);
+            }
+        });
+
+        $('#changeAvatarIcon').click((e) => {
+            e.preventDefault();
+            var icon = $(".avatar.active");
+            if (icon.length > 0) {
+                var name = icon.data("id"), type = icon.data("type");
+                _this.sendAvatarChangeIcon(name, type);
+            }
+        });
+
+        $('#avatarModal').on('hidden.bs.modal', function (e) {
+            var noneAvatar = $('#noneAvatarImg');
+            $('#AvatarForm').trigger("reset");
+            if (noneAvatar.hasClass("d-none")) {
+                noneAvatar.removeClass("d-none");
+            }
+            $('#imagePreview').css('background-image', 'none');
+        });
+    },
+    readURL: (input) => {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $('#imagePreview').css('background-image', 'url(' + e.target.result + ')');
+                $('#imagePreview').hide();
+                $('#imagePreview').fadeIn(650);
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+    },
+    sendAvatarChangeImg: (x) => {
+        $.AdminJs.Ajax.jsonupload({
+            type: 'POST',
+            url: '/en/Account/ChangeAvatarImg/',
+            data: x,
+            action: (resp) => {
+                if (resp.status === "OK") {
+                    window.location.reload();
+                }
+            }
+        }, true);
+    },
+    sendAvatarChangeIcon: (x, y) => {
+        $.AdminJs.Ajax.init({
+            type: 'POST',
+            url: '/en/Account/ChangeAvatarIcon/',
+            data: {Icon: x, Type: y},
+            action: (resp) => {
+                if (resp.status === "OK") {
+                    window.location.reload();
+                }
+            }
+        }, true);
     }
 }
 
@@ -1934,6 +2054,42 @@ $.AdminJs.Ajax = {
                 $('#errorReport').html(e.responseText);
             }
         })
+    },
+    jsonupload: (x, loading = false, partial = false) => {
+        $.ajax({
+            type: x.type,
+            url: x.url,
+            data: x.data,
+            cache: false,
+            contentType: false,
+            processData: false,
+            beforeSend: function () {
+                if (loading) {
+                    $.AdminJs.Loading.start();
+                }
+            },
+            success: function (e) {
+                if (e.status == "OK" || partial || e.status == "info") {
+                    x.action(e);
+                } else if (e.status == "error") {
+                    console.log(e)
+                    $.AdminJs.Alert.error(e.title, e.responseText);
+                } else if (e.status == "warning") {
+                    $.AdminJs.Alert.warning(e.title, e.responseText);
+                } else {
+                    $('#errorReport').html(e.title, e.responseText);
+                }
+            },
+            complete: function () {
+                if (loading) {
+                    $.AdminJs.Loading.stop();
+                }
+            },
+            error: function (e) {
+                console.log(e)
+                $('#errorReport').html(e.responseText);
+            }
+        });
     }
 }
 

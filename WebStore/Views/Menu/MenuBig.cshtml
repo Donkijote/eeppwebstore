@@ -142,6 +142,84 @@
                         </ul>
                     </li>
 
+                    <li class="nav-item mg-li-social dropdown">
+                        <a class="nav-link" href="@Url.Action("Quote", "User", new { language = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName }, null)" data-toggle="tooltip" data-title="Cotizar" data-original-title="Cotizar">
+                            <i class="far fa-file-alt"></i>
+                            <span class="mg-navbar-compare">
+                                @if (Model.Notification.Quotings > 0)
+                                {
+                                    <span class="mg-count-label">@Model.Notification.Quotings</span>
+                                }
+                            </span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item mg-li-social mg-shopping-cart dropdown">
+                        <a class="nav-link" href="@Url.Action("Cart", "User", new { language = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName }, null)">
+                            <i class="fas fa-shopping-cart"></i>
+                            @{
+                                if (Model.Notification.Cart > 0)
+                                {
+                                    <span class="mg-navbar-cart">
+                                        <span class="mg-count-label">@Model.Notification.Cart</span>
+                                    </span>
+                                }
+                            }
+
+                        </a>
+                        <div class="mg-toolbar-dropdown mg-cart-dropdown mg-widget-cart mg-hidden-on-mobile">
+                            @{ if (Model.ProductList != null)
+                                {
+                                    foreach (var i in Model.ProductList)
+                                    {
+                                        <div class="entry">
+                                            <div class="entry-thumb">
+                                                <a href="shop-single.html">
+                                                    <img src="~/Content/img/products/@i.Code-1.jpg" alt="Product">
+                                                </a>
+                                            </div>
+                                            <div class="entry-content">
+                                                <h4 class="entry-title">
+                                                    <a href="@Url.Action("Category", "Product", new { id = i.Category, idp = i.Code, language = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName})">@i.Name</a>
+                                                </h4>
+                                                <span class="entry-meta">@i.Quantity x $@i.Price</span>
+                                            </div>
+                                            <a class="entry-delete removeItemFromCart" data-id="@i.Code" href="javascript:void(0);">
+                                                <i class="fas fa-times"></i>
+                                            </a>
+                                        </div>
+                                    }
+                                    int total = 0;
+                                    foreach (var i in Model.ProductList)
+                                    {
+                                        total += i.PriceInt;
+                                    }
+                                    <div class="text-right">
+                                        <p class="text-gray-dark py-2 mb-0">
+                                            <span class="text-muted">Subtotal:</span> &nbsp;$@total.ToString("N0", System.Threading.Thread.CurrentThread.CurrentCulture)
+                                        </p>
+                                    </div>
+                                    <div class="d-flex">
+                                        <div class="pr-2 w-50">
+                                            <a href="@Url.Action("Cart", "User", new { language = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName })" style="text-decoration:none;">
+                                                <div class="btn btn-secondary btn-sm btn-block mb-0" href="cart.html">@WebStore.Resources.Buttons.ShowCart</div>
+                                            </a>
+                                        </div>
+                                        <div class="pl-2 w-50">
+                                            <a href="@Url.Action("CheckOut", "User", new { language = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName })" style="text-decoration:none;">
+                                                <div class="btn btn-orangered btn-sm btn-block mb-0">@WebStore.Resources.Buttons.Checkout</div>
+                                            </a>
+                                        </div>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <h5>Carrito vacío.</h5>
+                                }
+                            }
+                        </div>
+                    </li>
+
                     @{
                         if (HttpContext.Current.Session["email"] == null)
                         {
@@ -150,7 +228,7 @@
                                 <a class="nav-link" href="javascript:void(0);" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <i class="far fa-user"></i>
                                 </a>
-                                <ul class="dropdown-menu mg-dropdown animated fadeIn" role="menu" aria-labelledby="dropdownMenuLink">
+                                <div class="dropdown-menu mg-dropdown animated fadeIn" role="menu" aria-labelledby="dropdownMenuLink">
                                     <div class="col-lg-12">
                                         <div class="text-center mb-3 mt-3">
                                             <h3 style="font-weight: normal;">@WebStore.Resources.Titles.Start</h3>
@@ -230,19 +308,43 @@
                                             </div>
                                         </div>
                                     </div>
-                                </ul>
+                                </div>
                             </li>
                         }
                         else
                         {
                             <li class="nav-item mg-li-social mg-li-menu mg-has-submenu-user dropdown">
-                                <a class="nav-link" href="javascript:void(0);">
-                                    <i class="far fa-user"></i>
+                                <a class="nav-link user-logged-in" href="javascript:void(0);">
+                                    <span>@HttpContext.Current.Session["names"].ToString().Substring(0, 1)@HttpContext.Current.Session["lastname"].ToString().Substring(0, 1)</span>
                                 </a>
                                 <ul class="mg-sub-menu-user animated bounceIn">
                                     <li class="mg-submenu-item-user">
                                         <div class="user-ava">
-                                            <i class="fos fo-donkijote-british fa-2x fas"></i>
+                                            @{
+                                                if (Session["Provider"].ToString() == "Local")
+                                                {
+                                                    if (Session["imgType"] != null && Session["imgType"].ToString() == "img")
+                                                    {
+                                                        <div class="img-fluid user-ava-img" src="" style="background-image: url(/Content/img/avatars/img/@Session["img"].ToString());" alt="User"></div>
+                                                    }
+                                                    else if (Session["imgType"] != null && Session["imgType"].ToString() == "icon")
+                                                    {
+                                                        <img class="img-fluid" src="~/Content/img/avatars/icons/@Session["img"].ToString()" alt="User">
+                                                    }
+                                                    else
+                                                    {
+                                                        <span>@Session["names"].ToString().Substring(0, 1)@Session["lastname"].ToString().Substring(0, 1)</span>
+                                                    }
+                                                }
+                                                else if (Session["Provider"].ToString() == "Facebook")
+                                                {
+                                                    <img class="img-fluid" src="https://graph.facebook.com/@Session["idFacebook"].ToString()/picture?type=normal " alt="User">
+                                                }
+                                                else
+                                                {
+                                                    <i class="far fa-user"></i>
+                                                }
+                                            }
                                         </div>
                                         <div class="user-info">
                                             <h6 class="user-name text-capitalize">@HttpContext.Current.Session["names"] @HttpContext.Current.Session["lastname"]</h6>
@@ -272,83 +374,7 @@
                             </li>
                         }
                     }
-                    <li class="nav-item mg-li-social dropdown">
-                        <a class="nav-link" href="@Url.Action("Quote", "User", new { language = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName }, null)" data-toggle="tooltip" data-title="Cotizar" data-original-title="Cotizar">
-                            <i class="far fa-file-alt"></i>
-                            <span class="mg-navbar-compare">
-                                @if (Model.Notification.Quotings != null && Model.Notification.Quotings > 0)
-                                {
-                                    <span class="mg-count-label">@Model.Notification.Quotings</span>
-                                }                                                            
-                            </span>
-                        </a>
-                    </li>
 
-                    <li class="nav-item mg-li-social mg-shopping-cart dropdown">
-                        <a class="nav-link" href="@Url.Action("Cart", "User", new { language = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName }, null)">
-                            <i class="fas fa-shopping-cart"></i>
-                            @{
-                                if (Model.Notification.Cart > 0)
-                                {
-                                    <span class="mg-navbar-cart">
-                                        <span class="mg-count-label">@Model.Notification.Cart</span>
-                                    </span>
-                                }
-                            }
-                            
-                        </a>
-                        <div class="mg-toolbar-dropdown mg-cart-dropdown mg-widget-cart mg-hidden-on-mobile">
-                            @{ if (Model.ProductList != null)
-                                {
-                                    foreach (var i in Model.ProductList)
-                                    {
-                                        <div class="entry">
-                                            <div class="entry-thumb">
-                                                <a href="shop-single.html">
-                                                    <img src="~/Content/img/products/@i.Code-1.jpg" alt="Product">
-                                                </a>
-                                            </div>
-                                            <div class="entry-content">
-                                                <h4 class="entry-title">
-                                                    <a href="@Url.Action("Category", "Product", new { id = i.Category, idp = i.Code, language = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName})">@i.Name</a>
-                                                </h4>
-                                                <span class="entry-meta">@i.Quantity x $@i.Price</span>
-                                            </div>
-                                            <a class="entry-delete removeItemFromCart" data-id="@i.Code" href="javascript:void(0);">
-                                                <i class="fas fa-times"></i>
-                                            </a>
-                                        </div>
-                                    }
-                                    int total = 0;
-                                    foreach (var i in Model.ProductList)
-                                    {
-                                        total += i.PriceInt;
-                                    }
-                                    <div class="text-right">
-                                        <p class="text-gray-dark py-2 mb-0">
-                                            <span class="text-muted">Subtotal:</span> &nbsp;$@total.ToString("N0", System.Threading.Thread.CurrentThread.CurrentCulture)
-                                        </p>
-                                    </div>
-                                    <div class="d-flex">
-                                        <div class="pr-2 w-50">
-                                            <a href="@Url.Action("Cart", "User", new { language = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName })" style="text-decoration:none;">
-                                                <div class="btn btn-secondary btn-sm btn-block mb-0" href="cart.html">@WebStore.Resources.Buttons.ShowCart</div>
-                                            </a>
-                                        </div>
-                                        <div class="pl-2 w-50">
-                                            <a href="@Url.Action("CheckOut", "User", new { language = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName })" style="text-decoration:none;">
-                                                <div class="btn btn-orangered btn-sm btn-block mb-0">@WebStore.Resources.Buttons.Checkout</div>
-                                            </a>
-                                        </div>
-                                    </div>
-                                }
-                                else
-                                {
-                                    <h5>Carrito vacío.</h5>
-                                }
-                            }
-                        </div>
-                    </li>
                 </ul>
             </div>
         </div>

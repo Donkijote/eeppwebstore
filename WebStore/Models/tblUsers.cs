@@ -43,5 +43,6 @@ namespace WebStore.Models
         public virtual ICollection<tblQuotingQue> tblQuotingQue { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblHistory> tblHistory { get; set; }
+        public virtual tblAvatars tblAvatars { get; set; }
     }
 }

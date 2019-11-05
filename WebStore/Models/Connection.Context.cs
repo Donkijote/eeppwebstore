@@ -51,5 +51,6 @@ namespace WebStore.Models
         public virtual DbSet<tblProducts> tblProducts { get; set; }
         public virtual DbSet<tblHistory> tblHistory { get; set; }
         public virtual DbSet<tblHistoryDet> tblHistoryDet { get; set; }
+        public virtual DbSet<tblAvatars> tblAvatars { get; set; }
     }
 }

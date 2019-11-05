@@ -9,6 +9,7 @@ using System.Globalization;
 using System.Web.Routing;
 using WebStore.Functions;
 using System.Net.Mail;
+using System.IO;
 
 namespace WebStore.Controllers
 {
@@ -282,6 +283,129 @@ namespace WebStore.Controllers
                     return Json(new { status = "error", title = "Ups...!", responseText = ex.ToString() });
                 }
             }
+        }
+
+        [HttpPost]
+        public JsonResult ChangeAvatarImg()
+        {
+            if(Request.Files["AvatarFile"].ContentLength > 0)
+            {
+                string FileExtension = Path.GetExtension(Request.Files["AvatarFile"].FileName);
+                if(FileExtension == ".png" || FileExtension == ".jpg")
+                {
+                    try
+                    {
+                        string file = Server.MapPath("~/Content/img/avatars/img/") + Session["id"].ToString() + ".jpg";
+                        string fileLocation = fileLocation = Server.MapPath("~/Content/img/avatars/img/") + Session["id"].ToString() + FileExtension;
+                        if (System.IO.File.Exists(file))
+                        {
+                            System.IO.File.Delete(file);
+                        }
+                        else
+                        {
+                            file = Server.MapPath("~/Content/img/avatars/img/") + Session["id"].ToString() + ".png";
+                            if (System.IO.File.Exists(file))
+                            {
+                                System.IO.File.Delete(file);
+                            }
+                        }
+
+                        string resp = AddAvatar(Int32.Parse(Session["id"].ToString()), Session["id"].ToString() + Path.GetExtension(Request.Files["AvatarFile"].FileName), "img");
+                        if(resp == "ok")
+                        {
+                            Request.Files["AvatarFile"].SaveAs(fileLocation);
+                            Session["img"] = Session["id"].ToString() + FileExtension;
+                            Session["imgType"] = "img";
+                            return Json(new { status = "OK"});
+                        }
+                        else {
+                            return Json(new { status = "error", title = "Ups...!", responseText = resp });
+                        }
+                        
+                    }catch(Exception ex)
+                    {
+                        return Json(new { status = "error", title = "Ups...!", responseText = ex.ToString() });
+                    }
+                }
+                else {
+                    return Json(new { status = "warning", responsetext = "Archivo debe ser tipo: png, jpg" });
+                }
+            }
+            else {
+                return Json(new { status = "warning", responsetext = "No seleccionó ningún archivo" });
+            }
+        }
+        [HttpPost]
+        public JsonResult RemoveAvatarImg()
+        {
+            try
+            {
+                int UserId = Int32.Parse(Session["id"].ToString());
+                string file = Server.MapPath("~/Content/img/avatars/img/") + Session["id"].ToString() + ".jpg";
+                if (System.IO.File.Exists(file))
+                {
+                    System.IO.File.Delete(file);
+                    Session.Remove("img");
+                    Session.Remove("imgType");
+                }
+                else
+                {
+                    file = Server.MapPath("~/Content/img/avatars/img/") + Session["id"].ToString() + ".png";
+                    if (System.IO.File.Exists(file))
+                    {
+                        System.IO.File.Delete(file);
+                        Session.Remove("img");
+                        Session.Remove("imgType");
+                    }
+                }
+                string remove = RemoveAvatar(UserId, "img");
+                if(remove != "ok" && remove != "profile")
+                {
+                    return Json(new { status = "error", title = "Ups...!", responseText = remove });
+                }
+                return Json(new { status = "OK" });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { status = "error", title = "Ups...!", responseText = ex.ToString() });
+            }
+
+        }
+        [HttpPost]
+        public JsonResult ChangeAvatarIcon(string Icon, string Type)
+        {
+            string resp = AddAvatar(Int32.Parse(Session["id"].ToString()), Icon, Type);
+            if (resp == "ok")
+            {
+                Session["img"] = Icon;
+                Session["imgType"] = Type;
+                return Json(new { status = "OK" });
+            }
+            else
+            {
+                return Json(new { status = "error", title = "Ups...!", responseText = resp });
+            }
+        }
+        [HttpPost]
+        public JsonResult RemoveAvatarIcon()
+        {
+            try
+            {
+                int UserId = Int32.Parse(Session["id"].ToString());
+                Session.Remove("img");
+                Session.Remove("imgType");
+                string remove = RemoveAvatar(UserId, "icon");
+                if (remove != "ok" && remove != "profile")
+                {
+                    return Json(new { status = "error", title = "Ups...!", responseText = remove });
+                }
+                return Json(new { status = "OK" });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { status = "error", title = "Ups...!", responseText = ex.ToString() });
+            }
+
         }
 
         public JsonResult Provinces(int id)
@@ -558,6 +682,59 @@ namespace WebStore.Controllers
                  Default = (bool)a.boolDefault,
                  Third = a.boolThird == null ? false: (bool)a.boolThird
              }).ToList();
+        }
+
+        private string AddAvatar(int user, string file, string type)
+        {
+            using(webstoreEntities db = new webstoreEntities())
+            {
+                try
+                {
+                    var avatar = db.tblAvatars.Where(x => x.refUser == user).FirstOrDefault();
+                    if (avatar != null)
+                    {
+                        avatar.strAvatarType = type;
+                        avatar.strAvatarName = file;
+                    }
+                    else
+                    {
+                        var newAvatar = new tblAvatars
+                        {
+                            refUser = user,
+                            strAvatarName = file,
+                            strAvatarType = type
+                        };
+                        db.tblAvatars.Add(newAvatar);
+                    }
+                    db.SaveChanges();
+                    return "ok";
+                }
+                catch (Exception ex)
+                {
+                    return ex.ToString();
+                }
+            }
+        }
+        private string RemoveAvatar(int user, string type)
+        {
+            using(webstoreEntities db = new webstoreEntities())
+            {
+                var avatar = db.tblAvatars.Where(x => x.refUser == user && x.strAvatarType == type).FirstOrDefault();
+
+                if(avatar != null)
+                {
+                    try
+                    {
+                        db.tblAvatars.Remove(avatar);
+                        db.SaveChanges();
+                        return "ok";
+                    }catch(Exception ex)
+                    {
+                        return ex.ToString();
+                    }
+                }
+                return "profile";
+            }
         }
     }
 }

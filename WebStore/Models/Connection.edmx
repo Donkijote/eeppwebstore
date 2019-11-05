@@ -43,6 +43,14 @@
           <Property Name="refUser" Type="int" Nullable="false" />
           <Property Name="refQuestion" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="tblAvatars">
+          <Key>
+            <PropertyRef Name="refUser" />
+          </Key>
+          <Property Name="refUser" Type="int" Nullable="false" />
+          <Property Name="strAvatarName" Type="varchar" MaxLength="50" />
+          <Property Name="strAvatarType" Type="varchar" MaxLength="50" />
+        </EntityType>
         <EntityType Name="tblBrand">
           <Key>
             <PropertyRef Name="idBrand" />
@@ -386,6 +394,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_tblAvatars_tblUsers">
+          <End Role="tblUsers" Type="Self.tblUsers" Multiplicity="1" />
+          <End Role="tblAvatars" Type="Self.tblAvatars" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="tblUsers">
+              <PropertyRef Name="idUser" />
+            </Principal>
+            <Dependent Role="tblAvatars">
+              <PropertyRef Name="refUser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_tblBrand_tblBrand">
           <End Role="tblImg" Type="Self.tblImg" Multiplicity="0..1" />
           <End Role="tblBrand" Type="Self.tblBrand" Multiplicity="*" />
@@ -654,6 +674,7 @@
           <EntitySet Name="tblAddresses" EntityType="Self.tblAddresses" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblAddressesDet" EntityType="Self.tblAddressesDet" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblAnswers" EntityType="Self.tblAnswers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblAvatars" EntityType="Self.tblAvatars" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblBrand" EntityType="Self.tblBrand" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblCategories" EntityType="Self.tblCategories" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblCategoryRelation" EntityType="Self.tblCategoryRelation" Schema="dbo" store:Type="Tables" />
@@ -700,6 +721,10 @@
           <AssociationSet Name="FK_tblAnswers_tblQuestions" Association="Self.FK_tblAnswers_tblQuestions">
             <End Role="tblQuestions" EntitySet="tblQuestions" />
             <End Role="tblAnswers" EntitySet="tblAnswers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblAvatars_tblUsers" Association="Self.FK_tblAvatars_tblUsers">
+            <End Role="tblUsers" EntitySet="tblUsers" />
+            <End Role="tblAvatars" EntitySet="tblAvatars" />
           </AssociationSet>
           <AssociationSet Name="FK_tblBrand_tblBrand" Association="Self.FK_tblBrand_tblBrand">
             <End Role="tblImg" EntitySet="tblImg" />
@@ -948,6 +973,11 @@
           <AssociationSet Name="FK_tblHistoryDet_tblProducts" Association="webstoreModel.FK_tblHistoryDet_tblProducts">
             <End Role="tblProducts" EntitySet="tblProducts" />
             <End Role="tblHistoryDet" EntitySet="tblHistoryDet" />
+          </AssociationSet>
+          <EntitySet Name="tblAvatars" EntityType="webstoreModel.tblAvatars" />
+          <AssociationSet Name="FK_tblAvatars_tblUsers" Association="webstoreModel.FK_tblAvatars_tblUsers">
+            <End Role="tblUsers" EntitySet="tblUsers" />
+            <End Role="tblAvatars" EntitySet="tblAvatars" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="tblCountry">
@@ -1279,6 +1309,7 @@
           <NavigationProperty Name="tblQuotingQue" Relationship="webstoreModel.FK_tblQuotingQue_tblUsers" FromRole="tblUsers" ToRole="tblQuotingQue" />
           <Property Name="strProvider" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="tblHistory" Relationship="webstoreModel.FK_tblHistory_tblUsers" FromRole="tblUsers" ToRole="tblHistory" />
+          <NavigationProperty Name="tblAvatars" Relationship="webstoreModel.FK_tblAvatars_tblUsers" FromRole="tblUsers" ToRole="tblAvatars" />
         </EntityType>
         <EntityType Name="tblAddresses">
           <Key>
@@ -1635,6 +1666,27 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="tblAvatars">
+          <Key>
+            <PropertyRef Name="refUser" />
+          </Key>
+          <Property Name="refUser" Type="Int32" Nullable="false" />
+          <Property Name="strAvatarName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="strAvatarType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tblUsers" Relationship="webstoreModel.FK_tblAvatars_tblUsers" FromRole="tblAvatars" ToRole="tblUsers" />
+        </EntityType>
+        <Association Name="FK_tblAvatars_tblUsers">
+          <End Type="webstoreModel.tblUsers" Role="tblUsers" Multiplicity="1" />
+          <End Type="webstoreModel.tblAvatars" Role="tblAvatars" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="tblUsers">
+              <PropertyRef Name="idUser" />
+            </Principal>
+            <Dependent Role="tblAvatars">
+              <PropertyRef Name="refUser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1973,6 +2025,15 @@
                 <ScalarProperty Name="refProduct" ColumnName="refProduct" />
                 <ScalarProperty Name="refHistory" ColumnName="refHistory" />
                 <ScalarProperty Name="IdHistoryDet" ColumnName="IdHistoryDet" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblAvatars">
+            <EntityTypeMapping TypeName="webstoreModel.tblAvatars">
+              <MappingFragment StoreEntitySet="tblAvatars">
+                <ScalarProperty Name="strAvatarType" ColumnName="strAvatarType" />
+                <ScalarProperty Name="strAvatarName" ColumnName="strAvatarName" />
+                <ScalarProperty Name="refUser" ColumnName="refUser" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

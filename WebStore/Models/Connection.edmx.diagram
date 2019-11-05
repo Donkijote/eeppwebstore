@@ -59,6 +59,8 @@
         <AssociationConnector Association="webstoreModel.FK_tblHistory_tblUsers" />
         <AssociationConnector Association="webstoreModel.FK_tblHistoryDet_tblHistory" />
         <AssociationConnector Association="webstoreModel.FK_tblHistoryDet_tblProducts" />
+        <EntityTypeShape EntityType="webstoreModel.tblAvatars" Width="1.5" PointX="13.375" PointY="5.5" />
+        <AssociationConnector Association="webstoreModel.FK_tblAvatars_tblUsers" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

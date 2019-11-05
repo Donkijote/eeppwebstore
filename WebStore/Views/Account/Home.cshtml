@@ -28,7 +28,7 @@
     </header>
 </section>
 
-@Html.Partial("~/Views/Shared/profileMenu.cshtml")
+@{ Html.RenderAction("ProfileMenu", "Menu", new { childAction = true }); }
 
 <section class="container mb-5">
     <div class="widget mg-widget-account">
@@ -67,10 +67,17 @@
     </div>
 </section>
 
+@section Included{
+    @Html.Raw(WebStore.Resources.Scripts.JqueryValidate)
+    @Html.Raw(WebStore.Resources.Scripts.JqueryValidateUnobtrousive)
+    @Html.Raw(WebStore.Resources.Scripts.CustomValidator)
+}
+
+
 @section Scripts{
-<script>
-    $(function(){
-        $.AdminJs.profileMenu.activate();
-    })
-</script>
+    <script>
+        $(function () {
+            $.AdminJs.profileMenu.activate();
+        })
+    </script>
 }

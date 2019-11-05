@@ -37,7 +37,7 @@
     </header>
 </section>
 
-@Html.Partial("~/Views/Shared/profileMenu.cshtml")
+@{ Html.RenderAction("ProfileMenu", "Menu", new { childAction = true }); }
 
 <div class="container mb-5">
 
@@ -158,8 +158,8 @@
 
 @section Included{
     @Html.Raw(WebStore.Resources.Scripts.JqueryValidate)
-    @Html.Raw(WebStore.Resources.Scripts.JqueryValidateMethods)
     @Html.Raw(WebStore.Resources.Scripts.JqueryValidateUnobtrousive)
+    @Html.Raw(WebStore.Resources.Scripts.CustomValidator)
     @Html.Raw(WebStore.Resources.Scripts.SweetAlert)
 }
 

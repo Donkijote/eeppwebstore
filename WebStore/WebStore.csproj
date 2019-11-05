@@ -281,6 +281,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>EEPP.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\Files.cs" />
     <Compile Include="Models\Index.cs" />
     <Compile Include="Models\iw_gmovi.cs">
       <DependentUpon>EEPP.tt</DependentUpon>
@@ -321,6 +322,9 @@
       <DependentUpon>Connection.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tblAnswers.cs">
+      <DependentUpon>Connection.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tblAvatars.cs">
       <DependentUpon>Connection.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tblBrand.cs">
@@ -590,6 +594,11 @@
     <Compile Include="Routing\Translate.cs" />
     <Compile Include="Routing\TranslatedRoute.cs" />
     <Compile Include="Routing\TranslatedRouteCollectionExtensions.cs" />
+    <Compile Include="Validators\ExtentionMethods.cs" />
+    <Compile Include="Validators\FileUploadValidator.cs" />
+    <Compile Include="Validators\MaximumFileSizeValidator.cs" />
+    <Compile Include="Validators\MinimumFileSizeValidator.cs" />
+    <Compile Include="Validators\ValidFileTypeValidator.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Code\ReusableCode.html" />
@@ -603,6 +612,33 @@
     <Content Include="Content\Countdown\Countdown.min.css">
       <DependentUpon>Countdown.css</DependentUpon>
     </Content>
+    <Content Include="Content\img\avatars\icons\1f601.svg" />
+    <Content Include="Content\img\avatars\icons\1f602.svg" />
+    <Content Include="Content\img\avatars\icons\1f603.svg" />
+    <Content Include="Content\img\avatars\icons\1f604.svg" />
+    <Content Include="Content\img\avatars\icons\1f606.svg" />
+    <Content Include="Content\img\avatars\icons\1f60b.svg" />
+    <Content Include="Content\img\avatars\icons\1f612.svg" />
+    <Content Include="Content\img\avatars\icons\1f618.svg" />
+    <Content Include="Content\img\avatars\icons\1f61a.svg" />
+    <Content Include="Content\img\avatars\icons\1f61c.svg" />
+    <Content Include="Content\img\avatars\icons\1f61d.svg" />
+    <Content Include="Content\img\avatars\icons\1f61e.svg" />
+    <Content Include="Content\img\avatars\icons\1f620.svg" />
+    <Content Include="Content\img\avatars\icons\1f621.svg" />
+    <Content Include="Content\img\avatars\icons\1f622.svg" />
+    <Content Include="Content\img\avatars\icons\1f623.svg" />
+    <Content Include="Content\img\avatars\icons\1f624.svg" />
+    <Content Include="Content\img\avatars\icons\1f628.svg" />
+    <Content Include="Content\img\avatars\icons\1f629.svg" />
+    <Content Include="Content\img\avatars\icons\1f62d.svg" />
+    <Content Include="Content\img\avatars\icons\1f630.svg" />
+    <Content Include="Content\img\avatars\icons\1f631.svg" />
+    <Content Include="Content\img\avatars\icons\1f632.svg" />
+    <Content Include="Content\img\avatars\icons\1f633.svg" />
+    <Content Include="Content\img\avatars\icons\1f635.svg" />
+    <Content Include="Content\img\avatars\icons\1f637.svg" />
+    <Content Include="Content\img\avatars\icons\263a.svg" />
     <Content Include="Content\img\bannerCategories\estacas.jpg" />
     <Content Include="Content\img\bannerCategories\sodimac.jpg" />
     <Content Include="Content\img\bg\404-bg.png" />
@@ -615,6 +651,7 @@
     <Content Include="Content\img\bg\mobile.png" />
     <Content Include="Content\img\bg\payment_methods.png" />
     <Content Include="Content\img\bg\timeoffer-bg.jpg" />
+    <Content Include="Content\img\bg\user-cover-img.jpg" />
     <Content Include="Content\img\brands\atomlux.png" />
     <Content Include="Content\img\brands\bree.png" />
     <Content Include="Content\img\brands\duralux.png" />
@@ -832,6 +869,8 @@
     <Content Include="Scripts\Countdown\Countdown.min.js">
       <DependentUpon>Countdown.js</DependentUpon>
     </Content>
+    <Content Include="Scripts\Custom-validators.js" />
+    <Content Include="Scripts\Custom-validators.min.js" />
     <Content Include="Scripts\esm\popper-utils.js" />
     <Content Include="Scripts\esm\popper-utils.min.js" />
     <Content Include="Scripts\esm\popper.js" />
@@ -953,7 +992,7 @@
     <Content Include="Views\User\LogUp.cshtml" />
     <Content Include="Views\User\LogIn.cshtml" />
     <Content Include="Views\Categories\s.cshtml" />
-    <Content Include="Views\Shared\profileMenu.cshtml" />
+    <Content Include="Views\Menu\ProfileMenu.cshtml" />
     <Content Include="Views\Account\Settings.cshtml" />
     <Content Include="Views\Categories\Product.cshtml" />
     <Content Include="Views\Account\addAddress.cshtml" />
@@ -984,6 +1023,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\img\avatars\img\" />
     <Folder Include="Content\img\certificates\ds43\" />
     <Folder Include="Views\Downloads\" />
     <Folder Include="Views\Language\" />

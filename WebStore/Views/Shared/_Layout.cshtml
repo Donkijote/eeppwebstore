@@ -31,7 +31,7 @@
 </head>
 <body data-spy="scroll" data-target="#mg-vertical-nav" data-offset="120" data-lang="@System.Threading.Thread.CurrentThread.CurrentCulture.TwoLetterISOLanguageName">
     <div id="fb-root"></div>
-    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/es_LA/sdk.js#xfbml=1&version=v4.0&appId=911137429247663&autoLogAppEvents=1"></script>
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/es_LA/sdk.js#xfbml=1&version=v5.0&appId=447263509253110&autoLogAppEvents=1"></script>
     <script src="https://apis.google.com/js/api:client.js"></script>
 
     <div class="page-loader-wrapper" id="page-loader-wrapper">
@@ -53,9 +53,17 @@
         </div>
     </div>
 
-    @{ Html.RenderAction("MenuBig", "Menu", new { childAction = true }); }
+    @{ 
+        if (Request.Browser.IsMobileDevice)
+        {
+            Html.RenderAction("MenuMobile", "Menu", new { childAction = true });
+        }
+        else
+        {
+            Html.RenderAction("MenuBig", "Menu", new { childAction = true });
+        }
 
-    @{ Html.RenderAction("MenuMobile", "Menu", new { childAction = true });}
+         }
 
     <div class="body-content">
         @RenderBody()
@@ -71,7 +79,7 @@
 
     @RenderSection("included", required: false)
 
-    <script src="~/Scripts/Admin.min.js"></script>
+    <script src="~/Scripts/Admin.js"></script>
 
     @{
         if (HttpContext.Current.Session["email"] == null)

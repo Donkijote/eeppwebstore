@@ -1,0 +1,177 @@
+﻿@model WebStore.Models.AvatarsForm
+<div class="mg-profile">
+    <div class="mg-profile-toggle"><i class="fas fa-cog"></i></div>
+    <div class="mg-profile-body">
+        <aside class="user-info-wrapper">
+            <div class="user-cover" style="background-image: url(/Content/img/bg/user-cover-img.jpg);">
+                <div class="info-label" data-toggle="tooltip" title="" data-original-title="You currently have 290 Reward Points to spend">
+                    <i class="fas fa-award"></i>290 points
+                </div>
+            </div>
+            <div class="user-info">
+                <div class="user-avatar">
+
+                    @{
+                        if (Session["Provider"].ToString() == "Local")
+                        {
+                            <a class="edit-avatar" href="javascript:void(0);" id="EditAvatar"></a>
+                            if (Session["imgType"] != null && Session["imgType"].ToString() == "img")
+                            {
+                                <div class="img-fluid user-avatar-img" style="background-image: url(/Content/img/avatars/img/@Session["img"].ToString());" alt="User"></div>
+                            }
+                            else if (Session["imgType"] != null && Session["imgType"].ToString() == "icon")
+                            {
+                                <img class="img-fluid" src="~/Content/img/avatars/icons/@Session["img"].ToString()" alt="User">
+                            }
+                            else
+                            {
+                                <span>@Session["names"].ToString().Substring(0, 1)@Session["lastname"].ToString().Substring(0, 1)</span>
+                            }
+                        }
+                        else if (Session["Provider"].ToString() == "Facebook")
+                        {
+                            <img class="img-fluid" src="https://graph.facebook.com/@Session["idFacebook"].ToString()/picture?type=normal " alt="User">
+                        }
+                    }
+
+                </div>
+                <div class="user-data">
+                    <h4 class="h5">@Session["names"].ToString() @Session["lastname"].ToString()</h4><span>Ingreso @DateTime.Parse(Session["date"].ToString()).ToString("dd MMM yyyy")</span>
+                </div>
+            </div>
+        </aside>
+        <nav class="list-group">
+            <a class="list-group-item with-badge @( ViewBag.url == "Orders" ? "active" : (ViewBag.url == "Traking" ? "active" : ""))" href="@Url.Action("Orders", "Account", new { language = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName }, null)">
+                <i class="fas fa-shopping-bag"></i>@WebStore.Resources.Titles.Orders
+                <span class="badge badge-default badge-pill">6</span>
+            </a>
+            <a class="list-group-item @( ViewBag.url == "Settings" ? "active" : "")" href="@Url.Action("Settings", "Account", new { language = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName }, null)">
+                <i class="fas fa-lock"></i>@WebStore.Resources.Titles.Settings
+            </a>
+            <a class="list-group-item @( ViewBag.url == "Address" ? "active" : "")" href="@Url.Action("Address", "Account", new { language = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName }, null)">
+                <i class="fas fa-map-marker-alt"></i>@WebStore.Resources.Titles.Address
+            </a>
+            <a class="list-group-item with-badge @( ViewBag.url == "Wishes" ? "active" : "")" href="@Url.Action("WishList", "Account", new { language = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName }, null)">
+                <i class="far fa-heart"></i>@WebStore.Resources.Titles.Wishes
+                <span class="badge badge-default badge-pill">3</span>
+            </a>
+            <a class="list-group-item with-badge @( ViewBag.url == "Tickets" ? "active": "")" href="@Url.Action("Tickets","Account", new { language = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName}, null)">
+                <i class="fas fa-ticket-alt"></i>@WebStore.Resources.Titles.Tickets
+                <span class="badge badge-default badge-pill">4</span>
+            </a>
+        </nav>
+    </div>
+</div>
+
+@if (Session["Provider"].ToString() == "Local")
+{
+    <div class="modal fade" id="avatarModal" tabindex="-1" role="dialog" aria-labelledby="AvatarModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl" role="document">
+            
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="AvatarModalLabel">Selecciona tu Avatar</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="row">
+                                <div class="col-8">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="avatars">
+                                                @foreach (var i in ViewBag.Avatars)
+                                                {
+                                                    if (Session["imgType"] != null && Session["imgType"].ToString() == "icon")
+                                                    {
+                                                        <div class="avatar @(i.Icon == Session["img"].ToString() ? "selected": "")" data-id="@i.Icon" data-type="icon">
+                                                            <img src="~/Content/img/avatars/icons/@i.Icon">
+                                                        </div>
+                                                    }
+                                                    else
+                                                    {
+                                                        <div class="avatar" data-id="@i.Icon" data-type="icon">
+                                                            <img src="~/Content/img/avatars/icons/@i.Icon">
+                                                        </div>
+                                                    }
+                                                }
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="modal-footer justify-content-start">
+                                                <button type="button" class="btn btn-primary text-left" id="changeAvatarIcon">Utilizar icono</button>
+                                                <button type="button" class="btn btn-secondary" id="removeAvatarIcon">quitar icono</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <form id="AvatarForm">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div class="avatars">
+                                                    <div class="avatar-upload">
+                                                        <div class="avatar-edit">
+                                                            <input data-val="true"
+                                                                   data-val-maximumfilesize="Imagen no puede pesar más de 1 MB"
+                                                                   data-val-maximumfilesize-size="1"
+                                                                   data-val-validfiletype="Imagen debe ser de tipo: png,jpg"
+                                                                   data-val-validfiletype-filetypes="png,jpg" 
+                                                                   data-val-required="Campo requerido"
+                                                                   id="AvatarFile" name="AvatarFile" type="file" value="">
+                                                            @{
+                                                                if (System.IO.File.Exists(Server.MapPath("~/Content/img/avatars/img/") + @Session["id"].ToString() + ".png"))
+                                                                {
+                                                                    <label data-toggle="tooltip" data-original-title="Quitar imagen" title="Quitar imagen" id="removeAvatarImg"></label>
+                                                                }
+                                                                else if (System.IO.File.Exists(Server.MapPath("~/Content/img/avatars/img/") + @Session["id"].ToString() + ".jpg"))
+                                                                {
+                                                                    <label data-toggle="tooltip" data-original-title="Quitar imagen" title="Quitar imagen" id="removeAvatarImg"></label>
+                                                                }
+                                                            }
+
+                                                        </div>
+                                                        <div class="avatar-preview">
+                                                            @{
+                                                                if (System.IO.File.Exists(Server.MapPath("~/Content/img/avatars/img/") + @Session["id"].ToString() + ".png"))
+                                                                {
+                                                                    <div id="imagePreview" style="background-image: url(/Content/img/avatars/img/@(Session["id"].ToString()+".png"));"></div>
+                                                                }
+                                                                else if (System.IO.File.Exists(Server.MapPath("~/Content/img/avatars/img/") + @Session["id"].ToString() + ".jpg"))
+                                                                {
+                                                                    <div id="imagePreview" style="background-image: url(/Content/img/avatars/img/@(Session["id"].ToString()+".jpg"));"></div>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <span id="noneAvatarImg" class="noneAvatarImg">@Session["names"].ToString().Substring(0, 1)@Session["lastname"].ToString().Substring(0, 1)</span>
+                                                                    <div id="imagePreview">
+
+                                                                    </div>
+                                                                }
+                                                            }
+                                                        </div>
+                                                    </div>
+                                                    @Html.ValidationMessageFor(x => x.AvatarFile)
+                                                </div>
+                                            </div>
+                                            <div class="col-12">
+                                                <div class="modal-footer">
+                                                    <label for="AvatarFile" class="btn btn-secondary m-0">Subir img</label>
+                                                    <button type="submit" class="btn btn-primary">Guardar</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}

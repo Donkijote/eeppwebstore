@@ -36,14 +36,14 @@
     </header>
 </section>
 
-@Html.Partial("~/Views/Shared/profileMenu.cshtml")
+@{ Html.RenderAction("ProfileMenu", "Menu", new { childAction = true }); }
 
 <div class="container mb-5">
     <div id="aditAddressSecction" class="row">
         <div class="card mx-auto">
             <form id="addNewNationalAddress" method="post">
                 @Html.AntiForgeryToken()
-                <input type="hidden" name="PreviousId" value="@Model.Addresses.Id"/>
+                <input type="hidden" name="PreviousId" value="@Model.Addresses.Id" />
                 <div class="card-body">
                     <div class="row" id="formDisplay">
                         <div class="col-lg-4 mb-3">
@@ -163,8 +163,8 @@
 
 @section Included{
     @Html.Raw(WebStore.Resources.Scripts.JqueryValidate)
-    @Html.Raw(WebStore.Resources.Scripts.JqueryValidateMethods)
     @Html.Raw(WebStore.Resources.Scripts.JqueryValidateUnobtrousive)
+    @Html.Raw(WebStore.Resources.Scripts.CustomValidator)
     @Html.Raw(WebStore.Resources.Scripts.SweetAlert)
 }
 

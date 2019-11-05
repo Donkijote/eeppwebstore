@@ -32,7 +32,7 @@
     </header>
 </section>
 
-@Html.Partial("~/Views/Shared/profileMenu.cshtml")
+@{ Html.RenderAction("ProfileMenu", "Menu", new { childAction = true }); }
 
 <div class="container mb-3">
     <div class="row">
@@ -49,43 +49,50 @@
         @{
             foreach (var i in Model)
             {
-                    <div class=" col-md-4 mb-3">
-                        <div class="card mg-card-address @(i.Default ? "border border-primary":"")">
-                            <div class="card-body">
-                                <ul class="list-unstyled mb-0">
-                                    <li><strong>@Session["names"].ToString() @Session["lastname"].ToString()</strong></li>
-                                    <li>@i.Address</li>
-                                    <li>@i.Type</li>
-                                    <li>@i.City, @i.Comuna @i.Poste</li>
-                                    <li>@i.Province, @i.Region, Chile</li>
-                                    <li>Número telefónico: @String.Format(System.Threading.Thread.CurrentThread.CurrentCulture, "{0:0 0000 0000}", i.Tlf)</li>
-                                </ul>
-                                @if (i.Default)
-                                {
-                                    <p class="mb-0"><strong>Dirección por defecto</strong></p>
-                                }
-                            </div>
-                            <div class="card-footer">
-                                <a href="@Url.Action("Address","Account", new { id="Edit", idp = i.Id, language = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName}, null)" class="btn btn-warning btn-xs">@WebStore.Resources.Buttons.Edit</a>
-                                <a href="javascript:void(0);" class="btn btn-danger btn-xs setDelete" data-id="@i.Id">@WebStore.Resources.Buttons.Delete</a>
-                                @if (!i.Default)
-                                {
-                                    <a href="javascript:void(0);" class="btn btn-primary btn-xs setDefault" data-id="@i.Id">@WebStore.Resources.Buttons.Default</a>
-                                }
-                            </div>
+                <div class=" col-md-4 mb-3">
+                    <div class="card mg-card-address @(i.Default ? "border border-primary":"")">
+                        <div class="card-body">
+                            <ul class="list-unstyled mb-0">
+                                <li><strong>@Session["names"].ToString() @Session["lastname"].ToString()</strong></li>
+                                <li>@i.Address</li>
+                                <li>@i.Type</li>
+                                <li>@i.City, @i.Comuna @i.Poste</li>
+                                <li>@i.Province, @i.Region, Chile</li>
+                                <li>Número telefónico: @String.Format(System.Threading.Thread.CurrentThread.CurrentCulture, "{0:0 0000 0000}", i.Tlf)</li>
+                            </ul>
+                            @if (i.Default)
+                            {
+                                <p class="mb-0"><strong>Dirección por defecto</strong></p>
+                            }
+                        </div>
+                        <div class="card-footer">
+                            <a href="@Url.Action("Address","Account", new { id="Edit", idp = i.Id, language = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName}, null)" class="btn btn-warning btn-xs">@WebStore.Resources.Buttons.Edit</a>
+                            <a href="javascript:void(0);" class="btn btn-danger btn-xs setDelete" data-id="@i.Id">@WebStore.Resources.Buttons.Delete</a>
+                            @if (!i.Default)
+                            {
+                                <a href="javascript:void(0);" class="btn btn-primary btn-xs setDefault" data-id="@i.Id">@WebStore.Resources.Buttons.Default</a>
+                            }
                         </div>
                     </div>
+                </div>
             }
         }
     </div>
 </div>
 
+@section Included{
+    @Html.Raw(WebStore.Resources.Scripts.JqueryValidate)
+    @Html.Raw(WebStore.Resources.Scripts.JqueryValidateUnobtrousive)
+    @Html.Raw(WebStore.Resources.Scripts.CustomValidator)
+}
+
+
 @section Scripts{
     <script>
-    $(function(){
-        $.AdminJs.profileMenu.activate();
-        $.AdminJs.addresses.activate();
-    })
+        $(function () {
+            $.AdminJs.profileMenu.activate();
+            $.AdminJs.addresses.activate();
+        })
     </script>
 }
 

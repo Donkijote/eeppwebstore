@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -78,6 +79,20 @@ namespace WebStore.Controllers
             ViewBag.minPrice = minPrice;
             ViewBag.maxPrice = maxPrice;
             return PartialView(viewModel);
+        }
+
+        public ActionResult ProfileMenu()
+        {
+            List<Avatars> Avatars = new List<Avatars>();
+
+            foreach(string s in Directory.GetFiles(Server.MapPath("~/Content/img/avatars/icons/"), "*.svg").Select(Path.GetFileName))
+            {
+                Avatars.Add(new Avatars { Icon = s, Selected = false });
+            }
+
+            ViewBag.Avatars = Avatars;
+
+            return PartialView();
         }
 
         private static List<TotalProductByCategory> CategoryTotal()

@@ -70,6 +70,15 @@ namespace WebStore.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &lt;script src=&quot;/Scripts/Custom-validators.min.js&quot; type=&quot;text/javascript&quot;&gt;&lt;/script&gt;.
+        /// </summary>
+        public static string CustomValidator {
+            get {
+                return ResourceManager.GetString("CustomValidator", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &lt;script src=&quot;/Scripts/jquery.interactive_3d.js&quot; async&gt;&lt;/script&gt;.
         /// </summary>
         public static string Interactive3dJs {
@@ -102,6 +111,15 @@ namespace WebStore.Resources {
         public static string JqueryUi {
             get {
                 return ResourceManager.GetString("JqueryUi", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;script src=&quot;https://rawgithub.com/hayageek/jquery-upload-file/master/js/jquery.uploadfile.min.js&quot;&gt;&lt;/script&gt;.
+        /// </summary>
+        public static string JqueryUpload {
+            get {
+                return ResourceManager.GetString("JqueryUpload", resourceCulture);
             }
         }
         

@@ -106,21 +106,14 @@ namespace WebStore.Controllers
 
                     if(HistoryDet == null)
                     {
-                        try
+                        var newHistoryDet = new tblHistoryDet()
                         {
-                            var newHistoryDet = new tblHistoryDet()
-                            {
-                                refHistory = History.IdHistory,
-                                refProduct = x.IdCode
-                            };
-                            db.tblHistoryDet.Add(newHistoryDet);
-                            db.SaveChanges();
-                        }catch(Exception ex)
-                        {
-                            
-                        }
+                            refHistory = History.IdHistory,
+                            refProduct = x.IdCode
+                        };
+                        db.tblHistoryDet.Add(newHistoryDet);
+                        db.SaveChanges();
                     }
-
                 }
                 else
                 {
@@ -128,27 +121,15 @@ namespace WebStore.Controllers
                     {
                         refUser = UserId
                     };
-                    try
+                    db.tblHistory.Add(newHistory);
+                    db.SaveChanges();
+                    var newHistoryDet = new tblHistoryDet
                     {
-                        db.tblHistory.Add(newHistory);
-                        db.SaveChanges();
-                        try
-                        {
-                            var newHistoryDet = new tblHistoryDet
-                            {
-                                refHistory = newHistory.IdHistory,
-                                refProduct = x.IdCode
-                            };
-                            db.tblHistoryDet.Add(newHistoryDet);
-                            db.SaveChanges();
-                        }catch(Exception ex)
-                        {
-                            
-                        }
-                    }catch(Exception ex)
-                    {
-
-                    }
+                        refHistory = newHistory.IdHistory,
+                        refProduct = x.IdCode
+                    };
+                    db.tblHistoryDet.Add(newHistoryDet);
+                    db.SaveChanges();
                 }
             }
             else

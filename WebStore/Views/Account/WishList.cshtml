@@ -32,7 +32,7 @@
     </header>
 </section>
 
-@Html.Partial("~/Views/Shared/profileMenu.cshtml")
+@{ Html.RenderAction("ProfileMenu", "Menu", new { childAction = true }); }
 
 <div class="container mb-5">
     <div class="table-responsive shopping-cart">
@@ -97,7 +97,7 @@
                     <td>
                         <div class="product-item">
                             <a class="product-thumb" href="shop-single.html">
-                            <img src="~/Content/img/products/25041002-1.jpg" alt="Product">
+                                <img src="~/Content/img/products/25041002-1.jpg" alt="Product">
                             </a>
                             <div class="product-info">
                                 <h4 class="product-title"><a href="shop-single.html">Proyector Bree 480W</a></h4>
@@ -128,6 +128,13 @@
         <a class="btn btn-orangered" href="javascript:void(0);">@WebStore.Resources.Buttons.QuoteProducts</a>
     </div>
 </div>
+
+@section Included{
+    @Html.Raw(WebStore.Resources.Scripts.JqueryValidate)
+    @Html.Raw(WebStore.Resources.Scripts.JqueryValidateUnobtrousive)
+    @Html.Raw(WebStore.Resources.Scripts.CustomValidator)
+}
+
 
 @section Scripts{
     <script>
