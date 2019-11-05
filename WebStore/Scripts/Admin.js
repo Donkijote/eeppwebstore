@@ -398,15 +398,15 @@ $.AdminJs.LogInUp = {
     onGoogleLoginSuccess: function (user) {
         var _this = this;
         googleUser = user.getBasicProfile();
+        console.log('Image URL: ' + googleUser.getImageUrl());
         $.AdminJs.Ajax.init({
             type: 'POST',
             url: '/en/User/GoogleLogIn/',
-            data: { Id: googleUser.getId(), Name: googleUser.getName(), Email: googleUser.getEmail() },
+            data: { Id: googleUser.getId(), Name: googleUser.getName(), Email: googleUser.getEmail(), Photo: googleUser.getImageUrl() },
             action: (x) => {
                 if (x.status == "info") {
                     var auth2 = gapi.auth2.getAuthInstance();
                     auth2.signOut().then(function () {
-                        console.log('User signed out.');
                         $.AdminJs.Alert.warning(x.title, x.responseText);
                     });
                 } else {
@@ -423,17 +423,15 @@ $.AdminJs.LogInUp = {
     },
     sendGoogleLogIn: function (user) {
         if (user.getBasicProfile() != undefined) {
-            console.log("iside if")
             googleUser = user.getBasicProfile();
             $.AdminJs.Ajax.init({
                 type: 'POST',
                 url: '/en/User/GoogleLogIn/',
-                data: { Id: googleUser.getId(), Name: googleUser.getName(), Email: googleUser.getEmail() },
+                data: { Id: googleUser.getId(), Name: googleUser.getName(), Email: googleUser.getEmail(), Photo: googleUser.getImageUrl() },
                 action: (x) => {
                     if (x.status == "info") {
                         var auth2 = gapi.auth2.getAuthInstance();
                         auth2.signOut().then(function () {
-                            console.log('User signed out.');
                             $.AdminJs.Alert.warning(x.title, x.responseText);
                         });
                     } else {
@@ -443,13 +441,17 @@ $.AdminJs.LogInUp = {
             })
         }
     },
-    refreshValues: function () {
-        if (auth2) {
+    refreshValues: function (val) {
+        var _this = this;
+        console.log('Signin state changed to ', val);
+        if (auth2 && val) {
             console.log('Refreshing values...');
 
             googleUser = auth2.currentUser.get();
 
-            console.log(googleUser, googleUser.getBasicProfile(), googleUser.getAuthResponse());
+            console.log(googleUser.getBasicProfile());
+
+            
         }
     },
     GoogleAppiSetUp: function (x) {
@@ -470,10 +472,13 @@ $.AdminJs.LogInUp = {
                 if (document.getElementById('GoogleLogIn') != undefined) {
                     _this.attachSignin(document.getElementById('GoogleLogIn'));
                 }
+                
+                auth2.isSignedIn.listen(_this.refreshValues);
                 auth2.currentUser.listen(_this.sendGoogleLogIn);
             }
             //auth2.isSignedIn.listen(_this.signinChanged);
-            //_this.refreshValues();
+            
+            
         };
         appStart();
     },
@@ -495,7 +500,6 @@ $.AdminJs.LogInUp = {
             }
         };
     }
-
 }
 
 $.AdminJs.compare = {
@@ -2050,7 +2054,7 @@ $.AdminJs.Ajax = {
                 }
             },
             error: function (e) {
-                console.log(e.Params)
+                console.log(e)
                 $('#errorReport').html(e.responseText);
             }
         })

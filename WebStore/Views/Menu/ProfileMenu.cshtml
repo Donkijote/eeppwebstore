@@ -32,6 +32,10 @@
                         {
                             <img class="img-fluid" src="https://graph.facebook.com/@Session["idFacebook"].ToString()/picture?type=normal " alt="User">
                         }
+                        else if (Session["Provider"].ToString() == "Google")
+                        {
+                            <img class="img-fluid" src="@Session["img"]" alt="User">
+                        }
                     }
 
                 </div>

@@ -249,7 +249,7 @@
 }
 
 <section id="top-categories" data-name="categories" class="mg-content">
-    @if (Model.FirstHistory == null)
+    @if (Model.FirstHistory == null || Model.FirstHistory.Count() > 0 || !Model.FirstHistory.Any())
     {
         <div class="block-separator mt-3"></div>
         <div class="block-separator"></div>

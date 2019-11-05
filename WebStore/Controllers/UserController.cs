@@ -842,43 +842,49 @@ namespace WebStore.Controllers
 
         private string LogOn(string userName, string password, bool rememberMe)
         {
-            webstoreEntities db = new webstoreEntities();
-            var valid = db.tblUsers.Where(x => x.strEmail == userName).FirstOrDefault();
-            if (valid != null)
+            using (webstoreEntities db = new webstoreEntities())
             {
-                if(String.Compare(Crypto.Hash(password), valid.strPassword) == 0){
-                    if (valid.boolValidate == true)
+                var valid = db.tblUsers.Where(x => x.strEmail == userName).FirstOrDefault();
+                if (valid != null)
+                {
+                    if (String.Compare(Crypto.Hash(password), valid.strPassword) == 0)
                     {
-                        var avatar = db.tblAvatars.Where(x => x.refUser == valid.idUser).FirstOrDefault();
-                        CookieHelper newCookieHelper = new CookieHelper(HttpContext.Request, HttpContext.Response);
-                        newCookieHelper.SetLoginCookie(userName, password, rememberMe);
-                        System.Web.HttpContext.Current.Session["lvl"] = valid.intLevel;
-                        System.Web.HttpContext.Current.Session["id"] = valid.idUser;
-                        System.Web.HttpContext.Current.Session["email"] = valid.strEmail;
-                        System.Web.HttpContext.Current.Session["names"] = valid.strNames;
-                        System.Web.HttpContext.Current.Session["lastname"] = valid.strLastNames;
-                        System.Web.HttpContext.Current.Session["date"] = valid.strRegistrationDate;
-                        System.Web.HttpContext.Current.Session["Provider"] = "Local";
-                        if(avatar != null)
-                            System.Web.HttpContext.Current.Session["img"] = avatar.strAvatarName;
-                            System.Web.HttpContext.Current.Session["imgType"] = avatar.strAvatarType;
+                        if (valid.boolValidate == true)
+                        {
+                            var avatar = db.tblAvatars.Where(x => x.refUser == valid.idUser).FirstOrDefault();
+                            CookieHelper newCookieHelper = new CookieHelper(HttpContext.Request, HttpContext.Response);
+                            newCookieHelper.SetLoginCookie(userName, password, rememberMe);
+                            System.Web.HttpContext.Current.Session["lvl"] = valid.intLevel;
+                            System.Web.HttpContext.Current.Session["id"] = valid.idUser;
+                            System.Web.HttpContext.Current.Session["email"] = valid.strEmail;
+                            System.Web.HttpContext.Current.Session["names"] = valid.strNames;
+                            System.Web.HttpContext.Current.Session["lastname"] = valid.strLastNames;
+                            System.Web.HttpContext.Current.Session["date"] = valid.strRegistrationDate;
+                            System.Web.HttpContext.Current.Session["Provider"] = "Local";
+                            if (avatar != null)
+                            {
+                                System.Web.HttpContext.Current.Session["img"] = avatar.strAvatarName;
+                                System.Web.HttpContext.Current.Session["imgType"] = avatar.strAvatarType;
+                            }
 
-                        return "OK";
+                            return "OK";
+                        }
+                        else
+                        {
+                            return "email";
+                        }
                     }
                     else
                     {
-                        return "email";
+                        return "password";
                     }
                 }
                 else
                 {
-                    return "password";
+                    return "invalid";
                 }
             }
-            else
-            {
-                return "invalid";
-            }
+            
         }
 
         private string FacebookLogOn(ExternalLogin facebook)
@@ -919,6 +925,8 @@ namespace WebStore.Controllers
                 System.Web.HttpContext.Current.Session["lastname"] = user.strLastNames;
                 System.Web.HttpContext.Current.Session["Provider"] = "Google";
                 System.Web.HttpContext.Current.Session["date"] = user.strRegistrationDate;
+                System.Web.HttpContext.Current.Session["img"] = google.Photo;
+                System.Web.HttpContext.Current.Session["imgType"] = "img";
                 return "OK";
             }
             catch (Exception ex)
