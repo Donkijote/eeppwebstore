@@ -13,40 +13,51 @@ namespace WebStore.Controllers
         // GET: Menu
         public ActionResult MenuBig()
         {
-            var viewModel = new BindingCateogyFamilyChild();
+            
             using (webstoreEntities db = new webstoreEntities())
             {
-                viewModel.family = db.tblFamily.Select(x => new Family { IdFamily = x.idFamily, StrName = x.strName, StrSeo = x.strSeo, IntOrder = x.intOrder }).OrderBy(y => y.IntOrder).ToList();
-                viewModel.category = db.tblCategories.Select(x => x).ToList();
-            }
-            if(Session["id"] != null)
-            {
-                viewModel.Notification = new Notification { Quotings = 0 };
-                viewModel.Notification = new Notification { Cart = 0 };
-            }
-            else
-            {
-                List<QuotingsProductList> QuoteProductList = System.Web.HttpContext.Current.Session["QuotingList"] as List<QuotingsProductList>;
-                List<CartProductList> CartProductList = System.Web.HttpContext.Current.Session["CartList"] as List<CartProductList>;
-                if (QuoteProductList != null)
+                var viewModel = new BindingCateogyFamilyChild
                 {
-                    viewModel.Notification = new Notification { Quotings = QuoteProductList.Count() };
+                    family = db.tblFamily.Select(x => new Family { IdFamily = x.idFamily, StrName = x.strName, StrSeo = x.strSeo, IntOrder = x.intOrder }).OrderBy(y => y.IntOrder).ToList(),
+                    category = db.tblCategories.Select(x => x).ToList()
+                };
+                if (Session["id"] != null)
+                {
+                    int UserId = Int32.Parse(Session["id"].ToString());
+                    List<tblQuotingQueDet> quotingQueDet = (from a in db.tblQuotingQueDet
+                                                            join b in db.tblQuotingQue
+                                                            on a.refQuotingQue equals b.IdQuotingQue
+                                                            where b.refUser == UserId
+                                                            select a).ToList();
+
+                    viewModel.Notification = new Notification { Quotings = quotingQueDet.Count(), Cart = 0 };
                 }
                 else
                 {
-                    viewModel.Notification = new Notification { Quotings = 0 };
+                    List<QuotingsProductList> QuoteProductList = Session["QuotingList"] as List<QuotingsProductList>;
+                    List<CartProductList> CartProductList = Session["CartList"] as List<CartProductList>;
+                    viewModel.Notification = new Notification ();
+                    if (QuoteProductList != null)
+                    {
+                        viewModel.Notification.Quotings = QuoteProductList.Count();
+                    }
+                    else
+                    {
+                        viewModel.Notification.Quotings = 0;
+                    }
+                    if (CartProductList != null)
+                    {
+                        viewModel.Notification.Cart = CartProductList.Count();
+                    }
+                    else
+                    {
+                        viewModel.Notification.Cart = 0;
+                    }
+                    viewModel.ProductList = CartProductList;
                 }
-                if (CartProductList != null)
-                {
-                    viewModel.Notification = new Notification { Cart = CartProductList.Count() };
-                }
-                else
-                {
-                    viewModel.Notification = new Notification { Cart = 0 };
-                }
-                viewModel.ProductList = CartProductList;
+
+                return PartialView(viewModel);
             }
-            return PartialView(viewModel);
         }
 
         public ActionResult MenuMobile()

@@ -4472,7 +4472,11 @@ select:focus {
     border-color: red !important; }
   .form-control:disabled, .form-control[readonly] {
     background-color: #f5f5f5;
-    cursor: not-allowed; }
+    cursor: not-allowed;
+    pointer-events: none; }
+    .form-control:disabled:focus, .form-control[readonly]:focus {
+      background-color: #f5f5f5;
+      border: 1px solid #e0e0e0; }
   .form-control::-moz-placeholder, .form-control ::-webkit-input-placeholder {
     color: #999 !important; }
   .form-control.input-validation-error {

@@ -46,6 +46,30 @@ namespace WebStore.Functions
             return input;
         }
 
+        public static IOrderedEnumerable<Products> SetOrder(string SortedBy, List<Products> products)
+        {
+            var sorted = products.OrderBy(o => o.strNombre);
+
+            if (SortedBy == null || SortedBy == "" || SortedBy == "nameA")
+            {
+                sorted = products.OrderBy(x => x.strNombre);
+            }
+            else if (SortedBy == "nameZ")
+            {
+                sorted = products.OrderByDescending(x => x.strNombre);
+            }
+            else if (SortedBy == "high")
+            {
+                sorted = products.OrderByDescending(x => x.intPrecioNum);
+            }
+            else if (SortedBy == "low")
+            {
+                sorted = products.OrderBy(x => x.intPrecioNum);
+            }
+
+            return sorted;
+        }
+
         public static string getTitle(string id)
         {
             using (webstoreEntities db = new webstoreEntities())
@@ -74,18 +98,18 @@ namespace WebStore.Functions
             }
         }
 
-        public static MailMessage GenerateEmail(MailAddress toEmail, string subject, string body)
+        public static MailMessage GenerateEmail(MailAddress toEmail, string subject, string body, string width = "500")
         {
             var message = new MailMessage(Configuration.GetEmail(), toEmail)
             {
                 Subject = subject,
-                Body = Function.PopulateEmailBody(body),
+                Body = PopulateEmailBody(body, width),
                 IsBodyHtml = true
             };
             return message;
         }
 
-        public static string PopulateEmailBody(string bodyContent)
+        public static string PopulateEmailBody(string bodyContent, string width = "500")
         {
             string body = string.Empty;
             using (StreamReader reader = new StreamReader(HttpContext.Current.Server.MapPath("~/Views/Shared/_EmailTemplate.html")))
@@ -95,6 +119,7 @@ namespace WebStore.Functions
             //body = body.Replace("{Url}", url);
             body = body.Replace("{BodyContent}", bodyContent);
             body = body.Replace("{unSubcribeUrl}", "#");
+            body = body.Replace("{Width}", width);
             return body;
         }
 
@@ -146,6 +171,11 @@ namespace WebStore.Functions
                     }).FirstOrDefault();
         }
 
+        public static string SetQuotingQueDet(webstoreEntities db, tblQuotingQue x, QuotingsProductList y)
+        {
+            return AddQuotingQueDet(db, x, y);
+        }
+
         public static List<Products> GetOffertOrOffertTime(List<Products> pro, webstoreEntities db)
         {
             return CheckOffertOrOffertTime(pro, db);
@@ -193,6 +223,10 @@ namespace WebStore.Functions
             return pro;
         }
 
+        public static List<GetProducts> GetProductsList(webstoreEntities db)
+        {
+            return GetProducts(db);
+        }
         public static List<Products> GetFamilyOrCategory(string id, string categoryName, webstoreEntities db)
         {
             return FamilyOrCategory(id, categoryName, db);
@@ -202,48 +236,19 @@ namespace WebStore.Functions
             ElectropEntities dbE = new ElectropEntities();
             if (categoryName == null)
             {
-                var s = (from p in db.tblProducts
-                         join f in db.tblFamily
-                         on p.refFamily equals f.idFamily
-                         join c in db.tblCategories
-                         on p.refCategory equals c.idCategoria
-                         where f.strSeo == id
-                         select new
-                         {
-                             Codigo = p.strCode,
-                             Name = p.strName,
-                             Price = p.intPrice,
-                             Category = c.strNombre,
-                             Offert = p.refOffert,
-                             OffertTime = p.refOfferTime
-                         }).AsEnumerable()
-                                .Select(x => new Products
-                                {
-                                    strCodigo = x.Codigo,
-                                    strNombre = x.Name,
-                                    intPrecio = Function.FormatNumber(x.Price),
-                                    intPrecioNum = x.Price,
-                                    categorySeo = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(x.Category),
-                                    Offert = x.Offert,
-                                    OffertTime = x.OffertTime
-                                }).ToList();
-
-                var brands = (from a in db.tblRelBrand
-                              join b in db.tblBrand
-                              on a.refBrand equals b.idBrand
-                              select new
-                              {
-                                  refProd = a.refProd,
-                                  brand = b.strName
-                              }).ToList();
-
-                foreach (var i in s)
-                {
-                    if (brands.Any(b => b.refProd == i.strCodigo))
+                var s = GetProducts(db).Where(x => x.FamilySeo == id)
+                    .Select(x => new Products
                     {
-                        i.Brand = brands.Where(b => b.refProd == i.strCodigo).Select(l => l.brand).FirstOrDefault();
-                    }
-                }
+                        strCodigo = x.Codigo,
+                        strNombre = x.Name,
+                        intPrecio = Function.FormatNumber(x.Price),
+                        intPrecioNum = x.Price,
+                        categorySeo = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(x.Category),
+                        Offert = x.Offert,
+                        OffertTime = x.OffertTime
+                    }).ToList();
+
+                s = SetBrands(s, db);
 
                 s = CheckOffertOrOffertTime(s, db);
 
@@ -251,53 +256,102 @@ namespace WebStore.Functions
             }
             else
             {
-                var s = (from p in db.tblProducts
-                         join f in db.tblFamily
-                         on p.refFamily equals f.idFamily
-                         join c in db.tblCategories
-                         on p.refCategory equals c.idCategoria
-                         where c.strNombre == categoryName
-                         select new
-                         {
-                             Codigo = p.strCode,
-                             Name = p.strName,
-                             Price = p.intPrice,
-                             Category = c.strNombre,
-                             Offert = p.refOffert,
-                             OffertTime = p.refOfferTime
-                         }).AsEnumerable()
-                                .Select(x => new Products
-                                {
-                                    strCodigo = x.Codigo,
-                                    strNombre = x.Name,
-                                    intPrecio = Function.FormatNumber(x.Price),
-                                    intPrecioNum = x.Price,
-                                    categorySeo = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(x.Category),
-                                    Offert = x.Offert,
-                                    OffertTime = x.OffertTime
-                                }).ToList();
-                
+                var s = GetProducts(db).Where(x => x.CategorySeo == categoryName)
+                        .Select(x => new Products
+                        {
+                            strCodigo = x.Codigo,
+                            strNombre = x.Name,
+                            intPrecio = Function.FormatNumber(x.Price),
+                            intPrecioNum = x.Price,
+                            categorySeo = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(x.Category),
+                            Offert = x.Offert,
+                            OffertTime = x.OffertTime
+                        }).ToList();
 
-                var brands = (from a in db.tblRelBrand
-                              join b in db.tblBrand
-                              on a.refBrand equals b.idBrand
-                              select new
-                              {
-                                  refProd = a.refProd,
-                                  brand = b.strName
-                              }).ToList();
 
-                foreach (var i in s)
-                {
-                    if (brands.Any(b => b.refProd == i.strCodigo))
-                    {
-                        i.Brand = brands.Where(b => b.refProd == i.strCodigo).Select(l => l.brand).FirstOrDefault();
-                    }
-                }
+                s = SetBrands(s, db);
 
                 s = CheckOffertOrOffertTime(s, db);
 
                 return s;
+            }
+        }
+        private static List<GetProducts> GetProducts(webstoreEntities db)
+        {
+            return (from p in db.tblProducts
+                    join f in db.tblFamily
+                    on p.refFamily equals f.idFamily
+                    join c in db.tblCategories
+                    on p.refCategory equals c.idCategoria
+                    select new GetProducts
+                    {
+                        Codigo = p.strCode,
+                        Name = p.strName,
+                        Price = p.intPrice,
+                        Category = c.strNombre,
+                        Offert = p.refOffert,
+                        OffertTime = p.refOfferTime,
+                        FamilySeo = f.strSeo,
+                        CategorySeo = c.strNombre
+                    }).ToList();
+        }
+        private static List<Products> SetBrands(List<Products> products,webstoreEntities db)
+        {
+            var brands = (from a in db.tblRelBrand
+                          join b in db.tblBrand
+                          on a.refBrand equals b.idBrand
+                          select new
+                          {
+                              refProd = a.refProd,
+                              brand = b.strName
+                          }).ToList();
+
+            foreach (var i in products)
+            {
+                if (brands.Any(b => b.refProd == i.strCodigo))
+                {
+                    i.Brand = brands.Where(b => b.refProd == i.strCodigo).Select(l => l.brand).FirstOrDefault();
+                }
+            }
+
+            return products;
+        }
+
+        private static string AddQuotingQueDet(webstoreEntities db, tblQuotingQue quotingQue, QuotingsProductList quotingsProduct)
+        {
+            var quotingQueDet = db.tblQuotingQueDet.Where(x => x.refQuotingQue == quotingQue.IdQuotingQue && x.refCodProd == quotingsProduct.Code).FirstOrDefault();
+            if (quotingQueDet != null)
+            {
+                try
+                {
+                    quotingQueDet.Quantity += quotingsProduct.Quantity;
+                    db.SaveChanges();
+                    return "ok";
+                }
+                catch (Exception ex)
+                {
+                    return ex.ToString();                    
+                }
+            }
+            else
+            {
+                try
+                {
+                    tblQuotingQueDet newQuotingQueDet = new tblQuotingQueDet
+                    {
+                        refQuotingQue = quotingQue.IdQuotingQue,
+                        refCodProd = quotingsProduct.Code,
+                        Quantity = quotingsProduct.Quantity
+                    };
+
+                    db.tblQuotingQueDet.Add(newQuotingQueDet);
+                    db.SaveChanges();
+                    return "ok";                    
+                }
+                catch (Exception ex)
+                {
+                    return ex.ToString();                   
+                }
             }
         }
     }

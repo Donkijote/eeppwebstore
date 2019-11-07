@@ -50,6 +50,20 @@ namespace WebStore.Models
         public IEnumerable<Stock> Stock { get; set; }
     }
 
+    public class GetProducts
+    {
+        public int Id { get; set; }
+        public string Codigo {get; set;}
+        public string CodigoS { get; set; }
+        public string Name {get; set;} 
+        public int Price {get; set;} 
+        public string Category {get; set;} 
+        public int? Offert {get; set;} 
+        public int? OffertTime {get; set;} 
+        public string FamilySeo {get; set;} 
+        public string CategorySeo {get; set;} 
+}
+
     public class BindProductPageModels
     {
         public ProductsSingle Products { get; set; }

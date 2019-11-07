@@ -18,37 +18,20 @@ namespace WebStore.Controllers
         {
             webstoreEntities db = new webstoreEntities();
             ElectropEntities dbE = new ElectropEntities();
-            Warehouse stock = new Warehouse();
             BindProductPageModels models = new BindProductPageModels();
-            var x = (from p in db.tblProducts
-                     join f in db.tblFamily
-                     on p.refFamily equals f.idFamily
-                     join c in db.tblCategories
-                     on p.refCategory equals c.idCategoria
-                     where p.strCode == idp
-                     select new
-                     {
-                         Id = p.idProduct,
-                         Codigo = p.strCode,
-                         CodigoS = p.strCodeS,
-                         Name = p.strName,
-                         Price = p.intPrice,
-                         Category = c.strSeo,
-                         Offert = p.refOffert,
-                         OffertTime = p.refOfferTime
-                     }).AsEnumerable()
-                        .Select(p => new ProductsSingle
-                        {
-                            IdCode = p.Id,
-                            strCodigo = p.Codigo,
-                            Cod = p.CodigoS,
-                            strNombre = p.Name,
-                            intPrecio = Function.FormatNumber(p.Price),
-                            intPrecioNum = p.Price,
-                            categorySeo = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(p.Category),
-                            Offert = p.Offert,
-                            OffertTime = p.OffertTime
-                        }).FirstOrDefault();
+            var x = Function.GetProductsList(db).Where(r => r.Codigo == idp)
+                    .Select(p => new ProductsSingle
+                    {
+                        IdCode = p.Id,
+                        strCodigo = p.Codigo,
+                        Cod = p.CodigoS,
+                        strNombre = p.Name,
+                        intPrecio = Function.FormatNumber(p.Price),
+                        intPrecioNum = p.Price,
+                        categorySeo = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(p.Category),
+                        Offert = p.Offert,
+                        OffertTime = p.OffertTime
+                    }).FirstOrDefault();
             ViewBag.Category = id;
 
             var tList = db.tblOffertTime.Where(t => t.strTime >= DateTime.Now).Select(j => j).ToList();
@@ -88,7 +71,7 @@ namespace WebStore.Controllers
             ViewBag.Title = Resources.Titles.Product + " " + x.strNombre;
             ViewBag.Breadcrumbs = Resources.Titles.Product + " #" + x.strCodigo;
 
-            x.Stock = stock.GetStock(x.Cod);
+            x.Stock = Warehouse.GetStock(x.Cod);
 
             x.Ficha = db.tblFicha.Where(w => w.refCodProd == x.strCodigo).FirstOrDefault();
 
@@ -150,8 +133,10 @@ namespace WebStore.Controllers
                 }
                 else
                 {
-                    HttpCookie History = new HttpCookie("History");
-                    History.Expires = DateTime.Now.AddHours(24);
+                    HttpCookie History = new HttpCookie("History")
+                    {
+                        Expires = DateTime.Now.AddHours(24)
+                    };
 
                     History["Object-1"] = x.strCodigo;
 

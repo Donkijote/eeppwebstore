@@ -61,7 +61,11 @@
         <AssociationConnector Association="webstoreModel.FK_tblHistoryDet_tblProducts" />
         <EntityTypeShape EntityType="webstoreModel.tblAvatars" Width="1.5" PointX="13.375" PointY="5.5" />
         <AssociationConnector Association="webstoreModel.FK_tblAvatars_tblUsers" />
-      </Diagram>
+        <EntityTypeShape EntityType="webstoreModel.tblQuotingsDet" Width="1.5" PointX="15.25" PointY="4.25" />
+        <EntityTypeShape EntityType="webstoreModel.tblQuotings" Width="1.5" PointX="15.25" PointY="1.125" />
+        <AssociationConnector Association="webstoreModel.FK_tblQuotings_tblUsers" />
+        <AssociationConnector Association="webstoreModel.FK_tblQuotingsDet_tblQuotings" />
+        </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>

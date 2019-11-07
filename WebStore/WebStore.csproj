@@ -387,6 +387,12 @@
     <Compile Include="Models\tblQuotingQueDet.cs">
       <DependentUpon>Connection.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\tblQuotings.cs">
+      <DependentUpon>Connection.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tblQuotingsDet.cs">
+      <DependentUpon>Connection.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\tblRegiones.cs">
       <DependentUpon>Connection.tt</DependentUpon>
     </Compile>

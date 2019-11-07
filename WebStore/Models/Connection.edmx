@@ -287,6 +287,28 @@
           <Property Name="refCodProd" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Quantity" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="tblQuotings">
+          <Key>
+            <PropertyRef Name="IdQuoting" />
+          </Key>
+          <Property Name="IdQuoting" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="strName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="strLastname" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="strEmail" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="intPhone" Type="int" Nullable="false" />
+          <Property Name="strDate" Type="datetime" Nullable="false" />
+          <Property Name="strComment" Type="text" />
+          <Property Name="refUser" Type="int" />
+        </EntityType>
+        <EntityType Name="tblQuotingsDet">
+          <Key>
+            <PropertyRef Name="IdQuotingDet" />
+          </Key>
+          <Property Name="IdQuotingDet" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="refQuoting" Type="int" Nullable="false" />
+          <Property Name="refProduct" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="intQuantity" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="tblRegiones">
           <Key>
             <PropertyRef Name="idRegion" />
@@ -658,6 +680,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_tblQuotings_tblUsers">
+          <End Role="tblUsers" Type="Self.tblUsers" Multiplicity="0..1" />
+          <End Role="tblQuotings" Type="Self.tblQuotings" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblUsers">
+              <PropertyRef Name="idUser" />
+            </Principal>
+            <Dependent Role="tblQuotings">
+              <PropertyRef Name="refUser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblQuotingsDet_tblQuotings">
+          <End Role="tblQuotings" Type="Self.tblQuotings" Multiplicity="1" />
+          <End Role="tblQuotingsDet" Type="Self.tblQuotingsDet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblQuotings">
+              <PropertyRef Name="IdQuoting" />
+            </Principal>
+            <Dependent Role="tblQuotingsDet">
+              <PropertyRef Name="refQuoting" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_tblRelBrand_tblBrand">
           <End Role="tblBrand" Type="Self.tblBrand" Multiplicity="0..1" />
           <End Role="tblRelBrand" Type="Self.tblRelBrand" Multiplicity="*" />
@@ -695,6 +741,8 @@
           <EntitySet Name="tblQuestions" EntityType="Self.tblQuestions" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblQuotingQue" EntityType="Self.tblQuotingQue" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblQuotingQueDet" EntityType="Self.tblQuotingQueDet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblQuotings" EntityType="Self.tblQuotings" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblQuotingsDet" EntityType="Self.tblQuotingsDet" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblRegiones" EntityType="Self.tblRegiones" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblRelBrand" EntityType="Self.tblRelBrand" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblUsers" EntityType="Self.tblUsers" Schema="dbo" store:Type="Tables" />
@@ -809,6 +857,14 @@
           <AssociationSet Name="FK_tblQuotingQueDet_tblQuotingQue" Association="Self.FK_tblQuotingQueDet_tblQuotingQue">
             <End Role="tblQuotingQue" EntitySet="tblQuotingQue" />
             <End Role="tblQuotingQueDet" EntitySet="tblQuotingQueDet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblQuotings_tblUsers" Association="Self.FK_tblQuotings_tblUsers">
+            <End Role="tblUsers" EntitySet="tblUsers" />
+            <End Role="tblQuotings" EntitySet="tblQuotings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblQuotingsDet_tblQuotings" Association="Self.FK_tblQuotingsDet_tblQuotings">
+            <End Role="tblQuotings" EntitySet="tblQuotings" />
+            <End Role="tblQuotingsDet" EntitySet="tblQuotingsDet" />
           </AssociationSet>
           <AssociationSet Name="FK_tblRelBrand_tblBrand" Association="Self.FK_tblRelBrand_tblBrand">
             <End Role="tblBrand" EntitySet="tblBrand" />
@@ -978,6 +1034,16 @@
           <AssociationSet Name="FK_tblAvatars_tblUsers" Association="webstoreModel.FK_tblAvatars_tblUsers">
             <End Role="tblUsers" EntitySet="tblUsers" />
             <End Role="tblAvatars" EntitySet="tblAvatars" />
+          </AssociationSet>
+          <EntitySet Name="tblQuotingsDet" EntityType="webstoreModel.tblQuotingsDet" />
+          <EntitySet Name="tblQuotings" EntityType="webstoreModel.tblQuotings" />
+          <AssociationSet Name="FK_tblQuotings_tblUsers" Association="webstoreModel.FK_tblQuotings_tblUsers">
+            <End Role="tblUsers" EntitySet="tblUsers" />
+            <End Role="tblQuotings" EntitySet="tblQuotings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblQuotingsDet_tblQuotings" Association="webstoreModel.FK_tblQuotingsDet_tblQuotings">
+            <End Role="tblQuotings" EntitySet="tblQuotings" />
+            <End Role="tblQuotingsDet" EntitySet="tblQuotingsDet" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="tblCountry">
@@ -1310,6 +1376,7 @@
           <Property Name="strProvider" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="tblHistory" Relationship="webstoreModel.FK_tblHistory_tblUsers" FromRole="tblUsers" ToRole="tblHistory" />
           <NavigationProperty Name="tblAvatars" Relationship="webstoreModel.FK_tblAvatars_tblUsers" FromRole="tblUsers" ToRole="tblAvatars" />
+          <NavigationProperty Name="tblQuotings" Relationship="webstoreModel.FK_tblQuotings_tblUsers" FromRole="tblUsers" ToRole="tblQuotings" />
         </EntityType>
         <EntityType Name="tblAddresses">
           <Key>
@@ -1687,6 +1754,55 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="tblQuotingsDet">
+          <Key>
+            <PropertyRef Name="IdQuotingDet" />
+          </Key>
+          <Property Name="IdQuotingDet" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="refQuoting" Type="Int32" Nullable="false" />
+          <Property Name="refProduct" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="intQuantity" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="tblQuotings" Relationship="webstoreModel.FK_tblQuotingsDet_tblQuotings" FromRole="tblQuotingsDet" ToRole="tblQuotings" />
+        </EntityType>
+        <EntityType Name="tblQuotings">
+          <Key>
+            <PropertyRef Name="IdQuoting" />
+          </Key>
+          <Property Name="IdQuoting" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="strName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="strLastname" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="strEmail" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="intPhone" Type="Int32" Nullable="false" />
+          <Property Name="strDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="strComment" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="refUser" Type="Int32" />
+          <NavigationProperty Name="tblUsers" Relationship="webstoreModel.FK_tblQuotings_tblUsers" FromRole="tblQuotings" ToRole="tblUsers" />
+          <NavigationProperty Name="tblQuotingsDet" Relationship="webstoreModel.FK_tblQuotingsDet_tblQuotings" FromRole="tblQuotings" ToRole="tblQuotingsDet" />
+        </EntityType>
+        <Association Name="FK_tblQuotings_tblUsers">
+          <End Type="webstoreModel.tblUsers" Role="tblUsers" Multiplicity="0..1" />
+          <End Type="webstoreModel.tblQuotings" Role="tblQuotings" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblUsers">
+              <PropertyRef Name="idUser" />
+            </Principal>
+            <Dependent Role="tblQuotings">
+              <PropertyRef Name="refUser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblQuotingsDet_tblQuotings">
+          <End Type="webstoreModel.tblQuotings" Role="tblQuotings" Multiplicity="1" />
+          <End Type="webstoreModel.tblQuotingsDet" Role="tblQuotingsDet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblQuotings">
+              <PropertyRef Name="IdQuoting" />
+            </Principal>
+            <Dependent Role="tblQuotingsDet">
+              <PropertyRef Name="refQuoting" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2034,6 +2150,30 @@
                 <ScalarProperty Name="strAvatarType" ColumnName="strAvatarType" />
                 <ScalarProperty Name="strAvatarName" ColumnName="strAvatarName" />
                 <ScalarProperty Name="refUser" ColumnName="refUser" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblQuotingsDet">
+            <EntityTypeMapping TypeName="webstoreModel.tblQuotingsDet">
+              <MappingFragment StoreEntitySet="tblQuotingsDet">
+                <ScalarProperty Name="intQuantity" ColumnName="intQuantity" />
+                <ScalarProperty Name="refProduct" ColumnName="refProduct" />
+                <ScalarProperty Name="refQuoting" ColumnName="refQuoting" />
+                <ScalarProperty Name="IdQuotingDet" ColumnName="IdQuotingDet" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblQuotings">
+            <EntityTypeMapping TypeName="webstoreModel.tblQuotings">
+              <MappingFragment StoreEntitySet="tblQuotings">
+                <ScalarProperty Name="refUser" ColumnName="refUser" />
+                <ScalarProperty Name="strComment" ColumnName="strComment" />
+                <ScalarProperty Name="strDate" ColumnName="strDate" />
+                <ScalarProperty Name="intPhone" ColumnName="intPhone" />
+                <ScalarProperty Name="strEmail" ColumnName="strEmail" />
+                <ScalarProperty Name="strLastname" ColumnName="strLastname" />
+                <ScalarProperty Name="strName" ColumnName="strName" />
+                <ScalarProperty Name="IdQuoting" ColumnName="IdQuoting" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

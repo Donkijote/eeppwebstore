@@ -1,4 +1,4 @@
-﻿@model IEnumerable<WebStore.Models.QuotingsProductList>
+﻿@model WebStore.Models.QuotingModelBag
 @{
     ViewBag.Title = WebStore.Resources.Titles.Quote;
 }
@@ -15,7 +15,7 @@
                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                     <ul class="breadcrumbs">
                         <li>
-                            <a href="@Url.Action("Index","Home", new { language = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName}, null)">@WebStore.Resources.Titles.Home</a>
+                            <a href="@Url.Action("Index", "Home", new { language = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName }, null)">@WebStore.Resources.Titles.Home</a>
                         </li>
                         <li class="separator">&nbsp;</li>
                         <li>
@@ -31,7 +31,7 @@
 <div class="container mb-5">
     <div class="table-responsive shopping-cart">
         @{
-            if (Model != null)
+            if (Model.ProductList != null && Model.ProductList.Any())
             {
                 <table class="table">
                     <thead>
@@ -43,7 +43,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach (var i in Model)
+                        @foreach (var i in Model.ProductList)
                         {
                             <tr>
                                 <td>
@@ -53,12 +53,30 @@
                                         </a>
                                         <div class="product-info">
                                             <h4 class="product-title">
-                                                <a href="#">@i.Name</a>
+                                                <a href="@Url.Action("Category", "Product", new { id = i.Category, idp = i.Code, language = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName })">@i.Name</a>
                                             </h4>
-                                            <div class="text-lg mb-1">$ @i.Price</div>
+                                            @{
+                                                if (i.PriceOff != "" && i.PriceOff != null)
+                                                {
+                                                    <div class="text-muted"><del>$ @i.Price</del></div>
+                                                    <div class="text-lg mb-1">$ @i.PriceOff</div>
+                                                }
+                                                else
+                                                {
+                                                    <div class="text-lg mb-1">$ @i.Price</div>
+                                                }
+                                            }
+                                            <div class="text-success text-lg">@i.PercentageOff</div>
                                             <div class="text-sm">
                                                 Disponibilidad:
-                                                <div class="d-inline text-success">En Stock</div>
+                                                @if (i.Stock)
+                                                {
+                                                    <div class="d-inline text-success">En Stock</div>
+                                                }
+                                                else
+                                                {
+                                                    <div class="d-inline text-danger">Agotado</div>
+                                                }
                                             </div>
                                         </div>
                                     </div>
@@ -66,15 +84,15 @@
 
                                 <td class="text-center">
                                     <div class="count-input">
-                                        <select class="form-control selectQuantity @(i.Quantity >= 7 ? "d-none":"")" data-id="@i.Code" @(i.Quantity >= 7 ? "disabled":"")>
+                                        <select class="form-control selectQuantity @(i.Quantity >= 7 ? "d-none" : "")" data-id="@i.Code" @(i.Quantity >= 7 ? "disabled" : "")>
                                             @for (int j = 1; j < 7; j++)
                                             {
                                                 <option value="@j" @(j == i.Quantity ? "selected" : "")>@j</option>
                                             }
                                             <option value="7" class="plusSix">+6</option>
                                         </select>
-                                        <div class="form-group mb-0 @(i.Quantity < 7 ? "d-none":"")">
-											<input type="text" name="quantityBox" class="form-control" placeholder="Cantidad" value="@i.Quantity" data-old="" maxlegth="3" data-id="@i.Code" @(i.Quantity < 7 ? "disabled":"")>
+                                        <div class="form-group mb-0 @(i.Quantity < 7 ? "d-none" : "")">
+                                            <input type="text" name="quantityBox" class="form-control" placeholder="Cantidad" value="@i.Quantity" data-old="" maxlegth="3" data-id="@i.Code" @(i.Quantity < 7 ? "disabled" : "")>
                                         </div>
                                     </div>
                                 </td>
@@ -85,85 +103,132 @@
                                     </a>
                                 </td>
                             </tr>
-                        }
+                                                }
                     </tbody>
                 </table>
-            }
-            else
-            {
+                                                }
+                                                else
+                                                {
                 <h3>No tiene productos para cotizar su lista está vacía.</h3>
-            }
+                                                }
 
         }
     </div>
 
-    <div class="custom-control custom-checkbox">
-        <input class="filled-in chk-col-deep-orange" type="checkbox" id="inform_me" checked="">
-        <label for="inform_me">Infórmame cuando los Productos de mi lista de desos estén disponibles</label>
-    </div>
 
     <div class="row col-md-6">
         <a class="btn btn-orangered" href="javascript:void(0);" data-toggle="modal" data-target="#openQuote">@WebStore.Resources.Buttons.QuoteProducts</a>
     </div>
 </div>
 
-<form class="modal fade" method="post" id="openQuote" tabindex="-1">
+<div class="modal fade" method="post" id="openQuote" tabindex="-1">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">@WebStore.Resources.Titles.SendQuote</h4>
                 <div class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></div>
             </div>
-            <div class="modal-body px-5">
-                <div class="row col-12">
-                    <label class="font-weight-bold" for="checkout-fn">@WebStore.Resources.Placeholder.FullName</label>
-                    <div class="form-group input-group">
-                        <input class="form-control" required autocomplete="off" type="text" name="quote-fn" id="quote-fn" value="@(Session["id"] != null ? Session["names"].ToString()+" "+Session["lastname"].ToString():"")" placeholder="@WebStore.Resources.Placeholder.FullName">
-                        <span class="input-group-addon">
-                            <i class="fas fa-file-signature"></i>
-                        </span>
+            <form id="QuotingForm">
+                @Html.AntiForgeryToken()
+                <div class="modal-body px-5">
+                    <div class="row">
+                        <div class="col-6">
+                            <label class="font-weight-bold" for="checkout-fn">@WebStore.Resources.Placeholder.Names</label>
+                            <div class="form-group input-group">
+                                @{
+                                    if (Session["id"] != null)
+                                    {
+                                        @Html.TextBoxFor(x => x.Form.QuotingName, new { @class = "form-control", @readonly = "true", placeholder = WebStore.Resources.Placeholder.Names, Value = Model.Values.QuotingName != null ? Model.Values.QuotingName : "" })
+                                    }
+                                    else
+                                    {
+                                        @Html.TextBoxFor(x => x.Form.QuotingName, new { @class = "form-control", placeholder = WebStore.Resources.Placeholder.Names })
+                                    }
+                                }
+                                <span class="input-group-addon">
+                                    <i class="fas fa-file-signature"></i>
+                                </span>
+                            </div>
+                            @Html.ValidationMessageFor(x => x.Form.QuotingName)
+                        </div>
+                        <div class="col-6">
+                            <label class="font-weight-bold" for="checkout-fn">@WebStore.Resources.Placeholder.LastNames</label>
+                            <div class="form-group input-group">
+                                @{
+                                    if (Session["id"] != null)
+                                    {
+                                        @Html.TextBoxFor(x => x.Form.QuotingLastname, new { @class = "form-control", placeholder = WebStore.Resources.Placeholder.LastNames, @readonly = "true", Value = Model.Values.QuotingLastname != null ? Model.Values.QuotingLastname : "" })
+                                    }
+                                    else
+                                    {
+                                        @Html.TextBoxFor(x => x.Form.QuotingLastname, new { @class = "form-control", placeholder = WebStore.Resources.Placeholder.LastNames })
+                                    }
+                                }
+                                <span class="input-group-addon">
+                                    <i class="fas fa-file-signature"></i>
+                                </span>
+                            </div>
+                            @Html.ValidationMessageFor(x => x.Form.QuotingLastname)
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <label class="font-weight-bold" for="checkout-email">@WebStore.Resources.Placeholder.Email</label>
+                            <div class="form-group input-group">
+                                @{
+                                    if (Session["id"] != null)
+                                    {
+                                        @Html.TextBoxFor(x => x.Form.QuotingEmail, new { @class = "form-control", placeholder = WebStore.Resources.Placeholder.Email, @readonly = "true", Value = Model.Values.QuotingEmail != null ? Model.Values.QuotingEmail : "" })
+                                    }
+                                    else
+                                    {
+                                        @Html.TextBoxFor(x => x.Form.QuotingEmail, new { @class = "form-control", placeholder = WebStore.Resources.Placeholder.Email })
+                                    }
+                                }
+                                <span class="input-group-addon">
+                                    <i class="fas fa-at"></i>
+                                </span>
+                            </div>
+                            @Html.ValidationMessageFor(x => x.Form.QuotingEmail)
+                        </div>
+                        <div class="col-6">
+                            <label class="font-weight-bold" for="checkout-phone">@WebStore.Resources.Placeholder.Telephone</label>
+                            <div class="form-group input-group">
+                                @{
+                                    if (Session["id"] != null)
+                                    {
+                                        @Html.TextBoxFor(x => x.Form.QuotingPhone, new { @class = "form-control", placeholder = WebStore.Resources.Placeholder.Phone, @readonly = "true", Value = Model.Values.QuotingPhone })
+                                    }
+                                    else
+                                    {
+                                        @Html.TextBoxFor(x => x.Form.QuotingPhone, new { @class = "form-control", placeholder = WebStore.Resources.Placeholder.Phone })
+                                    }
+                                }
+                                <span class="input-group-addon">
+                                    <i class="fas fa-mobile-alt"></i>
+                                </span>
+                            </div>
+                            @Html.ValidationMessageFor(x => x.Form.QuotingPhone)
+                        </div>
+                    </div>
+                    <div class="row col-12">
+                        <label class="font-weight-bold" for="ticket-description">Comentario</label>
+                        @Html.TextAreaFor(x => x.Form.QuotingComment, new { @class = "form-control", placeholder = WebStore.Resources.Placeholder.WDescription, rows = "8" })
                     </div>
                 </div>
-                <div class="row col-12">
-                    <label class="font-weight-bold" for="checkout-email">@WebStore.Resources.Placeholder.Email</label>
-                    <div class="form-group input-group">
-                        <input class="form-control" required autocomplete="off" type="email" name="quote-email" id="quote-email" value="@(Session["id"] != null ? Session["email"].ToString():"")" placeholder="@WebStore.Resources.Placeholder.Email">
-                        <span class="input-group-addon">
-                            <i class="fas fa-at"></i>
-                        </span>
-                    </div>
+                <div class="modal-footer">
+                    <button class="btn btn-orangered" type="submit">@WebStore.Resources.Buttons.Quote</button>
                 </div>
-                <div class="row col-12">
-                    <label class="font-weight-bold" for="checkout-company">@WebStore.Resources.Placeholder.Company</label>
-                    <div class="form-group input-group">
-                        <input class="form-control" autocomplete="off" type="text" name="quote-company" id="quote-company" placeholder="@WebStore.Resources.Placeholder.Company">
-                        <span class="input-group-addon">
-                            <i class="fas fa-industry"></i>
-                        </span>
-                    </div>
-                </div>
-                <div class="row col-12">
-                    <label class="font-weight-bold" for="checkout-phone">@WebStore.Resources.Placeholder.Telephone</label>
-                    <div class="form-group input-group">
-                        <input class="form-control" autocomplete="off" type="text" name="quote-phone" id="quote-phone" placeholder="@WebStore.Resources.Placeholder.Phone">
-                        <span class="input-group-addon">
-                            <i class="fas fa-mobile-alt"></i>
-                        </span>
-                    </div>
-                </div>
-                <div class="row col-12">
-                    <label for="ticket-description">@WebStore.Resources.Placeholder.Description</label>
-                    <textarea class="form-control" name="quote-description" id="quote-description" rows="8" placeholder="@WebStore.Resources.Placeholder.WDescription"></textarea>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-orangered" type="submit">@WebStore.Resources.Buttons.Quote</button>
-            </div>
+            </form>
         </div>
     </div>
-</form>
+</div>
 
-
+@section Included{
+    @Html.Raw(WebStore.Resources.Scripts.JqueryValidate)
+    @Html.Raw(WebStore.Resources.Scripts.JqueryValidateUnobtrousive)
+    @Html.Raw(WebStore.Resources.Scripts.SweetAlert)
+}
 @section Scripts{
     <script>
         $(function () {

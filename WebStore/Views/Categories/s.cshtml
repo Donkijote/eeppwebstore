@@ -180,7 +180,10 @@
                                 {
                                     <span class="mg-product-badge bg-success">Oferta</span>
                                 }
-                                <a class="mg-product-wish bg-secondary" data-toggle="tooltip" data-placement="top" title="@WebStore.Resources.Buttons.Quote" data-original-title="@WebStore.Resources.Buttons.Quote">
+                                <a class="mg-product-wish bg-secondary" data-toggle="tooltip" data-placement="top" title="@WebStore.Resources.Buttons.Quote" data-original-title="@WebStore.Resources.Buttons.Quote"
+                                   data-code="@item.strCodigo" data-name="@item.strNombre" data-price="@item.intPrecio"
+                                   data-off-percentage="@(item.intPrecioOff != "0" ? item.intPrecentOff:"")" data-off-price="@(item.intPrecioOff != "0" ? item.intPrecioOff:"")"
+                                   data-quantity="1">
                                     <i></i>
                                 </a>
                                 <a class="mg-product-thumb" href="@Url.Action("Category","Product", new { id = WebStore.Resources.Seo.ResourceManager.GetString(item.categorySeo), idp = item.strCodigo, language=System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName })">

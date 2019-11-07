@@ -20,6 +20,7 @@ namespace WebStore.Models
             this.tblAddresses = new HashSet<tblAddresses>();
             this.tblQuotingQue = new HashSet<tblQuotingQue>();
             this.tblHistory = new HashSet<tblHistory>();
+            this.tblQuotings = new HashSet<tblQuotings>();
         }
     
         public int idUser { get; set; }
@@ -44,5 +45,7 @@ namespace WebStore.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblHistory> tblHistory { get; set; }
         public virtual tblAvatars tblAvatars { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tblQuotings> tblQuotings { get; set; }
     }
 }

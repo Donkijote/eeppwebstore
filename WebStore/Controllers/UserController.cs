@@ -184,6 +184,11 @@ namespace WebStore.Controllers
             return View(viewModel);
         }
 
+        public ActionResult LogUp()
+        {
+            return View();
+        }
+
         [AllowAnonymous]
         [HttpGet]
         public ActionResult LogIn(string ReturnUrl)
@@ -220,6 +225,7 @@ namespace WebStore.Controllers
                 if (logging == "OK")
                 {
                     CheckHistory(Int32.Parse(Session["id"].ToString()));
+                    CheckQuotingQue(Int32.Parse(Session["id"].ToString()));
                     return Json(new { status = "OK" });
                 }
                 else if(logging == "invalid")
@@ -258,6 +264,8 @@ namespace WebStore.Controllers
                         string logging = FacebookLogOn(facebook);
                         if (logging == "OK")
                         {
+                            CheckHistory(Int32.Parse(Session["id"].ToString()));
+                            CheckQuotingQue(Int32.Parse(Session["id"].ToString()));
                             return Json(new { status = "OK" });
                         }
                         else
@@ -274,6 +282,7 @@ namespace WebStore.Controllers
                         string logging = FacebookLogOn(facebook);
                         if (logging == "OK")
                         {
+                            CheckHistory(Int32.Parse(Session["id"].ToString()));
                             return Json(new { status = "OK" });
                         }
                         else
@@ -307,6 +316,8 @@ namespace WebStore.Controllers
                         string logging = GoogleLogOn(google);
                         if (logging == "OK")
                         {
+                            CheckHistory(Int32.Parse(Session["id"].ToString()));
+                            CheckQuotingQue(Int32.Parse(Session["id"].ToString()));
                             return Json(new { status = "OK" });
                         }
                         else
@@ -323,6 +334,7 @@ namespace WebStore.Controllers
                         string logging = GoogleLogOn(google);
                         if (logging == "OK")
                         {
+                            CheckHistory(Int32.Parse(Session["id"].ToString()));
                             return Json(new { status = "OK" });
                         }
                         else
@@ -441,7 +453,7 @@ namespace WebStore.Controllers
             {
                 using(webstoreEntities db = new webstoreEntities())
                 {
-                    int UserId = Int32.Parse(Session["id"].ToString());
+                    int UserId = (int)Session["id"];
                     List<QuotingsProductList> productLists = (from a in db.tblQuotingQue
                                                               join b in db.tblQuotingQueDet
                                                               on a.IdQuotingQue equals b.refQuotingQue
@@ -451,14 +463,74 @@ namespace WebStore.Controllers
                                                                   Code = b.refCodProd,
                                                                   Quantity = b.Quantity
                                                               }).ToList();
-                    return View(productLists);
+                    if (productLists.Any())
+                    {
+                        foreach (var i in productLists)
+                        {
+                            var products = Function.GetProductsList(db).Where(x => x.Codigo == i.Code).Select(x => new Products
+                            {
+                                productSeo = x.CodigoS,
+                                strCodigo = x.Codigo,
+                                strNombre = x.Name,
+                                intPrecio = Function.FormatNumber(x.Price),
+                                intPrecioNum = x.Price,
+                                categorySeo = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(x.Category),
+                                Offert = x.Offert,
+                                OffertTime = x.OffertTime
+                            }).ToList();
+
+                            products = Function.GetOffertOrOffertTime(products, db);
+
+                            var product = products.SingleOrDefault();
+
+                            i.Name = product.strNombre;
+                            i.Price = product.intPrecio;
+                            i.PriceOff = product.intPrecioOff;
+                            i.PercentageOff = product.intPrecentOff;
+                            i.Category = product.categorySeo;
+
+                            var stock = Warehouse.GetStock(product.productSeo);
+
+                            foreach(var j in stock)
+                            {
+                                if(j.TotalStock > 0)
+                                {
+                                    i.Stock = true;
+                                    break;
+                                }
+                                else
+                                {
+                                    i.Stock = false;
+                                }
+                            }
+                        }
+                    }
+
+                    tblUsers user = db.tblUsers.Where(x => x.idUser == UserId).SingleOrDefault(); 
+
+                    QuotingModelBag Model = new QuotingModelBag
+                    {
+                        ProductList = productLists,
+                        Values = new QuotingForm
+                        {
+                            QuotingName = user.strNames,
+                            QuotingLastname = user.strLastNames,
+                            QuotingEmail = user.strEmail,
+                            QuotingPhone = (int)user.intPhone
+                        }
+                    };
+                    return View(Model);
                 }
             }
             else
             {
                 List<QuotingsProductList> productLists = System.Web.HttpContext.Current.Session["QuotingList"] as List<QuotingsProductList>;
 
-                return View(productLists);
+                QuotingModelBag Model = new QuotingModelBag
+                {
+                    ProductList = productLists
+                };
+                return View(Model);
             }
             //List<QuotingsProductList> productLists = Session["QuotingList"] as List<QuotingsProductList>;
 
@@ -467,41 +539,100 @@ namespace WebStore.Controllers
         [HttpPost]
         public JsonResult AddProductToQuoting(QuotingsProductList quotingsProduct)
         {
-            try
+            if(Session["id"] != null)
             {
-                List<QuotingsProductList> productLists = Session["QuotingList"] as List<QuotingsProductList>;
-                
-
-                if(productLists != null)
+                using(webstoreEntities db = new webstoreEntities())
                 {
-                    if(productLists.Any(x => x.Code == quotingsProduct.Code))
+                    int UserId = Int32.Parse(Session["id"].ToString());
+                    var quotingQue = db.tblQuotingQue.Where(x => x.refUser == UserId).FirstOrDefault();
+                    if(quotingQue != null)
                     {
-                        foreach(var i in productLists)
+                        try
                         {
-                            if(i.Code == quotingsProduct.Code)
+                            string addingToQuotingQueDet = Function.SetQuotingQueDet(db, quotingQue, quotingsProduct);
+                            if (addingToQuotingQueDet == "ok")
                             {
-                                i.Quantity += quotingsProduct.Quantity;
+                                return Json(new { status = "OK", title = "¡Cotización!", responseText = $"Producto <strong>{quotingsProduct.Code}</strong> fue añadido a la cotización" });
+                            }
+                            else
+                            {
+                                return Json(new { status = "error", title = "Ups...!", responseText = addingToQuotingQueDet });
                             }
                         }
+                        catch (Exception ex)
+                        {
+                            return Json(new { status = "error", title = "Ups...!", responseText = ex.ToString() });
+                        }
                     }
-                    else{
-                        productLists.Add(quotingsProduct);
-                    }
-                    Session["QuotingList"] = productLists;
-                    return Json(new { status = "OK" });
-                }
-                else
-                {
-                    List<QuotingsProductList> Products = new List<QuotingsProductList>
+                    else
                     {
-                        quotingsProduct
-                    };
-                    Session["QuotingList"] = Products;
-                    return Json(new { status = "OK" });
+                        try
+                        {
+                            tblQuotingQue newQuotingQue = new tblQuotingQue
+                            {
+                                refUser = UserId
+                            };
+                            db.tblQuotingQue.Add(newQuotingQue);
+                            db.SaveChanges();
+
+                            string addingToQuotingQueDet = Function.SetQuotingQueDet(db, newQuotingQue, quotingsProduct);
+
+                            if(addingToQuotingQueDet == "ok")
+                            {
+                                return Json(new { status = "OK", title = "¡Cotización!", responseText = $"Producto <strong>{quotingsProduct.Code}</strong> fue añadido a la cotización" });
+                            }
+                            else
+                            {
+                                return Json(new { status = "error", title = "Ups...!", responseText = addingToQuotingQueDet});
+                            }
+                            
+                        }catch(Exception ex)
+                        {
+                            return Json(new { status = "error", title = "Ups...!", responseText = ex.ToString() });
+                        }
+                    }
                 }
-            }catch(Exception ex)
+            }
+            else
             {
-                return Json(new { status = "error", responseText = ex.ToString() });
+                try
+                {
+                    List<QuotingsProductList> productLists = Session["QuotingList"] as List<QuotingsProductList>;
+
+
+                    if (productLists != null)
+                    {
+                        if (productLists.Any(x => x.Code == quotingsProduct.Code))
+                        {
+                            foreach (var i in productLists)
+                            {
+                                if (i.Code == quotingsProduct.Code)
+                                {
+                                    i.Quantity += quotingsProduct.Quantity;
+                                }
+                            }
+                        }
+                        else
+                        {
+                            productLists.Add(quotingsProduct);
+                        }
+                        Session["QuotingList"] = productLists;
+                        return Json(new { status = "OK" });
+                    }
+                    else
+                    {
+                        List<QuotingsProductList> Products = new List<QuotingsProductList>
+                        {
+                        quotingsProduct
+                        };
+                        Session["QuotingList"] = Products;
+                        return Json(new { status = "OK" });
+                    }
+                }
+                catch (Exception ex)
+                {
+                    return Json(new { status = "error", responseText = ex.ToString() });
+                }
             }
         }
         [HttpPost]
@@ -509,7 +640,42 @@ namespace WebStore.Controllers
         {
             if (Session["id"] != null)
             {
-                return Json(new { });
+                using(webstoreEntities db = new webstoreEntities())
+                {
+                    int UserId = Int32.Parse(Session["id"].ToString());
+                    tblQuotingQue quotingQue = db.tblQuotingQue.Where(x => x.refUser == UserId).SingleOrDefault();
+                    if(quotingQue != null)
+                    {
+                        tblQuotingQueDet quotingQueDet = db.tblQuotingQueDet.Where(x => x.refQuotingQue == quotingQue.IdQuotingQue && x.refCodProd == id).SingleOrDefault();
+                        if(quotingQueDet != null)
+                        {
+                            db.tblQuotingQueDet.Remove(quotingQueDet);
+                            db.SaveChanges();
+
+                            List<tblQuotingQueDet> tblQuotingQueDet = db.tblQuotingQueDet.Where(x => x.refQuotingQue == quotingQue.IdQuotingQue).ToList();
+
+                            if (tblQuotingQueDet.Any())
+                            {
+                                return Json(new { status = "OK", reload = false });
+                            }
+                            else
+                            {
+                                db.tblQuotingQue.Remove(quotingQue);
+                                db.SaveChanges();
+                                return Json(new { status = "OK", reload = true });
+                            }
+                            
+                        }
+                        else
+                        {
+                            return Json(new { status = "warning", title = "Producto", responseText = $"El producto <strong>{id}</strong> no se encuentra en la cotización. Si el problema persiste por favor contáctenos a través de un ticket" });
+                        }
+                    }
+                    else
+                    {
+                        return Json(new { status = "warning", title = "Producto", responseText = $"El producto <strong>{id}</strong> no se encuentra en la cotización. Si el problema persiste por favor contáctenos a través de un ticket" });
+                    }
+                }
             }
             else
             {
@@ -533,6 +699,30 @@ namespace WebStore.Controllers
         {
             if(Session["id"] != null)
             {
+                using(webstoreEntities db = new webstoreEntities())
+                {
+                    try
+                    {
+                        int UserId = Int32.Parse(Session["id"].ToString());
+                        tblQuotingQue quotingQue = db.tblQuotingQue.Where(x => x.refUser == UserId).SingleOrDefault();
+                        if (quotingQue != null)
+                        {
+                            List<tblQuotingQueDet> quotingQueDet = db.tblQuotingQueDet.Where(x => x.refQuotingQue == quotingQue.IdQuotingQue).ToList();
+                            foreach (var i in quotingQueDet)
+                            {
+                                db.tblQuotingQueDet.Remove(i);
+                                db.SaveChanges();
+                            }
+                            db.tblQuotingQue.Remove(quotingQue);
+                            db.SaveChanges();
+                            return Json(new { status = "OK", reload = true });
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        return Json(new { status = "error", title = "Up...!", responseText = $"Algo salió mal, no se pudo vaciar su lista, error: <br> {ex.ToString()}" });
+                    }
+                }
                 return Json(new { });
             }
             else
@@ -554,7 +744,37 @@ namespace WebStore.Controllers
         {
             if(Session["id"] != null)
             {
-                return Json(new { });
+                using(webstoreEntities db = new webstoreEntities())
+                {
+                    int UserId = Int32.Parse(Session["id"].ToString());
+                    tblQuotingQue quotingQue = db.tblQuotingQue.Where(x => x.refUser == UserId).SingleOrDefault();
+                    if(quotingQue != null)
+                    {
+                        tblQuotingQueDet quotingQueDet = db.tblQuotingQueDet.Where(x => x.refQuotingQue == quotingQue.IdQuotingQue && x.refCodProd == code).SingleOrDefault();
+
+                        if(quotingQueDet != null)
+                        {
+                            try
+                            {
+                                quotingQueDet.Quantity = quantity;
+                                db.SaveChanges();
+                                return Json(new { status = "OK" });
+                            }
+                            catch (Exception ex)
+                            {
+                                return Json(new { status = "error", title = "Ups...!", responseText = ex.ToString() });
+                            }
+                        }
+                        else
+                        {
+                            return Json(new { status = "warning", title = "Producto", responseText = $"El producto <strong>{code}</strong> no existe en la cotización" });
+                        }
+                    }
+                    else
+                    {
+                        return Json(new { status = "warning", title = "cotización", responseText = $"Cotización vacía" });
+                    }
+                }
             }
             else
             {
@@ -574,6 +794,159 @@ namespace WebStore.Controllers
                 }catch(Exception ex)
                 {
                     return Json(new { status = "error", title = "Ups...!", responseText = ex.ToString() });
+                }
+            }
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public JsonResult Quoting(QuotingForm Form)
+        {
+            if(Session["id"] != null)
+            {
+                using (webstoreEntities db = new webstoreEntities())
+                {
+                    int UserId = (int)Session["id"];
+                    tblQuotingQue quotingQue = db.tblQuotingQue.Where(x => x.refUser == UserId).SingleOrDefault();
+                    if (quotingQue != null)
+                    {
+                        List<tblQuotingQueDet> quotingQueDet = db.tblQuotingQueDet.Where(x => x.refQuotingQue == quotingQue.IdQuotingQue).ToList();
+                        if (quotingQueDet.Any())
+                        {
+                            try
+                            {
+                                tblQuotings NewQuoting = new tblQuotings
+                                {
+                                    strName = Form.QuotingName,
+                                    strLastname = Form.QuotingLastname,
+                                    strEmail = Form.QuotingEmail,
+                                    intPhone = Form.QuotingPhone,
+                                    strComment = Form.QuotingComment,
+                                    strDate = DateTime.Now,
+                                    refUser = UserId
+                                };
+
+                                db.tblQuotings.Add(NewQuoting);
+                                db.SaveChanges();
+                                try
+                                {
+                                    foreach (var i in quotingQueDet)
+                                    {
+                                        tblQuotingsDet NewQuotingDet = new tblQuotingsDet
+                                        {
+                                            refQuoting = NewQuoting.IdQuoting,
+                                            refProduct = i.refCodProd,
+                                            intQuantity = i.Quantity
+                                        };
+                                        db.tblQuotingsDet.Add(NewQuotingDet);
+                                        db.SaveChanges();
+                                    }
+
+                                    string sendEmail = SendQuotingEmail(Form.QuotingEmail, quotingQueDet, NewQuoting.IdQuoting, NewQuoting.strDate, db);
+                                    if(sendEmail == "sent")
+                                    {
+                                        foreach (var i in quotingQueDet)
+                                        {
+                                            db.tblQuotingQueDet.Remove(i);
+                                        }
+                                        db.tblQuotingQue.Remove(quotingQue);
+                                        db.SaveChanges();
+                                        return Json(new { status = "OK", title = "Cotización", responseText = "Su cotización fue realizada con éxito, uno de nuestros agentes se contactará con usted en lo más breve posible.<br> Un email de confirmación le fue enviado a su dirección de correo.<br> Gracias por contar con nosotros." });
+                                    }
+                                    else
+                                    {
+                                        return Json(new { status = "waning", title = "Email", responseText = $"Su cotización fue realizada con éxito, uno de nuestros agentes se contactará con usted en lo más breve posible.<br> Pero ocurrió una falla al intentar enviar un email de confirmación a su dirección de correo.<br>Pero no se preocupe su cotización fue enviada a nuestro sistema.", consoleText = sendEmail });
+                                    }
+                                    
+                                }
+                                catch (Exception ex)
+                                {
+                                    return Json(new { status = "error", title = "Ups...!", responseText = $"Se generó un error al registrar los productos de su cotización, por favor de ser posible contacte con nuestro soporte a través de un ticket.", consoleText = ex.ToString() });
+                                }
+                            }
+                            catch (Exception ex)
+                            {
+                                return Json(new { status = "error", title = "Ups...!", responseText = $"Se generó un error al registrar su cotización, por favor de ser posible contacte con nuestro soporte a través de un ticket.", consoleText = ex.ToString() });
+                            }
+                        }
+                        else
+                        {
+                            return Json(new { status = "warning", title = "Productos", responseText = "No tiene productos para añadir a su cotización, por favor intente nuevamente.<br> Si el problema persiste por favor contacte con nosotros a través de un ticket" });
+                        }
+                    }
+                    else { return Json(new { status = "warning", title = "Cotización", responseText = "No tiene ninguna cotización para enviar, por favor intente nuevamente.<br> Si el problema persiste por favor contacte con nosotros a través de un ticket" }); }
+                }
+            }
+            else
+            {
+                using(webstoreEntities db = new webstoreEntities())
+                {
+                    List<QuotingsProductList> productLists = System.Web.HttpContext.Current.Session["QuotingList"] as List<QuotingsProductList>;
+
+                    if (productLists.Any())
+                    {
+                        try
+                        {
+                            tblQuotings NewQuoting = new tblQuotings
+                            {
+                                strName = Form.QuotingName,
+                                strLastname = Form.QuotingLastname,
+                                strEmail = Form.QuotingEmail,
+                                intPhone = Form.QuotingPhone,
+                                strComment = Form.QuotingComment,
+                                strDate = DateTime.Now
+                            };
+
+                            db.tblQuotings.Add(NewQuoting);
+                            db.SaveChanges();
+                            try
+                            {
+                                List<tblQuotingQueDet> queDet = new List<tblQuotingQueDet>();
+
+                                foreach(var i in productLists)
+                                {
+                                    queDet.Add(new tblQuotingQueDet
+                                    {
+                                        Quantity = i.Quantity,
+                                        refCodProd = i.Code
+                                    });
+                                }
+                                
+                                string sendEmail = SendQuotingEmail(Form.QuotingEmail, queDet, NewQuoting.IdQuoting, NewQuoting.strDate, db);
+                                if (sendEmail == "Sent")
+                                {
+                                    foreach (var i in productLists)
+                                    {
+                                        tblQuotingsDet NewQuotingDet = new tblQuotingsDet
+                                        {
+                                            refQuoting = NewQuoting.IdQuoting,
+                                            refProduct = i.Code,
+                                            intQuantity = i.Quantity
+                                        };
+                                        db.tblQuotingsDet.Add(NewQuotingDet);
+                                        db.SaveChanges();
+                                    }
+                                    Session.Remove("QuotingList");
+                                    return Json(new { status = "OK", title = "Cotización", responseText = "Su cotización fue realizada con éxito, uno de nuestros agentes se contactará con usted en lo más breve posible.<br> Un email de confirmación le fue enviado a su dirección de correo.<br> Gracias por contar con nosotros." });
+                                }
+                                else
+                                {
+                                    return Json(new { status = "warning", title = "Email", responseText = $"Su cotización fue realizada con éxito, uno de nuestros agentes se contactará con usted en lo más breve posible.<br> Pero ocurrió una falla al intentar enviar un email de confirmación a su dirección de correo.<br>Pero no se preocupe su cotización fue enviada a nuestro sistema.", consoleText = sendEmail });
+                                }
+                            }
+                            catch (Exception ex)
+                            {
+                                return Json(new { status = "error", title = "Ups...!", responsetext = $"Se generó un error al registrar los productos de su cotización, por favor de ser posible contacte con nuestro soporte a través de un ticket.", consoleText = ex.ToString() });
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            return Json(new { status = "error", title = "Ups...!", responsetext = $"Se generó un error al registrar su cotización, por favor de ser posible contacte con nuestro soporte a través de un ticket.", consoleText = ex.ToString() });
+                        }
+                    }
+                    else
+                    {
+                        return Json(new { status = "warning", title = "Cotización", responseText = "No tiene ninguna cotización para enviar, por favor intente nuevamente.<br> Si el problema persiste por favor contacte con nosotros a través de un ticket" });
+                    }
                 }
             }
         }
@@ -810,23 +1183,87 @@ namespace WebStore.Controllers
 
         private string SendValidationCode(string Email, string r)
         {
-            var smtp = Configuration.GetSmtp();
-            var toEmail = new MailAddress(Email);
-            string subject = "Solicitud para restablecer contraseña";
-            string body = $@"<br/><br/>Hemos recibido una solicitud para restablecer su contraseña.
+            using (var smtp = Configuration.GetSmtp()) {
+                var toEmail = new MailAddress(Email);
+                string subject = "Solicitud para restablecer contraseña";
+                string body = $@"<br/><br/>Hemos recibido una solicitud para restablecer su contraseña.
                             <br/><br/>Se ha generado un código de verificación automático con un tiempo de expiración de 30 minutos.
                             <br/>Debe ingresar este código en la casilla de nuestra página web y proseguir con los pasos.
                             <br/>Su codigo de validación es:
                             <br/><br/><strong>{r}</strong>";
-            var message = Function.GenerateEmail(toEmail, subject, body);
-            try
-            {
-                smtp.Send(message);
-                return "Sent";
+                try
+                {
+                    MailMessage message = Function.GenerateEmail(toEmail, subject, body);
+                    smtp.Send(message);
+                    return "Sent";
+                }
+                catch (Exception ex)
+                {
+                    return ex.ToString();
+                }
             }
-            catch (Exception ex)
+            
+        }
+
+        private string SendQuotingEmail(string Email, List<tblQuotingQueDet> products, int num, DateTime date, webstoreEntities db)
+        {
+            using (var smtp = Configuration.GetSmtp())
             {
-                return ex.ToString();
+                var toEmail = new MailAddress(Email);
+                string subject = "Confirmación de cotización";
+                string body = $@"<br/><br/>Hemos recibido una solicitud de cotización con los siguientes datos:
+                            <br/><br/>Número de cotización: {num}.
+                            <br/>Fecha de cotización {date.ToString("dd/MM/yyyy HH:mm:ss")}.
+                            <br/><br/><h4>Detalles de productos</h4>:
+                            <br/><br/>
+                            <table class='shopping-cart table'>
+                                <thead>
+                                    <tr>
+                                        <th>Producto</th>
+                                        <th></th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>";
+
+                foreach (var i in products)
+                {
+                    var productsInfo = Function.GetProductsList(db).Where(x => x.Codigo == i.refCodProd).Select(x => new QuotingsProductList
+                    {
+                        Code = x.Codigo,
+                        Name = x.Name,
+                        Quantity = i.Quantity
+                    }).SingleOrDefault();
+
+                    body += $@"
+                            <tr>
+                                <td>
+                                    <div>
+                                        <a>
+                                            <img src='http://eeppwebstore.ddns.net/Content/img/products/{productsInfo.Code}-1.jpg' alt='Product'>
+                                        </a>
+                                        <div>
+                                            <h4>
+                                                <a>{productsInfo.Name}</a>
+                                            </h4>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>{productsInfo.Quantity}</td>
+                            </tr>";
+                }
+
+                body += "</tbody></table>";
+                try
+                {
+                    MailMessage message = Function.GenerateEmail(toEmail, subject, body, "1000");
+                    smtp.Send(message);
+                    return "Sent";
+                }
+                catch (Exception ex)
+                {
+                    return ex.ToString();
+                }
             }
         }
 
@@ -1053,6 +1490,39 @@ namespace WebStore.Controllers
                     }
 
                     HistoryCookie.Expires = DateTime.Now.AddDays(-1);
+                }
+            }
+        }
+        private void CheckQuotingQue(int UserId)
+        {
+            if(Session["QuotingList"] != null)
+            {
+                using(webstoreEntities db = new webstoreEntities())
+                {
+                    List<QuotingsProductList> productLists = Session["QuotingList"] as List<QuotingsProductList>;
+                    tblQuotingQue quotingQue = db.tblQuotingQue.Where(x => x.refUser == UserId).SingleOrDefault();
+
+                    if(quotingQue != null)
+                    {
+                        foreach (var i in productLists)
+                        {
+                            string addingToQuotingQueDet = Function.SetQuotingQueDet(db, quotingQue, i);
+                        }
+                    }
+                    else
+                    {
+                        tblQuotingQue newQuotingQue = new tblQuotingQue
+                        {
+                            refUser = UserId
+                        };
+                        db.tblQuotingQue.Add(newQuotingQue);
+                        db.SaveChanges();
+
+                        foreach(var i in productLists)
+                        {
+                            string addingToQuotingQueDet = Function.SetQuotingQueDet(db, newQuotingQue, i);
+                        }
+                    }
                 }
             }
         }

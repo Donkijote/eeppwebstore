@@ -91,24 +91,7 @@ namespace WebStore.Controllers
                     ViewBag.maxPrice = 0;
                 }
 
-                var sorted = s.OrderBy(o => o.strNombre);
-
-                if (SortedBy == null || SortedBy == "" || SortedBy == "nameA")
-                {
-                    sorted = s.OrderBy(x => x.strNombre);
-                }
-                else if (SortedBy == "nameZ")
-                {
-                    sorted = s.OrderByDescending(x => x.strNombre);
-                }
-                else if (SortedBy == "high")
-                {
-                    sorted = s.OrderByDescending(x => x.intPrecioNum);
-                }
-                else if (SortedBy == "low")
-                {
-                    sorted = s.OrderBy(x => x.intPrecioNum);
-                }
+                var sorted = Function.SetOrder(SortedBy, s);
 
                 ViewBag.banner = Function.GetRandomBanner();
 
