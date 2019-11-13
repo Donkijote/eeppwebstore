@@ -139,12 +139,12 @@
                     </div>
                     <div class="col-sm-10 mb-3">
                         <div class="input-group">
-                            @Html.TextBoxFor(x => x.AddressTwo, new { @class = "form-control", placeholder = WebStore.Resources.Placeholder.Address + "2 (referencias) (opcional)" })
+                            @Html.TextBoxFor(x => x.Type, new { @class = "form-control", placeholder = WebStore.Resources.Placeholder.House })
                             <span class="input-group-addon">
-                                <i class="fas fa-map-marker-alt"></i>
+                                <i class="fas fa-home"></i>
                             </span>
                         </div>
-                        @Html.ValidationMessageFor(x => x.AddressTwo)
+                        @Html.ValidationMessageFor(x => x.Type)
                     </div>
                 </div>
                 <h5 class="mb-3">Datos para iniciar sesión</h5>

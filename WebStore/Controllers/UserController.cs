@@ -1022,7 +1022,8 @@ namespace WebStore.Controllers
                         refProvince = user.Provinces,
                         refComuna = user.Comunes,
                         strAddress = user.AddressOne,
-                        strAddressTwo = user.AddressTwo,
+                        strType = user.Type,
+                        refuser = nickObj.idUser,
                         boolDefault = true,
                         boolThird = false
                     };

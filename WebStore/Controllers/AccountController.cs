@@ -415,7 +415,7 @@ namespace WebStore.Controllers
                 string email = Session["email"].ToString();
                 int id = Int32.Parse(Session["id"].ToString());
                 var user = db.tblUsers.Where(x => x.strEmail == email && x.idUser == id).FirstOrDefault();
-                var address = GetAddresses(db, user.idUser).Where(x => x.Default == false).FirstOrDefault();
+                var address = GetAddresses(db, user.idUser).Where(x => x.Default == true).FirstOrDefault();
                 
                 BindingAddress ViewModel = new BindingAddress()
                 {

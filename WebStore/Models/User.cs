@@ -32,7 +32,8 @@ namespace WebStore.Models
         public string City { get; set; }
         [Required(ErrorMessage = "Este campo es requerido.")]
         public string AddressOne { get; set; }
-        public string AddressTwo { get; set; }
+        [Required(ErrorMessage = "Este campo es requerido.")]
+        public string Type { get; set; }
         [Required(ErrorMessage = "Este campo es requerido.")]
         [EmailAddress(ErrorMessage = "Debe ingresar Email válido.")]
         public string Email { get; set; }
