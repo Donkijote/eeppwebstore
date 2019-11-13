@@ -59,7 +59,9 @@ namespace WebStore.Models
         [Required(ErrorMessage = "Campo requerido")]
         public string LastName { get; set; }
         [Required(ErrorMessage = "Campo requerido")]
-        public int UserId { get; set; }
+        [RegularExpression("[0-9]{1,2}.[0-9]{3}.[0-9]{3}-[0-9Kk]{1}", ErrorMessage = "RUT inválido. Favor seguir Ej: xx.xxx.xxx-x")]
+        [StringLength(12, MinimumLength = 12, ErrorMessage = "RUT debe tener 12 dígitos.")]
+        public string UserId { get; set; }
         [Required(ErrorMessage = "Campo requerido")]
         [RegularExpression("([0-9]+)", ErrorMessage = "Solo números")]
         public int UserPhone { get; set; }

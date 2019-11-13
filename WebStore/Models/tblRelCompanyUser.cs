@@ -12,19 +12,13 @@ namespace WebStore.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class tblHistory
+    public partial class tblRelCompanyUser
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public tblHistory()
-        {
-            this.tblHistoryDet = new HashSet<tblHistoryDet>();
-        }
+        public int id { get; set; }
+        public int refUser { get; set; }
+        public int refCompany { get; set; }
     
-        public int IdHistory { get; set; }
-        public Nullable<int> refUser { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tblHistoryDet> tblHistoryDet { get; set; }
+        public virtual tblCompany tblCompany { get; set; }
         public virtual tblUsers tblUsers { get; set; }
     }
 }

@@ -226,6 +226,7 @@
     <Compile Include="Code\ProductController.cs" />
     <Compile Include="Code\ProductsController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\apiController.cs" />
     <Compile Include="Controllers\CategoriesController.cs" />
     <Compile Include="Controllers\DownloadsController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
@@ -336,6 +337,9 @@
     <Compile Include="Models\tblCategoryRelation.cs">
       <DependentUpon>Connection.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\tblCompany.cs">
+      <DependentUpon>Connection.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\tblComunas.cs">
       <DependentUpon>Connection.tt</DependentUpon>
     </Compile>
@@ -397,6 +401,9 @@
       <DependentUpon>Connection.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tblRelBrand.cs">
+      <DependentUpon>Connection.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tblRelCompanyUser.cs">
       <DependentUpon>Connection.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tblUsers.cs">
@@ -1031,6 +1038,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Content\img\avatars\img\" />
     <Folder Include="Content\img\certificates\ds43\" />
+    <Folder Include="Views\api\" />
     <Folder Include="Views\Downloads\" />
     <Folder Include="Views\Language\" />
   </ItemGroup>

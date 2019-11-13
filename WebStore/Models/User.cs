@@ -10,10 +10,29 @@ namespace WebStore.Models
     }
     public class Registration
     {
+        public int RegistrationType { get; set; }
+        [Required(ErrorMessage = "Este campo es requerido.")]
+        [RegularExpression("[0-9]{1,2}.[0-9]{3}.[0-9]{3}-[0-9Kk]{1}", ErrorMessage = "RUT inválido. Favor seguir Ej: xx.xxx.xxx-x")]
+        [StringLength(12, MinimumLength = 12, ErrorMessage = "RUT debe tener 12 dígitos.")]
+        public string Id { get; set; }
         [Required(ErrorMessage = "Este campo es requerido.")]
         public string Name { get; set; }
         [Required(ErrorMessage = "Este campo es requerido.")]
         public string Lastname { get; set; }
+        [Required(ErrorMessage = "Este campo es requerido.")]
+        [RegularExpression("([0-9]+)", ErrorMessage = "Solo números.")]
+        public int Phone { get; set; }
+        [Required(ErrorMessage = "Este campo es requerido.")]
+        public int States { get; set; }
+        [Required(ErrorMessage = "Este campo es requerido.")]
+        public int Provinces { get; set; }
+        [Required(ErrorMessage = "Este campo es requerido.")]
+        public int Comunes { get; set; }
+        [Required(ErrorMessage = "Este campo es requerido.")]
+        public string City { get; set; }
+        [Required(ErrorMessage = "Este campo es requerido.")]
+        public string AddressOne { get; set; }
+        public string AddressTwo { get; set; }
         [Required(ErrorMessage = "Este campo es requerido.")]
         [EmailAddress(ErrorMessage = "Debe ingresar Email válido.")]
         public string Email { get; set; }
@@ -27,6 +46,32 @@ namespace WebStore.Models
         [Compare("Pass", ErrorMessage = "Las contraseñas deben coincidir.")]
         [DataType(DataType.Password)]
         public string Passre { get; set; }
+
+        public CompanyRegistration Company { get; set; }
+    }
+    public class CompanyRegistration
+    {
+        [Required(ErrorMessage = "Este campo es requerido.")]
+        [RegularExpression("[0-9]{1,2}.[0-9]{3}.[0-9]{3}-[0-9Kk]{1}", ErrorMessage = "RUT inválido. Favor seguir Ej: xx.xxx.xxx-x")]
+        [StringLength(12, MinimumLength = 12, ErrorMessage = "RUT debe tener 12 dígitos.")]
+        public string CompanyId { get; set; }
+        [Required(ErrorMessage = "Este campo es requerido.")]
+        public string CompanyName { get; set; }
+        [Required(ErrorMessage = "Este campo es requerido.")]
+        public string CompanyActivity { get; set; }
+        [Required(ErrorMessage = "Este campo es requerido.")]
+        [RegularExpression("([0-9]+)", ErrorMessage = "Solo números.")]
+        public int CompanyPhone { get; set; }
+        [Required(ErrorMessage = "Este campo es requerido.")]
+        public int CompanyStates { get; set; }
+        [Required(ErrorMessage = "Este campo es requerido.")]
+        public int CompanyProvinces { get; set; }
+        [Required(ErrorMessage = "Este campo es requerido.")]
+        public int CompanyComunes { get; set; }
+        [Required(ErrorMessage = "Este campo es requerido.")]
+        public string CompanyCity { get; set; }
+        [Required(ErrorMessage = "Este campo es requerido.")]
+        public string CompanyAddressOne { get; set; }
     }
     public class LogIn
     {

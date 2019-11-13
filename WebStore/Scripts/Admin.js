@@ -52,22 +52,6 @@ $.AdminJs.LogInUp = {
     activate: function () {
         var _this = this;
         $.AdminJs.reveal.activate();
-		$('#LogUp').on('submit', function (e) {
-			e.preventDefault();
-			var x = $(this).serialize();
-            if ($(this).valid()) {
-                $.AdminJs.Ajax.init({
-                    type: 'POST',
-                    url: '/en/User/Registration/',
-                    data: x,
-                    action: function (e) {
-                        if (e.status == "OK") {
-                            $.AdminJs.Alert.success(e.title, e.responseText, window.location);
-                        }
-                    }
-                });
-            }
-        });
         $('#LogIn').on('submit', function (e) {
             e.preventDefault();
             if ($(this).valid()) {
@@ -502,6 +486,158 @@ $.AdminJs.LogInUp = {
     }
 }
 
+$.AdminJs.LogUp = {
+    activate: function () {
+        var _this = this;
+        var markup = `
+                <h5 class="mb-3">Datos de la empresa</h5>
+                <div class="row mb-3">
+                    <div class="col-sm-10 mb-3">
+                        <div class="input-group">
+                            <input class="form-control" data-val="true" data-val-length="RUT debe tener 12 dígitos." data-val-length-max="12" data-val-length-min="12" data-val-regex="RUT inválido. Favor seguir Ej: xx.xxx.xxx-x" data-val-regex-pattern="[0-9]{1,2}.[0-9]{3}.[0-9]{3}-[0-9Kk]{1}" data-val-required="Este campo es requerido." id="Company_CompanyId" name="Company.CompanyId" placeholder="Número de ID Ej: xx.xxx.xxx-x" type="text" value="">
+                            <span class="input-group-addon">
+                                <i class="far fa-id-card"></i>
+                            </span>
+                        </div>
+                        <span class="field-validation-valid" data-valmsg-for="Company.CompanyId" data-valmsg-replace="true"></span>
+                    </div>
+                    <div class="col-sm-10 mb-3">
+                        <div class="input-group">
+                            <input class="form-control" data-val="true" data-val-required="Este campo es requerido." id="Company_CompanyName" name="Company.CompanyName" placeholder="Razón social" type="text" value="">
+                            <span class="input-group-addon">
+                                <i class="fas fa-user"></i>
+                            </span>
+                        </div>
+                        <span class="field-validation-valid" data-valmsg-for="Company.CompanyName" data-valmsg-replace="true"></span>
+                    </div>
+                    <div class="col-sm-10 mb-3">
+                        <div class="input-group">
+                            <input class="form-control" data-val="true" data-val-required="Este campo es requerido." id="Company_CompanyActivity" name="Company.CompanyActivity" placeholder="Giro" type="text" value="">
+                            <span class="input-group-addon">
+                                <i class="fas fa-tags"></i>
+                            </span>
+                        </div>
+                        <span class="field-validation-valid" data-valmsg-for="Company.CompanyActivity" data-valmsg-replace="true"></span>
+                    </div>
+                    <div class="col-sm-10 mb-3">
+                        <div class="input-group">
+                            <input class="form-control" data-val="true" data-val-required="Este campo es requerido." id="Company_CompanyPhone" name="Company.CompanyPhone" placeholder="9 XXXX XXXX Ej: 912345678" type="text" value="">
+                            <span class="input-group-addon">
+                                <i class="fas fa-phone-alt"></i> 
+                            </span>
+                        </div>
+                        <span class="field-validation-valid" data-valmsg-for="Company.CompanyPhone" data-valmsg-replace="true"></span>
+                    </div>
+                    <div class="col-sm-10 mb-3">
+                        <div class="input-group">
+                            <select class="form-control" type="text" name="Company.CompanyStates" id="strCompanyStatesNationale" placeholder="Estado/Región" data-val="true" data-val-required="Este campo es requerido.">
+                                <option value="">Estado/Región</option>
+
+                            </select>
+                            <span class="input-group-addon">
+                                <i class="fas fa-flag"></i>
+                            </span>
+                        </div>
+                        <span class="field-validation-valid" data-valmsg-for="Company.CompanyStates" data-valmsg-replace="true"></span>
+                    </div>
+                    <div class="col-sm-10 mb-3">
+                        <div class="input-group">
+                            <select class="form-control" type="text" name="Company.CompanyProvinces" id="strCompanyProvinciaNationale" placeholder="Provincia" data-val="true" data-val-required="Este campo es requerido.">
+                                <option value="">Provincia</option>
+                            </select>
+                            <span class="input-group-addon">
+                                <i class="fas fa-city"></i>
+                            </span>
+                        </div>
+                        <span class="field-validation-valid" data-valmsg-for="Company.CompanyProvinces" data-valmsg-replace="true"></span>
+                    </div>
+                    <div class="col-sm-10 mb-3">
+                        <div class="input-group">
+                            <select class="form-control" type="text" name="Company.CompanyComunes" id="strCompanyComunaNationale" placeholder="Comuna" data-val="true" data-val-required="Este campo es requerido.">
+                                <option value="">Comuna</option>
+                            </select>
+                            <span class="input-group-addon">
+                                <i class="far fa-object-group"></i>
+                            </span>
+                        </div>
+                        <span class="field-validation-valid" data-valmsg-for="Company.CompanyComunes" data-valmsg-replace="true"></span>
+                    </div>
+                    <div class="col-sm-10 mb-3">
+                        <div class="input-group">
+                            <input class="form-control" data-val="true" data-val-required="Este campo es requerido." id="Company_CompanyCity" name="Company.CompanyCity" placeholder="Ciudad" type="text" value="">
+                            <span class="input-group-addon">
+                                <i class="fas fa-landmark"></i>
+                            </span>
+                        </div>
+                        <span class="field-validation-valid" data-valmsg-for="Company.CompanyCity" data-valmsg-replace="true"></span>
+                    </div>
+                    <div class="col-sm-10 mb-3">
+                        <div class="input-group">
+                            <input class="form-control" data-val="true" data-val-required="Este campo es requerido." id="Company_CompanyAddressOne" name="Company.CompanyAddressOne" placeholder="Dirección1" type="text" value="">
+                            <span class="input-group-addon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </span>
+                        </div>
+                        <span class="field-validation-valid" data-valmsg-for="Company.CompanyAddressOne" data-valmsg-replace="true"></span>
+                    </div>
+                </div>`;
+        $.AdminJs.Api.getRegions("#strStatesNationale");
+
+        $('input[name="RegistrationType"]').on('change', function () {
+            var value = $(this).val();
+            if (value == 2) {
+                $('#CompanyForm').html(markup);
+                $('#LogUp').removeData('validator');
+                $('#LogUp').removeData('unobtrusiveValidation');
+                $.validator.unobtrusive.parse('#LogUp');
+                $.AdminJs.Api.getRegions("#strCompanyStatesNationale");
+                $('#CompanyForm').removeClass('d-none');
+
+                $('#strCompanyStatesNationale').on('change', function () {
+                    var id = $(this).val();
+                    $.AdminJs.Api.getProvinces(id, "#strCompanyProvinciaNationale");
+                });
+
+                $('#strCompanyProvinciaNationale').on('change', function () {
+                    var id = $(this).val();
+                    $.AdminJs.Api.getComunes(id, "#strCompanyComunaNationale");
+                });
+            } else {
+                $('#CompanyForm').addClass('d-none');
+                $('#CompanyForm').html('');
+            }
+        });
+
+        $('#LogUp').on('submit', function (e) {
+            e.preventDefault();
+            var x = $(this).serialize();
+            if ($(this).valid()) {
+                
+                $.AdminJs.Ajax.init({
+                    type: 'POST',
+                    url: '/en/User/Registration/',
+                    data: x,
+                    action: function (e) {
+                        if (e.status == "OK") {
+                            $.AdminJs.Alert.success(e.title, e.responseText, "/");
+                        }
+                    }
+                }, true);
+            }
+        });
+
+        $('#strStatesNationale').on('change', function () {
+            var id = $(this).val();
+            $.AdminJs.Api.getProvinces(id, "#strProvinciaNationale");
+        });
+
+        $('#strProvinciaNationale').on('change', function () {
+            var id = $(this).val();
+            $.AdminJs.Api.getComunes(id, "#strComunaNationale");
+        });
+    }
+}
+
 $.AdminJs.compare = {
     activate: function () {
         var _this = this;
@@ -690,7 +826,7 @@ $.AdminJs.addAddress = {
             $.ajax({
                 type: 'GET',
                 dataType: "JSON",
-                url: '/en/Account/Provinces/',
+                url: '/en/api/Provinces/',
                 data: { id: id },
                 success: function (e) {
                     var modelsHtml = "<option value=''>Provincia</option>";
@@ -707,7 +843,7 @@ $.AdminJs.addAddress = {
             $.ajax({
                 type: 'GET',
                 dataType: "JSON",
-                url: '/en/Account/Communes/',
+                url: '/en/api/Communes/',
                 data: { id: id },
                 success: function (e) {
                     var modelsHtml = "<option value=''>Comuna</option>";
@@ -1023,7 +1159,7 @@ $.AdminJs.checkOut = {
             $.AdminJs.Ajax.init({
                 type: 'GET',
                 dataType: "JSON",
-                url: '/en/Account/Provinces/',
+                url: '/en/api/Provinces/',
                 data: { id: id },
                 action: function (e) {
                     var modelsHtml = "<option value=''>Provincia</option>";
@@ -1033,14 +1169,14 @@ $.AdminJs.checkOut = {
                     $("#strProvinciaNationale").html(modelsHtml);
                 }
             }, false, true)
-        })
+        });
 
         $('#strProvinciaNationale').on('change', function () {
             var id = $(this).val();
             $.AdminJs.Ajax.init({
                 type: 'GET',
                 dataType: "JSON",
-                url: '/en/Account/Communes/',
+                url: '/en/api/Communes/',
                 data: { id: id },
                 action: function (e) {
                     var modelsHtml = "<option value=''>Comuna</option>";
@@ -1050,14 +1186,14 @@ $.AdminJs.checkOut = {
                     $("#strComunaNationale").html(modelsHtml);
                 }
             }, false, true)
-        })
+        });
 
         $('#strStatesNationaleAnother').on('change', function () {
             var id = $(this).val();
             $.ajax({
                 type: 'GET',
                 dataType: "JSON",
-                url: '/en/Account/Provinces/',
+                url: '/en/api/Provinces/',
                 data: { id: id },
                 success: function (e) {
                     var modelsHtml = "<option value=''></option>";
@@ -1074,7 +1210,7 @@ $.AdminJs.checkOut = {
             $.ajax({
                 type: 'GET',
                 dataType: "JSON",
-                url: '/en/Account/Communes/',
+                url: '/en/api/Communes/',
                 data: { id: id },
                 success: function (e) {
                     var modelsHtml = "<option value=''></option>";
@@ -2149,6 +2285,54 @@ $.AdminJs.CheckDevice = {
         var check = false;
         (function (a) { if (/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|iris|kindle|lge |maemo|midp|mmp|mobile.+firefox|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows ce|xda|xiino|android|ipad|playbook|silk/i.test(a) || /1207|6310|6590|3gso|4thp|50[1-6]i|770s|802s|a wa|abac|ac(er|oo|s\-)|ai(ko|rn)|al(av|ca|co)|amoi|an(ex|ny|yw)|aptu|ar(ch|go)|as(te|us)|attw|au(di|\-m|r |s )|avan|be(ck|ll|nq)|bi(lb|rd)|bl(ac|az)|br(e|v)w|bumb|bw\-(n|u)|c55\/|capi|ccwa|cdm\-|cell|chtm|cldc|cmd\-|co(mp|nd)|craw|da(it|ll|ng)|dbte|dc\-s|devi|dica|dmob|do(c|p)o|ds(12|\-d)|el(49|ai)|em(l2|ul)|er(ic|k0)|esl8|ez([4-7]0|os|wa|ze)|fetc|fly(\-|_)|g1 u|g560|gene|gf\-5|g\-mo|go(\.w|od)|gr(ad|un)|haie|hcit|hd\-(m|p|t)|hei\-|hi(pt|ta)|hp( i|ip)|hs\-c|ht(c(\-| |_|a|g|p|s|t)|tp)|hu(aw|tc)|i\-(20|go|ma)|i230|iac( |\-|\/)|ibro|idea|ig01|ikom|im1k|inno|ipaq|iris|ja(t|v)a|jbro|jemu|jigs|kddi|keji|kgt( |\/)|klon|kpt |kwc\-|kyo(c|k)|le(no|xi)|lg( g|\/(k|l|u)|50|54|\-[a-w])|libw|lynx|m1\-w|m3ga|m50\/|ma(te|ui|xo)|mc(01|21|ca)|m\-cr|me(rc|ri)|mi(o8|oa|ts)|mmef|mo(01|02|bi|de|do|t(\-| |o|v)|zz)|mt(50|p1|v )|mwbp|mywa|n10[0-2]|n20[2-3]|n30(0|2)|n50(0|2|5)|n7(0(0|1)|10)|ne((c|m)\-|on|tf|wf|wg|wt)|nok(6|i)|nzph|o2im|op(ti|wv)|oran|owg1|p800|pan(a|d|t)|pdxg|pg(13|\-([1-8]|c))|phil|pire|pl(ay|uc)|pn\-2|po(ck|rt|se)|prox|psio|pt\-g|qa\-a|qc(07|12|21|32|60|\-[2-7]|i\-)|qtek|r380|r600|raks|rim9|ro(ve|zo)|s55\/|sa(ge|ma|mm|ms|ny|va)|sc(01|h\-|oo|p\-)|sdk\/|se(c(\-|0|1)|47|mc|nd|ri)|sgh\-|shar|sie(\-|m)|sk\-0|sl(45|id)|sm(al|ar|b3|it|t5)|so(ft|ny)|sp(01|h\-|v\-|v )|sy(01|mb)|t2(18|50)|t6(00|10|18)|ta(gt|lk)|tcl\-|tdg\-|tel(i|m)|tim\-|t\-mo|to(pl|sh)|ts(70|m\-|m3|m5)|tx\-9|up(\.b|g1|si)|utst|v400|v750|veri|vi(rg|te)|vk(40|5[0-3]|\-v)|vm40|voda|vulc|vx(52|53|60|61|70|80|81|83|85|98)|w3c(\-| )|webc|whit|wi(g |nc|nw)|wmlb|wonu|x700|yas\-|your|zeto|zte\-/i.test(a.substr(0, 4))) check = true; })(navigator.userAgent || navigator.vendor || window.opera);
         return check;
+    }
+}
+
+$.AdminJs.Api = {
+    getRegions: (x) => {
+        $.AdminJs.Ajax.init({
+            type: 'GET',
+            dataType: "JSON",
+            url: '/en/api/States/',
+            data: {},
+            action: function (e) {
+                var modelsHtml = "<option value=''>Estado/Región</option>";
+                $.each(e, function (a, b) {
+                    modelsHtml += "<option value='" + b.id + "'>" + b.nombre + " - " + b.number + "</option>";
+                })
+                $(x).html(modelsHtml);
+            }
+        }, false, true);
+    },
+    getProvinces: (x, y) => {
+        $.AdminJs.Ajax.init({
+            type: 'GET',
+            dataType: "JSON",
+            url: '/en/api/Provinces/',
+            data: { id: x },
+            action: function (e) {
+                var modelsHtml = "<option value=''>Provincia</option>";
+                $.each(e, function (a, b) {
+                    modelsHtml += "<option value='" + b.id + "'>" + b.nombre + "</option>";
+                })
+                $(y).html(modelsHtml);
+            }
+        }, false, true);
+    },
+    getComunes: (x, y) => {
+        $.AdminJs.Ajax.init({
+            type: 'GET',
+            dataType: "JSON",
+            url: '/en/api/Communes/',
+            data: { id: x },
+            action: function (e) {
+                var modelsHtml = "<option value=''>Comuna</option>";
+                $.each(e, function (a, b) {
+                    modelsHtml += "<option value='" + b.id + "'>" + b.nombre + "</option>";
+                })
+                $(y).html(modelsHtml);
+            }
+        }, false, true);
     }
 }
 

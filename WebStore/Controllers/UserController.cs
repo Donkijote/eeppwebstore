@@ -960,6 +960,7 @@ namespace WebStore.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Registration(Registration user)
         {
+
             try
             {
                 var isExist = IsEmailExist(user.Email);
@@ -971,7 +972,7 @@ namespace WebStore.Controllers
                         status = "warning",
                         title = "Email",
                         responseText = $"El email <strong>{user.Email}</strong> ya está siendo usado."
-                    }, JsonRequestBehavior.AllowGet);
+                    });
                 }
 
                 if(user.Pass != user.Passre)
@@ -982,37 +983,105 @@ namespace WebStore.Controllers
                         status = "warning",
                         title = "Password",
                         responseText = "Las contraseñas no coinciden."
-                    }, JsonRequestBehavior.AllowGet);
+                    });
                 }
 
-                tblUsers nickObj = new tblUsers
+                if (IsRutExist(user.Id))
                 {
-                    strNames = user.Name.ToLower(),
-                    strLastNames = user.Lastname.ToLower(),
-                    strEmail = user.Email.ToLower(),
-                    strVerificationCode = Guid.NewGuid(),
-                    strPassword = Crypto.Hash(user.Pass),
-                    intLevel = 1,
-                    boolValidate = false,
-                    strRegistrationDate = DateTime.Now,
-                    strProvider = "Local"
-                };
+                    ModelState.AddModelError("Id", "RUT.");
+                    return Json(new
+                    {
+                        status = "warning",
+                        title = "RUT",
+                        responseText = "Su número de rut está siendo usado por otra persona, si no es uested por favor contáctenos a través d eun ticket de soporte."
+                    });
+                }
 
                 using (webstoreEntities db = new webstoreEntities())
                 {
+                    tblUsers nickObj = new tblUsers
+                    {
+                        intId = user.Id,
+                        strNames = user.Name.ToLower(),
+                        strLastNames = user.Lastname.ToLower(),
+                        strEmail = user.Email.ToLower(),
+                        intPhone = user.Phone,
+                        strVerificationCode = Guid.NewGuid(),
+                        strPassword = Crypto.Hash(user.Pass),
+                        intLevel = 1,
+                        boolValidate = false,
+                        strRegistrationDate = DateTime.Now,
+                        strProvider = "Local"
+                    };
+                    db.tblUsers.Add(nickObj);
+                    tblAddresses newAddress = new tblAddresses
+                    {
+                        strCountry = "Chile",
+                        strCity = user.City,
+                        refRegion = user.States,
+                        refProvince = user.Provinces,
+                        refComuna = user.Comunes,
+                        strAddress = user.AddressOne,
+                        strAddressTwo = user.AddressTwo,
+                        boolDefault = true,
+                        boolThird = false
+                    };
+
+                    db.tblAddresses.Add(newAddress);
+
+                    if(user.RegistrationType == 2)
+                    {
+                        var company = db.tblCompany.Where(x => x.intId == user.Company.CompanyId).SingleOrDefault();
+
+                        if(company == null)
+                        {
+                            tblCompany newCompany = new tblCompany
+                            {
+                                intId = user.Company.CompanyId,
+                                strName = user.Company.CompanyName,
+                                strActivity = user.Company.CompanyActivity,
+                                intPhone = user.Company.CompanyPhone,
+                                refRegion = user.Company.CompanyStates,
+                                refProvince = user.Company.CompanyProvinces,
+                                refComune = user.Company.CompanyComunes,
+                                strCity = user.Company.CompanyCity,
+                                strAddress = user.Company.CompanyAddressOne
+                            };
+
+                            db.tblCompany.Add(newCompany);
+
+                            tblRelCompanyUser newRelation = new tblRelCompanyUser
+                            {
+                                refUser = nickObj.idUser,
+                                refCompany = newCompany.idCompany
+                            };
+
+                            db.tblRelCompanyUser.Add(newRelation);
+                        }
+                        else
+                        {
+                            tblRelCompanyUser newRelation = new tblRelCompanyUser
+                            {
+                                refUser = nickObj.idUser,
+                                refCompany = company.idCompany
+                            };
+
+                            db.tblRelCompanyUser.Add(newRelation);
+                        }
+                    }
+
                     var j = SendVerificationLinkEmail(user.Email, nickObj.strVerificationCode.ToString());
                     if (j == "Sent")
                     {
                         try
                         {
-                            db.tblUsers.Add(nickObj);
                             db.SaveChanges();
                             return Json(new
                             {
                                 status = "OK",
                                 title = "Registro Exitoso..!",
                                 responseText = "Registro realizado con éxito. El link para activar su cuenta ha sido enviado a la siguiente dirección de email:" + user.Email
-                            }, JsonRequestBehavior.AllowGet);
+                            });
                         }
                         catch(Exception ex)
                         {
@@ -1021,17 +1090,17 @@ namespace WebStore.Controllers
                                 status = "error",
                                 title = "Upss..!",
                                 responseText = ex.ToString()
-                            }, JsonRequestBehavior.AllowGet);
+                            });
                         }
                     }
                     else
                     {
                         return Json(new
                         {
-                            status = "error",
+                            status = "warning",
                             title = "Codigo de Verificación",
-                            responseText = j
-                        }, JsonRequestBehavior.AllowGet);
+                            responseText = "Registro realizado con éxito. Pero ocurrió un problema al enviarle un link de confirmación, para solicitar uno nuevo por favor ingrese a su cuenta y haga clic en solicitar link de verificación " + j
+                        });
                     }
                 }
             }
@@ -1042,7 +1111,7 @@ namespace WebStore.Controllers
                     status = "error",
                     title = "Upss..!",
                     responseText = x.ToString()
-                }, JsonRequestBehavior.AllowGet);
+                });
             }
         }
 
@@ -1274,6 +1343,14 @@ namespace WebStore.Controllers
             {
                 var v = dc.tblUsers.Where(a => a.strEmail == emailID).FirstOrDefault();
                 return v != null;
+            }
+        }
+        private bool IsRutExist(string ID)
+        {
+            using (webstoreEntities dc = new webstoreEntities())
+            {
+                var v = dc.tblUsers.Where(a => a.intId == ID).SingleOrDefault();
+                return v != null ? true : false;
             }
         }
 

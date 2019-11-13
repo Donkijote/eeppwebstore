@@ -12,33 +12,29 @@ namespace WebStore.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class tblAddresses
+    public partial class tblCompany
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public tblAddresses()
+        public tblCompany()
         {
-            this.tblAddressesDet = new HashSet<tblAddressesDet>();
+            this.tblRelCompanyUser = new HashSet<tblRelCompanyUser>();
         }
     
-        public int idAddress { get; set; }
-        public string strCountry { get; set; }
+        public int idCompany { get; set; }
+        public string intId { get; set; }
+        public string strName { get; set; }
+        public string strActivity { get; set; }
+        public int intPhone { get; set; }
+        public int refRegion { get; set; }
+        public int refProvince { get; set; }
+        public int refComune { get; set; }
         public string strCity { get; set; }
         public string strAddress { get; set; }
-        public string strAddressTwo { get; set; }
-        public string strType { get; set; }
-        public Nullable<int> intPostalCode { get; set; }
-        public Nullable<int> refRegion { get; set; }
-        public Nullable<int> refProvince { get; set; }
-        public Nullable<int> refComuna { get; set; }
-        public Nullable<int> refuser { get; set; }
-        public Nullable<bool> boolDefault { get; set; }
-        public Nullable<bool> boolThird { get; set; }
     
         public virtual tblComunas tblComunas { get; set; }
+        public virtual tblProvincias tblProvincias { get; set; }
         public virtual tblRegiones tblRegiones { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tblAddressesDet> tblAddressesDet { get; set; }
-        public virtual tblProvincias tblProvincias { get; set; }
-        public virtual tblUsers tblUsers { get; set; }
+        public virtual ICollection<tblRelCompanyUser> tblRelCompanyUser { get; set; }
     }
 }

@@ -40,7 +40,6 @@ namespace WebStore.Models
         public virtual DbSet<tblImg> tblImg { get; set; }
         public virtual DbSet<tblRelBrand> tblRelBrand { get; set; }
         public virtual DbSet<tblFicha> tblFicha { get; set; }
-        public virtual DbSet<tblUsers> tblUsers { get; set; }
         public virtual DbSet<tblAddresses> tblAddresses { get; set; }
         public virtual DbSet<tblAddressesDet> tblAddressesDet { get; set; }
         public virtual DbSet<tblQuotingQue> tblQuotingQue { get; set; }
@@ -54,5 +53,8 @@ namespace WebStore.Models
         public virtual DbSet<tblAvatars> tblAvatars { get; set; }
         public virtual DbSet<tblQuotingsDet> tblQuotingsDet { get; set; }
         public virtual DbSet<tblQuotings> tblQuotings { get; set; }
+        public virtual DbSet<tblUsers> tblUsers { get; set; }
+        public virtual DbSet<tblCompany> tblCompany { get; set; }
+        public virtual DbSet<tblRelCompanyUser> tblRelCompanyUser { get; set; }
     }
 }

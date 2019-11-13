@@ -1,57 +1,212 @@
-﻿
+﻿@model WebStore.Models.Registration
 @{
     ViewBag.Title = WebStore.Resources.Titles.LogUp;
 }
 
-<section>
-    <div class="container py-5">
-        <header class="header">
-            <h3>Iniciar Sesión</h3>
-            <hr>
-        </header>
-        <div class="col-lg-6 py-5">
-            <form id="LogUp">
-                <div class="form-group row">
-                    <label for="staticName" class="col-sm-2 col-form-label">Name</label>
-                    <div class="col-sm-10">
-                        <input type="text" name="name" class="form-control" id="staticName" placeholder="Name">
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label for="staticLastName" class="col-sm-2 col-form-label">Last Name</label>
-                    <div class="col-sm-10">
-                        <input type="text" name="lastname" class="form-control" id="staticLastName" placeholder="Last Name">
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label for="staticEmail" class="col-sm-2 col-form-label">Email</label>
-                    <div class="col-sm-10">
-                        <input type="email" name="email" class="form-control" id="staticEmail" placeholder="Email">
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label for="inputPassword" class="col-sm-2 col-form-label">Password</label>
-                    <div class="col-sm-10">
-                        <input type="password" name="pass" class="form-control" id="inputPassword" placeholder="Password">
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <div class="col-lg-6 text-left">
-                        <button type="submit" class="btn btn-outline-primary">Enviar</button>
-                    </div>
-                    <div class="col-lg-6 text-right">
-                        <a href="/User/LogIn">Volver</a>
-                    </div>
-                </div>
-            </form>
+<header class="header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                <h1>@ViewBag.Title</h1>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                <ul class="breadcrumbs">
+                    <li>
+                        <a id="url_return" href="@Url.Action("Index","Home",new { language = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName})">@WebStore.Resources.Titles.Home</a>
+                    </li>
+                    <li class="separator">&nbsp;</li>
+                    <li>@ViewBag.Title</li>
+                </ul>
+            </div>
         </div>
     </div>
-</section>
+</header>
+<div class="container">
+    <form id="LogUp" autocomplete="off" method="post" class="mb-3">
+        @Html.AntiForgeryToken()
+        <div class="row">
+            <div class="col-sm-12 mb-3">
+                <h6 class="mb-3">¿Cómo desea registrarse?</h6>
+                <div class="custom-control d-inline-flex">
+                    <div class="radiobtn">
+                        <input type="radio" name="RegistrationType" id="person" value="1" checked />
+                        <label for="person" class="border-right-0">Persona</label>
+                    </div>
+                    <div class="radiobtn">
+                        <input type="radio" name="RegistrationType" id="company" value="2" />
+                        <label for="company">Empresa</label>
+                    </div>
+                </div>
+                @Html.ValidationMessageFor(x => x.RegistrationType)
+            </div>
+
+            <div class="col-6 p-4">
+                <h5 class="mb-3">
+                    Datos personales <a href="javascript:void(0);" class="text-decoration-none"
+                                        data-container="body" data-toggle="popover"
+                                        data-placement="right" data-trigger="click" title=""
+                                        data-content="La información suministrada a través de este formulario será utilizada posteriormente cuando realice una compra o cotización."
+                                        data-original-title="Uso de información">+</a>
+                </h5>
+                <div class="row mb-3">
+                    <div class="col-sm-10 mb-3">
+                        <div class="input-group">
+                            @Html.TextBoxFor(x => x.Id, new { @class = "form-control", placeholder = WebStore.Resources.Placeholder.IdNum + " Ej: xx.xxx.xxx-x" })
+                            <span class="input-group-addon">
+                                <i class="far fa-id-card"></i>
+                            </span>
+                        </div>
+                        @Html.ValidationMessageFor(x => x.Id)
+                    </div>
+                    <div class="col-sm-10 mb-3">
+                        <div class="input-group">
+                            @Html.TextBoxFor(x => x.Name, new { @class = "form-control", placeholder = WebStore.Resources.Placeholder.YouName })
+                            <span class="input-group-addon">
+                                <i class="fas fa-user"></i>
+                            </span>
+                        </div>
+                        @Html.ValidationMessageFor(x => x.Name)
+                    </div>
+                    <div class="col-sm-10 mb-3">
+                        <div class="input-group">
+                            @Html.TextBoxFor(x => x.Lastname, new { @class = "form-control", placeholder = WebStore.Resources.Placeholder.LastNames })
+                            <span class="input-group-addon">
+                                <i class="fas fa-user"></i>
+                            </span>
+                        </div>
+                        @Html.ValidationMessageFor(x => x.Lastname)
+                    </div>
+                    <div class="col-sm-10 mb-3">
+                        <div class="input-group">
+                            @Html.TextBoxFor(x => x.Phone, new { @class = "form-control", placeholder = WebStore.Resources.Placeholder.Phone + "Ej: 912345678" })
+                            <span class="input-group-addon">
+                                <i class="fas fa-phone-alt"></i>
+                            </span>
+                        </div>
+                        @Html.ValidationMessageFor(x => x.Phone)
+                    </div>
+                    <div class="col-sm-10 mb-3">
+                        <div class="input-group">
+                            <select class="form-control" type="text" name="States" id="strStatesNationale" placeholder="@WebStore.Resources.Placeholder.Region" data-val="true" data-val-required="Este campo es requerido.">
+                                <option value="">@WebStore.Resources.Placeholder.Region</option>
+
+                            </select>
+                            <span class="input-group-addon">
+                                <i class="fas fa-flag"></i>
+                            </span>
+                        </div>
+                        @Html.ValidationMessageFor(x => x.States)
+                    </div>
+                    <div class="col-sm-10 mb-3">
+                        <div class="input-group">
+                            <select class="form-control" type="text" name="Provinces" id="strProvinciaNationale" placeholder="@WebStore.Resources.Placeholder.Province" data-val="true" data-val-required="Este campo es requerido.">
+                                <option value="">@WebStore.Resources.Placeholder.Province</option>
+                            </select>
+                            <span class="input-group-addon">
+                                <i class="fas fa-city"></i>
+                            </span>
+                        </div>
+                        @Html.ValidationMessageFor(x => x.Provinces)
+                    </div>
+                    <div class="col-sm-10 mb-3">
+                        <div class="input-group">
+                            <select class="form-control" type="text" name="Comunes" id="strComunaNationale" placeholder="@WebStore.Resources.Placeholder.Comune" data-val="true" data-val-required="Este campo es requerido.">
+                                <option value="">@WebStore.Resources.Placeholder.Comune</option>
+                            </select>
+                            <span class="input-group-addon">
+                                <i class="far fa-object-group"></i>
+                            </span>
+                        </div>
+                        @Html.ValidationMessageFor(x => x.Comunes)
+                    </div>
+                    <div class="col-sm-10 mb-3">
+                        <div class="input-group">
+                            @Html.TextBoxFor(x => x.City, new { @class = "form-control", placeholder = WebStore.Resources.Placeholder.City})
+                            <span class="input-group-addon">
+                                <i class="fas fa-landmark"></i>
+                            </span>
+                        </div>
+                        @Html.ValidationMessageFor(x => x.City)
+                    </div>
+                    <div class="col-sm-10 mb-3">
+                        <div class="input-group">
+                            @Html.TextBoxFor(x => x.AddressOne, new { @class = "form-control", placeholder = WebStore.Resources.Placeholder.Address + "1" })
+                            <span class="input-group-addon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </span>
+                        </div>
+                        @Html.ValidationMessageFor(x => x.AddressOne)
+                    </div>
+                    <div class="col-sm-10 mb-3">
+                        <div class="input-group">
+                            @Html.TextBoxFor(x => x.AddressTwo, new { @class = "form-control", placeholder = WebStore.Resources.Placeholder.Address + "2 (referencias) (opcional)" })
+                            <span class="input-group-addon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </span>
+                        </div>
+                        @Html.ValidationMessageFor(x => x.AddressTwo)
+                    </div>
+                </div>
+                <h5 class="mb-3">Datos para iniciar sesión</h5>
+                <div class="row mb-3">
+                    <div class="col-sm-10 mb-3">
+                        <div class="input-group">
+                            @Html.TextBoxFor(x => x.Email, new { @class = "form-control", placeholder = WebStore.Resources.Placeholder.Email, type = "email", id = "Email_LogUp" })
+                            <span class="input-group-addon">
+                                <i class="fas fa-at"></i>
+                            </span>
+                        </div>
+                        @Html.ValidationMessageFor(x => x.Email)
+                    </div>
+                    <div class="col-sm-10 mb-3">
+                        <div class="input-group">
+                            @Html.TextBoxFor(x => x.Pass, new { @class = "form-control", placeholder = WebStore.Resources.Placeholder.Password, type = "password", id = "Pass_LogUp" })
+                            <span class="input-group-addon">
+                                <i class="fas fa-key"></i>
+                            </span>
+                            <span class="input-group-addon revealPass">
+                                <i class="far fa-eye"></i>
+                            </span>
+                        </div>
+                        @Html.ValidationMessageFor(x => x.Pass)
+                    </div>
+                    <div class="col-sm-10 mb-3">
+                        <div class="input-group">
+                            @Html.TextBoxFor(x => x.Passre, new { @class = "form-control", placeholder = WebStore.Resources.Placeholder.RePassword, type = "password" })
+                            <span class="input-group-addon">
+                                <i class="fas fa-key"></i>
+                            </span>
+                            <span class="input-group-addon revealPass">
+                                <i class="far fa-eye"></i>
+                            </span>
+                        </div>
+                        @Html.ValidationMessageFor(x => x.Passre)
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 bg-secondary p-4 d-none" id="CompanyForm">
+                
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-lg-10 col-sm-6 col-md-6 col-xs-6">
+                <button type="submit" class="btn btn-outline-primary">@WebStore.Resources.Buttons.SignUp</button>
+            </div>
+        </div>
+    </form>
+</div>
+@section Included{
+    @Html.Raw(WebStore.Resources.Scripts.JqueryValidate)
+    @Html.Raw(WebStore.Resources.Scripts.JqueryValidateMethods)
+    @Html.Raw(WebStore.Resources.Scripts.JqueryValidateUnobtrousive)
+    @Html.Raw(WebStore.Resources.Scripts.SweetAlert)
+}
 @section Scripts{
-<script type="text/javascript">
-	$(function() {
-		$.AdminJs.LogUp.activate();
-	});
-</script>
+    <script type="text/javascript">
+        $(function () {
+            $.AdminJs.LogUp.activate();
+        });
+    </script>
 }
 

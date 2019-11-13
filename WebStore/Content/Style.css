@@ -4842,6 +4842,11 @@ blockquote {
 .field-validation-error {
   color: #dc3545 !important; }
 
+.popover {
+  z-index: 1;
+  -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2); }
+
 /*#endregion*/
 /*#region ScrollBar Chrome*/
 ::-webkit-scrollbar {

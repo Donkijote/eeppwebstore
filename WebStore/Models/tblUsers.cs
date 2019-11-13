@@ -18,34 +18,37 @@ namespace WebStore.Models
         public tblUsers()
         {
             this.tblAddresses = new HashSet<tblAddresses>();
-            this.tblQuotingQue = new HashSet<tblQuotingQue>();
             this.tblHistory = new HashSet<tblHistory>();
+            this.tblQuotingQue = new HashSet<tblQuotingQue>();
             this.tblQuotings = new HashSet<tblQuotings>();
+            this.tblRelCompanyUser = new HashSet<tblRelCompanyUser>();
         }
     
         public int idUser { get; set; }
+        public string intId { get; set; }
         public string strNames { get; set; }
         public string strLastNames { get; set; }
         public string strEmail { get; set; }
+        public Nullable<int> intPhone { get; set; }
         public string strPassword { get; set; }
+        public Nullable<System.DateTime> strRegistrationDate { get; set; }
         public Nullable<System.Guid> strVerificationCode { get; set; }
         public Nullable<int> intLevel { get; set; }
         public Nullable<bool> boolValidate { get; set; }
         public string strRecoveryCode { get; set; }
         public Nullable<System.DateTime> timeRecoveryCode { get; set; }
-        public Nullable<System.DateTime> strRegistrationDate { get; set; }
-        public Nullable<int> intId { get; set; }
-        public Nullable<int> intPhone { get; set; }
         public string strProvider { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblAddresses> tblAddresses { get; set; }
+        public virtual tblAvatars tblAvatars { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tblHistory> tblHistory { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblQuotingQue> tblQuotingQue { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tblHistory> tblHistory { get; set; }
-        public virtual tblAvatars tblAvatars { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblQuotings> tblQuotings { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tblRelCompanyUser> tblRelCompanyUser { get; set; }
     }
 }

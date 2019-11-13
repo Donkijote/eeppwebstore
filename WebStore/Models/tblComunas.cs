@@ -18,6 +18,7 @@ namespace WebStore.Models
         public tblComunas()
         {
             this.tblAddresses = new HashSet<tblAddresses>();
+            this.tblCompany = new HashSet<tblCompany>();
         }
     
         public int idComuna { get; set; }
@@ -27,5 +28,7 @@ namespace WebStore.Models
         public virtual tblProvincias tblProvincias { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblAddresses> tblAddresses { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tblCompany> tblCompany { get; set; }
     }
 }

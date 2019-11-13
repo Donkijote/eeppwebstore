@@ -29,8 +29,8 @@ namespace WebStore.Models
         public string strComment { get; set; }
         public Nullable<int> refUser { get; set; }
     
-        public virtual tblUsers tblUsers { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblQuotingsDet> tblQuotingsDet { get; set; }
+        public virtual tblUsers tblUsers { get; set; }
     }
 }
