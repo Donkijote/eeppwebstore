@@ -331,6 +331,12 @@
     <Compile Include="Models\tblBrand.cs">
       <DependentUpon>Connection.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\tblCartQue.cs">
+      <DependentUpon>Connection.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tblCartQueDet.cs">
+      <DependentUpon>Connection.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\tblCategories.cs">
       <DependentUpon>Connection.tt</DependentUpon>
     </Compile>

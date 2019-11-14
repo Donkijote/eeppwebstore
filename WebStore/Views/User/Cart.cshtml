@@ -39,7 +39,7 @@
 
     <div class="table-responsive shopping-cart">
         @{
-            if (Model != null)
+            if (Model != null && Model.Any())
             {
                 <table class="table">
                     <thead>
@@ -49,17 +49,20 @@
                             <th class="text-center">@WebStore.Resources.Cart.Subtotal</th>
                             <th class="text-center">@WebStore.Resources.Cart.Discount</th>
                             <th class="text-center">Total</th>
-                            <th class="text-center"><a class="btn btn-sm btn-outline-danger" href="#">@WebStore.Resources.Buttons.EmptyCart</a></th>
+                            <th class="text-center"><a class="btn btn-sm btn-outline-danger" href="javascript:void(0);" id="EmptyCartList">@WebStore.Resources.Buttons.EmptyCart</a></th>
                         </tr>
                     </thead>
                     <tbody>
                         @{ int subTotal = 0; int discount = 0; double total = 0; double Iva = 0;}
                         @foreach (var i in Model)
                         {
-                            subTotal += i.PriceInt;
-                            if(i.PriceOffInt > 0){
-                                discount += i.PriceInt - i.PriceOffInt;
+                            subTotal += i.SubtotalInt;
+                            if (i.PriceOffInt > 0)
+                            {
+                                discount = (i.PriceInt - i.PriceOffInt) * i.Quantity;
                             }
+
+                            total += i.TotalInt;
 
                             <tr>
                                 <td>
@@ -68,7 +71,21 @@
                                             <img src="~/Content/img/products/@i.Code-1.jpg" alt="Product">
                                         </a>
                                         <div class="product-info">
-                                            <h4 class="product-title"><a href="@Url.Action("Category", "Product", new { id = i.Category, idp = i.Code, language = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName})">@i.Name</a></h4><span><em>Type:</em> Mirrorless</span><span><em>Color:</em> Black</span>
+                                            <h4 class="product-title">
+                                                <a href="@Url.Action("Category", "Product", new { id = i.Category, idp = i.Code, language = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName})">@i.Name</a>
+                                            </h4>
+                                            @{
+                                                if (i.PriceOffInt > 0)
+                                                {
+                                                    <span class="text-muted"><del>$ @i.Price</del></span>
+                                                    <span><em>Precio:</em>$ @i.PriceOff <span class="text-success">@i.PercentageOff DCTO</span></span>
+                                                }
+                                                else
+                                                {
+                                                    <span><em>Precio:</em>$ @i.Price</span>
+                                                    <span><em>Color:</em> Black</span>
+                                                }
+                                            }
                                         </div>
                                     </div>
                                 </td>
@@ -86,9 +103,9 @@
                                         </div>
                                     </div>
                                 </td>
-                                <td class="text-center text-lg">$@i.Price</td>
-                                <td class="text-center text-lg">@i.PercentageOff</td>
-                                <td class="text-center text-lg">$@(i.PriceOffInt > 0 ? i.PriceOff:i.Price)</td>
+                                <td class="text-center text-lg">$@(i.SubtotalStr)</td>
+                                <td class="text-center text-lg">@(i.PercentageOff == null || i.PercentageOff == "" ? "0%" : i.PercentageOff)</td>
+                                <td class="text-center text-lg">$@(i.TotalStr)</td>
                                 <td class="text-center">
                                     <a class="remove-from-cart" href="javascript:void(0);" data-id="@i.Code" data-toggle="tooltip" title="" data-original-title="Quitar Artículo">
                                         <i class="fas fa-times"></i>
@@ -98,8 +115,7 @@
                         }
                     </tbody>
                 </table>
-                            Iva = (subTotal - discount) * 0.19;
-                            total = (subTotal - discount) + ((subTotal - discount) * 0.19);
+                Iva = total * 0.19;
 
                 <div class="shopping-cart-footer">
                     <div class="column">
@@ -118,7 +134,7 @@
                         <span class="text-gray-dark">$@Iva.ToString("N0", System.Threading.Thread.CurrentThread.CurrentCulture)</span>
                         <br />
                         <span class="text-muted">Total:&nbsp; </span>
-                        <span class="text-gray-dark">$@total.ToString("N0", System.Threading.Thread.CurrentThread.CurrentCulture)</span>
+                        <span class="text-gray-dark">$@((total + Iva).ToString("N0", System.Threading.Thread.CurrentThread.CurrentCulture))</span>
                     </div>
                 </div>
 
@@ -324,6 +340,7 @@
 }
 
 @section Included{
+    @Html.Raw(WebStore.Resources.Scripts.JqueryValidate)
     @Html.Raw(WebStore.Resources.Scripts.OwlCarousel)
     @Html.Raw(WebStore.Resources.Scripts.OwlCarouselJs)
     @Html.Raw(WebStore.Resources.Scripts.NotifyJs)

@@ -60,6 +60,22 @@
           <Property Name="intOrder" Type="int" />
           <Property Name="refImg" Type="int" />
         </EntityType>
+        <EntityType Name="tblCartQue">
+          <Key>
+            <PropertyRef Name="IdCartQue" />
+          </Key>
+          <Property Name="IdCartQue" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="refUser" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblCartQueDet">
+          <Key>
+            <PropertyRef Name="IdCartQueDet" />
+          </Key>
+          <Property Name="IdCartQueDet" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="refCartQue" Type="int" Nullable="false" />
+          <Property Name="refCodProd" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Quantity" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="tblCategories">
           <Key>
             <PropertyRef Name="idCategoria" />
@@ -463,6 +479,32 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_tblCartQue_tblUsers">
+          <End Role="tblUsers" Type="Self.tblUsers" Multiplicity="1" />
+          <End Role="tblCartQue" Type="Self.tblCartQue" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblUsers">
+              <PropertyRef Name="idUser" />
+            </Principal>
+            <Dependent Role="tblCartQue">
+              <PropertyRef Name="refUser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblCartQueDet_tblCartQue">
+          <End Role="tblCartQue" Type="Self.tblCartQue" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="tblCartQueDet" Type="Self.tblCartQueDet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblCartQue">
+              <PropertyRef Name="IdCartQue" />
+            </Principal>
+            <Dependent Role="tblCartQueDet">
+              <PropertyRef Name="refCartQue" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_tblCategories_tblFamily">
           <End Role="tblFamily" Type="Self.tblFamily" Multiplicity="0..1" />
           <End Role="tblCategories" Type="Self.tblCategories" Multiplicity="*" />
@@ -805,6 +847,8 @@
           <EntitySet Name="tblAnswers" EntityType="Self.tblAnswers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblAvatars" EntityType="Self.tblAvatars" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblBrand" EntityType="Self.tblBrand" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblCartQue" EntityType="Self.tblCartQue" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblCartQueDet" EntityType="Self.tblCartQueDet" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblCategories" EntityType="Self.tblCategories" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblCategoryRelation" EntityType="Self.tblCategoryRelation" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblCompany" EntityType="Self.tblCompany" Schema="dbo" store:Type="Tables" />
@@ -862,6 +906,14 @@
           <AssociationSet Name="FK_tblBrand_tblBrand" Association="Self.FK_tblBrand_tblBrand">
             <End Role="tblImg" EntitySet="tblImg" />
             <End Role="tblBrand" EntitySet="tblBrand" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblCartQue_tblUsers" Association="Self.FK_tblCartQue_tblUsers">
+            <End Role="tblUsers" EntitySet="tblUsers" />
+            <End Role="tblCartQue" EntitySet="tblCartQue" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblCartQueDet_tblCartQue" Association="Self.FK_tblCartQueDet_tblCartQue">
+            <End Role="tblCartQue" EntitySet="tblCartQue" />
+            <End Role="tblCartQueDet" EntitySet="tblCartQueDet" />
           </AssociationSet>
           <AssociationSet Name="FK_tblCategories_tblFamily" Association="Self.FK_tblCategories_tblFamily">
             <End Role="tblFamily" EntitySet="tblFamily" />
@@ -1171,6 +1223,16 @@
           <AssociationSet Name="FK_tblRelCompanyUser_tblUsers" Association="webstoreModel.FK_tblRelCompanyUser_tblUsers">
             <End Role="tblUsers" EntitySet="tblUsers" />
             <End Role="tblRelCompanyUser" EntitySet="tblRelCompanyUser" />
+          </AssociationSet>
+          <EntitySet Name="tblCartQue" EntityType="webstoreModel.tblCartQue" />
+          <EntitySet Name="tblCartQueDet" EntityType="webstoreModel.tblCartQueDet" />
+          <AssociationSet Name="FK_tblCartQue_tblUsers" Association="webstoreModel.FK_tblCartQue_tblUsers">
+            <End Role="tblUsers" EntitySet="tblUsers" />
+            <End Role="tblCartQue" EntitySet="tblCartQue" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblCartQueDet_tblCartQue" Association="webstoreModel.FK_tblCartQueDet_tblCartQue">
+            <End Role="tblCartQue" EntitySet="tblCartQue" />
+            <End Role="tblCartQueDet" EntitySet="tblCartQueDet" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="tblCountry">
@@ -1873,6 +1935,7 @@
           <NavigationProperty Name="tblQuotingQue" Relationship="webstoreModel.FK_tblQuotingQue_tblUsers" FromRole="tblUsers" ToRole="tblQuotingQue" />
           <NavigationProperty Name="tblQuotings" Relationship="webstoreModel.FK_tblQuotings_tblUsers" FromRole="tblUsers" ToRole="tblQuotings" />
           <NavigationProperty Name="tblRelCompanyUser" Relationship="webstoreModel.FK_tblRelCompanyUser_tblUsers" FromRole="tblUsers" ToRole="tblRelCompanyUser" />
+          <NavigationProperty Name="tblCartQue" Relationship="webstoreModel.FK_tblCartQue_tblUsers" FromRole="tblUsers" ToRole="tblCartQue" />
         </EntityType>
         <Association Name="FK_tblAddresses_tblUsers">
           <End Type="webstoreModel.tblUsers" Role="tblUsers" Multiplicity="0..1" />
@@ -2020,6 +2083,51 @@
             </Principal>
             <Dependent Role="tblRelCompanyUser">
               <PropertyRef Name="refUser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="tblCartQue">
+          <Key>
+            <PropertyRef Name="IdCartQue" />
+          </Key>
+          <Property Name="IdCartQue" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="refUser" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="tblUsers" Relationship="webstoreModel.FK_tblCartQue_tblUsers" FromRole="tblCartQue" ToRole="tblUsers" />
+          <NavigationProperty Name="tblCartQueDet" Relationship="webstoreModel.FK_tblCartQueDet_tblCartQue" FromRole="tblCartQue" ToRole="tblCartQueDet" />
+        </EntityType>
+        <EntityType Name="tblCartQueDet">
+          <Key>
+            <PropertyRef Name="IdCartQueDet" />
+          </Key>
+          <Property Name="IdCartQueDet" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="refCartQue" Type="Int32" Nullable="false" />
+          <Property Name="refCodProd" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Quantity" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="tblCartQue" Relationship="webstoreModel.FK_tblCartQueDet_tblCartQue" FromRole="tblCartQueDet" ToRole="tblCartQue" />
+        </EntityType>
+        <Association Name="FK_tblCartQue_tblUsers">
+          <End Type="webstoreModel.tblUsers" Role="tblUsers" Multiplicity="1" />
+          <End Type="webstoreModel.tblCartQue" Role="tblCartQue" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblUsers">
+              <PropertyRef Name="idUser" />
+            </Principal>
+            <Dependent Role="tblCartQue">
+              <PropertyRef Name="refUser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblCartQueDet_tblCartQue">
+          <End Type="webstoreModel.tblCartQue" Role="tblCartQue" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="webstoreModel.tblCartQueDet" Role="tblCartQueDet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblCartQue">
+              <PropertyRef Name="IdCartQue" />
+            </Principal>
+            <Dependent Role="tblCartQueDet">
+              <PropertyRef Name="refCartQue" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2419,6 +2527,24 @@
                 <ScalarProperty Name="refCompany" ColumnName="refCompany" />
                 <ScalarProperty Name="refUser" ColumnName="refUser" />
                 <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblCartQue">
+            <EntityTypeMapping TypeName="webstoreModel.tblCartQue">
+              <MappingFragment StoreEntitySet="tblCartQue">
+                <ScalarProperty Name="refUser" ColumnName="refUser" />
+                <ScalarProperty Name="IdCartQue" ColumnName="IdCartQue" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblCartQueDet">
+            <EntityTypeMapping TypeName="webstoreModel.tblCartQueDet">
+              <MappingFragment StoreEntitySet="tblCartQueDet">
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="refCodProd" ColumnName="refCodProd" />
+                <ScalarProperty Name="refCartQue" ColumnName="refCartQue" />
+                <ScalarProperty Name="IdCartQueDet" ColumnName="IdCartQueDet" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -56,5 +56,7 @@ namespace WebStore.Models
         public virtual DbSet<tblUsers> tblUsers { get; set; }
         public virtual DbSet<tblCompany> tblCompany { get; set; }
         public virtual DbSet<tblRelCompanyUser> tblRelCompanyUser { get; set; }
+        public virtual DbSet<tblCartQue> tblCartQue { get; set; }
+        public virtual DbSet<tblCartQueDet> tblCartQueDet { get; set; }
     }
 }

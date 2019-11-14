@@ -105,7 +105,7 @@
                         </a>
                     </li>
 
-                    <li class="nav-item mg-li-social mg-lang dropdown">
+                    <!--<li class="nav-item mg-li-social mg-lang dropdown">
                         <a class="nav-link" href="javascript:void(0);">
                             <i class="far fa-flag"></i>
                         </a>
@@ -140,7 +140,7 @@
                                 </a>
                             </li>
                         </ul>
-                    </li>
+                    </li>-->
 
                     <li class="nav-item mg-li-social dropdown">
                         <a class="nav-link" href="@Url.Action("Quote", "User", new { language = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName }, null)" data-toggle="tooltip" data-title="Cotizar" data-original-title="Cotizar">
@@ -184,17 +184,27 @@
                                                 <h4 class="entry-title">
                                                     <a href="@Url.Action("Category", "Product", new { id = i.Category, idp = i.Code, language = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName})">@i.Name</a>
                                                 </h4>
-                                                <span class="entry-meta">@i.Quantity x $@i.Price</span>
+                                                @{
+                                                    if (i.PriceOffInt > 0)
+                                                    {
+                                                        <span class="entry-meta"><del>@i.Price</del> <span class="text-success">@i.PercentageOff DCTO</span></span>
+                                                        <span class="entry-meta">@i.Quantity x $@i.PriceOff</span>
+                                                    }
+                                                    else
+                                                    {
+                                                        <span class="entry-meta">@i.Quantity x $@i.Price</span>
+                                                    }
+                                                }
                                             </div>
                                             <a class="entry-delete removeItemFromCart" data-id="@i.Code" href="javascript:void(0);">
                                                 <i class="fas fa-times"></i>
                                             </a>
                                         </div>
-                                    }
+                                        }
                                     int total = 0;
                                     foreach (var i in Model.ProductList)
                                     {
-                                        total += i.PriceInt;
+                                        total += i.TotalInt;
                                     }
                                     <div class="text-right">
                                         <p class="text-gray-dark py-2 mb-0">

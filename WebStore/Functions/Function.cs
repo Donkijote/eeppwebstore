@@ -175,6 +175,15 @@ namespace WebStore.Functions
         {
             return AddQuotingQueDet(db, x, y);
         }
+        public static string SetCartQueDet(webstoreEntities db, tblCartQue x, CartProductList y)
+        {
+            return AddCartQueDet(db, x, y);
+        }
+
+        public static List<CartProductList> GetCartProducts(List<tblCartQueDet> x, webstoreEntities y)
+        {
+            return CartProducts(x, y);
+        }
 
         public static List<Products> GetOffertOrOffertTime(List<Products> pro, webstoreEntities db)
         {
@@ -193,6 +202,7 @@ namespace WebStore.Functions
                         int percet = (int)oList.Where(o => o.idOffert == i.Offert).Select(x => x.intPercentage).FirstOrDefault();
                         i.intPrecentOff = percet + "%";
                         i.intPrecioOff = Function.FormatNumber(i.intPrecioNum - (i.intPrecioNum * percet / 100));
+                        i.intPrecioOffNum = i.intPrecioNum - (i.intPrecioNum * percet / 100);
                     }
                 }
             }
@@ -214,6 +224,7 @@ namespace WebStore.Functions
                             a.TimeOffer = true;
                             a.intPrecentOff = percentOff + "%";
                             a.intPrecioOff = Function.FormatNumber((int)Decimal.Parse(a.intPrecio) - (int)(Double.Parse(a.intPrecio) * percentOff / 100));
+                            a.intPrecioOffNum = (int)Decimal.Parse(a.intPrecio) - (int)(Double.Parse(a.intPrecio) * percentOff / 100);
                             a.Time = string.Format("{0:D2}:{1:D2}:{2:D2}:{3:D2}", timeDiff.Days, timeDiff.Hours, timeDiff.Minutes, timeDiff.Seconds);
                         }
                     }
@@ -285,6 +296,7 @@ namespace WebStore.Functions
                     on p.refCategory equals c.idCategoria
                     select new GetProducts
                     {
+                        Id = p.idProduct,
                         Codigo = p.strCode,
                         Name = p.strName,
                         Price = p.intPrice,
@@ -353,6 +365,93 @@ namespace WebStore.Functions
                     return ex.ToString();                   
                 }
             }
+        }
+        private static string AddCartQueDet(webstoreEntities db, tblCartQue cartQue, CartProductList cartProduct)
+        {
+            var quotingQueDet = db.tblCartQueDet.Where(x => x.refCartQue == cartQue.IdCartQue && x.refCodProd == cartProduct.Code).FirstOrDefault();
+            if (quotingQueDet != null)
+            {
+                try
+                {
+                    quotingQueDet.Quantity += cartProduct.Quantity;
+                    db.SaveChanges();
+                    return "ok";
+                }
+                catch (Exception ex)
+                {
+                    return ex.ToString();
+                }
+            }
+            else
+            {
+                try
+                {
+                    tblCartQueDet newCartQueDet = new tblCartQueDet
+                    {
+                        refCartQue = cartQue.IdCartQue,
+                        refCodProd = cartProduct.Code,
+                        Quantity = cartProduct.Quantity
+                    };
+
+                    db.tblCartQueDet.Add(newCartQueDet);
+                    db.SaveChanges();
+                    return "ok";
+                }
+                catch (Exception ex)
+                {
+                    return ex.ToString();
+                }
+            }
+        }
+
+        private static List<CartProductList> CartProducts(List<tblCartQueDet> products, webstoreEntities db)
+        {
+            List<Products> productList = new List<Products>();
+
+            foreach (var i in products)
+            {
+                productList.Add(
+                    GetProductsList(db).Where(x => x.Codigo == i.refCodProd).Select(x => new Products
+                    {
+
+                        strCodigo = x.Codigo,
+                        strNombre = x.Name,
+                        intPrecio = Function.FormatNumber(x.Price),
+                        intPrecioNum = x.Price,
+                        categorySeo = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(x.Category),
+                        Offert = x.Offert,
+                        OffertTime = x.OffertTime
+                    }).FirstOrDefault()
+                );
+
+            }
+
+            productList = GetOffertOrOffertTime(productList, db);
+
+            List<CartProductList> productsToReturn = new List<CartProductList>();
+
+            foreach (var i in productList)
+            {
+                int quantity = products.Where(p => p.refCodProd == i.strCodigo).Select(s => s.Quantity).FirstOrDefault();
+                productsToReturn.Add(new CartProductList
+                {
+                    Code = i.strCodigo,
+                    Name = i.strNombre,
+                    Price = i.intPrecio,
+                    PriceInt = i.intPrecioNum,
+                    PriceOff = i.intPrecioOff,
+                    PriceOffInt = i.intPrecioOffNum,
+                    Category = i.categorySeo,
+                    PercentageOff = i.intPrecentOff,
+                    SubtotalInt = i.intPrecioNum * quantity,
+                    SubtotalStr = Function.FormatNumber(i.intPrecioNum * quantity),
+                    TotalInt = i.intPrecioOffNum > 0 ? i.intPrecioOffNum * quantity : i.intPrecioNum * quantity,
+                    TotalStr = Function.FormatNumber(i.intPrecioOffNum > 0 ? i.intPrecioOffNum * quantity : i.intPrecioNum * quantity),
+                    Quantity = quantity
+                });
+            }
+
+            return productsToReturn;
         }
     }
 

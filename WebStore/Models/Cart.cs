@@ -17,5 +17,9 @@ namespace WebStore.Models
         public string PercentageOff { get; set; }
         public int Quantity { get; set; }
         public string Category { get; set; }
+        public int SubtotalInt { get; set; }
+        public int TotalInt { get; set; }
+        public string SubtotalStr { get; set; }
+        public string TotalStr { get; set; }
     }
 }

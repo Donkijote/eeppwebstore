@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using WebStore.Functions;
 using WebStore.Models;
 
 namespace WebStore.Controllers
@@ -30,7 +31,15 @@ namespace WebStore.Controllers
                                                             where b.refUser == UserId
                                                             select a).ToList();
 
-                    viewModel.Notification = new Notification { Quotings = quotingQueDet.Count(), Cart = 0 };
+                    List<tblCartQueDet> cartQueDet = (from a in db.tblCartQue
+                                                      join b in db.tblCartQueDet
+                                                      on a.IdCartQue equals b.refCartQue
+                                                      where a.refUser == UserId
+                                                      select b).ToList();
+
+                    viewModel.ProductList = Function.GetCartProducts(cartQueDet, db);
+
+                    viewModel.Notification = new Notification { Quotings = quotingQueDet.Count(), Cart = cartQueDet.Count() };
                 }
                 else
                 {

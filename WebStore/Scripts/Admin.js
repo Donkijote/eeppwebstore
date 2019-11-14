@@ -933,6 +933,8 @@ $.AdminJs.cart = {
                 _this.updateCartItemQuantity(id, quantity);
             }
         });
+
+        _this.removeFromCart();
     },
     addProductToCart: function() {
         var _this = this;
@@ -973,7 +975,6 @@ $.AdminJs.cart = {
                     }
                     myAlert(data)
                 } else {
-                    console.log(resp)
                 }
             }
         })
@@ -984,9 +985,9 @@ $.AdminJs.cart = {
             url: '/en/User/UpdateItemQuantityFromCartList/',
             data: { code: x, quantity: y },
             action: (resp) => {
-
+                window.location.reload();
             }
-        }, true)
+        })
     },
     removeFromCart: () => {
         $('.remove-from-cart').on('click', function () {
@@ -1015,13 +1016,12 @@ $.AdminJs.cart = {
                 }
             })
         });
-        $('.removeItemFromCart').on('click', function (e) {
+        $('#EmptyCartList').on('click', function (e) {
             e.preventDefault();
-            e.stopPropagation();
             var id = $(this).data('id');
             $.AdminJs.Ajax.init({
                 type: 'POST',
-                url: '/en/User/RemoveItemFromCartList/',
+                url: '/en/User/DeleteCartList/',
                 data: { id: id },
                 action: (resp) => {
                     if (resp.status == "OK") {

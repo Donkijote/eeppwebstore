@@ -18,8 +18,29 @@ namespace WebStore.Controllers
         // GET: User
         public ActionResult Cart()
         {
-            List<CartProductList> productLists = Session["CartList"] as List<CartProductList>;
-            return View(productLists);
+            if (Session["id"] != null)
+            {
+                using (webstoreEntities db = new webstoreEntities())
+                {
+                    int UserId = (int)Session["id"];
+
+                    List<tblCartQueDet> products = (from a in db.tblCartQue
+                                                    join b in db.tblCartQueDet
+                                                    on a.IdCartQue equals b.refCartQue
+                                                    where a.refUser == UserId
+                                                    select b).ToList();
+
+                    List<CartProductList> productsToReturn = Function.GetCartProducts(products, db);
+
+
+                    return View(productsToReturn);
+                }
+            }
+            else
+            {
+                List<CartProductList> productLists = Session["CartList"] as List<CartProductList>;
+                return View(productLists);
+            }
         }
         [HttpPost]
         public JsonResult AddProductToCart(CartProductList CartProduct)
@@ -28,7 +49,78 @@ namespace WebStore.Controllers
             {
                 if(Session["id"] != null)
                 {
-                    return Json(new {});
+                    using(webstoreEntities db = new webstoreEntities())
+                    {
+                        int UserId = (int)Session["id"];
+
+                        tblCartQue cartQue = db.tblCartQue.Where(x => x.refUser == UserId).SingleOrDefault();
+
+                        if(cartQue != null)
+                        {
+                            tblCartQueDet cartQueDet = db.tblCartQueDet.Where(x => x.refCartQue == cartQue.IdCartQue && x.refCodProd == CartProduct.Code).SingleOrDefault();
+
+                            if(cartQueDet != null)
+                            {
+                                try
+                                {
+                                    cartQueDet.Quantity += CartProduct.Quantity;
+                                    db.SaveChanges();
+                                    return Json(new { status = "OK" });
+                                }
+                                catch(Exception ex)
+                                {
+                                    return Json(new { status = "error", title="Ups...!", responseText = $"Error al añadir producto: <br>{ex.ToString()}" });
+                                }
+
+                            }
+                            else
+                            {
+                                tblCartQueDet newCartQueDet = new tblCartQueDet
+                                {
+                                    refCartQue = cartQue.IdCartQue,
+                                    refCodProd = CartProduct.Code,
+                                    Quantity = CartProduct.Quantity
+                                };
+                                try
+                                {
+                                    db.tblCartQueDet.Add(newCartQueDet);
+                                    db.SaveChanges();
+                                    return Json(new { status = "OK" });
+                                }
+                                catch(Exception ex)
+                                {
+                                    return Json(new { status = "error", title = "Ups...!", responseText = $"Error al añadir producto: <br>{ex.ToString()}" });
+                                }
+                            }
+                        }
+                        else
+                        {
+                            try
+                            {
+                                tblCartQue newCartQue = new tblCartQue
+                                {
+                                    refUser = UserId
+                                };
+
+                                db.tblCartQue.Add(newCartQue);
+
+                                tblCartQueDet newCartQueDet = new tblCartQueDet
+                                {
+                                    refCartQue = newCartQue.IdCartQue,
+                                    refCodProd = CartProduct.Code,
+                                    Quantity = CartProduct.Quantity
+                                };
+
+                                db.tblCartQueDet.Add(newCartQueDet);
+                                db.SaveChanges();
+                                return Json(new { status = "OK" });
+                            }
+                            catch (Exception ex)
+                            {
+                                return Json(new { status = "error", title = "Ups...!", responseText = $"Error al añadir producto: <br>{ex.ToString()}" });
+                            }
+                        }
+                    }
                 }
                 else
                 {
@@ -44,6 +136,10 @@ namespace WebStore.Controllers
                                 if (i.Code == CartProduct.Code)
                                 {
                                     i.Quantity += CartProduct.Quantity;
+                                    i.SubtotalInt = i.PriceInt * i.Quantity;
+                                    i.TotalInt = i.PriceOffInt > 0 ? i.PriceOffInt * i.Quantity : i.PriceInt * i.Quantity;
+                                    i.SubtotalStr = Function.FormatNumber(i.SubtotalInt);
+                                    i.TotalStr = Function.FormatNumber(i.TotalInt);
                                 }
                             }
                         }
@@ -68,7 +164,11 @@ namespace WebStore.Controllers
                                 PriceOff = CartProduct.PriceOff,
                                 PriceOffInt = CartProduct.PriceOffInt,
                                 Quantity = CartProduct.Quantity,
-                                Category = CartProduct.Category
+                                Category = CartProduct.Category,
+                                SubtotalInt = CartProduct.PriceInt * CartProduct.Quantity,
+                                TotalInt = CartProduct.PriceOffInt > 0 ? CartProduct.PriceOffInt * CartProduct.Quantity : CartProduct.PriceInt * CartProduct.Quantity,
+                                SubtotalStr = Function.FormatNumber(CartProduct.PriceInt * CartProduct.Quantity),
+                                TotalStr = Function.FormatNumber(CartProduct.PriceOffInt > 0 ? CartProduct.PriceOffInt * CartProduct.Quantity : CartProduct.PriceInt * CartProduct.Quantity)
                             }
                         };
                         Session["CartList"] = Products;
@@ -86,7 +186,34 @@ namespace WebStore.Controllers
         {
             if (Session["id"] != null)
             {
-                return Json(new { });
+                using (webstoreEntities db = new webstoreEntities())
+                {
+                    int UserId = (int)Session["id"];
+
+                    tblCartQueDet cartQueDet = (from a in db.tblCartQue
+                                                join b in db.tblCartQueDet
+                                                on a.IdCartQue equals b.refCartQue
+                                                where a.refUser == UserId && b.refCodProd == id
+                                                select b).SingleOrDefault();
+
+                    if (cartQueDet != null)
+                    {
+                        try
+                        {
+                            db.tblCartQueDet.Remove(cartQueDet);
+                            db.SaveChanges();
+                            return Json(new { status = "OK", reload = false });
+                        }
+                        catch (Exception ex)
+                        {
+                            return Json(new { status = "error", title = "Up...!", responseText = "Algo salió mal, no se pudo vaciar su lista, recargue la página e intente nuevamente.", responseConsole = ex.ToString() });
+                        }
+                    }
+                    else
+                    {
+                        return Json(new { status = "error", title = "Up...!", responseText = "Algo salió mal, no se pudo vaciar su lista, recargue la página e intente nuevamente." });
+                    }
+                }
             }
             else
             {
@@ -110,7 +237,30 @@ namespace WebStore.Controllers
         {
             if (Session["id"] != null)
             {
-                return Json(new { });
+                using(webstoreEntities db = new webstoreEntities())
+                {
+                    int UserId = (int)Session["id"];
+
+                    tblCartQue cartQue = db.tblCartQue.Where(x => x.refUser == UserId).SingleOrDefault();
+
+                    if(cartQue != null)
+                    {
+                        try
+                        {
+                            db.tblCartQue.Remove(cartQue);
+                            db.SaveChanges();
+                            return Json(new { status = "OK", reload = true });
+                        }
+                        catch(Exception ex)
+                        {
+                            return Json(new { status = "error", title = "Up...!", responseText = "Algo salió mal, no se pudo vaciar su lista, recargue la página e intente nuevamente.", responseConsole = ex.ToString() });
+                        }
+                    }
+                    else
+                    {
+                        return Json(new { status = "error", title = "Up...!", responseText = "Algo salió mal, no se pudo vaciar su lista, recargue la página e intente nuevamente." });
+                    }
+                }
             }
             else
             {
@@ -131,7 +281,33 @@ namespace WebStore.Controllers
         {
             if (Session["id"] != null)
             {
-                return Json(new { });
+                using(webstoreEntities db = new webstoreEntities())
+                {
+                    int UserId = (int)Session["id"];
+                    tblCartQueDet cartQueDet = (from a in db.tblCartQue
+                                                join b in db.tblCartQueDet
+                                                on a.IdCartQue equals b.refCartQue
+                                                where a.refUser == UserId && b.refCodProd == code
+                                                select b).SingleOrDefault();
+
+                    if(cartQueDet != null)
+                    {
+                        try
+                        {
+                            cartQueDet.Quantity = quantity;
+                            db.SaveChanges();
+                            return Json(new { status = "OK" });
+                        }
+                        catch(Exception ex)
+                        {
+                            return Json(new { status = "error", title = "Ups...!", responseText = ex.ToString() });
+                        }
+                    }
+                    else
+                    {
+                        return Json(new { status = "error", title = "Ups...!", responseText = "Error al actualizar la cantidad" });
+                    }
+                }
             }
             else
             {
@@ -143,6 +319,10 @@ namespace WebStore.Controllers
                         if (i.Code == code)
                         {
                             i.Quantity = quantity;
+                            i.SubtotalInt = i.PriceInt * i.Quantity;
+                            i.TotalInt = i.PriceOffInt > 0 ? i.PriceOffInt * i.Quantity : i.PriceInt * i.Quantity;
+                            i.SubtotalStr = Function.FormatNumber(i.SubtotalInt);
+                            i.TotalStr = Function.FormatNumber(i.TotalInt);
                         }
                     }
 
@@ -158,30 +338,33 @@ namespace WebStore.Controllers
 
         public ActionResult CheckOut()
         {
-            webstoreEntities db = new webstoreEntities();
-            var viewModel = new Checkout
-            {
-                BindSelect = new BindSelect
-                {
-                    countries = db.tblCountry.Select(x => x).ToList(),
-
-                    regions = db.tblRegiones.Select(x => x).ToList(),
-
-                    comunes = db.tblComunas.Where(x => x.refProvincia == 1).ToList()
-                }
-            };
-
             if(Session["id"] != null)
             {
+                using (webstoreEntities db = new webstoreEntities())
+                {
+                    var viewModel = new Checkout
+                    {
+                        BindSelect = new BindSelect
+                        {
+                            countries = db.tblCountry.Select(x => x).ToList(),
 
+                            regions = db.tblRegiones.Select(x => x).ToList(),
+
+                            comunes = db.tblComunas.Where(x => x.refProvincia == 1).ToList()
+                        }
+                    };
+
+                    
+
+                    return View(viewModel);
+                }
+                
             }
             else
             {
-                List<CartProductList> CartProductList = System.Web.HttpContext.Current.Session["CartList"] as List<CartProductList>;
-                viewModel.ProductList = CartProductList;
+                TempData["LogIn"] = "Debe iniciar sesión para continuar";
+                return RedirectToAction("LogIn", new {language = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName });
             }
-
-            return View(viewModel);
         }
 
         public ActionResult LogUp()
@@ -224,8 +407,10 @@ namespace WebStore.Controllers
                 string logging = LogOn(logIn.Email, logIn.Pass, logIn.RememberMe);
                 if (logging == "OK")
                 {
-                    CheckHistory(Int32.Parse(Session["id"].ToString()));
-                    CheckQuotingQue(Int32.Parse(Session["id"].ToString()));
+                    int UserId = (int)Session["id"];
+                    CheckHistory(UserId);
+                    CheckQuotingQue(UserId);
+                    CheckCartQue(UserId);
                     return Json(new { status = "OK" });
                 }
                 else if(logging == "invalid")
@@ -1601,6 +1786,42 @@ namespace WebStore.Controllers
                             string addingToQuotingQueDet = Function.SetQuotingQueDet(db, newQuotingQue, i);
                         }
                     }
+
+                    Session.Remove("QuotingList");
+                }
+            }
+        }
+        private void CheckCartQue(int UserId)
+        {
+            if(Session["CartList"] != null)
+            {
+                using (webstoreEntities db = new webstoreEntities())
+                {
+                    List<CartProductList> productLists = Session["CartList"] as List<CartProductList>;
+                    tblCartQue cartQue = db.tblCartQue.Where(x => x.refUser == UserId).SingleOrDefault();
+                    if (cartQue != null)
+                    {
+                        foreach(var i in productLists)
+                        {
+                            string addToCart = Function.SetCartQueDet(db, cartQue, i);
+                        }
+                    }
+                    else
+                    {
+                        tblCartQue newCartQue = new tblCartQue
+                        {
+                            refUser = UserId
+                        };
+                        db.tblCartQue.Add(newCartQue);
+                        db.SaveChanges();
+
+                        foreach(var i in productLists)
+                        {
+                            string addToCart = Function.SetCartQueDet(db, newCartQue, i);
+                        }
+                    }
+
+                    Session.Remove("CartList");
                 }
             }
         }
