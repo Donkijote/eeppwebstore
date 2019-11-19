@@ -1153,7 +1153,7 @@ $.AdminJs.checkOut = {
         var _this = this;
 
         _this.checkoutSteps();
-        _this.validateForm();
+        //_this.validateForm();
         $('#strStatesNationale').on('change', function () {
             var id = $(this).val();
             $.AdminJs.Ajax.init({
@@ -1188,41 +1188,19 @@ $.AdminJs.checkOut = {
             }, false, true)
         });
 
+        $.AdminJs.Api.getRegions('#strStatesNationaleAnother');
+
         $('#strStatesNationaleAnother').on('change', function () {
             var id = $(this).val();
-            $.ajax({
-                type: 'GET',
-                dataType: "JSON",
-                url: '/en/api/Provinces/',
-                data: { id: id },
-                success: function (e) {
-                    var modelsHtml = "<option value=''></option>";
-                    $.each(e, function (a, b) {
-                        modelsHtml += "<option value='" + b.id + "'>" + b.nombre + "</option>";
-                    })
-                    $("#strProvinciaNationaleAnother").html(modelsHtml);
-                }
-            })
+            $.AdminJs.Api.getProvinces(id, "#strProvinciaNationaleAnother");
         })
 
         $('#strProvinciaNationaleAnother').on('change', function () {
             var id = $(this).val();
-            $.ajax({
-                type: 'GET',
-                dataType: "JSON",
-                url: '/en/api/Communes/',
-                data: { id: id },
-                success: function (e) {
-                    var modelsHtml = "<option value=''></option>";
-                    $.each(e, function (a, b) {
-                        modelsHtml += "<option value='" + b.id + "'>" + b.nombre + "</option>";
-                    })
-                    $("#strComunaNationaleAnother").html(modelsHtml);
-                }
-            })
+            $.AdminJs.Api.getComunes(id, "#strComunaNationaleAnother");
         })
 
-        $('input[name="sameAddress"]').on('change', function () {
+        $('input[name="CheckoutSameAddress"]').on('change', function () {
             if ($(this).val() == "1") {
                 if ($('#anotherAddress').is(':visible')) {
                     $('#anotherAddress').addClass('d-none');
@@ -1239,7 +1217,7 @@ $.AdminJs.checkOut = {
             }
         })
 
-        $('input[name="samePerson"]').on('change', function () {
+        $('input[name="CheckoutSamePerson"]').on('change', function () {
             if ($(this).val() == "1") {
                 if ($('#anotherPerson').is(':visible')) {
                     $('#anotherPerson').addClass('d-none');
@@ -1257,7 +1235,7 @@ $.AdminJs.checkOut = {
         })
     },
     checkoutSteps: function () {
-        var form = $("#CheckOutSteps");
+        var wizard = $("#CheckOutSteps");
         var url = window.location.pathname;
         url = url.split('/');
         var lang = url[1];
@@ -1277,19 +1255,28 @@ $.AdminJs.checkOut = {
             };
         }
 
-        form.steps({
+        var form = $('#CheckoutInfo');
+        
+        wizard.steps({
             headerTag: "h3",
             bodyTag: "fieldset",
             transitionEffect: "slideLeft",
             autoFocus: true,
             labels: label,
+            onInit: function () {
+                console.log(form);
+                $('#CheckoutInfo').removeData('validator');
+                $('#CheckoutInfo').removeData('unobtrusiveValidation');
+                $.validator.unobtrusive.parse('#CheckoutInfo');
+            },
             onStepChanging: function (event, currentIndex, newIndex) {
-                form.validate().settings.ignore = ":disabled,:hidden";
-                if (currentIndex < newIndex) {
-                    // To remove error styles
-                    form.find(".body:eq(" + newIndex + ") label.error").remove();
-                    form.find(".body:eq(" + newIndex + ") .error").removeClass("error");
+                if (newIndex == 1) {
+                    form = $('#CheckoutShipping');
+                } else if (newIndex == 2) {
+                    form = $('#CheckoutPayMethod');
                 }
+                //form.validate().settings.ignore = ":disabled,:hidden";
+                
 
                 if (newIndex == 1) {
                     $('input[name="strShippingType"]').on('change', function () {
@@ -1312,16 +1299,93 @@ $.AdminJs.checkOut = {
                 }
 
                 if (newIndex == 2) {
-                    if ($('input[name="strShippingType"]:checked').val() == 2) {
-                        $('input[id="cash"]').parent().addClass('d-none');
+                    var input = $('input[name="strShippingType"]');
+                    if (input.is(':checked')) {
+                        if ($('input[name="strShippingType"]:checked').val() == 2) {
+                            $('input[id="cash"]').parent().addClass('d-none');
+                        } else {
+                            $('input[id="cash"]').parent().removeClass('d-none');
+                        }
+                        var el = input.parents('.form-group').find('span.field-validation-error');
+                        el.html('');
+                        el.removeClass('field-validation-error').addClass('field-validation-valid');
                     } else {
-                        $('input[id="cash"]').parent().removeClass('d-none');
+                        var el = input.parents('.form-group').find('span.field-validation-valid');
+                        el.html('<span id="strShippingType-error" class="">Campo Requerido</span>');
+                        el.removeClass('field-validation-valid').addClass('field-validation-error');
+                        return false;
                     }
                 }
-                return true;
+
+                if (newIndex == 3) {
+                    var input = $('input[name="CheckoutPayMethod"]');
+                    if (!input.is(':checked')) {
+                        var el = input.parents('.form-group').find('span.field-validation-valid');
+                        el.html('<span id="CheckoutPayMethod-error" class="">Campo Requerido</span>');
+                        el.removeClass('field-validation-valid').addClass('field-validation-error');
+                        return false;
+                    } else {
+                        var el = input.parents('.form-group').find('span.field-validation-error');
+                        el.html('');
+                        el.removeClass('field-validation-error').addClass('field-validation-valid');
+                        var shipping = $('input[name="strShippingType"]:checked').val();
+                        var sameAddress = $('input[name="CheckoutSameAddress"]:checked').val();
+                        var samePerson = $('input[name="CheckoutSamePerson"]:checked').val();
+                        var payMethod = $('input[name="CheckoutPayMethod"]:checked').val();
+                        var client, phone, address, payment;
+                        if (samePerson == 1) {
+                            client = $('input[name="CheckoutName"]').val() + " " + $('input[name="CheckoutLastName"]').val();
+                            phone = $('input[name="CheckoutPhone"]').val();
+                        } else {
+                            client = $('input[name="CheckoutAnotherPersonName"]').val() + " " + $('input[name="CheckoutAnotherPersonLastName"]').val();
+                            phone = $('input[name="CheckoutAnotherPersonPhone"]').val();
+                        }
+
+                        if (sameAddress == 1) {
+                            address = $('input[name="CheckoutAddressOne"]').val() + ", " + $('select[name="CheckoutComune"] option:selected').text() + ", " + $('select[name="CheckoutProvince"] option:selected').text() + ", " + $('select[name="CheckoutState"] option:selected').text();
+                        } else {
+                            address = $('input[name="CheckoutAnotherAddressOne"]').val() + ", " + $('select[name="CheckoutAnotherComune"] option:selected').text() + ", " + $('select[name="CheckoutAnotherProvince"] option:selected').text() + ", " + $('select[name="CheckoutAnotherState"] option:selected').text();
+                        }
+
+                        if (payMethod == "webpay") {
+                            payment = "Webpay";
+                        } else if (payMethod == "transferencia") {
+                            payment = "Transferencia bancaria";
+                        } else {
+                            payment = "Pago en tienda";
+                        }
+
+                        $('#ClientToDispatchName').text(client);
+                        $('#ClientToDispatchPhone').text(phone);
+                        $('#ClientToDispatchAddress').text(address);
+                        $('#ClientToDispatchPayMethod').text(payment);
+                        
+                    }
+                }
+
+                if (newIndex < currentIndex) {
+                    return true;
+                }
+
+                if (newIndex == 1) {
+                    return $('#CheckoutInfo').valid();
+                } else if (newIndex == 2) {
+                    return $('#CheckoutShipping').valid();
+                } else if (newIndex == 3) {
+                    return $('#CheckoutPayMethod').valid();
+                }
             },
             onStepChanged: function (event, currentIndex, newIndex) {
-
+                console.log(form);
+                if (currentIndex == 1) {
+                    $('#CheckoutShipping').removeData('validator');
+                    $('#CheckoutShipping').removeData('unobtrusiveValidation');
+                    $.validator.unobtrusive.parse('#CheckoutShipping');
+                } else if (currentIndex == 2) {
+                    $('#CheckoutPayMethod').removeData('validator');
+                    $('#CheckoutPayMethod').removeData('unobtrusiveValidation');
+                    $.validator.unobtrusive.parse('#CheckoutPayMethod');
+                }
             },
             /*onFinishing: function (event, currentIndex)
             {
@@ -1329,14 +1393,11 @@ $.AdminJs.checkOut = {
                 return form.valid();
             }*/
             onFinished: function (event, currentIndex) {
-                var x = $('input[name="credit-card"]:checked');
-                if (x.val() === "webpay") {
-                    alert('to webPay')
-                } else if (x.val() === "transferencia") {
-                    alert('to Transference')
-                } else {
-                    alert('must select')
-                }
+            }
+        }).validate({
+            errorPlacement: function errorPlacement(error, element) {
+                console.log(element)
+                element.parents("[class^='col']").find('span.error').html(error);
             }
         });
     },

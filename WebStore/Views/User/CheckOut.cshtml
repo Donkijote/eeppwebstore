@@ -35,164 +35,186 @@
 <div class="container padding-bottom-3x mb-2">
     <div class="row">
         <div class="col-lg-8 col-xl-9">
-            <form id="CheckOutSteps" action="#" novalidate="novalidate">
+            <div id="CheckOutSteps">
                 <h3>
                     <span class="step-Title">@WebStore.Resources.Check.Data</span>
                     <span class="fas fa-address-card fa-2x pl-3"></span>
                 </h3>
                 <fieldset>
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <label class="font-weight-bold" for="checkout-country">@WebStore.Resources.Placeholder.DocumentType</label>
-                            <div class="form-group input-group">
-                                <select class="form-control" required autocomplete="off" name="checkout-document" id="checkout-country">
-                                    <option value="">@WebStore.Resources.Placeholder.DocumentType</option>
-                                    <option value="1">Factura</option>
-                                    <option value="2">Boleta</option>
-                                </select>
-                                <span class="input-group-addon">
-                                    <i class="fas fa-file"></i>
-                                </span>
+                    <form id="CheckoutInfo">
+                        <div class="row">
+                            <div class="col-sm-6 mb-3">
+                                <label class="font-weight-bold" for="checkout-country">@WebStore.Resources.Placeholder.DocumentType</label>
+                                <div class="input-group">
+                                    <select class="form-control" autocomplete="off" name="CheckoutDocument" id="CheckoutDocument" data-val="true" data-val-required="Campo Requerido">
+                                        <option value="1" selected>Factura</option>
+                                        <option value="2">Boleta</option>
+                                    </select>
+                                    <span class="input-group-addon">
+                                        <i class="fas fa-file"></i>
+                                    </span>
+                                </div>
+                                <span class="field-validation-valid" data-valmsg-for="CheckoutDocument" data-valmsg-replace="true"></span>
+                            </div>
+                            <div class="col-sm-6 mb-3">
+                                <label class="font-weight-bold pl-3">
+                                    @WebStore.Resources.Placeholder.IdNum
+                                    <small>
+                                        <a href="javascript:void(0)" class="text-orangered" id="popover" data-toggle="popover" data-trigger="click" data-placement="right" title="Número de ID" data-content="Los paquetes no serán entregados sin el número válido de identificación del cliente. Nosotros no usamos esta información para algún otro propósito. Por favor ingrese su número de identificación.">
+                                            Leer más <i class="fas fa-angle-down"></i>
+                                        </a>
+                                    </small>
+                                </label>
+                                <div class="input-group">
+                                    <input class="form-control" type="text" name="CheckoutId" id="CheckoutId" placeholder="@WebStore.Resources.Placeholder.IdNum" value="@Model.User.intId" readonly data-val="true" data-val-required="Campo Requerido" />
+                                    <span class="input-group-addon">
+                                        <i class="fas fa-id-card"></i>
+                                    </span>
+                                </div>
+                                <span class="field-validation-valid" data-valmsg-for="CheckoutId" data-valmsg-replace="true"></span>
                             </div>
                         </div>
-                        <div class="col-sm-6">
-                            <label class="font-weight-bold pl-3">
-                                @WebStore.Resources.Placeholder.IdNum
-                                <small>
-                                    <a href="javascript:void(0)" class="text-orangered" id="popover" data-toggle="popover" data-trigger="hover" data-placement="right" title="Número de ID" data-content="Los paquetes no serán entregados sin el número válido de identificación del cliente. Nosotros no usamos esta información para algún otro propósito. Por favor ingrese su número de identificación.">
-                                        Leer más <i class="fas fa-angle-down"></i>
-                                    </a>
-                                </small>
-                            </label>
-                            <div class="form-group input-group">
-                                <input class="form-control" type="text" name="checkout-id" id="checkout-id" placeholder="@WebStore.Resources.Placeholder.IdNum" />
-                                <span class="input-group-addon">
-                                    <i class="fas fa-id-card"></i>
-                                </span>
+                        <div class="row">
+                            <div class="col-sm-6 mb-3">
+                                <label class="font-weight-bold" for="checkout-fn">@WebStore.Resources.Placeholder.Names</label>
+                                <div class="input-group">
+                                    <input class="form-control text-capitalize" autocomplete="off" type="text" name="CheckoutName" id="CheckoutName" value="@Model.User.strNames" placeholder="@WebStore.Resources.Placeholder.Names" readonly data-val="true" data-val-required="Campo Requerido">
+                                    <span class="input-group-addon">
+                                        <i class="fas fa-file-signature"></i>
+                                    </span>
+                                </div>
+                                <span class="field-validation-valid" data-valmsg-for="CheckoutName" data-valmsg-replace="true"></span>
+                            </div>
+                            <div class="col-sm-6 mb-3">
+                                <label class="font-weight-bold" for="checkout-ln">@WebStore.Resources.Placeholder.LastNames</label>
+                                <div class="input-group">
+                                    <input class="form-control text-capitalize" autocomplete="off" type="text" name="CheckoutLastName" id="CheckoutLastName" value="@Model.User.strLastNames" placeholder="@WebStore.Resources.Placeholder.LastNames" readonly data-val="true" data-val-required="Campo Requerido">
+                                    <span class="input-group-addon">
+                                        <i class="fas fa-file-signature"></i>
+                                    </span>
+                                </div>
+                                <span class="field-validation-valid" data-valmsg-for="CheckoutLastName" data-valmsg-replace="true"></span>
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <label class="font-weight-bold" for="checkout-fn">@WebStore.Resources.Placeholder.Names</label>
-                            <div class="form-group input-group">
-                                <input class="form-control" required autocomplete="off" type="text" name="checkout-fn" id="checkout-fn" placeholder="@WebStore.Resources.Placeholder.Names">
-                                <span class="input-group-addon">
-                                    <i class="fas fa-file-signature"></i>
-                                </span>
+                        <div class="row">
+                            <div class="col-sm-6 mb-3">
+                                <label class="font-weight-bold" for="checkout-email">@WebStore.Resources.Placeholder.Email</label>
+                                <div class="input-group">
+                                    <input class="form-control" autocomplete="off" type="email" name="CheckoutEmail" id="CheckoutEmail" value="@Model.User.strEmail" placeholder="@WebStore.Resources.Placeholder.Email" readonly data-val="true" data-val-required="Campo Requerido">
+                                    <span class="input-group-addon">
+                                        <i class="fas fa-at"></i>
+                                    </span>
+                                </div>
+                                <span class="field-validation-valid" data-valmsg-for="CheckoutEmail" data-valmsg-replace="true"></span>
+                            </div>
+                            <div class="col-sm-6 mb-3">
+                                <label class="font-weight-bold" for="checkout-phone">@WebStore.Resources.Placeholder.Telephone</label>
+                                <div class="input-group">
+                                    <input class="form-control" autocomplete="off" type="text" name="CheckoutPhone" id="CheckoutPhone" value="@Model.User.intPhone" placeholder="@WebStore.Resources.Placeholder.Phone" readonly data-val="true" data-val-required="Campo Requerido">
+                                    <span class="input-group-addon">
+                                        <i class="fas fa-mobile-alt"></i>
+                                    </span>
+                                </div>
+                                <span class="field-validation-valid" data-valmsg-for="CheckoutPhone" data-valmsg-replace="true"></span>
                             </div>
                         </div>
-                        <div class="col-sm-6">
-                            <label class="font-weight-bold" for="checkout-ln">@WebStore.Resources.Placeholder.LastNames</label>
-                            <div class="form-group input-group">
-                                <input class="form-control" required autocomplete="off" type="text" name="checkout-ln" id="checkout-ln" placeholder="@WebStore.Resources.Placeholder.LastNames">
-                                <span class="input-group-addon">
-                                    <i class="fas fa-file-signature"></i>
-                                </span>
+                        <div class="row">
+                            <div class="col-sm-6 mb-3">
+                                <label class="font-weight-bold" for="checkout-company">@WebStore.Resources.Placeholder.Company</label>
+                                <div class="input-group">
+                                    <input class="form-control" autocomplete="off" type="text" name="CheckoutCompany" id="CheckoutCompany" placeholder="@WebStore.Resources.Placeholder.Company">
+                                    <span class="input-group-addon">
+                                        <i class="fas fa-industry"></i>
+                                    </span>
+                                </div>
+                                <span class="field-validation-valid" data-valmsg-for="CheckoutCompany" data-valmsg-replace="true"></span>
+                            </div>
+                            <div class="col-sm-6 mb-3">
+                                <label class="font-weight-bold pl-3">@WebStore.Resources.Placeholder.Region</label>
+                                <div class="input-group">
+                                    <select class="form-control" type="text" name="CheckoutState" id="strStatesNationale" placeholder="@WebStore.Resources.Placeholder.Region" readonly data-val="true" data-val-required="Campo Requerido">
+                                        <option value="">@WebStore.Resources.Placeholder.Region</option>
+                                        @foreach (var region in Model.BindSelect.regions)
+                                        {
+                                            <option value="@Html.DisplayFor(a => region.idRegion)" @(Model.Address.refRegion == region.idRegion ? "selected" : "")>@Html.DisplayFor(a => region.strNombre) @Html.DisplayFor(a => region.intNumber)</option>
+                                        }
+                                    </select>
+                                    <span class="input-group-addon">
+                                        <i class="fas fa-flag"></i>
+                                    </span>
+                                </div>
+                                <span class="field-validation-valid" data-valmsg-for="CheckoutState" data-valmsg-replace="true"></span>
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <label class="font-weight-bold" for="checkout-email">@WebStore.Resources.Placeholder.Email</label>
-                            <div class="form-group input-group">
-                                <input class="form-control" required autocomplete="off" type="email" name="checkout-email" id="checkout-email" placeholder="@WebStore.Resources.Placeholder.Email">
-                                <span class="input-group-addon">
-                                    <i class="fas fa-at"></i>
-                                </span>
+                        <div class="row">
+                            <div class="col-sm-6 mb-3">
+                                <label class="font-weight-bold pl-3">@WebStore.Resources.Placeholder.Province</label>
+                                <div class="input-group">
+                                    <select class="form-control" type="text" name="CheckoutProvince" id="strProvinciaNationale" placeholder="@WebStore.Resources.Placeholder.Province" readonly data-val="true" data-val-required="Campo Requerido">
+                                        <option value="">@WebStore.Resources.Placeholder.Province</option>
+                                        @foreach (var provinces in Model.BindSelect.provinces)
+                                        {
+                                            <option value="@Html.DisplayFor(a => provinces.idProvincia)" @(Model.Address.refProvince == provinces.idProvincia ? "selected" : "")>@Html.DisplayFor(a => provinces.strNombre)</option>
+                                        }
+                                    </select>
+                                    <span class="input-group-addon">
+                                        <i class="fas fa-city"></i>
+                                    </span>
+                                </div>
+                                <span class="field-validation-valid" data-valmsg-for="CheckoutProvince" data-valmsg-replace="true"></span>
+                            </div>
+                            <div class="col-sm-6 mb-3">
+                                <label class="font-weight-bold pl-3">@WebStore.Resources.Placeholder.Comune</label>
+                                <div class="input-group">
+                                    <select class="form-control" type="text" name="CheckoutComune" id="strComunaNationale" placeholder="@WebStore.Resources.Placeholder.Comune" readonly data-val="true" data-val-required="Campo Requerido">
+                                        <option value="">@WebStore.Resources.Placeholder.Comune</option>
+                                        @foreach (var comune in Model.BindSelect.comunes)
+                                        {
+                                            <option value="@Html.DisplayFor(a => comune.idComuna)" @(Model.Address.refComuna == comune.idComuna ? "selected" : "")>@Html.DisplayFor(a => comune.strNombre)</option>
+                                        }
+                                    </select>
+                                    <span class="input-group-addon">
+                                        <i class="far fa-object-group"></i>
+                                    </span>
+                                </div>
+                                <span class="field-validation-valid" data-valmsg-for="CheckoutComune" data-valmsg-replace="true"></span>
                             </div>
                         </div>
-                        <div class="col-sm-6">
-                            <label class="font-weight-bold" for="checkout-phone">@WebStore.Resources.Placeholder.Telephone</label>
-                            <div class="form-group input-group">
-                                <input class="form-control" required autocomplete="off" type="text" name="checkout-phone" id="checkout-phone" placeholder="@WebStore.Resources.Placeholder.Phone">
-                                <span class="input-group-addon">
-                                    <i class="fas fa-mobile-alt"></i>
-                                </span>
+                        <div class="row">
+                            <div class="col-sm-6 mb-3">
+                                <label class="font-weight-bold" for="checkout-address1">@WebStore.Resources.Placeholder.Address 1</label>
+                                <div class="input-group">
+                                    <input class="form-control" type="text" name="CheckoutAddressOne" 
+                                           id="CheckoutAddressOne" value="@Model.Address.strAddress" autocomplete="off" 
+                                           placeholder="@WebStore.Resources.Placeholder.Address 1" data-val="true" data-val-required="Campo Requerido" readonly>
+                                    <span class="input-group-addon">
+                                        <i class="fas fa-map-marker-alt"></i>
+                                    </span>
+                                </div>
+                                <span class="field-validation-valid" data-valmsg-for="CheckoutAddressOne" data-valmsg-replace="true"></span>
+                            </div>
+                            <div class="col-sm-6 mb-3">
+                                <label class="font-weight-bold" for="checkout-address2">Referencia de @WebStore.Resources.Placeholder.Address</label>
+                                <div class="input-group">
+                                    <input class="form-control" type="text" name="CheckoutAddressTwo" id="CheckoutAddressTwo" value="@Model.Address.strAddressTwo" autocomplete="off" placeholder="@WebStore.Resources.Placeholder.Address 2 (opcional, referencias)">
+                                    <span class="input-group-addon">
+                                        <i class="fas fa-map-marker-alt"></i>
+                                    </span>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <label class="font-weight-bold" for="checkout-company">@WebStore.Resources.Placeholder.Company</label>
-                            <div class="form-group input-group">
-                                <input class="form-control" required autocomplete="off" type="text" name="checkout-company" id="checkout-company" placeholder="@WebStore.Resources.Placeholder.Company">
-                                <span class="input-group-addon">
-                                    <i class="fas fa-industry"></i>
-                                </span>
+                        <div class=" row padding-bottom-1x">
+                            <div class="col-sm-6">
+                                <label class="font-weight-bold" for="checkout-zip">@WebStore.Resources.Placeholder.PostCode</label>
+                                <div class="input-group">
+                                    <input class="form-control" autocomplete="off" type="text" name="CheckoutZip" id="CheckoutZip" value="@Model.Address.intPostalCode" placeholder="@WebStore.Resources.Placeholder.PostCode">
+                                    <span class="input-group-addon">
+                                        <i class="fas fa-map-marked-alt"></i>
+                                    </span>
+                                </div>
                             </div>
                         </div>
-                        <div class="col-sm-6">
-                            <label class="font-weight-bold pl-3">@WebStore.Resources.Placeholder.Region</label>
-                            <div class="form-group input-group">
-                                <select class="form-control" type="text" name="checkout-states" id="strStatesNationale" placeholder="@WebStore.Resources.Placeholder.Region">
-                                    <option value="">@WebStore.Resources.Placeholder.Region</option>
-                                    @foreach (var region in Model.BindSelect.regions)
-                                    {
-                                        <option value="@Html.DisplayFor(a => region.idRegion)">@Html.DisplayFor(a => region.strNombre) @Html.DisplayFor(a => region.intNumber)</option>
-                                    }
-                                </select>
-                                <span class="input-group-addon">
-                                    <i class="fas fa-flag"></i>
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <label class="font-weight-bold pl-3">@WebStore.Resources.Placeholder.Province</label>
-                            <div class="form-group input-group">
-                                <select class="form-control" type="text" name="checkout-provinces" id="strProvinciaNationale" placeholder="@WebStore.Resources.Placeholder.Province">
-                                    <option value="">@WebStore.Resources.Placeholder.Province</option>
-                                </select>
-                                <span class="input-group-addon">
-                                    <i class="fas fa-city"></i>
-                                </span>
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <label class="font-weight-bold pl-3">@WebStore.Resources.Placeholder.Comune</label>
-                            <div class="form-group input-group">
-                                <select class="form-control" type="text" name="checkout-comunes" id="strComunaNationale" placeholder="@WebStore.Resources.Placeholder.Comune">
-                                    <option value="">@WebStore.Resources.Placeholder.Comune</option>
-                                </select>
-                                <span class="input-group-addon">
-                                    <i class="far fa-object-group"></i>
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <label class="font-weight-bold" for="checkout-address1">@WebStore.Resources.Placeholder.Address 1</label>
-                            <div class="form-group input-group">
-                                <input class="form-control" type="text" name="checkout-address1" id="checkout-address1" required autocomplete="off" placeholder="@WebStore.Resources.Placeholder.Address 1">
-                                <span class="input-group-addon">
-                                    <i class="fas fa-map-marker-alt"></i>
-                                </span>
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <label class="font-weight-bold" for="checkout-address2">@WebStore.Resources.Placeholder.Address 2</label>
-                            <div class="form-group input-group">
-                                <input class="form-control" type="text" name="checkout-address2" id="checkout-address2" required autocomplete="off" placeholder="@WebStore.Resources.Placeholder.Address 2">
-                                <span class="input-group-addon">
-                                    <i class="fas fa-map-marker-alt"></i>
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class=" row padding-bottom-1x">
-                        <div class="col-sm-6">
-                            <label class="font-weight-bold" for="checkout-zip">@WebStore.Resources.Placeholder.PostCode</label>
-                            <div class="form-group input-group">
-                                <input class="form-control" required autocomplete="off" type="text" name="checkout-zip" id="checkout-zip" placeholder="@WebStore.Resources.Placeholder.PostCode">
-                                <span class="input-group-addon">
-                                    <i class="fas fa-map-marked-alt"></i>
-                                </span>
-                            </div>
-                        </div>
-                    </div>
+                    </form>
                 </fieldset>
                 <h3>
                     <span class="step-Title">@WebStore.Resources.Check.Shipping</span>
@@ -201,329 +223,350 @@
                 <fieldset>
                     <h4>@WebStore.Resources.Titles.ShippingType</h4>
                     <hr class="padding-bottom-1x">
-                    <div class="row">
-                        <div class="col-sm-6">
+                    <form id="CheckoutShipping">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <div class="custom-control d-inline-flex">
+                                        <div class="radiobtn">
+                                            <input type="radio" name="strShippingType" id="store" value="1" data-val="true" data-val-required="Campo Requerido" />
+                                            <label for="store" class="border-right-0">@WebStore.Resources.Placeholder.Store</label>
+                                        </div>
+                                        <div class="radiobtn">
+                                            <input type="radio" name="strShippingType" id="shipping" value="2" data-val="true" data-val-required="Campo Requerido"/>
+                                            <label for="shipping">@WebStore.Resources.Placeholder.Shipping</label>
+                                        </div>
+                                    </div>
+                                    <span class="field-validation-valid" data-valmsg-for="strShippingType" data-valmsg-replace="true"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="ShippingTypeStore" style="display:none;">
+                            <h6>@WebStore.Resources.Placeholder.Store</h6>
+                            <hr />
+                            <p>@WebStore.Resources.Texts.Address: Presidente Eduardo Frei Montalva N°3585 </p>
+                        </div>
+                        <div id="ShippingTypeAddress" style="display: none;">
                             <div class="form-group">
+                                <div class="custom-control">
+                                    <label for="same_address">@WebStore.Resources.Placeholder.SameAddress</label>
+                                </div>
                                 <div class="custom-control d-inline-flex">
                                     <div class="radiobtn">
-                                        <input type="radio" name="strShippingType" id="store" value="1" />
-                                        <label for="store" class="border-right-0">@WebStore.Resources.Placeholder.Store</label>
+                                        <input type="radio" name="CheckoutSameAddress" id="sameAddressYes" value="1" checked data-val="true" data-val-required="Campo Requerido"/>
+                                        <label for="sameAddressYes">@WebStore.Resources.Placeholder.Yes</label>
                                     </div>
                                     <div class="radiobtn">
-                                        <input type="radio" name="strShippingType" id="shipping" value="2" />
-                                        <label for="shipping">@WebStore.Resources.Placeholder.Shipping</label>
+                                        <input type="radio" name="CheckoutSameAddress" id="sameAddressNo" value="2" data-val="true" data-val-required="Campo Requerido"/>
+                                        <label for="sameAddressNo">@WebStore.Resources.Placeholder.No</label>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                    <div id="ShippingTypeStore" style="display:none;">
-                        <h6>@WebStore.Resources.Placeholder.Store</h6>
-                        <hr />
-                        <p>@WebStore.Resources.Texts.Address: Presidente Eduardo Frei Montalva N°3585 </p>
-                    </div>
-                    <div id="ShippingTypeAddress" style="display: none;">
-                        <div class="form-group">
-                            <div class="custom-control">
-                                <label for="same_address">@WebStore.Resources.Placeholder.SameAddress</label>
-                            </div>
-                            <div class="custom-control d-inline-flex">
-                                <div class="radiobtn">
-                                    <input type="radio" name="sameAddress" id="sameAddressYes" value="1" checked/>
-                                    <label for="sameAddressYes">@WebStore.Resources.Placeholder.Yes</label>
+                            <div class="form-group pb-2">
+                                <div class="custom-control">
+                                    <label for="same_person">@WebStore.Resources.Placeholder.SamePerson</label>
                                 </div>
-                                <div class="radiobtn">
-                                    <input type="radio" name="sameAddress" id="sameAddressNo" value="2" />
-                                    <label for="sameAddressNo">@WebStore.Resources.Placeholder.No</label>
+                                <div class="custom-control d-inline-flex">
+                                    <div class="radiobtn">
+                                        <input type="radio" name="CheckoutSamePerson" id="samePersonYes" value="1" checked data-val="true" data-val-required="Campo Requerido"/>
+                                        <label for="samePersonYes">@WebStore.Resources.Placeholder.Yes</label>
+                                    </div>
+                                    <div class="radiobtn">
+                                        <input type="radio" name="CheckoutSamePerson" id="samePersonNo" value="2" data-val="true" data-val-required="Campo Requerido"/>
+                                        <label for="samePersonNo">@WebStore.Resources.Placeholder.No</label>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="form-group pb-2">
-                            <div class="custom-control">
-                                <label for="same_person">@WebStore.Resources.Placeholder.SamePerson</label>
-                            </div>
-                            <div class="custom-control d-inline-flex">
-                                <div class="radiobtn">
-                                    <input type="radio" name="samePerson" id="samePersonYes" value="1" checked/>
-                                    <label for="samePersonYes">@WebStore.Resources.Placeholder.Yes</label>
-                                </div>
-                                <div class="radiobtn">
-                                    <input type="radio" name="samePerson" id="samePersonNo" value="2" />
-                                    <label for="samePersonNo">@WebStore.Resources.Placeholder.No</label>
-                                </div>
-                            </div>
-                        </div>
 
-                        <div class="d-none pb-3" id="anotherPerson">
-                            <h6>@WebStore.Resources.Titles.AnotherPersonInfo</h6>
-                            <hr class="padding-bottom-1x">
-                            <div class="row">
-                                <div class="col-sm-6">
-                                    <label class="font-weight-bold" for="checkout-fn">@WebStore.Resources.Placeholder.Names</label>
-                                    <div class="form-group input-group">
-                                        <input class="form-control" autocomplete="off" type="text" name="anotherPersonName" id="anotherPersonName" placeholder="@WebStore.Resources.Placeholder.Names">
-                                        <span class="input-group-addon">
-                                            <i class="fas fa-file-signature"></i>
-                                        </span>
+                            <div class="d-none pb-3" id="anotherPerson">
+                                <h6>@WebStore.Resources.Titles.AnotherPersonInfo</h6>
+                                <hr class="padding-bottom-1x">
+                                <div class="row">
+                                    <div class="col-sm-6 mb-3">
+                                        <label class="font-weight-bold" for="checkout-fn">@WebStore.Resources.Placeholder.Names</label>
+                                        <div class="input-group">
+                                            <input class="form-control" autocomplete="off" type="text" name="CheckoutAnotherPersonName" id="CheckoutAnotherPersonName"
+                                                   placeholder="@WebStore.Resources.Placeholder.Names" data-val="true" data-val-required="Campo Requerido">
+                                            <span class="input-group-addon">
+                                                <i class="fas fa-file-signature"></i>
+                                            </span>
+                                        </div>
+                                        <span class="field-validation-valid" data-valmsg-for="CheckoutAnotherPersonName" data-valmsg-replace="true"></span>
+                                    </div>
+                                    <div class="col-sm-6 mb-3">
+                                        <label class="font-weight-bold" for="checkout-ln">@WebStore.Resources.Placeholder.LastNames</label>
+                                        <div class="input-group">
+                                            <input class="form-control" autocomplete="off" type="text" name="CheckoutAnotherPersonLastName"
+                                                   id="CheckoutAnotherPersonLastName" placeholder="@WebStore.Resources.Placeholder.LastNames" data-val="true" data-val-required="Campo Requerido">
+                                            <span class="input-group-addon">
+                                                <i class="fas fa-file-signature"></i>
+                                            </span>
+                                        </div>
+                                        <span class="field-validation-valid" data-valmsg-for="CheckoutAnotherPersonLastName" data-valmsg-replace="true"></span>
                                     </div>
                                 </div>
-                                <div class="col-sm-6">
-                                    <label class="font-weight-bold" for="checkout-ln">@WebStore.Resources.Placeholder.LastNames</label>
-                                    <div class="form-group input-group">
-                                        <input class="form-control" autocomplete="off" type="text" name="anotherPersonLastName" id="anotherPersonLastName" placeholder="@WebStore.Resources.Placeholder.LastNames">
-                                        <span class="input-group-addon">
-                                            <i class="fas fa-file-signature"></i>
-                                        </span>
+                                <div class="row">
+                                    <div class="col-sm-6 mb-3">
+                                        <label class="font-weight-bold pl-3">
+                                            @WebStore.Resources.Placeholder.IdNum
+                                            <small>
+                                                <a href="javascript:void(0)" class="text-orangered" id="popover" data-toggle="popover" data-trigger="hover" data-placement="right" title="Número de ID" data-content="Los paquetes no serán entregados sin el número válido de identificación del cliente. Nosotros no usamos esta información para algún otro propósito. Por favor ingrese su número de identificación.">
+                                                    Leer más <i class="fas fa-angle-down"></i>
+                                                </a>
+                                            </small>
+                                        </label>
+                                        <div class="input-group">
+                                            <input class="form-control" type="text" name="CheckoutAnotherPersonId" id="CheckoutAnotherPersonId"
+                                                   placeholder="@WebStore.Resources.Placeholder.IdNum" data-val="true" data-val-required="Campo Requerido" />
+                                            <span class="input-group-addon">
+                                                <i class="fas fa-id-card"></i>
+                                            </span>
+                                        </div>
+                                        <span class="field-validation-valid" data-valmsg-for="CheckoutAnotherPersonId" data-valmsg-replace="true"></span>
+                                    </div>
+                                    <div class="col-sm-6 mb-3">
+                                        <label class="font-weight-bold" for="checkout-phone">@WebStore.Resources.Placeholder.Telephone</label>
+                                        <div class="input-group">
+                                            <input class="form-control" autocomplete="off" type="text" name="CheckoutAnotherPersonPhone"
+                                                   id="CheckoutAnotherPersonPhone" placeholder="@WebStore.Resources.Placeholder.Phone" data-val="true" data-val-required="Campo Requerido">
+                                            <span class="input-group-addon">
+                                                <i class="fas fa-mobile-alt"></i>
+                                            </span>
+                                        </div>
+                                        <span class="field-validation-valid" data-valmsg-for="CheckoutAnotherPersonPhone" data-valmsg-replace="true"></span>
                                     </div>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-sm-6">
-                                    <label class="font-weight-bold pl-3">
-                                        @WebStore.Resources.Placeholder.IdNum
-                                        <small>
-                                            <a href="javascript:void(0)" class="text-orangered" id="popover" data-toggle="popover" data-trigger="hover" data-placement="right" title="Número de ID" data-content="Los paquetes no serán entregados sin el número válido de identificación del cliente. Nosotros no usamos esta información para algún otro propósito. Por favor ingrese su número de identificación.">
-                                                Leer más <i class="fas fa-angle-down"></i>
-                                            </a>
-                                        </small>
-                                    </label>
-                                    <div class="form-group input-group">
-                                        <input class="form-control" type="text" name="anotherPersonId" id="anotherPersonId" placeholder="@WebStore.Resources.Placeholder.IdNum" />
-                                        <span class="input-group-addon">
-                                            <i class="fas fa-id-card"></i>
-                                        </span>
+                            <div class="d-none" id="anotherAddress">
+                                <h6>@WebStore.Resources.Titles.AnotherAddressInfo</h6>
+                                <hr class="padding-bottom-1x">
+                                <div class="row">
+                                    <div class="col-sm-6 mb-3">
+                                        <label class="font-weight-bold pl-3">@WebStore.Resources.Placeholder.Region</label>
+                                        <div class="input-group">
+                                            <select class="form-control" type="text" name="CheckoutAnotherState" id="strStatesNationaleAnother"
+                                                    placeholder="@WebStore.Resources.Placeholder.Region" data-val="true" data-val-required="Campo Requerido">
+                                                <option value="">@WebStore.Resources.Placeholder.Region</option>
+                                            </select>
+                                            <span class="input-group-addon">
+                                                <i class="fas fa-flag"></i>
+                                            </span>
+                                        </div>
+                                        <span class="field-validation-valid" data-valmsg-for="CheckoutAnotherState" data-valmsg-replace="true"></span>
+                                    </div>
+                                    <div class="col-sm-6 mb-3">
+                                        <label class="font-weight-bold pl-3">@WebStore.Resources.Placeholder.Province</label>
+                                        <div class="input-group">
+                                            <select class="form-control" type="text" name="CheckoutAnotherProvince" id="strProvinciaNationaleAnother"
+                                                    placeholder="@WebStore.Resources.Placeholder.Province" data-val="true" data-val-required="Campo Requerido">
+                                                <option value="">@WebStore.Resources.Placeholder.Province</option>
+                                            </select>
+                                            <span class="input-group-addon">
+                                                <i class="fas fa-city"></i>
+                                            </span>
+                                        </div>
+                                        <span class="field-validation-valid" data-valmsg-for="CheckoutAnotherProvince" data-valmsg-replace="true"></span>
                                     </div>
                                 </div>
-                                <div class="col-sm-6">
-                                    <label class="font-weight-bold" for="checkout-phone">@WebStore.Resources.Placeholder.Telephone</label>
-                                    <div class="form-group input-group">
-                                        <input class="form-control" required autocomplete="off" type="text" name="checkout-phone" id="anotherPersonPhone" placeholder="@WebStore.Resources.Placeholder.Phone">
-                                        <span class="input-group-addon">
-                                            <i class="fas fa-mobile-alt"></i>
-                                        </span>
+                                <div class="row">
+                                    <div class="col-sm-6 mb-3">
+                                        <label class="font-weight-bold pl-3">@WebStore.Resources.Placeholder.Comune</label>
+                                        <div class="input-group">
+                                            <select class="form-control" type="text" name="CheckoutAnotherComune" id="strComunaNationaleAnother"
+                                                    placeholder="@WebStore.Resources.Placeholder.Comune" data-val="true" data-val-required="Campo Requerido">
+                                                <option value="">@WebStore.Resources.Placeholder.Comune</option>
+                                            </select>
+                                            <span class="input-group-addon">
+                                                <i class="far fa-object-group"></i>
+                                            </span>
+                                        </div>
+                                        <span class="field-validation-valid" data-valmsg-for="CheckoutAnotherComune" data-valmsg-replace="true"></span>
+                                    </div>
+                                    <div class="col-sm-6 mb-3">
+                                        <label class="font-weight-bold" for="checkout-address1">@WebStore.Resources.Placeholder.Address 1</label>
+                                        <div class="input-group">
+                                            <input class="form-control" type="text" name="CheckoutAnotherAddressOne" id="CheckoutAnotherAddressOne"
+                                                   autocomplete="off" placeholder="@WebStore.Resources.Placeholder.Address 1" data-val="true" data-val-required="Campo Requerido">
+                                            <span class="input-group-addon">
+                                                <i class="fas fa-map-marker-alt"></i>
+                                            </span>
+                                        </div>
+                                        <span class="field-validation-valid" data-valmsg-for="CheckoutAnotherAddressOne" data-valmsg-replace="true"></span>
                                     </div>
                                 </div>
+                                <div class="row padding-bottom-1x">
+                                    <div class="col-sm-6 mb-3">
+                                        <label class="font-weight-bold" for="Checkoutaddress2">@WebStore.Resources.Placeholder.Address 2</label>
+                                        <div class="input-group">
+                                            <input class="form-control" type="text" name="CheckoutAnotheraddressTwo" id="CheckoutAnotheraddressTwo"
+                                                   autocomplete="off" placeholder="@WebStore.Resources.Placeholder.Address 2 (opcional, referencias)">
+                                            <span class="input-group-addon">
+                                                <i class="fas fa-map-marker-alt"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6 mb-3">
+                                        <label class="font-weight-bold" for="checkout-zip">@WebStore.Resources.Placeholder.PostCode</label>
+                                        <div class="input-group">
+                                            <input class="form-control" autocomplete="off" type="text" name="CheckoutAnotherZip" id="CheckoutAnotherZip" placeholder="@WebStore.Resources.Placeholder.PostCode">
+                                            <span class="input-group-addon">
+                                                <i class="fas fa-map-marked-alt"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <thead class="thead-default">
+                                        <tr>
+                                            <th></th>
+                                            <th>@WebStore.Resources.Check.ShippingM</th>
+                                            <th>@WebStore.Resources.Check.DeliveryTime</th>
+                                            <th>@WebStore.Resources.Check.Fee</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td class="align-middle">
+                                                <div class="custom-control custom-radio mb-0">
+                                                    <input class="radio with-gap radio-col-deep-orange" type="radio" id="courier" name="shipping-method"
+                                                           checked="">
+                                                    <label for="courier"></label>
+                                                </div>
+                                            </td>
+                                            <td class="align-middle">
+                                                <span class="text-gray-dark">Courier</span><br><span class="text-muted text-sm">
+                                                    All
+                                                    Addresses(default zone), United States &amp; Canada
+                                                </span>
+                                            </td>
+                                            <td class="align-middle">2 - 4 days</td>
+                                            <td class="align-middle">$26.50</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="align-middle">
+                                                <div class="custom-control custom-radio mb-0">
+                                                    <input class="radio with-gap radio-col-deep-orange" type="radio" id="local" name="shipping-method">
+                                                    <label for="local"></label>
+                                                </div>
+                                            </td>
+                                            <td class="align-middle">
+                                                <span class="text-gray-dark">Local Shipping</span><br><span class="text-muted text-sm">
+                                                    All
+                                                    Addresses(default zone), United States &amp; Canada
+                                                </span>
+                                            </td>
+                                            <td class="align-middle">up to one week</td>
+                                            <td class="align-middle">$10.00</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="align-middle">
+                                                <div class="custom-control custom-radio mb-0">
+                                                    <input class="radio with-gap radio-col-deep-orange" type="radio" id="flat" name="shipping-method">
+                                                    <label for="flat"></label>
+                                                </div>
+                                            </td>
+                                            <td class="align-middle">
+                                                <span class="text-gray-darkm">Flat Rate</span><br><span class="text-muted text-sm">
+                                                    All
+                                                    Addresses(default zone)
+                                                </span>
+                                            </td>
+                                            <td class="align-middle">5 - 7 days</td>
+                                            <td class="align-middle">$33.85</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="align-middle">
+                                                <div class="custom-control custom-radio mb-0">
+                                                    <input class="radio with-gap radio-col-deep-orange" type="radio" id="ups" name="shipping-method">
+                                                    <label for="ups"></label>
+                                                </div>
+                                            </td>
+                                            <td class="align-middle">
+                                                <span class="text-gray-dark">UPS Ground Shipping</span><br><span class="text-muted text-sm">
+                                                    All
+                                                    Addresses(default zone)
+                                                </span>
+                                            </td>
+                                            <td class="align-middle">4 - 6 days</td>
+                                            <td class="align-middle">$18.00</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="align-middle">
+                                                <div class="custom-control custom-radio mb-0">
+                                                    <input class="radio with-gap radio-col-deep-orange" type="radio" id="pickup" name="shipping-method">
+                                                    <label for="pickup"></label>
+                                                </div>
+                                            </td>
+                                            <td class="align-middle">
+                                                <span class="text-gray-dark">Local Pickup from store</span><br><span class="text-muted text-sm">All Addresses(default zone)</span>
+                                            </td>
+                                            <td class="align-middle">—</td>
+                                            <td class="align-middle">$0.00</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="align-middle">
+                                                <div class="custom-control custom-radio mb-0">
+                                                    <input class="radio with-gap radio-col-deep-orange" type="radio" id="locker" name="shipping-method">
+                                                    <label for="locker"></label>
+                                                </div>
+                                            </td>
+                                            <td class="align-middle">
+                                                <span class="text-gray-dark">Pick Up at Unishop Locker</span><br><span class="text-muted text-sm">All Addresses(default zone), United States &amp; Canada</span>
+                                            </td>
+                                            <td class="align-middle">—</td>
+                                            <td class="align-middle">$9.99</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="align-middle">
+                                                <div class="custom-control custom-radio mb-0">
+                                                    <input class="radio with-gap radio-col-deep-orange" type="radio" id="global" name="shipping-method">
+                                                    <label for="global"></label>
+                                                </div>
+                                            </td>
+                                            <td class="align-middle">
+                                                <span class="text-gray-dark">Unishop Global Export</span><br><span class="text-muted text-sm">All Addresses(default zone), outside United States</span>
+                                            </td>
+                                            <td class="align-middle">3 - 4 days;</td>
+                                            <td class="align-middle">$25.00</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
-                        <div class="d-none" id="anotherAddress">
-                            <h6>@WebStore.Resources.Titles.AnotherAddressInfo</h6>
-                            <hr class="padding-bottom-1x">
-                            <div class="row">
-                                <div class="col-sm-6">
-                                    <label class="font-weight-bold pl-3">@WebStore.Resources.Placeholder.Region</label>
-                                    <div class="form-group input-group">
-                                        <select class="form-control" type="text" name="checkout-Anotherstates" id="strStatesNationaleAnother" placeholder="@WebStore.Resources.Placeholder.Region">
-                                            <option value="">@WebStore.Resources.Placeholder.Region</option>
-                                            @foreach (var region in Model.BindSelect.regions)
-                                            {
-                                                <option value="@Html.DisplayFor(a => region.idRegion)">@Html.DisplayFor(a => region.strNombre) @Html.DisplayFor(a => region.intNumber)</option>
-                                            }
-                                        </select>
-                                        <span class="input-group-addon">
-                                            <i class="fas fa-flag"></i>
-                                        </span>
-                                    </div>
-                                </div>
-                                <div class="col-sm-6">
-                                    <label class="font-weight-bold pl-3">@WebStore.Resources.Placeholder.Province</label>
-                                    <div class="form-group input-group">
-                                        <select class="form-control" type="text" name="checkout-Anotherprovinces" id="strProvinciaNationaleAnother" placeholder="@WebStore.Resources.Placeholder.Province">
-                                            <option value="">@WebStore.Resources.Placeholder.Province</option>
-                                        </select>
-                                        <span class="input-group-addon">
-                                            <i class="fas fa-city"></i>
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-sm-6">
-                                    <label class="font-weight-bold pl-3">@WebStore.Resources.Placeholder.Comune</label>
-                                    <div class="form-group input-group">
-                                        <select class="form-control" type="text" name="checkout-Anothercomunes" id="strComunaNationaleAnother" placeholder="@WebStore.Resources.Placeholder.Comune">
-                                            <option value="">@WebStore.Resources.Placeholder.Comune</option>
-                                        </select>
-                                        <span class="input-group-addon">
-                                            <i class="far fa-object-group"></i>
-                                        </span>
-                                    </div>
-                                </div>
-                                <div class="col-sm-6">
-                                    <label class="font-weight-bold" for="checkout-address1">@WebStore.Resources.Placeholder.Address 1</label>
-                                    <div class="form-group input-group">
-                                        <input class="form-control" type="text" name="checkout-Anotheraddress1" id="checkout-Anotheraddress1" required autocomplete="off" placeholder="@WebStore.Resources.Placeholder.Address 1">
-                                        <span class="input-group-addon">
-                                            <i class="fas fa-map-marker-alt"></i>
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row padding-bottom-1x">
-                                <div class="col-sm-6">
-                                    <label class="font-weight-bold" for="checkout-address2">@WebStore.Resources.Placeholder.Address 2</label>
-                                    <div class="form-group input-group">
-                                        <input class="form-control" type="text" name="checkout-Anotheraddress2" id="checkout-Anotheraddress2" required autocomplete="off" placeholder="@WebStore.Resources.Placeholder.Address 2">
-                                        <span class="input-group-addon">
-                                            <i class="fas fa-map-marker-alt"></i>
-                                        </span>
-                                    </div>
-                                </div>
-                                <div class="col-sm-6">
-                                    <label class="font-weight-bold" for="checkout-zip">@WebStore.Resources.Placeholder.PostCode</label>
-                                    <div class="form-group input-group">
-                                        <input class="form-control" required autocomplete="off" type="text" name="anothercheckout-zip" id="Anothercheckout-zip" placeholder="@WebStore.Resources.Placeholder.PostCode">
-                                        <span class="input-group-addon">
-                                            <i class="fas fa-map-marked-alt"></i>
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="table-responsive">
-                            <table class="table table-hover">
-                                <thead class="thead-default">
-                                    <tr>
-                                        <th></th>
-                                        <th>@WebStore.Resources.Check.ShippingM</th>
-                                        <th>@WebStore.Resources.Check.DeliveryTime</th>
-                                        <th>@WebStore.Resources.Check.Fee</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td class="align-middle">
-                                            <div class="custom-control custom-radio mb-0">
-                                                <input class="radio with-gap radio-col-deep-orange" type="radio" id="courier" name="shipping-method"
-                                                       checked="">
-                                                <label for="courier"></label>
-                                            </div>
-                                        </td>
-                                        <td class="align-middle">
-                                            <span class="text-gray-dark">Courier</span><br><span class="text-muted text-sm">
-                                                All
-                                                Addresses(default zone), United States &amp; Canada
-                                            </span>
-                                        </td>
-                                        <td class="align-middle">2 - 4 days</td>
-                                        <td class="align-middle">$26.50</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="align-middle">
-                                            <div class="custom-control custom-radio mb-0">
-                                                <input class="radio with-gap radio-col-deep-orange" type="radio" id="local" name="shipping-method">
-                                                <label for="local"></label>
-                                            </div>
-                                        </td>
-                                        <td class="align-middle">
-                                            <span class="text-gray-dark">Local Shipping</span><br><span class="text-muted text-sm">
-                                                All
-                                                Addresses(default zone), United States &amp; Canada
-                                            </span>
-                                        </td>
-                                        <td class="align-middle">up to one week</td>
-                                        <td class="align-middle">$10.00</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="align-middle">
-                                            <div class="custom-control custom-radio mb-0">
-                                                <input class="radio with-gap radio-col-deep-orange" type="radio" id="flat" name="shipping-method">
-                                                <label for="flat"></label>
-                                            </div>
-                                        </td>
-                                        <td class="align-middle">
-                                            <span class="text-gray-darkm">Flat Rate</span><br><span class="text-muted text-sm">
-                                                All
-                                                Addresses(default zone)
-                                            </span>
-                                        </td>
-                                        <td class="align-middle">5 - 7 days</td>
-                                        <td class="align-middle">$33.85</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="align-middle">
-                                            <div class="custom-control custom-radio mb-0">
-                                                <input class="radio with-gap radio-col-deep-orange" type="radio" id="ups" name="shipping-method">
-                                                <label for="ups"></label>
-                                            </div>
-                                        </td>
-                                        <td class="align-middle">
-                                            <span class="text-gray-dark">UPS Ground Shipping</span><br><span class="text-muted text-sm">
-                                                All
-                                                Addresses(default zone)
-                                            </span>
-                                        </td>
-                                        <td class="align-middle">4 - 6 days</td>
-                                        <td class="align-middle">$18.00</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="align-middle">
-                                            <div class="custom-control custom-radio mb-0">
-                                                <input class="radio with-gap radio-col-deep-orange" type="radio" id="pickup" name="shipping-method">
-                                                <label for="pickup"></label>
-                                            </div>
-                                        </td>
-                                        <td class="align-middle">
-                                            <span class="text-gray-dark">Local Pickup from store</span><br><span class="text-muted text-sm">All Addresses(default zone)</span>
-                                        </td>
-                                        <td class="align-middle">—</td>
-                                        <td class="align-middle">$0.00</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="align-middle">
-                                            <div class="custom-control custom-radio mb-0">
-                                                <input class="radio with-gap radio-col-deep-orange" type="radio" id="locker" name="shipping-method">
-                                                <label for="locker"></label>
-                                            </div>
-                                        </td>
-                                        <td class="align-middle">
-                                            <span class="text-gray-dark">Pick Up at Unishop Locker</span><br><span class="text-muted text-sm">All Addresses(default zone), United States &amp; Canada</span>
-                                        </td>
-                                        <td class="align-middle">—</td>
-                                        <td class="align-middle">$9.99</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="align-middle">
-                                            <div class="custom-control custom-radio mb-0">
-                                                <input class="radio with-gap radio-col-deep-orange" type="radio" id="global" name="shipping-method">
-                                                <label for="global"></label>
-                                            </div>
-                                        </td>
-                                        <td class="align-middle">
-                                            <span class="text-gray-dark">Unishop Global Export</span><br><span class="text-muted text-sm">All Addresses(default zone), outside United States</span>
-                                        </td>
-                                        <td class="align-middle">3 - 4 days;</td>
-                                        <td class="align-middle">$25.00</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
+                    </form>
                 </fieldset>
                 <h3>
                     <span class="step-Title">@WebStore.Resources.Check.Payment</span>
                     <span class="fas fa-money-bill-alt fa-2x pl-3"></span>
                 </h3>
                 <fieldset>
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="cc-selector">
-                                <input id="webpay" type="radio" name="wtc" value="webpay" required="">
-                                <label class="drinkcard-cc webpay" for="webpay"></label>
+                    <form id="CheckoutPayMethod">
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="cc-selector">
+                                        <input id="webpay" type="radio" name="CheckoutPayMethod" value="webpay" data-val="true" data-val-required="Campo Requerido">
+                                        <label class="drinkcard-cc webpay" for="webpay"></label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="cc-selector">
+                                        <input id="transferencia" type="radio" name="CheckoutPayMethod" value="transferencia" data-val="true" data-val-required="Campo Requerido">
+                                        <label class="drinkcard-cc transferencia" for="transferencia"></label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="cc-selector">
+                                        <input id="cash" type="radio" name="CheckoutPayMethod" value="cash" data-val="true" data-val-required="Campo Requerido">
+                                        <label class="drinkcard-cc cash" for="cash"></label>
+                                    </div>
+                                </div>
                             </div>
+                            <span class="field-validation-valid" data-valmsg-for="CheckoutPayMethod" data-valmsg-replace="true"></span>
                         </div>
-                        <div class="col-md-4">
-                            <div class="cc-selector">
-                                <input id="transferencia" type="radio" name="wtc" value="transferencia" required="">
-                                <label class="drinkcard-cc transferencia" for="transferencia"></label>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="cc-selector">
-                                <input id="cash" type="radio" name="wtc" value="cash" required="">
-                                <label class="drinkcard-cc cash" for="cash"></label>
-                            </div>
-                        </div>
-                    </div>
+                    </form>
                 </fieldset>
                 <h3>
                     <span class="step-Title">@WebStore.Resources.Check.Resume</span>
@@ -536,110 +579,70 @@
                                 <tr>
                                     <th>@WebStore.Resources.Check.Product</th>
                                     <th class="text-center">@WebStore.Resources.Check.Subtotal</th>
-                                    <th></th>
+                                    <th>Cantidad</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>
-                                        <div class="product-item">
-                                            <a class="product-thumb" href="shop-single.html">
-                                                <img src="http://themes.rokaux.com/unishop/v3.0/template-3/img/shop/cart/01.jpg" alt="Product">
-                                            </a>
-                                            <div class="product-info">
-                                                <h4 class="product-title">
-                                                    <a href="shop-single.html">
-                                                        Canon EOS M50 Mirrorless
-                                                        Camera<small>x 1</small>
+                                @{
+                                    int total = 0;
+                                    foreach (var i in Model.ProductList)
+                                    {
+                                        total += i.SubtotalInt;
+                                        <tr>
+                                            <td>
+                                                <div class="product-item">
+                                                    <a class="product-thumb" href="shop-single.html">
+                                                        <img src="~/Content/img/products/@i.Code-1.jpg" alt="Product">
                                                     </a>
-                                                </h4>
-                                                <span>
-                                                    <em>@WebStore.Resources.Cart.Type:</em> Mirrorless
-                                                </span>
-                                                <span>
-                                                    <em>@WebStore.Resources.Cart.Color:</em>
-                                                    Black
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="text-center text-lg">$910.00</td>
-                                    <td class="text-center"><a class="btn btn-outline-orangered btn-sm" href="cart.html">@WebStore.Resources.Buttons.Edit</a></td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div class="product-item">
-                                            <a class="product-thumb" href="shop-single.html">
-                                                <img src="http://themes.rokaux.com/unishop/v3.0/template-3/img/shop/cart/02.jpg" alt="Product">
-                                            </a>
-                                            <div class="product-info">
-                                                <h4 class="product-title">
-                                                    <a href="shop-single.html">
-                                                        Apple iPhone X 256 GB Space
-                                                        Gray<small>x 1</small>
-                                                    </a>
-                                                </h4><span><em>Memory:</em> 256 GB</span>
-                                                <span>
-                                                    <em>Color:</em>
-                                                    Space Gray
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="text-center text-lg">$1,450.00</td>
-                                    <td class="text-center"><a class="btn btn-outline-orangered btn-sm" href="cart.html">@WebStore.Resources.Buttons.Edit</a></td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div class="product-item">
-                                            <a class="product-thumb" href="shop-single.html">
-                                                <img src="http://themes.rokaux.com/unishop/v3.0/template-3/img/shop/cart/03.jpg" alt="Product">
-                                            </a>
-                                            <div class="product-info">
-                                                <h4 class="product-title">
-                                                    <a href="shop-single.html">
-                                                        HP LaserJet Pro Laser Printer
-                                                        <small>
-                                                            x
-                                                            1
-                                                        </small>
-                                                    </a>
-                                                </h4><span><em>Type:</em> Laser</span>
-                                                <span>
-                                                    <em>Color:</em>
-                                                    White
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="text-center text-lg">$188.50</td>
-                                    <td class="text-center"><a class="btn btn-outline-orangered btn-sm" href="cart.html">@WebStore.Resources.Buttons.Edit</a></td>
-                                </tr>
+                                                    <div class="product-info">
+                                                        <h4 class="product-title">
+                                                            <a href="@Url.Action("Category", "Product", new { id = i.Category, idp = i.Code, language = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName})">@i.Name</a>
+                                                        </h4>
+                                                        @{
+                                                            if (i.PriceOffInt > 0)
+                                                            {
+                                                                <span class="text-muted"><del>$ @i.Price</del></span>
+                                                                <span><em>Precio:</em>$ @i.PriceOff <span class="text-success">@i.PercentageOff DCTO</span></span>
+                                                            }
+                                                            else
+                                                            {
+                                                                <span><em>Precio:</em>$ @i.Price</span>
+                                                                <span><em>Color:</em> Black</span>
+                                                            }
+                                                        }
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td class="text-center text-lg">$@i.Price</td>
+                                            <td class="text-center">@i.Quantity</td>
+                                        </tr>
+                                    }
+                                }
                             </tbody>
                         </table>
                     </div>
                     <div class="shopping-cart-footer">
                         <div class="column"></div>
-                        <div class="column text-lg"><span class="text-muted">@WebStore.Resources.Check.Subtotal:&nbsp; </span><span class="text-gray-dark">$2,548.50</span></div>
+                        <div class="column text-lg"><span class="text-muted">@WebStore.Resources.Check.Subtotal:&nbsp; </span><span class="text-gray-dark">$@total.ToString("N0", System.Threading.Thread.CurrentThread.CurrentCulture)</span></div>
                     </div>
                     <div class="row padding-top-1x mt-3">
                         <div class="col-sm-6">
                             <h5>@WebStore.Resources.Check.ShippingTo:</h5>
                             <ul class="list-unstyled">
-                                <li><span class="text-muted">@WebStore.Resources.Check.Client:&nbsp; </span>Daniel Adams</li>
-                                <li><span class="text-muted">@WebStore.Resources.Check.Address:&nbsp; </span>44 Shirley Ave. West Chicago, IL 60185, USA</li>
-                                <li><span class="text-muted">@WebStore.Resources.Check.Phone:&nbsp; </span>+1(808) 764 554 330</li>
+                                <li><span class="text-muted">@WebStore.Resources.Check.Client:&nbsp; </span> <span id="ClientToDispatchName"></span></li>
+                                <li><span class="text-muted">@WebStore.Resources.Check.Address:&nbsp; </span><span id="ClientToDispatchAddress"></span></li>
+                                <li><span class="text-muted">@WebStore.Resources.Check.Phone:&nbsp; </span><span id="ClientToDispatchPhone"></span></li>
                             </ul>
                         </div>
                         <div class="col-sm-6">
                             <h5>@WebStore.Resources.Check.PaymentM:</h5>
                             <ul class="list-unstyled">
-                                <li><span class="text-muted">@WebStore.Resources.Check.Credit:&nbsp; </span>**** **** **** 5300</li>
+                                <li><span id="ClientToDispatchPayMethod"></span></li>
                             </ul>
                         </div>
                     </div>
                 </fieldset>
-            </form>
+            </div>
         </div>
         <div class="col-lg-4 col-xl-3">
             <aside class="siderbar">
@@ -652,18 +655,18 @@
                             int Discount = 0;
                             int Shipping = 0;
                             double Iva = 0;
+                            double Total = 0;
 
-                            foreach(var i in Model.ProductList)
+                            foreach (var i in Model.ProductList)
                             {
-                                SubTotal += i.PriceInt;
-                                if(i.PriceOffInt > 0)
+                                SubTotal += i.SubtotalInt;
+                                if (i.PriceOffInt > 0)
                                 {
-                                    Discount += i.PriceInt - i.PriceOffInt;
+                                    Discount = (i.PriceInt - i.PriceOffInt) * i.Quantity;
                                 }
-
+                                Total += i.TotalInt;
                             }
-                            Iva = (SubTotal - Discount) * 0.19;
-                            double Total = (SubTotal - Discount) + ((SubTotal - Discount) * 0.19);
+                            Iva = Total * 0.19;
                             <tbody>
                                 <tr>
                                     <td>@WebStore.Resources.Check.Subtotal:</td>
@@ -674,16 +677,20 @@
                                     <td class="text-gray-dark">$@Discount.ToString("N0", System.Threading.Thread.CurrentThread.CurrentCulture)</td>
                                 </tr>
                                 <tr>
-                                    <td>@WebStore.Resources.Check.Shipping:</td>
-                                    <td class="text-gray-dark">$@Shipping</td>
+                                    <td>Total Neto:</td>
+                                    <td class="text-gray-dark">$@Total.ToString("N0", System.Threading.Thread.CurrentThread.CurrentCulture)</td>
                                 </tr>
                                 <tr>
                                     <td>IVA (19%):</td>
                                     <td class="text-gray-dark">$@Iva.ToString("N0", System.Threading.Thread.CurrentThread.CurrentCulture)</td>
                                 </tr>
                                 <tr>
-                                    <td></td>
-                                    <td class="text-lg text-gray-dark">$@Total.ToString("N0", System.Threading.Thread.CurrentThread.CurrentCulture)</td>
+                                    <td>@WebStore.Resources.Check.Shipping:</td>
+                                    <td class="text-gray-dark">$@Shipping</td>
+                                </tr>
+                                <tr>
+                                    <td>Total</td>
+                                    <td class="text-lg text-gray-dark">$@((Total + Iva).ToString("N0", System.Threading.Thread.CurrentThread.CurrentCulture))</td>
                                 </tr>
                             </tbody>
                         }
@@ -696,7 +703,7 @@
                     <div class="entry">
                         <div class="entry-thumb">
                             <a href="shop-single.html">
-                                <img src="http://themes.rokaux.com/unishop/v3.0/template-3/img/shop/widget/01.jpg" alt="Product">
+                                <img src="http://themes.rokaux.com/unishop/v3.2.1/template-3/img/shop/widget/01.jpg" alt="Product">
                             </a>
                         </div>
                         <div class="entry-content">
@@ -709,7 +716,7 @@
                     <div class="entry">
                         <div class="entry-thumb">
                             <a href="shop-single.html">
-                                <img src="http://themes.rokaux.com/unishop/v3.0/template-3/img/shop/widget/02.jpg" alt="Product">
+                                <img src="http://themes.rokaux.com/unishop/v3.2.1/template-3/img/shop/widget/02.jpg" alt="Product">
                             </a>
                         </div>
                         <div class="entry-content">
@@ -722,7 +729,7 @@
                     <div class="entry">
                         <div class="entry-thumb">
                             <a href="shop-single.html">
-                                <img src="http://themes.rokaux.com/unishop/v3.0/template-3/img/shop/widget/03.jpg" alt="Product">
+                                <img src="http://themes.rokaux.com/unishop/v3.2.1/template-3/img/shop/widget/03.jpg" alt="Product">
                             </a>
                         </div>
                         <div class="entry-content">
@@ -735,7 +742,7 @@
                     <div class="entry">
                         <div class="entry-thumb">
                             <a href="shop-single.html">
-                                <img src="http://themes.rokaux.com/unishop/v3.0/template-3/img/shop/widget/05.jpg" alt="Product">
+                                <img src="http://themes.rokaux.com/unishop/v3.2.1/template-3/img/shop/widget/05.jpg" alt="Product">
                             </a>
                         </div>
                         <div class="entry-content">
@@ -751,7 +758,7 @@
                         <span class="d-block text-lg text-thin mb-2">Limited Time Deals</span>
                         <h3>Surface Pro 4</h3>
                         <p class="d-inline-block bg-warning text-white">&nbsp;&nbsp;@WebStore.Resources.Buttons.BuyNow&nbsp;<i class="fas fa-angle-right d-inline-block align-middle"></i>&nbsp;</p>
-                    </div><img class="img-fluid d-block mx-auto" src="http://themes.rokaux.com/unishop/v3.0/template-3/img/shop/widget/promo.jpg" alt="Surface Pro">
+                    </div><img class="img-fluid d-block mx-auto" src="http://themes.rokaux.com/unishop/v3.2.1/template-3/img/shop/widget/promo.jpg" alt="Surface Pro">
                 </a>
             </aside>
         </div>
@@ -763,9 +770,11 @@
 }
 
 @section Included{
-    @Html.Raw(WebStore.Resources.Scripts.StepJs)
+
     @Html.Raw(WebStore.Resources.Scripts.JqueryValidate)
     @Html.Raw(WebStore.Resources.Scripts.JqueryValidateMethods)
+    @Html.Raw(WebStore.Resources.Scripts.JqueryValidateUnobtrousive)
+    @Html.Raw(WebStore.Resources.Scripts.StepJs)
 }
 
 @section Scripts {

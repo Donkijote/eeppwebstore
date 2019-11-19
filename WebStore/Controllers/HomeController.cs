@@ -143,7 +143,7 @@ namespace WebStore.Controllers
 
             pro = Function.GetOffertOrOffertTime(pro, db);
 
-            viewModel.ProductsList = pro.Take(12);
+            viewModel.ProductsList = pro.Where(w => w.categorySeo == "Stadium").Take(12);
             viewModel.ProductsOffer = pro.Where(x => x.intPrecioOff != null);
 
             List<CategoryList> CategoryList = new List<CategoryList>();

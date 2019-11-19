@@ -342,6 +342,14 @@ namespace WebStore.Controllers
             {
                 using (webstoreEntities db = new webstoreEntities())
                 {
+                    int UserId = (int)Session["id"];
+
+                    List<tblCartQueDet> products = (from a in db.tblCartQue
+                                                    join b in db.tblCartQueDet
+                                                    on a.IdCartQue equals b.refCartQue
+                                                    where a.refUser == UserId
+                                                    select b).ToList();
+
                     var viewModel = new Checkout
                     {
                         BindSelect = new BindSelect
@@ -350,11 +358,14 @@ namespace WebStore.Controllers
 
                             regions = db.tblRegiones.Select(x => x).ToList(),
 
-                            comunes = db.tblComunas.Where(x => x.refProvincia == 1).ToList()
-                        }
-                    };
+                            provinces = db.tblProvincias.Select(x => x).ToList(),
 
-                    
+                            comunes = db.tblComunas.Select(x => x).ToList()
+                        },
+                        ProductList = Function.GetCartProducts(products, db),
+                        User = db.tblUsers.Where(x => x.idUser == UserId).SingleOrDefault(),
+                        Address = db.tblAddresses.Where(x => x.refuser == UserId && x.boolDefault == true).SingleOrDefault()
+                    };
 
                     return View(viewModel);
                 }

@@ -9,5 +9,7 @@ namespace WebStore.Models
     {
         public BindSelect BindSelect { get; set; }
         public List<CartProductList> ProductList { get; set; }
+        public tblUsers User { get; set; }
+        public tblAddresses Address { get; set; }
     }
 }
