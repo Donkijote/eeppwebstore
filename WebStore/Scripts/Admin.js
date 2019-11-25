@@ -1193,14 +1193,24 @@ $.AdminJs.checkOut = {
         $('#strStatesNationaleAnother').on('change', function () {
             var id = $(this).val();
             $.AdminJs.Api.getProvinces(id, "#strProvinciaNationaleAnother");
-        })
+        });
 
         $('#strProvinciaNationaleAnother').on('change', function () {
             var id = $(this).val();
             $.AdminJs.Api.getComunes(id, "#strComunaNationaleAnother");
-        })
+        });
 
-        $('input[name="CheckoutSameAddress"]').on('change', function () {
+        $('#strStatesNationaleNewAddress').on('change', function () {
+            var id = $(this).val();
+            $.AdminJs.Api.getProvinces(id, "#strProvinciaNationaleNewAddress");
+        });
+
+        $('#strProvinciaNationaleNewAddress').on('change', function () {
+            var id = $(this).val();
+            $.AdminJs.Api.getComunes(id, "#strComunaNationaleNewAddress");
+        });
+
+        $('input[name="Form.CheckoutShipping.CheckoutSameAddress"]').on('change', function () {
             if ($(this).val() == "1") {
                 if ($('#anotherAddress').is(':visible')) {
                     $('#anotherAddress').addClass('d-none');
@@ -1215,9 +1225,9 @@ $.AdminJs.checkOut = {
                     $(this).parents('.content.clearfix').css({ "height": height });
                 }
             }
-        })
+        });
 
-        $('input[name="CheckoutSamePerson"]').on('change', function () {
+        $('input[name="Form.CheckoutShipping.CheckoutSamePerson"]').on('change', function () {
             if ($(this).val() == "1") {
                 if ($('#anotherPerson').is(':visible')) {
                     $('#anotherPerson').addClass('d-none');
@@ -1232,7 +1242,7 @@ $.AdminJs.checkOut = {
                     $(this).parents('.content.clearfix').css({ "height": height });
                 }
             }
-        })
+        });
     },
     checkoutSteps: function () {
         var wizard = $("#CheckOutSteps");
@@ -1264,44 +1274,57 @@ $.AdminJs.checkOut = {
             autoFocus: true,
             labels: label,
             onInit: function () {
-                console.log(form);
                 $('#CheckoutInfo').removeData('validator');
                 $('#CheckoutInfo').removeData('unobtrusiveValidation');
                 $.validator.unobtrusive.parse('#CheckoutInfo');
+
+                $('input[name="Form.CheckoutInfo.CheckoutBill"]').on('change', function () {
+                    var billAddressType = $(this).val();
+                    if (billAddressType == 1) {
+                        $('#MainAddress').removeClass('d-none');
+                        if ($('input[id="main"]').is(':checked')) {
+                            form.validate().settings.ignore = ":disabled,:hidden,#NewAddress :input";
+                        }
+                        $('#NewAddress').addClass('d-none');
+                        var height = $(this).parents('fieldset').outerHeight();
+                        $(this).parents('.content.clearfix').css({ "height": height });
+                    } else if (billAddressType == 2) {
+                        $.AdminJs.Api.getRegions('#strStatesNationaleNewAddress');
+                        $('#MainAddress').addClass('d-none');
+                        $('#NewAddress').removeClass('d-none');
+                        if ($('input[id="new"]').is(':checked')) {
+                            form.validate().settings.ignore = ":disabled,:hidden,#MainAddress :input";
+                        }
+                        var height = $(this).parents('fieldset').outerHeight();
+                        $(this).parents('.content.clearfix').css({ "height": height });
+                    }
+                });
             },
             onStepChanging: function (event, currentIndex, newIndex) {
                 if (newIndex == 1) {
                     form = $('#CheckoutShipping');
                 } else if (newIndex == 2) {
                     form = $('#CheckoutPayMethod');
-                }
-                //form.validate().settings.ignore = ":disabled,:hidden";
-                
+                }         
 
                 if (newIndex == 1) {
-                    $('input[name="strShippingType"]').on('change', function () {
-                        var shippingType = $(this).val();
-                        if (shippingType == 1) {
-                            $('#ShippingTypeAddress').css({ "display": "none" });
-                            $('#ShippingTypeStore').show();
-                            var height = $(this).parents('fieldset').outerHeight();
-                            $(this).parents('.content.clearfix').css({ "height": height });
-                        } else if (shippingType == 2) {
-                            $('#ShippingTypeStore').css({ "display": "none" });
-                            $('#ShippingTypeAddress').show();
-                            if ($('input[name="sameAddress"]').is(':checked') && $('input[name="samePerson"]').is(':checked')) {
-                                form.validate().settings.ignore = ":disabled,:hidden,#anotherPerson :input, #anotherAddress :input";
-                            }
-                            var height = $(this).parents('fieldset').outerHeight();
-                            $(this).parents('.content.clearfix').css({ "height": height });
-                        }
-                    })
+                    var input = $('input[name="Form.CheckoutInfo.CheckoutBill"]');
+                    if (input.is(':checked')) {
+                        var el = input.parents('.form-group').find('span.field-validation-error');
+                        el.html('');
+                        el.removeClass('field-validation-error').addClass('field-validation-valid');
+                    } else {
+                        var el = input.parents('.form-group').find('span.field-validation-valid');
+                        el.html('<span id="strShippingType-error" class="">Campo Requerido</span>');
+                        el.removeClass('field-validation-valid').addClass('field-validation-error');
+                        return false;
+                    }
                 }
 
                 if (newIndex == 2) {
-                    var input = $('input[name="strShippingType"]');
+                    var input = $('input[name="Form.CheckoutShipping.strShippingType"]');
                     if (input.is(':checked')) {
-                        if ($('input[name="strShippingType"]:checked').val() == 2) {
+                        if ($('input[name="Form.CheckoutShipping.strShippingType"]:checked').val() == 2) {
                             $('input[id="cash"]').parent().addClass('d-none');
                         } else {
                             $('input[id="cash"]').parent().removeClass('d-none');
@@ -1318,7 +1341,7 @@ $.AdminJs.checkOut = {
                 }
 
                 if (newIndex == 3) {
-                    var input = $('input[name="CheckoutPayMethod"]');
+                    var input = $('input[name="Form.CheckoutPayMethod.CheckoutPay"]');
                     if (!input.is(':checked')) {
                         var el = input.parents('.form-group').find('span.field-validation-valid');
                         el.html('<span id="CheckoutPayMethod-error" class="">Campo Requerido</span>');
@@ -1328,23 +1351,27 @@ $.AdminJs.checkOut = {
                         var el = input.parents('.form-group').find('span.field-validation-error');
                         el.html('');
                         el.removeClass('field-validation-error').addClass('field-validation-valid');
-                        var shipping = $('input[name="strShippingType"]:checked').val();
-                        var sameAddress = $('input[name="CheckoutSameAddress"]:checked').val();
-                        var samePerson = $('input[name="CheckoutSamePerson"]:checked').val();
-                        var payMethod = $('input[name="CheckoutPayMethod"]:checked').val();
+                        var shipping = $('input[name="Form.CheckoutShipping.strShippingType"]:checked').val();
+                        var sameAddress = $('input[name="Form.CheckoutShipping.CheckoutSameAddress"]:checked').val();
+                        var samePerson = $('input[name="Form.CheckoutShipping.CheckoutSamePerson"]:checked').val();
+                        var payMethod = $('input[name="CheckoutPay"]:checked').val();
                         var client, phone, address, payment;
                         if (samePerson == 1) {
-                            client = $('input[name="CheckoutName"]').val() + " " + $('input[name="CheckoutLastName"]').val();
-                            phone = $('input[name="CheckoutPhone"]').val();
+                            client = $('input[name="Form.CheckoutInfo.CheckoutName"]').val() + " " + $('input[name="Form.CheckoutInfo.CheckoutLastName"]').val();
+                            phone = $('input[name="Form.CheckoutInfo.CheckoutPhone"]').val();
                         } else {
-                            client = $('input[name="CheckoutAnotherPersonName"]').val() + " " + $('input[name="CheckoutAnotherPersonLastName"]').val();
-                            phone = $('input[name="CheckoutAnotherPersonPhone"]').val();
+                            client = $('input[name="Form.CheckoutShipping.CheckoutAnotherPersonName"]').val() + " " + $('input[name="Form.CheckoutShipping.CheckoutAnotherPersonLastName"]').val();
+                            phone = $('input[name="Form.CheckoutShipping.CheckoutAnotherPersonPhone"]').val();
                         }
 
                         if (sameAddress == 1) {
-                            address = $('input[name="CheckoutAddressOne"]').val() + ", " + $('select[name="CheckoutComune"] option:selected').text() + ", " + $('select[name="CheckoutProvince"] option:selected').text() + ", " + $('select[name="CheckoutState"] option:selected').text();
+                            address = $('input[name="Form.CheckoutInfo.MainAddress.CheckoutAddressOne"]').val() + ", " + $('select[name="Form.CheckoutInfo.MainAddress.CheckoutComune"] option:selected').text() + ", " +
+                                $('select[name="Form.CheckoutInfo.MainAddress.CheckoutProvince"] option:selected').text() + ", " + $('select[name="Form.CheckoutInfo.MainAddress.CheckoutState"] option:selected').text();
                         } else {
-                            address = $('input[name="CheckoutAnotherAddressOne"]').val() + ", " + $('select[name="CheckoutAnotherComune"] option:selected').text() + ", " + $('select[name="CheckoutAnotherProvince"] option:selected').text() + ", " + $('select[name="CheckoutAnotherState"] option:selected').text();
+                            address = $('input[name="Form.CheckoutShipping.CheckoutAnotherAddressOne"]').val() + ", " +
+                                $('select[name="Form.CheckoutShipping.CheckoutAnotherComune"] option:selected').text() + ", " +
+                                $('select[name="Form.CheckoutShipping.CheckoutAnotherProvince"] option:selected').text() + ", " +
+                                $('select[name="Form.CheckoutShipping.CheckoutAnotherState"] option:selected').text();
                         }
 
                         if (payMethod == "webpay") {
@@ -1376,23 +1403,51 @@ $.AdminJs.checkOut = {
                 }
             },
             onStepChanged: function (event, currentIndex, newIndex) {
-                console.log(form);
                 if (currentIndex == 1) {
                     $('#CheckoutShipping').removeData('validator');
                     $('#CheckoutShipping').removeData('unobtrusiveValidation');
                     $.validator.unobtrusive.parse('#CheckoutShipping');
-                } else if (currentIndex == 2) {
+
+                    $('input[name="Form.CheckoutShipping.strShippingType"]').on('change', function () {
+                        var shippingType = $(this).val();
+                        if (shippingType == 1) {
+                            $('#ShippingTypeAddress').addClass('d-none');
+                            $('#ShippingTypeStore').removeClass('d-none');
+                            var height = $(this).parents('fieldset').outerHeight();
+                            $(this).parents('.content.clearfix').css({ "height": height });
+                        } else if (shippingType == 2) {
+                            $('#ShippingTypeStore').addClass('d-none');
+                            $('#ShippingTypeAddress').removeClass('d-none');
+                            if ($('input[name="Form.CheckoutShipping.sameAddress"]').is(':checked') && $('input[name="Form.CheckoutShipping.samePerson"]').is(':checked')) {
+                                form.validate().settings.ignore = ":disabled,:hidden,#anotherPerson :input, #anotherAddress :input";
+                            }
+                            var height = $(this).parents('fieldset').outerHeight();
+                            $(this).parents('.content.clearfix').css({ "height": height });
+                        }
+                    });
+                }
+                if (currentIndex == 2) {
                     $('#CheckoutPayMethod').removeData('validator');
                     $('#CheckoutPayMethod').removeData('unobtrusiveValidation');
                     $.validator.unobtrusive.parse('#CheckoutPayMethod');
                 }
             },
-            /*onFinishing: function (event, currentIndex)
-            {
-                form.validate().settings.ignore = ":disabled";
-                return form.valid();
-            }*/
             onFinished: function (event, currentIndex) {
+                var CheckoutInfo = $('#CheckoutInfo'), CheckoutShipping = $('#CheckoutShipping'), CheckoutPayMethod = $('#CheckoutPayMethod'), CheckoutBillInfo = $('#CheckoutBillInfo');
+                console.log(CheckoutInfo, CheckoutShipping, CheckoutPayMethod);
+                if (CheckoutInfo.valid() && CheckoutShipping.valid() && CheckoutPayMethod.valid()) {
+                    $.AdminJs.Ajax.init({
+                        type: 'POST',
+                        url: '/en/User/CheckOut/',
+                        data: CheckoutInfo.serialize() + "&" + CheckoutShipping.serialize() + "&" + CheckoutPayMethod.serialize() + "&" + CheckoutBillInfo.serialize(),
+                        action: (resp) => {
+                            $.AdminJs.Alert.success(resp.title, resp.responseText);
+                        }
+                    }, true);
+                } else {
+                    $.AdminJs.Alert.warning('Formulario', 'Hay errores en su formulario');
+                    return false;
+                }
             }
         }).validate({
             errorPlacement: function errorPlacement(error, element) {

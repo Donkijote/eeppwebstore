@@ -12,15 +12,16 @@ namespace WebStore.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class tblAddressesDet
+    public partial class tblCartDet
     {
-        public int idAddressDet { get; set; }
-        public int refAddress { get; set; }
-        public string strName { get; set; }
-        public string strLastName { get; set; }
-        public Nullable<int> intPhone { get; set; }
-        public string intId { get; set; }
+        public int IdCartDet { get; set; }
+        public int refCart { get; set; }
+        public string refProd { get; set; }
+        public int intQuantity { get; set; }
+        public int intPrice { get; set; }
+        public int intDiscount { get; set; }
+        public int intPriceDiscount { get; set; }
     
-        public virtual tblAddresses tblAddresses { get; set; }
+        public virtual tblCart tblCart { get; set; }
     }
 }

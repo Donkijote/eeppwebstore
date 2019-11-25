@@ -36,379 +36,256 @@
     <div class="row">
         <div class="col-lg-8 col-xl-9">
             <div id="CheckOutSteps">
-                <h3>
-                    <span class="step-Title">@WebStore.Resources.Check.Data</span>
-                    <span class="fas fa-address-card fa-2x pl-3"></span>
-                </h3>
-                <fieldset>
-                    <form id="CheckoutInfo">
-                        <div class="row">
-                            <div class="col-sm-6 mb-3">
-                                <label class="font-weight-bold" for="checkout-country">@WebStore.Resources.Placeholder.DocumentType</label>
-                                <div class="input-group">
-                                    <select class="form-control" autocomplete="off" name="CheckoutDocument" id="CheckoutDocument" data-val="true" data-val-required="Campo Requerido">
-                                        <option value="1" selected>Factura</option>
-                                        <option value="2">Boleta</option>
-                                    </select>
-                                    <span class="input-group-addon">
-                                        <i class="fas fa-file"></i>
-                                    </span>
+                @if (Session["id"] != null)
+                {
+                    <h3>
+                        <span class="step-Title">@WebStore.Resources.Check.Data</span>
+                        <span class="fas fa-address-card fa-2x pl-3"></span>
+                    </h3>
+                    <fieldset>
+                        <form id="CheckoutInfo">
+                            <div class="row">
+                                <div class="col-sm-6 mb-3">
+                                    <label class="font-weight-bold" for="checkout-country">@WebStore.Resources.Placeholder.DocumentType</label>
+                                    <div class="input-group">
+                                        <select class="form-control" autocomplete="off" name="Form.CheckoutInfo.CheckoutDocument" id="CheckoutDocument" data-val="true" data-val-required="Campo Requerido">
+                                            <option value="1" selected>Factura</option>
+                                            <option value="2">Boleta</option>
+                                        </select>
+                                        <span class="input-group-addon">
+                                            <i class="fas fa-file"></i>
+                                        </span>
+                                    </div>
+                                    @Html.ValidationMessageFor(x => x.Form.CheckoutInfo.CheckoutDocument)
                                 </div>
-                                <span class="field-validation-valid" data-valmsg-for="CheckoutDocument" data-valmsg-replace="true"></span>
-                            </div>
-                            <div class="col-sm-6 mb-3">
-                                <label class="font-weight-bold pl-3">
-                                    @WebStore.Resources.Placeholder.IdNum
-                                    <small>
-                                        <a href="javascript:void(0)" class="text-orangered" id="popover" data-toggle="popover" data-trigger="click" data-placement="right" title="Número de ID" data-content="Los paquetes no serán entregados sin el número válido de identificación del cliente. Nosotros no usamos esta información para algún otro propósito. Por favor ingrese su número de identificación.">
-                                            Leer más <i class="fas fa-angle-down"></i>
-                                        </a>
-                                    </small>
-                                </label>
-                                <div class="input-group">
-                                    <input class="form-control" type="text" name="CheckoutId" id="CheckoutId" placeholder="@WebStore.Resources.Placeholder.IdNum" value="@Model.User.intId" readonly data-val="true" data-val-required="Campo Requerido" />
-                                    <span class="input-group-addon">
-                                        <i class="fas fa-id-card"></i>
-                                    </span>
-                                </div>
-                                <span class="field-validation-valid" data-valmsg-for="CheckoutId" data-valmsg-replace="true"></span>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-6 mb-3">
-                                <label class="font-weight-bold" for="checkout-fn">@WebStore.Resources.Placeholder.Names</label>
-                                <div class="input-group">
-                                    <input class="form-control text-capitalize" autocomplete="off" type="text" name="CheckoutName" id="CheckoutName" value="@Model.User.strNames" placeholder="@WebStore.Resources.Placeholder.Names" readonly data-val="true" data-val-required="Campo Requerido">
-                                    <span class="input-group-addon">
-                                        <i class="fas fa-file-signature"></i>
-                                    </span>
-                                </div>
-                                <span class="field-validation-valid" data-valmsg-for="CheckoutName" data-valmsg-replace="true"></span>
-                            </div>
-                            <div class="col-sm-6 mb-3">
-                                <label class="font-weight-bold" for="checkout-ln">@WebStore.Resources.Placeholder.LastNames</label>
-                                <div class="input-group">
-                                    <input class="form-control text-capitalize" autocomplete="off" type="text" name="CheckoutLastName" id="CheckoutLastName" value="@Model.User.strLastNames" placeholder="@WebStore.Resources.Placeholder.LastNames" readonly data-val="true" data-val-required="Campo Requerido">
-                                    <span class="input-group-addon">
-                                        <i class="fas fa-file-signature"></i>
-                                    </span>
-                                </div>
-                                <span class="field-validation-valid" data-valmsg-for="CheckoutLastName" data-valmsg-replace="true"></span>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-6 mb-3">
-                                <label class="font-weight-bold" for="checkout-email">@WebStore.Resources.Placeholder.Email</label>
-                                <div class="input-group">
-                                    <input class="form-control" autocomplete="off" type="email" name="CheckoutEmail" id="CheckoutEmail" value="@Model.User.strEmail" placeholder="@WebStore.Resources.Placeholder.Email" readonly data-val="true" data-val-required="Campo Requerido">
-                                    <span class="input-group-addon">
-                                        <i class="fas fa-at"></i>
-                                    </span>
-                                </div>
-                                <span class="field-validation-valid" data-valmsg-for="CheckoutEmail" data-valmsg-replace="true"></span>
-                            </div>
-                            <div class="col-sm-6 mb-3">
-                                <label class="font-weight-bold" for="checkout-phone">@WebStore.Resources.Placeholder.Telephone</label>
-                                <div class="input-group">
-                                    <input class="form-control" autocomplete="off" type="text" name="CheckoutPhone" id="CheckoutPhone" value="@Model.User.intPhone" placeholder="@WebStore.Resources.Placeholder.Phone" readonly data-val="true" data-val-required="Campo Requerido">
-                                    <span class="input-group-addon">
-                                        <i class="fas fa-mobile-alt"></i>
-                                    </span>
-                                </div>
-                                <span class="field-validation-valid" data-valmsg-for="CheckoutPhone" data-valmsg-replace="true"></span>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-6 mb-3">
-                                <label class="font-weight-bold" for="checkout-company">@WebStore.Resources.Placeholder.Company</label>
-                                <div class="input-group">
-                                    <input class="form-control" autocomplete="off" type="text" name="CheckoutCompany" id="CheckoutCompany" placeholder="@WebStore.Resources.Placeholder.Company">
-                                    <span class="input-group-addon">
-                                        <i class="fas fa-industry"></i>
-                                    </span>
-                                </div>
-                                <span class="field-validation-valid" data-valmsg-for="CheckoutCompany" data-valmsg-replace="true"></span>
-                            </div>
-                            <div class="col-sm-6 mb-3">
-                                <label class="font-weight-bold pl-3">@WebStore.Resources.Placeholder.Region</label>
-                                <div class="input-group">
-                                    <select class="form-control" type="text" name="CheckoutState" id="strStatesNationale" placeholder="@WebStore.Resources.Placeholder.Region" readonly data-val="true" data-val-required="Campo Requerido">
-                                        <option value="">@WebStore.Resources.Placeholder.Region</option>
-                                        @foreach (var region in Model.BindSelect.regions)
-                                        {
-                                            <option value="@Html.DisplayFor(a => region.idRegion)" @(Model.Address.refRegion == region.idRegion ? "selected" : "")>@Html.DisplayFor(a => region.strNombre) @Html.DisplayFor(a => region.intNumber)</option>
-                                        }
-                                    </select>
-                                    <span class="input-group-addon">
-                                        <i class="fas fa-flag"></i>
-                                    </span>
-                                </div>
-                                <span class="field-validation-valid" data-valmsg-for="CheckoutState" data-valmsg-replace="true"></span>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-6 mb-3">
-                                <label class="font-weight-bold pl-3">@WebStore.Resources.Placeholder.Province</label>
-                                <div class="input-group">
-                                    <select class="form-control" type="text" name="CheckoutProvince" id="strProvinciaNationale" placeholder="@WebStore.Resources.Placeholder.Province" readonly data-val="true" data-val-required="Campo Requerido">
-                                        <option value="">@WebStore.Resources.Placeholder.Province</option>
-                                        @foreach (var provinces in Model.BindSelect.provinces)
-                                        {
-                                            <option value="@Html.DisplayFor(a => provinces.idProvincia)" @(Model.Address.refProvince == provinces.idProvincia ? "selected" : "")>@Html.DisplayFor(a => provinces.strNombre)</option>
-                                        }
-                                    </select>
-                                    <span class="input-group-addon">
-                                        <i class="fas fa-city"></i>
-                                    </span>
-                                </div>
-                                <span class="field-validation-valid" data-valmsg-for="CheckoutProvince" data-valmsg-replace="true"></span>
-                            </div>
-                            <div class="col-sm-6 mb-3">
-                                <label class="font-weight-bold pl-3">@WebStore.Resources.Placeholder.Comune</label>
-                                <div class="input-group">
-                                    <select class="form-control" type="text" name="CheckoutComune" id="strComunaNationale" placeholder="@WebStore.Resources.Placeholder.Comune" readonly data-val="true" data-val-required="Campo Requerido">
-                                        <option value="">@WebStore.Resources.Placeholder.Comune</option>
-                                        @foreach (var comune in Model.BindSelect.comunes)
-                                        {
-                                            <option value="@Html.DisplayFor(a => comune.idComuna)" @(Model.Address.refComuna == comune.idComuna ? "selected" : "")>@Html.DisplayFor(a => comune.strNombre)</option>
-                                        }
-                                    </select>
-                                    <span class="input-group-addon">
-                                        <i class="far fa-object-group"></i>
-                                    </span>
-                                </div>
-                                <span class="field-validation-valid" data-valmsg-for="CheckoutComune" data-valmsg-replace="true"></span>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-6 mb-3">
-                                <label class="font-weight-bold" for="checkout-address1">@WebStore.Resources.Placeholder.Address 1</label>
-                                <div class="input-group">
-                                    <input class="form-control" type="text" name="CheckoutAddressOne" 
-                                           id="CheckoutAddressOne" value="@Model.Address.strAddress" autocomplete="off" 
-                                           placeholder="@WebStore.Resources.Placeholder.Address 1" data-val="true" data-val-required="Campo Requerido" readonly>
-                                    <span class="input-group-addon">
-                                        <i class="fas fa-map-marker-alt"></i>
-                                    </span>
-                                </div>
-                                <span class="field-validation-valid" data-valmsg-for="CheckoutAddressOne" data-valmsg-replace="true"></span>
-                            </div>
-                            <div class="col-sm-6 mb-3">
-                                <label class="font-weight-bold" for="checkout-address2">Referencia de @WebStore.Resources.Placeholder.Address</label>
-                                <div class="input-group">
-                                    <input class="form-control" type="text" name="CheckoutAddressTwo" id="CheckoutAddressTwo" value="@Model.Address.strAddressTwo" autocomplete="off" placeholder="@WebStore.Resources.Placeholder.Address 2 (opcional, referencias)">
-                                    <span class="input-group-addon">
-                                        <i class="fas fa-map-marker-alt"></i>
-                                    </span>
+                                <div class="col-sm-6 mb-3">
+                                    <label class="font-weight-bold pl-3">
+                                        @WebStore.Resources.Placeholder.IdNum
+                                        <small>
+                                            <a href="javascript:void(0)" class="text-orangered" id="popover" data-toggle="popover" data-trigger="click" data-placement="right" title="Número de ID" data-content="Los paquetes no serán entregados sin el número válido de identificación del cliente. Nosotros no usamos esta información para algún otro propósito. Por favor ingrese su número de identificación.">
+                                                Leer más <i class="fas fa-angle-down"></i>
+                                            </a>
+                                        </small>
+                                    </label>
+                                    <div class="input-group">
+                                        @Html.TextBoxFor(x => x.Form.CheckoutInfo.CheckoutId, new { @class = "form-control", Value = Model.User.intId, placeholder = WebStore.Resources.Placeholder.IdNum, @readonly = true })
+                                        <span class="input-group-addon">
+                                            <i class="fas fa-id-card"></i>
+                                        </span>
+                                    </div>
+                                    @Html.ValidationMessageFor(x => x.Form.CheckoutInfo.CheckoutId)
                                 </div>
                             </div>
-                        </div>
-                        <div class=" row padding-bottom-1x">
-                            <div class="col-sm-6">
-                                <label class="font-weight-bold" for="checkout-zip">@WebStore.Resources.Placeholder.PostCode</label>
-                                <div class="input-group">
-                                    <input class="form-control" autocomplete="off" type="text" name="CheckoutZip" id="CheckoutZip" value="@Model.Address.intPostalCode" placeholder="@WebStore.Resources.Placeholder.PostCode">
-                                    <span class="input-group-addon">
-                                        <i class="fas fa-map-marked-alt"></i>
-                                    </span>
+                            <div class="row">
+                                <div class="col-sm-6 mb-3">
+                                    <label class="font-weight-bold" for="checkout-fn">@WebStore.Resources.Placeholder.Names</label>
+                                    <div class="input-group">
+                                        @Html.TextBoxFor(x => x.Form.CheckoutInfo.CheckoutName, new { @class = "form-control text-capitalize", Value = Model.User.strNames, placeholder = WebStore.Resources.Placeholder.Names, @readonly = true })
+                                        <span class="input-group-addon">
+                                            <i class="fas fa-file-signature"></i>
+                                        </span>
+                                    </div>
+                                    @Html.ValidationMessageFor(x => x.Form.CheckoutInfo.CheckoutName)
+                                </div>
+                                <div class="col-sm-6 mb-3">
+                                    <label class="font-weight-bold" for="checkout-ln">@WebStore.Resources.Placeholder.LastNames</label>
+                                    <div class="input-group">
+                                        @Html.TextBoxFor(x => x.Form.CheckoutInfo.CheckoutLastName, new { @class = "form-control text-capitalize", Value = Model.User.strLastNames, placeholder = WebStore.Resources.Placeholder.LastNames, @readonly = true })
+                                        <span class="input-group-addon">
+                                            <i class="fas fa-file-signature"></i>
+                                        </span>
+                                    </div>
+                                    @Html.ValidationMessageFor(x => x.Form.CheckoutInfo.CheckoutLastName)
                                 </div>
                             </div>
-                        </div>
-                    </form>
-                </fieldset>
-                <h3>
-                    <span class="step-Title">@WebStore.Resources.Check.Shipping</span>
-                    <span class="fas fa-truck-moving fa-2x pl-3"></span>
-                </h3>
-                <fieldset>
-                    <h4>@WebStore.Resources.Titles.ShippingType</h4>
-                    <hr class="padding-bottom-1x">
-                    <form id="CheckoutShipping">
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <div class="custom-control d-inline-flex">
-                                        <div class="radiobtn">
-                                            <input type="radio" name="strShippingType" id="store" value="1" data-val="true" data-val-required="Campo Requerido" />
-                                            <label for="store" class="border-right-0">@WebStore.Resources.Placeholder.Store</label>
+                            <div class="row">
+                                <div class="col-sm-6 mb-3">
+                                    <label class="font-weight-bold" for="checkout-email">@WebStore.Resources.Placeholder.Email</label>
+                                    <div class="input-group">
+                                        @Html.TextBoxFor(x => x.Form.CheckoutInfo.CheckoutEmail, new { @class = "form-control", Value = Model.User.strEmail, placeholder = WebStore.Resources.Placeholder.Email, @readonly = true })
+                                        <span class="input-group-addon">
+                                            <i class="fas fa-at"></i>
+                                        </span>
+                                    </div>
+                                    @Html.ValidationMessageFor(x => x.Form.CheckoutInfo.CheckoutEmail)
+                                </div>
+                                <div class="col-sm-6 mb-3">
+                                    <label class="font-weight-bold" for="checkout-phone">@WebStore.Resources.Placeholder.Telephone</label>
+                                    <div class="input-group">
+                                        @Html.TextBoxFor(x => x.Form.CheckoutInfo.CheckoutPhone, new { @class = "form-control", Value = Model.User.intPhone, placeholder = WebStore.Resources.Placeholder.Phone, @readonly = true })
+                                        <span class="input-group-addon">
+                                            <i class="fas fa-mobile-alt"></i>
+                                        </span>
+                                    </div>
+                                    @Html.ValidationMessageFor(x => x.Form.CheckoutInfo.CheckoutPhone)
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6 mb-3">
+                                    <label class="font-weight-bold" for="checkout-company">@WebStore.Resources.Placeholder.Company</label>
+                                    <div class="input-group">
+                                        <input class="form-control" autocomplete="off" type="text" name="CheckoutCompany" id="CheckoutCompany" placeholder="@WebStore.Resources.Placeholder.Company">
+                                        <span class="input-group-addon">
+                                            <i class="fas fa-industry"></i>
+                                        </span>
+                                    </div>
+                                    <span class="field-validation-valid" data-valmsg-for="CheckoutCompany" data-valmsg-replace="true"></span>
+                                </div>
+                            </div>
+
+                            <div class="row my-3">
+                                <div class="col-12">
+                                    <h4>Dirección de factura</h4>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <div class="custom-control d-inline-flex">
+                                            <div class="radiobtn">
+                                                <input type="radio" name="Form.CheckoutInfo.CheckoutBill" id="main" value="1" data-val="true" data-val-required="Campo Requerido" />
+                                                <label for="main" class="border-right-0">Dirección princial</label>
+                                            </div>
+                                            <div class="radiobtn">
+                                                <input type="radio" name="Form.CheckoutInfo.CheckoutBill" id="new" value="2" data-val="true" data-val-required="Campo Requerido" />
+                                                <label for="new">Nueva dirección</label>
+                                            </div>
                                         </div>
-                                        <div class="radiobtn">
-                                            <input type="radio" name="strShippingType" id="shipping" value="2" data-val="true" data-val-required="Campo Requerido"/>
-                                            <label for="shipping">@WebStore.Resources.Placeholder.Shipping</label>
-                                        </div>
-                                    </div>
-                                    <span class="field-validation-valid" data-valmsg-for="strShippingType" data-valmsg-replace="true"></span>
-                                </div>
-                            </div>
-                        </div>
-                        <div id="ShippingTypeStore" style="display:none;">
-                            <h6>@WebStore.Resources.Placeholder.Store</h6>
-                            <hr />
-                            <p>@WebStore.Resources.Texts.Address: Presidente Eduardo Frei Montalva N°3585 </p>
-                        </div>
-                        <div id="ShippingTypeAddress" style="display: none;">
-                            <div class="form-group">
-                                <div class="custom-control">
-                                    <label for="same_address">@WebStore.Resources.Placeholder.SameAddress</label>
-                                </div>
-                                <div class="custom-control d-inline-flex">
-                                    <div class="radiobtn">
-                                        <input type="radio" name="CheckoutSameAddress" id="sameAddressYes" value="1" checked data-val="true" data-val-required="Campo Requerido"/>
-                                        <label for="sameAddressYes">@WebStore.Resources.Placeholder.Yes</label>
-                                    </div>
-                                    <div class="radiobtn">
-                                        <input type="radio" name="CheckoutSameAddress" id="sameAddressNo" value="2" data-val="true" data-val-required="Campo Requerido"/>
-                                        <label for="sameAddressNo">@WebStore.Resources.Placeholder.No</label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group pb-2">
-                                <div class="custom-control">
-                                    <label for="same_person">@WebStore.Resources.Placeholder.SamePerson</label>
-                                </div>
-                                <div class="custom-control d-inline-flex">
-                                    <div class="radiobtn">
-                                        <input type="radio" name="CheckoutSamePerson" id="samePersonYes" value="1" checked data-val="true" data-val-required="Campo Requerido"/>
-                                        <label for="samePersonYes">@WebStore.Resources.Placeholder.Yes</label>
-                                    </div>
-                                    <div class="radiobtn">
-                                        <input type="radio" name="CheckoutSamePerson" id="samePersonNo" value="2" data-val="true" data-val-required="Campo Requerido"/>
-                                        <label for="samePersonNo">@WebStore.Resources.Placeholder.No</label>
+                                        <span class="field-validation-valid" data-valmsg-for="CheckoutBill" data-valmsg-replace="true"></span>
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="d-none pb-3" id="anotherPerson">
-                                <h6>@WebStore.Resources.Titles.AnotherPersonInfo</h6>
-                                <hr class="padding-bottom-1x">
-                                <div class="row">
-                                    <div class="col-sm-6 mb-3">
-                                        <label class="font-weight-bold" for="checkout-fn">@WebStore.Resources.Placeholder.Names</label>
-                                        <div class="input-group">
-                                            <input class="form-control" autocomplete="off" type="text" name="CheckoutAnotherPersonName" id="CheckoutAnotherPersonName"
-                                                   placeholder="@WebStore.Resources.Placeholder.Names" data-val="true" data-val-required="Campo Requerido">
-                                            <span class="input-group-addon">
-                                                <i class="fas fa-file-signature"></i>
-                                            </span>
-                                        </div>
-                                        <span class="field-validation-valid" data-valmsg-for="CheckoutAnotherPersonName" data-valmsg-replace="true"></span>
-                                    </div>
-                                    <div class="col-sm-6 mb-3">
-                                        <label class="font-weight-bold" for="checkout-ln">@WebStore.Resources.Placeholder.LastNames</label>
-                                        <div class="input-group">
-                                            <input class="form-control" autocomplete="off" type="text" name="CheckoutAnotherPersonLastName"
-                                                   id="CheckoutAnotherPersonLastName" placeholder="@WebStore.Resources.Placeholder.LastNames" data-val="true" data-val-required="Campo Requerido">
-                                            <span class="input-group-addon">
-                                                <i class="fas fa-file-signature"></i>
-                                            </span>
-                                        </div>
-                                        <span class="field-validation-valid" data-valmsg-for="CheckoutAnotherPersonLastName" data-valmsg-replace="true"></span>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-6 mb-3">
-                                        <label class="font-weight-bold pl-3">
-                                            @WebStore.Resources.Placeholder.IdNum
-                                            <small>
-                                                <a href="javascript:void(0)" class="text-orangered" id="popover" data-toggle="popover" data-trigger="hover" data-placement="right" title="Número de ID" data-content="Los paquetes no serán entregados sin el número válido de identificación del cliente. Nosotros no usamos esta información para algún otro propósito. Por favor ingrese su número de identificación.">
-                                                    Leer más <i class="fas fa-angle-down"></i>
-                                                </a>
-                                            </small>
-                                        </label>
-                                        <div class="input-group">
-                                            <input class="form-control" type="text" name="CheckoutAnotherPersonId" id="CheckoutAnotherPersonId"
-                                                   placeholder="@WebStore.Resources.Placeholder.IdNum" data-val="true" data-val-required="Campo Requerido" />
-                                            <span class="input-group-addon">
-                                                <i class="fas fa-id-card"></i>
-                                            </span>
-                                        </div>
-                                        <span class="field-validation-valid" data-valmsg-for="CheckoutAnotherPersonId" data-valmsg-replace="true"></span>
-                                    </div>
-                                    <div class="col-sm-6 mb-3">
-                                        <label class="font-weight-bold" for="checkout-phone">@WebStore.Resources.Placeholder.Telephone</label>
-                                        <div class="input-group">
-                                            <input class="form-control" autocomplete="off" type="text" name="CheckoutAnotherPersonPhone"
-                                                   id="CheckoutAnotherPersonPhone" placeholder="@WebStore.Resources.Placeholder.Phone" data-val="true" data-val-required="Campo Requerido">
-                                            <span class="input-group-addon">
-                                                <i class="fas fa-mobile-alt"></i>
-                                            </span>
-                                        </div>
-                                        <span class="field-validation-valid" data-valmsg-for="CheckoutAnotherPersonPhone" data-valmsg-replace="true"></span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="d-none" id="anotherAddress">
-                                <h6>@WebStore.Resources.Titles.AnotherAddressInfo</h6>
-                                <hr class="padding-bottom-1x">
+                            <div class="d-none" id="MainAddress">
+                                <h6 class="mb-3">Esta dirección es la cual usted ingresó al registrarse o seleccionarla como principal</h6>
                                 <div class="row">
                                     <div class="col-sm-6 mb-3">
                                         <label class="font-weight-bold pl-3">@WebStore.Resources.Placeholder.Region</label>
                                         <div class="input-group">
-                                            <select class="form-control" type="text" name="CheckoutAnotherState" id="strStatesNationaleAnother"
-                                                    placeholder="@WebStore.Resources.Placeholder.Region" data-val="true" data-val-required="Campo Requerido">
+                                            <select class="form-control" type="text" name="Form.CheckoutInfo.MainAddress.CheckoutState" id="strStatesNationale" placeholder="@WebStore.Resources.Placeholder.Region" readonly data-val="true" data-val-required="Campo Requerido">
                                                 <option value="">@WebStore.Resources.Placeholder.Region</option>
+                                                @foreach (var region in Model.BindSelect.regions)
+                                                {
+                                                    <option value="@Html.DisplayFor(a => region.idRegion)" @(Model.Address.refRegion == region.idRegion ? "selected" : "")>@Html.DisplayFor(a => region.strNombre) @Html.DisplayFor(a => region.intNumber)</option>
+                                                }
                                             </select>
                                             <span class="input-group-addon">
                                                 <i class="fas fa-flag"></i>
                                             </span>
                                         </div>
-                                        <span class="field-validation-valid" data-valmsg-for="CheckoutAnotherState" data-valmsg-replace="true"></span>
+                                        @Html.ValidationMessageFor(x => x.Form.CheckoutInfo.MainAddress.CheckoutState)
                                     </div>
                                     <div class="col-sm-6 mb-3">
                                         <label class="font-weight-bold pl-3">@WebStore.Resources.Placeholder.Province</label>
                                         <div class="input-group">
-                                            <select class="form-control" type="text" name="CheckoutAnotherProvince" id="strProvinciaNationaleAnother"
-                                                    placeholder="@WebStore.Resources.Placeholder.Province" data-val="true" data-val-required="Campo Requerido">
+                                            <select class="form-control" type="text" name="Form.CheckoutInfo.MainAddress.CheckoutProvince" id="strProvinciaNationale" placeholder="@WebStore.Resources.Placeholder.Province" readonly data-val="true" data-val-required="Campo Requerido">
                                                 <option value="">@WebStore.Resources.Placeholder.Province</option>
+                                                @foreach (var provinces in Model.BindSelect.provinces)
+                                                {
+                                                    <option value="@Html.DisplayFor(a => provinces.idProvincia)" @(Model.Address.refProvince == provinces.idProvincia ? "selected" : "")>@Html.DisplayFor(a => provinces.strNombre)</option>
+                                                }
                                             </select>
                                             <span class="input-group-addon">
                                                 <i class="fas fa-city"></i>
                                             </span>
                                         </div>
-                                        <span class="field-validation-valid" data-valmsg-for="CheckoutAnotherProvince" data-valmsg-replace="true"></span>
+                                        @Html.ValidationMessageFor(x => x.Form.CheckoutInfo.MainAddress.CheckoutProvince)
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-6 mb-3">
                                         <label class="font-weight-bold pl-3">@WebStore.Resources.Placeholder.Comune</label>
                                         <div class="input-group">
-                                            <select class="form-control" type="text" name="CheckoutAnotherComune" id="strComunaNationaleAnother"
-                                                    placeholder="@WebStore.Resources.Placeholder.Comune" data-val="true" data-val-required="Campo Requerido">
+                                            <select class="form-control" type="text" name="Form.CheckoutInfo.MainAddress.CheckoutComune" id="strComunaNationale" placeholder="@WebStore.Resources.Placeholder.Comune" readonly data-val="true" data-val-required="Campo Requerido">
                                                 <option value="">@WebStore.Resources.Placeholder.Comune</option>
+                                                @foreach (var comune in Model.BindSelect.comunes)
+                                                {
+                                                    <option value="@Html.DisplayFor(a => comune.idComuna)" @(Model.Address.refComuna == comune.idComuna ? "selected" : "")>@Html.DisplayFor(a => comune.strNombre)</option>
+                                                }
                                             </select>
                                             <span class="input-group-addon">
                                                 <i class="far fa-object-group"></i>
                                             </span>
                                         </div>
-                                        <span class="field-validation-valid" data-valmsg-for="CheckoutAnotherComune" data-valmsg-replace="true"></span>
+                                        @Html.ValidationMessageFor(x => x.Form.CheckoutInfo.MainAddress.CheckoutComune)
                                     </div>
+                                    <div class="col-sm-6 mb-3">
+                                        <label class="font-weight-bold" for="city">@WebStore.Resources.Placeholder.City</label>
+                                        <div class="input-group">
+                                            @Html.TextBoxFor(x => x.Form.CheckoutInfo.MainAddress.CheckoutCity, new { @class = "form-control", Value = Model.Address.strCity, placeholder = WebStore.Resources.Placeholder.City, @readonly = true })
+                                            <span class="input-group-addon">
+                                                <i class="fas fa-map-marker-alt"></i>
+                                            </span>
+                                        </div>
+                                        @Html.ValidationMessageFor(x => x.Form.CheckoutInfo.MainAddress.CheckoutCity)
+                                    </div>
+                                </div>
+                                <div class="row">
                                     <div class="col-sm-6 mb-3">
                                         <label class="font-weight-bold" for="checkout-address1">@WebStore.Resources.Placeholder.Address 1</label>
                                         <div class="input-group">
-                                            <input class="form-control" type="text" name="CheckoutAnotherAddressOne" id="CheckoutAnotherAddressOne"
-                                                   autocomplete="off" placeholder="@WebStore.Resources.Placeholder.Address 1" data-val="true" data-val-required="Campo Requerido">
+                                            @Html.TextBoxFor(x => x.Form.CheckoutInfo.MainAddress.CheckoutAddressOne, new { @class = "form-control", Value = Model.Address.strAddress, placeholder = WebStore.Resources.Placeholder.Address + " 1", @readonly = true })
                                             <span class="input-group-addon">
                                                 <i class="fas fa-map-marker-alt"></i>
                                             </span>
                                         </div>
-                                        <span class="field-validation-valid" data-valmsg-for="CheckoutAnotherAddressOne" data-valmsg-replace="true"></span>
+                                        @Html.ValidationMessageFor(x => x.Form.CheckoutInfo.MainAddress.CheckoutAddressOne)
+                                    </div>
+                                    <div class="col-sm-6 mb-3">
+                                        <label class="font-weight-bold" for="checkout-address2">Referencia de @WebStore.Resources.Placeholder.Address</label>
+                                        <div class="input-group">
+                                            @{
+                                                if (Model.Address.strAddressTwo != null)
+                                                {
+                                                    @Html.TextBoxFor(x => x.Form.CheckoutInfo.MainAddress.CheckoutAddressTwo, new { @class = "form-control", Value = Model.Address.strAddressTwo, placeholder = WebStore.Resources.Placeholder.Address + " 2 (opcional, referencias)", @readonly = true })
+                                                }
+                                                else
+                                                {
+                                                    @Html.TextBoxFor(x => x.Form.CheckoutInfo.MainAddress.CheckoutAddressTwo, new { @class = "form-control", Value = Model.Address.strAddressTwo, placeholder = WebStore.Resources.Placeholder.Address + " 2 (opcional, referencias)" })
+                                                }
+
+                                            }
+
+                                            <span class="input-group-addon">
+                                                <i class="fas fa-map-marker-alt"></i>
+                                            </span>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="row padding-bottom-1x">
-                                    <div class="col-sm-6 mb-3">
-                                        <label class="font-weight-bold" for="Checkoutaddress2">@WebStore.Resources.Placeholder.Address 2</label>
+                                <div class="row pb-3">
+                                    <div class="col-sm-6">
+                                        <label class="font-weight-bold" for="checkout-zip">@WebStore.Resources.Placeholder.House</label>
                                         <div class="input-group">
-                                            <input class="form-control" type="text" name="CheckoutAnotheraddressTwo" id="CheckoutAnotheraddressTwo"
-                                                   autocomplete="off" placeholder="@WebStore.Resources.Placeholder.Address 2 (opcional, referencias)">
+                                            @{
+                                                if (Model.Address.strType != null)
+                                                {
+                                                    @Html.TextBoxFor(x => x.Form.CheckoutInfo.MainAddress.CheckoutType, new { @class = "form-control", Value = Model.Address.strType, placeholder = WebStore.Resources.Placeholder.House, @readonly = true })
+                                                }
+                                                else
+                                                {
+                                                    @Html.TextBoxFor(x => x.Form.CheckoutInfo.MainAddress.CheckoutType, new { @class = "form-control", Value = Model.Address.strType, placeholder = WebStore.Resources.Placeholder.House })
+                                                }
+
+                                            }
                                             <span class="input-group-addon">
-                                                <i class="fas fa-map-marker-alt"></i>
+                                                <i class="fas fa-home"></i>
                                             </span>
                                         </div>
                                     </div>
-                                    <div class="col-sm-6 mb-3">
+                                    <div class="col-sm-6">
                                         <label class="font-weight-bold" for="checkout-zip">@WebStore.Resources.Placeholder.PostCode</label>
                                         <div class="input-group">
-                                            <input class="form-control" autocomplete="off" type="text" name="CheckoutAnotherZip" id="CheckoutAnotherZip" placeholder="@WebStore.Resources.Placeholder.PostCode">
+                                            @{
+                                                if (Model.Address.intPostalCode != null)
+                                                {
+                                                    @Html.TextBoxFor(x => x.Form.CheckoutInfo.MainAddress.CheckoutZip, new { @class = "form-control", Value = Model.Address.intPostalCode, placeholder = WebStore.Resources.Placeholder.PostCode, @readonly = true })
+                                                }
+                                                else
+                                                {
+                                                    @Html.TextBoxFor(x => x.Form.CheckoutInfo.MainAddress.CheckoutZip, new { @class = "form-control", Value = Model.Address.intPostalCode, placeholder = WebStore.Resources.Placeholder.PostCode })
+                                                }
+
+                                            }
                                             <span class="input-group-addon">
                                                 <i class="fas fa-map-marked-alt"></i>
                                             </span>
@@ -416,232 +293,550 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="table-responsive">
-                                <table class="table table-hover">
-                                    <thead class="thead-default">
-                                        <tr>
-                                            <th></th>
-                                            <th>@WebStore.Resources.Check.ShippingM</th>
-                                            <th>@WebStore.Resources.Check.DeliveryTime</th>
-                                            <th>@WebStore.Resources.Check.Fee</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td class="align-middle">
-                                                <div class="custom-control custom-radio mb-0">
-                                                    <input class="radio with-gap radio-col-deep-orange" type="radio" id="courier" name="shipping-method"
-                                                           checked="">
-                                                    <label for="courier"></label>
-                                                </div>
-                                            </td>
-                                            <td class="align-middle">
-                                                <span class="text-gray-dark">Courier</span><br><span class="text-muted text-sm">
-                                                    All
-                                                    Addresses(default zone), United States &amp; Canada
-                                                </span>
-                                            </td>
-                                            <td class="align-middle">2 - 4 days</td>
-                                            <td class="align-middle">$26.50</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="align-middle">
-                                                <div class="custom-control custom-radio mb-0">
-                                                    <input class="radio with-gap radio-col-deep-orange" type="radio" id="local" name="shipping-method">
-                                                    <label for="local"></label>
-                                                </div>
-                                            </td>
-                                            <td class="align-middle">
-                                                <span class="text-gray-dark">Local Shipping</span><br><span class="text-muted text-sm">
-                                                    All
-                                                    Addresses(default zone), United States &amp; Canada
-                                                </span>
-                                            </td>
-                                            <td class="align-middle">up to one week</td>
-                                            <td class="align-middle">$10.00</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="align-middle">
-                                                <div class="custom-control custom-radio mb-0">
-                                                    <input class="radio with-gap radio-col-deep-orange" type="radio" id="flat" name="shipping-method">
-                                                    <label for="flat"></label>
-                                                </div>
-                                            </td>
-                                            <td class="align-middle">
-                                                <span class="text-gray-darkm">Flat Rate</span><br><span class="text-muted text-sm">
-                                                    All
-                                                    Addresses(default zone)
-                                                </span>
-                                            </td>
-                                            <td class="align-middle">5 - 7 days</td>
-                                            <td class="align-middle">$33.85</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="align-middle">
-                                                <div class="custom-control custom-radio mb-0">
-                                                    <input class="radio with-gap radio-col-deep-orange" type="radio" id="ups" name="shipping-method">
-                                                    <label for="ups"></label>
-                                                </div>
-                                            </td>
-                                            <td class="align-middle">
-                                                <span class="text-gray-dark">UPS Ground Shipping</span><br><span class="text-muted text-sm">
-                                                    All
-                                                    Addresses(default zone)
-                                                </span>
-                                            </td>
-                                            <td class="align-middle">4 - 6 days</td>
-                                            <td class="align-middle">$18.00</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="align-middle">
-                                                <div class="custom-control custom-radio mb-0">
-                                                    <input class="radio with-gap radio-col-deep-orange" type="radio" id="pickup" name="shipping-method">
-                                                    <label for="pickup"></label>
-                                                </div>
-                                            </td>
-                                            <td class="align-middle">
-                                                <span class="text-gray-dark">Local Pickup from store</span><br><span class="text-muted text-sm">All Addresses(default zone)</span>
-                                            </td>
-                                            <td class="align-middle">—</td>
-                                            <td class="align-middle">$0.00</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="align-middle">
-                                                <div class="custom-control custom-radio mb-0">
-                                                    <input class="radio with-gap radio-col-deep-orange" type="radio" id="locker" name="shipping-method">
-                                                    <label for="locker"></label>
-                                                </div>
-                                            </td>
-                                            <td class="align-middle">
-                                                <span class="text-gray-dark">Pick Up at Unishop Locker</span><br><span class="text-muted text-sm">All Addresses(default zone), United States &amp; Canada</span>
-                                            </td>
-                                            <td class="align-middle">—</td>
-                                            <td class="align-middle">$9.99</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="align-middle">
-                                                <div class="custom-control custom-radio mb-0">
-                                                    <input class="radio with-gap radio-col-deep-orange" type="radio" id="global" name="shipping-method">
-                                                    <label for="global"></label>
-                                                </div>
-                                            </td>
-                                            <td class="align-middle">
-                                                <span class="text-gray-dark">Unishop Global Export</span><br><span class="text-muted text-sm">All Addresses(default zone), outside United States</span>
-                                            </td>
-                                            <td class="align-middle">3 - 4 days;</td>
-                                            <td class="align-middle">$25.00</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+
+                            <div id="NewAddress" class="d-none">
+                                <h6 class="mb-3">Esta dirección será añadida a su lista de direcciones</h6>
+                                <div class="row">
+                                    <div class="col-sm-6 mb-3">
+                                        <label class="font-weight-bold pl-3">@WebStore.Resources.Placeholder.Region</label>
+                                        <div class="input-group">
+                                            <select class="form-control" type="text" name="Form.CheckoutInfo.NewAddress.CheckoutStateNewAddress" id="strStatesNationaleNewAddress" placeholder="@WebStore.Resources.Placeholder.Region" data-val="true" data-val-required="Campo Requerido">
+                                                <option value="">@WebStore.Resources.Placeholder.Region</option>
+                                            </select>
+                                            <span class="input-group-addon">
+                                                <i class="fas fa-flag"></i>
+                                            </span>
+                                        </div>
+                                        @Html.ValidationMessageFor(x => x.Form.CheckoutInfo.NewAddress.CheckoutStateNewAddress)
+                                    </div>
+                                    <div class="col-sm-6 mb-3">
+                                        <label class="font-weight-bold pl-3">@WebStore.Resources.Placeholder.Province</label>
+                                        <div class="input-group">
+                                            <select class="form-control" type="text" name="Form.CheckoutInfo.NewAddress.CheckoutProvinceNewAddress" id="strProvinciaNationaleNewAddress" placeholder="@WebStore.Resources.Placeholder.Province" data-val="true" data-val-required="Campo Requerido">
+                                                <option value="">@WebStore.Resources.Placeholder.Province</option>
+                                            </select>
+                                            <span class="input-group-addon">
+                                                <i class="fas fa-city"></i>
+                                            </span>
+                                        </div>
+                                        @Html.ValidationMessageFor(x => x.Form.CheckoutInfo.NewAddress.CheckoutProvinceNewAddress)
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6 mb-3">
+                                        <label class="font-weight-bold pl-3">@WebStore.Resources.Placeholder.Comune</label>
+                                        <div class="input-group">
+                                            <select class="form-control" type="text" name="Form.CheckoutInfo.NewAddress.CheckoutComuneNewAddress" id="strComunaNationaleNewAddress" placeholder="@WebStore.Resources.Placeholder.Comune" data-val="true" data-val-required="Campo Requerido">
+                                                <option value="">@WebStore.Resources.Placeholder.Comune</option>
+                                            </select>
+                                            <span class="input-group-addon">
+                                                <i class="far fa-object-group"></i>
+                                            </span>
+                                        </div>
+                                        @Html.ValidationMessageFor(x => x.Form.CheckoutInfo.NewAddress.CheckoutComuneNewAddress)
+                                    </div>
+                                    <div class="col-sm-6 mb-3">
+                                        <label class="font-weight-bold" for="city">@WebStore.Resources.Placeholder.City</label>
+                                        <div class="input-group">
+                                            @Html.TextBoxFor(x => x.Form.CheckoutInfo.NewAddress.CheckoutCityNewAddress, new { @class = "form-control", placeholder = WebStore.Resources.Placeholder.City })
+                                            <span class="input-group-addon">
+                                                <i class="fas fa-map-marker-alt"></i>
+                                            </span>
+                                        </div>
+                                        @Html.ValidationMessageFor(x => x.Form.CheckoutInfo.NewAddress.CheckoutCityNewAddress)
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6 mb-3">
+                                        <label class="font-weight-bold" for="checkout-address1">@WebStore.Resources.Placeholder.Address 1</label>
+                                        <div class="input-group">
+                                            @Html.TextBoxFor(x => x.Form.CheckoutInfo.NewAddress.CheckoutAddressOneNewAddress, new { @class = "form-control", placeholder = WebStore.Resources.Placeholder.Address + " 1" })
+                                            <span class="input-group-addon">
+                                                <i class="fas fa-map-marker-alt"></i>
+                                            </span>
+                                        </div>
+                                        @Html.ValidationMessageFor(x => x.Form.CheckoutInfo.NewAddress.CheckoutAddressOneNewAddress)
+                                    </div>
+                                    <div class="col-sm-6 mb-3">
+                                        <label class="font-weight-bold" for="checkout-address2">Referencia de @WebStore.Resources.Placeholder.Address</label>
+                                        <div class="input-group">
+                                            @Html.TextBoxFor(x => x.Form.CheckoutInfo.NewAddress.CheckoutAddressTwoNewAddress, new { @class = "form-control", placeholder = WebStore.Resources.Placeholder.Address + " 2 (opcional, referencias)" })
+                                            <span class="input-group-addon">
+                                                <i class="fas fa-map-marker-alt"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row pb-3">
+                                    <div class="col-sm-6">
+                                        <label class="font-weight-bold" for="checkout-zip">@WebStore.Resources.Placeholder.House</label>
+                                        <div class="input-group">
+                                            @Html.TextBoxFor(x => x.Form.CheckoutInfo.NewAddress.CheckoutTypeNewAddress, new { @class = "form-control", placeholder = WebStore.Resources.Placeholder.House })
+                                            <span class="input-group-addon">
+                                                <i class="fas fa-home"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label class="font-weight-bold" for="checkout-zip">@WebStore.Resources.Placeholder.PostCode</label>
+                                        <div class="input-group">
+                                            @Html.TextBoxFor(x => x.Form.CheckoutInfo.NewAddress.CheckoutZipNewAddress, new { @class = "form-control", placeholder = WebStore.Resources.Placeholder.PostCode })
+                                            <span class="input-group-addon">
+                                                <i class="fas fa-map-marked-alt"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </form>
-                </fieldset>
-                <h3>
-                    <span class="step-Title">@WebStore.Resources.Check.Payment</span>
-                    <span class="fas fa-money-bill-alt fa-2x pl-3"></span>
-                </h3>
-                <fieldset>
-                    <form id="CheckoutPayMethod">
-                        <div class="form-group">
+                        </form>
+                    </fieldset>
+                    <h3>
+                        <span class="step-Title">@WebStore.Resources.Check.Shipping</span>
+                        <span class="fas fa-truck-moving fa-2x pl-3"></span>
+                    </h3>
+                    <fieldset>
+                        <h4>@WebStore.Resources.Titles.ShippingType</h4>
+                        <hr class="padding-bottom-1x">
+                        <form id="CheckoutShipping">
                             <div class="row">
-                                <div class="col-md-4">
-                                    <div class="cc-selector">
-                                        <input id="webpay" type="radio" name="CheckoutPayMethod" value="webpay" data-val="true" data-val-required="Campo Requerido">
-                                        <label class="drinkcard-cc webpay" for="webpay"></label>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="cc-selector">
-                                        <input id="transferencia" type="radio" name="CheckoutPayMethod" value="transferencia" data-val="true" data-val-required="Campo Requerido">
-                                        <label class="drinkcard-cc transferencia" for="transferencia"></label>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="cc-selector">
-                                        <input id="cash" type="radio" name="CheckoutPayMethod" value="cash" data-val="true" data-val-required="Campo Requerido">
-                                        <label class="drinkcard-cc cash" for="cash"></label>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <div class="custom-control d-inline-flex">
+                                            <div class="radiobtn">
+                                                <input type="radio" name="Form.CheckoutShipping.strShippingType" id="store" value="1" data-val="true" data-val-required="Campo Requerido" />
+                                                <label for="store" class="border-right-0">@WebStore.Resources.Placeholder.Store</label>
+                                            </div>
+                                            <div class="radiobtn">
+                                                <input type="radio" name="Form.CheckoutShipping.strShippingType" id="shipping" value="2" data-val="true" data-val-required="Campo Requerido" />
+                                                <label for="shipping">@WebStore.Resources.Placeholder.Shipping</label>
+                                            </div>
+                                        </div>
+                                        @Html.ValidationMessageFor(x => x.Form.CheckoutShipping.strShippingType)
                                     </div>
                                 </div>
                             </div>
-                            <span class="field-validation-valid" data-valmsg-for="CheckoutPayMethod" data-valmsg-replace="true"></span>
-                        </div>
-                    </form>
-                </fieldset>
-                <h3>
-                    <span class="step-Title">@WebStore.Resources.Check.Resume</span>
-                    <span class="fas fa-clipboard-list fa-2x pl-3"></span>
-                </h3>
-                <fieldset>
-                    <div class="table-responsive shopping-cart">
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th>@WebStore.Resources.Check.Product</th>
-                                    <th class="text-center">@WebStore.Resources.Check.Subtotal</th>
-                                    <th>Cantidad</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @{
-                                    int total = 0;
-                                    foreach (var i in Model.ProductList)
-                                    {
-                                        total += i.SubtotalInt;
-                                        <tr>
-                                            <td>
-                                                <div class="product-item">
-                                                    <a class="product-thumb" href="shop-single.html">
-                                                        <img src="~/Content/img/products/@i.Code-1.jpg" alt="Product">
+
+                            <div id="ShippingTypeStore" class="d-none">
+                                <h6>@WebStore.Resources.Placeholder.Store</h6>
+                                <hr />
+                                <p>@WebStore.Resources.Texts.Address: Presidente Eduardo Frei Montalva N°3585 </p>
+                            </div>
+
+                            <div id="ShippingTypeAddress" class="d-none">
+                                <div class="form-group">
+                                    <div class="custom-control">
+                                        <label for="same_address">@WebStore.Resources.Placeholder.SameAddress</label>
+                                    </div>
+                                    <div class="custom-control d-inline-flex">
+                                        <div class="radiobtn">
+                                            <input type="radio" name="Form.CheckoutShipping.CheckoutSameAddress" id="sameAddressYes" value="1" checked data-val="true" data-val-required="Campo Requerido" />
+                                            <label for="sameAddressYes">@WebStore.Resources.Placeholder.Yes</label>
+                                        </div>
+                                        <div class="radiobtn">
+                                            <input type="radio" name="Form.CheckoutShipping.CheckoutSameAddress" id="sameAddressNo" value="2" data-val="true" data-val-required="Campo Requerido" />
+                                            <label for="sameAddressNo">@WebStore.Resources.Placeholder.No</label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group pb-2">
+                                    <div class="custom-control">
+                                        <label for="same_person">@WebStore.Resources.Placeholder.SamePerson</label>
+                                    </div>
+                                    <div class="custom-control d-inline-flex">
+                                        <div class="radiobtn">
+                                            <input type="radio" name="Form.CheckoutShipping.CheckoutSamePerson" id="samePersonYes" value="1" checked data-val="true" data-val-required="Campo Requerido" />
+                                            <label for="samePersonYes">@WebStore.Resources.Placeholder.Yes</label>
+                                        </div>
+                                        <div class="radiobtn">
+                                            <input type="radio" name="Form.CheckoutShipping.CheckoutSamePerson" id="samePersonNo" value="2" data-val="true" data-val-required="Campo Requerido" />
+                                            <label for="samePersonNo">@WebStore.Resources.Placeholder.No</label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="d-none pb-3" id="anotherPerson">
+                                    <h6>@WebStore.Resources.Titles.AnotherPersonInfo</h6>
+                                    <hr class="padding-bottom-1x">
+                                    <div class="row">
+                                        <div class="col-sm-6 mb-3">
+                                            <label class="font-weight-bold" for="checkout-fn">@WebStore.Resources.Placeholder.Names</label>
+                                            <div class="input-group">
+                                                @Html.TextBoxFor(x => x.Form.CheckoutShipping.CheckoutAnotherPersonName, new { @class = "form-control", placeholder = WebStore.Resources.Placeholder.Names })
+                                                <span class="input-group-addon">
+                                                    <i class="fas fa-file-signature"></i>
+                                                </span>
+                                            </div>
+                                            @Html.ValidationMessageFor(x => x.Form.CheckoutShipping.CheckoutAnotherPersonName)
+                                        </div>
+                                        <div class="col-sm-6 mb-3">
+                                            <label class="font-weight-bold" for="checkout-ln">@WebStore.Resources.Placeholder.LastNames</label>
+                                            <div class="input-group">
+                                                @Html.TextBoxFor(x => x.Form.CheckoutShipping.CheckoutAnotherPersonLastName, new { @class = "form-control", placeholder = WebStore.Resources.Placeholder.LastNames })
+                                                <span class="input-group-addon">
+                                                    <i class="fas fa-file-signature"></i>
+                                                </span>
+                                            </div>
+                                            @Html.ValidationMessageFor(x => x.Form.CheckoutShipping.CheckoutAnotherPersonLastName)
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-6 mb-3">
+                                            <label class="font-weight-bold pl-3">
+                                                @WebStore.Resources.Placeholder.IdNum
+                                                <small>
+                                                    <a href="javascript:void(0)" class="text-orangered" id="popover" data-toggle="popover" data-trigger="hover" data-placement="right" title="Número de ID" data-content="Los paquetes no serán entregados sin el número válido de identificación del cliente. Nosotros no usamos esta información para algún otro propósito. Por favor ingrese su número de identificación.">
+                                                        Leer más <i class="fas fa-angle-down"></i>
                                                     </a>
-                                                    <div class="product-info">
-                                                        <h4 class="product-title">
-                                                            <a href="@Url.Action("Category", "Product", new { id = i.Category, idp = i.Code, language = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName})">@i.Name</a>
-                                                        </h4>
-                                                        @{
-                                                            if (i.PriceOffInt > 0)
-                                                            {
-                                                                <span class="text-muted"><del>$ @i.Price</del></span>
-                                                                <span><em>Precio:</em>$ @i.PriceOff <span class="text-success">@i.PercentageOff DCTO</span></span>
-                                                            }
-                                                            else
-                                                            {
-                                                                <span><em>Precio:</em>$ @i.Price</span>
-                                                                <span><em>Color:</em> Black</span>
-                                                            }
-                                                        }
+                                                </small>
+                                            </label>
+                                            <div class="input-group">
+                                                @Html.TextBoxFor(x => x.Form.CheckoutShipping.CheckoutAnotherPersonId, new { @class = "form-control", placeholder = WebStore.Resources.Placeholder.IdNum })
+                                                <span class="input-group-addon">
+                                                    <i class="fas fa-id-card"></i>
+                                                </span>
+                                            </div>
+                                            @Html.ValidationMessageFor(x => x.Form.CheckoutShipping.CheckoutAnotherPersonId)
+                                        </div>
+                                        <div class="col-sm-6 mb-3">
+                                            <label class="font-weight-bold" for="checkout-phone">@WebStore.Resources.Placeholder.Telephone</label>
+                                            <div class="input-group">
+                                                @Html.TextBoxFor(x => x.Form.CheckoutShipping.CheckoutAnotherPersonPhone, new { @class = "form-control", placeholder = WebStore.Resources.Placeholder.Phone })
+                                                <span class="input-group-addon">
+                                                    <i class="fas fa-mobile-alt"></i>
+                                                </span>
+                                            </div>
+                                            @Html.ValidationMessageFor(x => x.Form.CheckoutShipping.CheckoutAnotherPersonPhone)
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="d-none" id="anotherAddress">
+                                    <h6>@WebStore.Resources.Titles.AnotherAddressInfo</h6>
+                                    <hr class="padding-bottom-1x">
+                                    <div class="row">
+                                        <div class="col-sm-6 mb-3">
+                                            <label class="font-weight-bold pl-3">@WebStore.Resources.Placeholder.Region</label>
+                                            <div class="input-group">
+                                                <select class="form-control" type="text" name="Form.CheckoutShipping.CheckoutAnotherState" id="strStatesNationaleAnother"
+                                                        placeholder="@WebStore.Resources.Placeholder.Region" data-val="true" data-val-required="Campo Requerido">
+                                                    <option value="">@WebStore.Resources.Placeholder.Region</option>
+                                                </select>
+                                                <span class="input-group-addon">
+                                                    <i class="fas fa-flag"></i>
+                                                </span>
+                                            </div>
+                                            @Html.ValidationMessageFor(x => x.Form.CheckoutShipping.CheckoutAnotherState)
+                                        </div>
+                                        <div class="col-sm-6 mb-3">
+                                            <label class="font-weight-bold pl-3">@WebStore.Resources.Placeholder.Province</label>
+                                            <div class="input-group">
+                                                <select class="form-control" type="text" name="Form.CheckoutShipping.CheckoutAnotherProvince" id="strProvinciaNationaleAnother"
+                                                        placeholder="@WebStore.Resources.Placeholder.Province" data-val="true" data-val-required="Campo Requerido">
+                                                    <option value="">@WebStore.Resources.Placeholder.Province</option>
+                                                </select>
+                                                <span class="input-group-addon">
+                                                    <i class="fas fa-city"></i>
+                                                </span>
+                                            </div>
+                                            @Html.ValidationMessageFor(x => x.Form.CheckoutShipping.CheckoutAnotherProvince)
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-6 mb-3">
+                                            <label class="font-weight-bold pl-3">@WebStore.Resources.Placeholder.Comune</label>
+                                            <div class="input-group">
+                                                <select class="form-control" type="text" name="Form.CheckoutShipping.CheckoutAnotherComune" id="strComunaNationaleAnother"
+                                                        placeholder="@WebStore.Resources.Placeholder.Comune" data-val="true" data-val-required="Campo Requerido">
+                                                    <option value="">@WebStore.Resources.Placeholder.Comune</option>
+                                                </select>
+                                                <span class="input-group-addon">
+                                                    <i class="far fa-object-group"></i>
+                                                </span>
+                                            </div>
+                                            @Html.ValidationMessageFor(x => x.Form.CheckoutShipping.CheckoutAnotherComune)
+                                        </div>
+                                        <div class="col-sm-6 mb-3">
+                                            <label class="font-weight-bold" for="checkout-address1">@WebStore.Resources.Placeholder.City</label>
+                                            <div class="input-group">
+                                                @Html.TextBoxFor(x => x.Form.CheckoutShipping.CheckoutAnotherCity, new { @class = "form-control", placeholder = WebStore.Resources.Placeholder.City })
+                                                <span class="input-group-addon">
+                                                    <i class="fas fa-map-marker-alt"></i>
+                                                </span>
+                                            </div>
+                                            @Html.ValidationMessageFor(x => x.Form.CheckoutShipping.CheckoutAnotherCity)
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-6 mb-3">
+                                            <label class="font-weight-bold" for="checkout-address1">@WebStore.Resources.Placeholder.Address 1</label>
+                                            <div class="input-group">
+                                                @Html.TextBoxFor(x => x.Form.CheckoutShipping.CheckoutAnotherAddressOne, new { @class = "form-control", placeholder = WebStore.Resources.Placeholder.Address + " 1" })
+                                                <span class="input-group-addon">
+                                                    <i class="fas fa-map-marker-alt"></i>
+                                                </span>
+                                            </div>
+                                            @Html.ValidationMessageFor(x => x.Form.CheckoutShipping.CheckoutAnotherAddressOne)
+                                        </div>
+                                        <div class="col-sm-6 mb-3">
+                                            <label class="font-weight-bold" for="Checkoutaddress2">@WebStore.Resources.Placeholder.Address 2</label>
+                                            <div class="input-group">
+                                                @Html.TextBoxFor(x => x.Form.CheckoutShipping.CheckoutAnotherAddressTwo, new { @class = "form-control", placeholder = WebStore.Resources.Placeholder.Address + " 2 (opcional, referencias)" })
+                                                <span class="input-group-addon">
+                                                    <i class="fas fa-map-marker-alt"></i>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row padding-bottom-1x">
+                                        <div class="col-sm-6 mb-3">
+                                            <label class="font-weight-bold" for="house">@WebStore.Resources.Placeholder.House</label>
+                                            <div class="input-group">
+                                                @Html.TextBoxFor(x => x.Form.CheckoutShipping.CheckoutAnotherType, new { @class = "form-control", placeholder = WebStore.Resources.Placeholder.House })
+                                                <span class="input-group-addon">
+                                                    <i class="fas fa-home"></i>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6 mb-3">
+                                            <label class="font-weight-bold" for="checkout-zip">@WebStore.Resources.Placeholder.PostCode</label>
+                                            <div class="input-group">
+                                                @Html.TextBoxFor(x => x.Form.CheckoutShipping.CheckoutAnotherZip, new { @class = "form-control", placeholder = WebStore.Resources.Placeholder.PostCode })
+                                                <span class="input-group-addon">
+                                                    <i class="fas fa-map-marked-alt"></i>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="table-responsive">
+                                    <table class="table table-hover">
+                                        <thead class="thead-default">
+                                            <tr>
+                                                <th></th>
+                                                <th>@WebStore.Resources.Check.ShippingM</th>
+                                                <th>@WebStore.Resources.Check.DeliveryTime</th>
+                                                <th>@WebStore.Resources.Check.Fee</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td class="align-middle">
+                                                    <div class="custom-control custom-radio mb-0">
+                                                        <input class="radio with-gap radio-col-deep-orange" type="radio" id="courier" name="shipping-method"
+                                                               checked="">
+                                                        <label for="courier"></label>
                                                     </div>
-                                                </div>
-                                            </td>
-                                            <td class="text-center text-lg">$@i.Price</td>
-                                            <td class="text-center">@i.Quantity</td>
-                                        </tr>
+                                                </td>
+                                                <td class="align-middle">
+                                                    <span class="text-gray-dark">Courier</span><br><span class="text-muted text-sm">
+                                                        All
+                                                        Addresses(default zone), United States &amp; Canada
+                                                    </span>
+                                                </td>
+                                                <td class="align-middle">2 - 4 days</td>
+                                                <td class="align-middle">$26.50</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="align-middle">
+                                                    <div class="custom-control custom-radio mb-0">
+                                                        <input class="radio with-gap radio-col-deep-orange" type="radio" id="local" name="shipping-method">
+                                                        <label for="local"></label>
+                                                    </div>
+                                                </td>
+                                                <td class="align-middle">
+                                                    <span class="text-gray-dark">Local Shipping</span><br><span class="text-muted text-sm">
+                                                        All
+                                                        Addresses(default zone), United States &amp; Canada
+                                                    </span>
+                                                </td>
+                                                <td class="align-middle">up to one week</td>
+                                                <td class="align-middle">$10.00</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="align-middle">
+                                                    <div class="custom-control custom-radio mb-0">
+                                                        <input class="radio with-gap radio-col-deep-orange" type="radio" id="flat" name="shipping-method">
+                                                        <label for="flat"></label>
+                                                    </div>
+                                                </td>
+                                                <td class="align-middle">
+                                                    <span class="text-gray-darkm">Flat Rate</span><br><span class="text-muted text-sm">
+                                                        All
+                                                        Addresses(default zone)
+                                                    </span>
+                                                </td>
+                                                <td class="align-middle">5 - 7 days</td>
+                                                <td class="align-middle">$33.85</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="align-middle">
+                                                    <div class="custom-control custom-radio mb-0">
+                                                        <input class="radio with-gap radio-col-deep-orange" type="radio" id="ups" name="shipping-method">
+                                                        <label for="ups"></label>
+                                                    </div>
+                                                </td>
+                                                <td class="align-middle">
+                                                    <span class="text-gray-dark">UPS Ground Shipping</span><br><span class="text-muted text-sm">
+                                                        All
+                                                        Addresses(default zone)
+                                                    </span>
+                                                </td>
+                                                <td class="align-middle">4 - 6 days</td>
+                                                <td class="align-middle">$18.00</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="align-middle">
+                                                    <div class="custom-control custom-radio mb-0">
+                                                        <input class="radio with-gap radio-col-deep-orange" type="radio" id="pickup" name="shipping-method">
+                                                        <label for="pickup"></label>
+                                                    </div>
+                                                </td>
+                                                <td class="align-middle">
+                                                    <span class="text-gray-dark">Local Pickup from store</span><br><span class="text-muted text-sm">All Addresses(default zone)</span>
+                                                </td>
+                                                <td class="align-middle">—</td>
+                                                <td class="align-middle">$0.00</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="align-middle">
+                                                    <div class="custom-control custom-radio mb-0">
+                                                        <input class="radio with-gap radio-col-deep-orange" type="radio" id="locker" name="shipping-method">
+                                                        <label for="locker"></label>
+                                                    </div>
+                                                </td>
+                                                <td class="align-middle">
+                                                    <span class="text-gray-dark">Pick Up at Unishop Locker</span><br><span class="text-muted text-sm">All Addresses(default zone), United States &amp; Canada</span>
+                                                </td>
+                                                <td class="align-middle">—</td>
+                                                <td class="align-middle">$9.99</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="align-middle">
+                                                    <div class="custom-control custom-radio mb-0">
+                                                        <input class="radio with-gap radio-col-deep-orange" type="radio" id="global" name="shipping-method">
+                                                        <label for="global"></label>
+                                                    </div>
+                                                </td>
+                                                <td class="align-middle">
+                                                    <span class="text-gray-dark">Unishop Global Export</span><br><span class="text-muted text-sm">All Addresses(default zone), outside United States</span>
+                                                </td>
+                                                <td class="align-middle">3 - 4 days;</td>
+                                                <td class="align-middle">$25.00</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </form>
+                    </fieldset>
+                    <h3>
+                        <span class="step-Title">@WebStore.Resources.Check.Payment</span>
+                        <span class="fas fa-money-bill-alt fa-2x pl-3"></span>
+                    </h3>
+                    <fieldset>
+                        <form id="CheckoutPayMethod">
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="cc-selector">
+                                            <input id="webpay" type="radio" name="Form.CheckoutPayMethod.CheckoutPay" value="webpay" data-val="true" data-val-required="Campo Requerido">
+                                            <label class="drinkcard-cc webpay" for="webpay"></label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="cc-selector">
+                                            <input id="transferencia" type="radio" name="Form.CheckoutPayMethod.CheckoutPay" value="transferencia" data-val="true" data-val-required="Campo Requerido">
+                                            <label class="drinkcard-cc transferencia" for="transferencia"></label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="cc-selector">
+                                            <input id="cash" type="radio" name="Form.CheckoutPayMethod.CheckoutPay" value="cash" data-val="true" data-val-required="Campo Requerido">
+                                            <label class="drinkcard-cc cash" for="cash"></label>
+                                        </div>
+                                    </div>
+                                </div>
+                                @Html.ValidationMessageFor(x => x.Form.CheckoutPayMethod.CheckoutPay)
+                            </div>
+                        </form>
+                    </fieldset>
+                    <h3>
+                        <span class="step-Title">@WebStore.Resources.Check.Resume</span>
+                        <span class="fas fa-clipboard-list fa-2x pl-3"></span>
+                    </h3>
+                    <fieldset>
+                        <div class="table-responsive shopping-cart">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>@WebStore.Resources.Check.Product</th>
+                                        <th class="text-center">@WebStore.Resources.Check.Subtotal</th>
+                                        <th>Cantidad</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @{
+                                        int total = 0;
+                                        foreach (var i in Model.ProductList)
+                                        {
+                                            total += i.SubtotalInt;
+                                            <tr>
+                                                <td>
+                                                    <div class="product-item">
+                                                        <a class="product-thumb" href="shop-single.html">
+                                                            <img src="~/Content/img/products/@i.Code-1.jpg" alt="Product">
+                                                        </a>
+                                                        <div class="product-info">
+                                                            <h4 class="product-title">
+                                                                <a href="@Url.Action("Category", "Product", new { id = i.Category, idp = i.Code, language = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName})">@i.Name</a>
+                                                            </h4>
+                                                            @{
+                                                                if (i.PriceOffInt > 0)
+                                                                {
+                                                                    <span class="text-muted"><del>$ @i.Price</del></span>
+                                                                    <span><em>Precio:</em>$ @i.PriceOff <span class="text-success">@i.PercentageOff DCTO</span></span>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <span><em>Precio:</em>$ @i.Price</span>
+                                                                    <span><em>Color:</em> Black</span>
+                                                                }
+                                                            }
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td class="text-center text-lg">$@i.Price</td>
+                                                <td class="text-center">@i.Quantity</td>
+                                            </tr>
+                                        }
                                     }
-                                }
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="shopping-cart-footer">
-                        <div class="column"></div>
-                        <div class="column text-lg"><span class="text-muted">@WebStore.Resources.Check.Subtotal:&nbsp; </span><span class="text-gray-dark">$@total.ToString("N0", System.Threading.Thread.CurrentThread.CurrentCulture)</span></div>
-                    </div>
-                    <div class="row padding-top-1x mt-3">
-                        <div class="col-sm-6">
-                            <h5>@WebStore.Resources.Check.ShippingTo:</h5>
-                            <ul class="list-unstyled">
-                                <li><span class="text-muted">@WebStore.Resources.Check.Client:&nbsp; </span> <span id="ClientToDispatchName"></span></li>
-                                <li><span class="text-muted">@WebStore.Resources.Check.Address:&nbsp; </span><span id="ClientToDispatchAddress"></span></li>
-                                <li><span class="text-muted">@WebStore.Resources.Check.Phone:&nbsp; </span><span id="ClientToDispatchPhone"></span></li>
-                            </ul>
+                                </tbody>
+                            </table>
                         </div>
-                        <div class="col-sm-6">
-                            <h5>@WebStore.Resources.Check.PaymentM:</h5>
-                            <ul class="list-unstyled">
-                                <li><span id="ClientToDispatchPayMethod"></span></li>
-                            </ul>
+                        <div class="shopping-cart-footer">
+                            <div class="column"></div>
+                            <div class="column text-lg"><span class="text-muted">@WebStore.Resources.Check.Subtotal:&nbsp; </span><span class="text-gray-dark">$@total.ToString("N0", System.Threading.Thread.CurrentThread.CurrentCulture)</span></div>
                         </div>
-                    </div>
-                </fieldset>
+                        <div class="row padding-top-1x mt-3">
+                            <div class="col-sm-6">
+                                <h5>@WebStore.Resources.Check.ShippingTo:</h5>
+                                <ul class="list-unstyled">
+                                    <li><span class="text-muted">@WebStore.Resources.Check.Client:&nbsp; </span> <span id="ClientToDispatchName"></span></li>
+                                    <li><span class="text-muted">@WebStore.Resources.Check.Address:&nbsp; </span><span id="ClientToDispatchAddress"></span></li>
+                                    <li><span class="text-muted">@WebStore.Resources.Check.Phone:&nbsp; </span><span id="ClientToDispatchPhone"></span></li>
+                                </ul>
+                            </div>
+                            <div class="col-sm-6">
+                                <h5>@WebStore.Resources.Check.PaymentM:</h5>
+                                <ul class="list-unstyled">
+                                    <li><span id="ClientToDispatchPayMethod"></span></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </fieldset>
+                }
             </div>
         </div>
         <div class="col-lg-4 col-xl-3">
@@ -649,24 +844,27 @@
                 <div class="padding-top-2x hidden-lg-up"></div>
                 <section class="mg-widget mg-widget-order-summary">
                     <h3 class="mg-widget-title">@WebStore.Resources.Check.ShoppingR</h3>
-                    <table class="table">
-                        @{
-                            int SubTotal = 0;
-                            int Discount = 0;
-                            int Shipping = 0;
-                            double Iva = 0;
-                            double Total = 0;
+                    @if (Session["id"] != null)
+                    {
+                        <table class="table">
+                            @{
+                                int SubTotal = 0;
+                                int Discount = 0;
+                                int Shipping = 0;
+                                double Iva = 0;
+                                double Total = 0;
 
-                            foreach (var i in Model.ProductList)
-                            {
-                                SubTotal += i.SubtotalInt;
-                                if (i.PriceOffInt > 0)
+                                foreach (var i in Model.ProductList)
                                 {
-                                    Discount = (i.PriceInt - i.PriceOffInt) * i.Quantity;
+                                    SubTotal += i.SubtotalInt;
+                                    if (i.PriceOffInt > 0)
+                                    {
+                                        Discount = (i.PriceInt - i.PriceOffInt) * i.Quantity;
+                                    }
+                                    Total += i.TotalInt;
                                 }
-                                Total += i.TotalInt;
+                                Iva = Total * 0.19;
                             }
-                            Iva = Total * 0.19;
                             <tbody>
                                 <tr>
                                     <td>@WebStore.Resources.Check.Subtotal:</td>
@@ -693,8 +891,16 @@
                                     <td class="text-lg text-gray-dark">$@((Total + Iva).ToString("N0", System.Threading.Thread.CurrentThread.CurrentCulture))</td>
                                 </tr>
                             </tbody>
-                        }
-                    </table>
+                        </table>
+                        <form id="CheckoutBillInfo">
+                            @Html.TextBoxFor(x => x.Form.CheckoutBill.SubTotal, new { type = "hidden", Value = SubTotal })
+                            @Html.TextBoxFor(x => x.Form.CheckoutBill.Discount, new { type = "hidden", Value = Discount })
+                            @Html.TextBoxFor(x => x.Form.CheckoutBill.TotalN, new { type = "hidden", Value = Total })
+                            @Html.TextBoxFor(x => x.Form.CheckoutBill.Taxes, new { type = "hidden", Value = (int)Iva })
+                            @Html.TextBoxFor(x => x.Form.CheckoutBill.Shipping, new { type = "hidden", Value = Shipping })
+                        </form>
+                    }
+
                 </section>
                 <section class="mg-widget mg-widget-featured-products">
                     <h3 class="mg-widget-title">
@@ -775,6 +981,7 @@
     @Html.Raw(WebStore.Resources.Scripts.JqueryValidateMethods)
     @Html.Raw(WebStore.Resources.Scripts.JqueryValidateUnobtrousive)
     @Html.Raw(WebStore.Resources.Scripts.StepJs)
+    @Html.Raw(WebStore.Resources.Scripts.SweetAlert)
 }
 
 @section Scripts {

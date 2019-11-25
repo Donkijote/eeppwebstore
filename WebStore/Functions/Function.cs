@@ -309,7 +309,7 @@ namespace WebStore.Functions
         }
         private static List<Products> SetBrands(List<Products> products,webstoreEntities db)
         {
-            var brands = (from a in db.tblRelBrand
+            /*var brands = (from a in db.tblRelBrand
                           join b in db.tblBrand
                           on a.refBrand equals b.idBrand
                           select new
@@ -324,7 +324,7 @@ namespace WebStore.Functions
                 {
                     i.Brand = brands.Where(b => b.refProd == i.strCodigo).Select(l => l.brand).FirstOrDefault();
                 }
-            }
+            }*/
 
             return products;
         }

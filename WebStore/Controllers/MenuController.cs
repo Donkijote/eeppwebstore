@@ -244,11 +244,12 @@ namespace WebStore.Controllers
         private static List<TotalProductByBrand> GetTotalProductByBrandsReducer(List<TwoCode> prod, webstoreEntities db)
         {
 
-            var brand = (from a in db.tblRelBrand
+            var brand = (from a in db.tblFicha
                          join b in db.tblBrand
                          on a.refBrand equals b.idBrand
-                         select new { brandName = b.strName, brandId = b.idBrand, refProd = a.refProd })
-                             .ToList();
+                         join c in db.tblProducts
+                         on a.refCodProd equals c.idProduct
+                         select new { brandName = b.strName, brandId = b.idBrand, refProd = c.strCode }).ToList();
             var group = (from p in prod
                          join b in brand
                          on p.codProW equals b.refProd

@@ -17,11 +17,13 @@ namespace WebStore.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public tblProducts()
         {
+            this.tblFicha = new HashSet<tblFicha>();
             this.tblHistoryDet = new HashSet<tblHistoryDet>();
         }
     
         public int idProduct { get; set; }
         public string strCode { get; set; }
+        public string strCodeS { get; set; }
         public string strName { get; set; }
         public int intPrice { get; set; }
         public Nullable<int> intPriceTwo { get; set; }
@@ -32,20 +34,19 @@ namespace WebStore.Models
         public Nullable<int> refCategory { get; set; }
         public Nullable<int> refModel { get; set; }
         public Nullable<int> refCategoryRelation { get; set; }
-        public Nullable<int> refBrand { get; set; }
         public Nullable<int> refFicha { get; set; }
         public Nullable<int> refOffert { get; set; }
         public Nullable<int> refOfferTime { get; set; }
         public Nullable<int> refImg { get; set; }
-        public string strCodeS { get; set; }
     
-        public virtual tblBrand tblBrand { get; set; }
         public virtual tblCategories tblCategories { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tblFicha> tblFicha { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tblHistoryDet> tblHistoryDet { get; set; }
         public virtual tblImg tblImg { get; set; }
         public virtual tblModel tblModel { get; set; }
         public virtual tblOffert tblOffert { get; set; }
         public virtual tblOffertTime tblOffertTime { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tblHistoryDet> tblHistoryDet { get; set; }
     }
 }

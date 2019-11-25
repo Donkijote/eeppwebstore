@@ -124,7 +124,7 @@ namespace WebStore.Controllers
                             OffertTime = x.OffertTime
                         }).ToList();
 
-            var brands = (from a in db.tblRelBrand
+            /*var brands = (from a in db.tblRelBrand
                           join b in db.tblBrand
                           on a.refBrand equals b.idBrand
                           select new
@@ -139,7 +139,7 @@ namespace WebStore.Controllers
                 {
                     i.Brand = brands.Where(b => b.refProd == i.strCodigo).Select(l => l.brand).FirstOrDefault();
                 }
-            }
+            }*/
 
             pro = Function.GetOffertOrOffertTime(pro, db);
 

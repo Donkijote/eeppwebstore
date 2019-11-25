@@ -12,12 +12,15 @@ namespace WebStore.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class tblRelBrand
+    public partial class tblAddressesDetForCart
     {
-        public int idRelation { get; set; }
-        public Nullable<int> refBrand { get; set; }
-        public string refProd { get; set; }
+        public int idAddressDet { get; set; }
+        public int refAddressForCart { get; set; }
+        public string strName { get; set; }
+        public string strLastName { get; set; }
+        public int intPhone { get; set; }
+        public string intId { get; set; }
     
-        public virtual tblBrand tblBrand { get; set; }
+        public virtual tblAddressesForCart tblAddressesForCart { get; set; }
     }
 }

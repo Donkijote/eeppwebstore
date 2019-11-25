@@ -34,20 +34,15 @@ namespace WebStore.Models
         public virtual DbSet<tblModel> tblModel { get; set; }
         public virtual DbSet<tblModelDetail> tblModelDetail { get; set; }
         public virtual DbSet<tblCategoryRelation> tblCategoryRelation { get; set; }
-        public virtual DbSet<tblBrand> tblBrand { get; set; }
         public virtual DbSet<tblOffert> tblOffert { get; set; }
         public virtual DbSet<tblOffertTime> tblOffertTime { get; set; }
         public virtual DbSet<tblImg> tblImg { get; set; }
-        public virtual DbSet<tblRelBrand> tblRelBrand { get; set; }
-        public virtual DbSet<tblFicha> tblFicha { get; set; }
-        public virtual DbSet<tblAddresses> tblAddresses { get; set; }
         public virtual DbSet<tblAddressesDet> tblAddressesDet { get; set; }
         public virtual DbSet<tblQuotingQue> tblQuotingQue { get; set; }
         public virtual DbSet<tblQuotingQueDet> tblQuotingQueDet { get; set; }
         public virtual DbSet<tblProjects> tblProjects { get; set; }
         public virtual DbSet<tblAnswers> tblAnswers { get; set; }
         public virtual DbSet<tblQuestions> tblQuestions { get; set; }
-        public virtual DbSet<tblProducts> tblProducts { get; set; }
         public virtual DbSet<tblHistory> tblHistory { get; set; }
         public virtual DbSet<tblHistoryDet> tblHistoryDet { get; set; }
         public virtual DbSet<tblAvatars> tblAvatars { get; set; }
@@ -58,5 +53,13 @@ namespace WebStore.Models
         public virtual DbSet<tblRelCompanyUser> tblRelCompanyUser { get; set; }
         public virtual DbSet<tblCartQue> tblCartQue { get; set; }
         public virtual DbSet<tblCartQueDet> tblCartQueDet { get; set; }
+        public virtual DbSet<tblCart> tblCart { get; set; }
+        public virtual DbSet<tblCartDet> tblCartDet { get; set; }
+        public virtual DbSet<tblBrand> tblBrand { get; set; }
+        public virtual DbSet<tblFicha> tblFicha { get; set; }
+        public virtual DbSet<tblProducts> tblProducts { get; set; }
+        public virtual DbSet<tblAddresses> tblAddresses { get; set; }
+        public virtual DbSet<tblAddressesDetForCart> tblAddressesDetForCart { get; set; }
+        public virtual DbSet<tblAddressesForCart> tblAddressesForCart { get; set; }
     }
 }

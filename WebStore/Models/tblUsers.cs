@@ -17,12 +17,13 @@ namespace WebStore.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public tblUsers()
         {
-            this.tblAddresses = new HashSet<tblAddresses>();
             this.tblHistory = new HashSet<tblHistory>();
             this.tblQuotingQue = new HashSet<tblQuotingQue>();
             this.tblQuotings = new HashSet<tblQuotings>();
             this.tblRelCompanyUser = new HashSet<tblRelCompanyUser>();
             this.tblCartQue = new HashSet<tblCartQue>();
+            this.tblCart = new HashSet<tblCart>();
+            this.tblAddresses = new HashSet<tblAddresses>();
         }
     
         public int idUser { get; set; }
@@ -40,8 +41,6 @@ namespace WebStore.Models
         public Nullable<System.DateTime> timeRecoveryCode { get; set; }
         public string strProvider { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tblAddresses> tblAddresses { get; set; }
         public virtual tblAvatars tblAvatars { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblHistory> tblHistory { get; set; }
@@ -53,5 +52,9 @@ namespace WebStore.Models
         public virtual ICollection<tblRelCompanyUser> tblRelCompanyUser { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblCartQue> tblCartQue { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tblCart> tblCart { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tblAddresses> tblAddresses { get; set; }
     }
 }

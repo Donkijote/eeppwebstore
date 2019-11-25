@@ -322,6 +322,12 @@
     <Compile Include="Models\tblAddressesDet.cs">
       <DependentUpon>Connection.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\tblAddressesDetForCart.cs">
+      <DependentUpon>Connection.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tblAddressesForCart.cs">
+      <DependentUpon>Connection.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\tblAnswers.cs">
       <DependentUpon>Connection.tt</DependentUpon>
     </Compile>
@@ -329,6 +335,12 @@
       <DependentUpon>Connection.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tblBrand.cs">
+      <DependentUpon>Connection.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tblCart.cs">
+      <DependentUpon>Connection.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tblCartDet.cs">
       <DependentUpon>Connection.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tblCartQue.cs">
@@ -404,9 +416,6 @@
       <DependentUpon>Connection.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tblRegiones.cs">
-      <DependentUpon>Connection.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\tblRelBrand.cs">
       <DependentUpon>Connection.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tblRelCompanyUser.cs">

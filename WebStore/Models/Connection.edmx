@@ -11,17 +11,17 @@
           </Key>
           <Property Name="idAddress" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="strCountry" Type="varchar" MaxLength="50" />
-          <Property Name="strCity" Type="varchar" MaxLength="50" />
-          <Property Name="strAddress" Type="text" />
+          <Property Name="strCity" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="strAddress" Type="text" Nullable="false" />
           <Property Name="strAddressTwo" Type="varchar" MaxLength="150" />
           <Property Name="strType" Type="varchar" MaxLength="50" />
           <Property Name="intPostalCode" Type="int" />
-          <Property Name="refRegion" Type="int" />
-          <Property Name="refProvince" Type="int" />
-          <Property Name="refComuna" Type="int" />
-          <Property Name="refuser" Type="int" />
-          <Property Name="boolDefault" Type="bit" />
-          <Property Name="boolThird" Type="bit" />
+          <Property Name="refRegion" Type="int" Nullable="false" />
+          <Property Name="refProvince" Type="int" Nullable="false" />
+          <Property Name="refComuna" Type="int" Nullable="false" />
+          <Property Name="refuser" Type="int" Nullable="false" />
+          <Property Name="boolDefault" Type="bit" Nullable="false" />
+          <Property Name="boolThird" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="tblAddressesDet">
           <Key>
@@ -32,6 +32,38 @@
           <Property Name="strName" Type="varchar" MaxLength="50" />
           <Property Name="strLastName" Type="varchar" MaxLength="50" />
           <Property Name="intPhone" Type="int" />
+          <Property Name="intId" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="tblAddressesDetForCart">
+          <Key>
+            <PropertyRef Name="idAddressDet" />
+          </Key>
+          <Property Name="idAddressDet" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="refAddressForCart" Type="int" Nullable="false" />
+          <Property Name="strName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="strLastName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="intPhone" Type="int" Nullable="false" />
+          <Property Name="intId" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblAddressesForCart">
+          <Key>
+            <PropertyRef Name="idAddress" />
+          </Key>
+          <Property Name="idAddress" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="strCountry" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="strCity" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="strAddress" Type="text" Nullable="false" />
+          <Property Name="strAddressTwo" Type="varchar" MaxLength="150" />
+          <Property Name="strType" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="intPostalCode" Type="int" />
+          <Property Name="refRegion" Type="int" Nullable="false" />
+          <Property Name="refProvince" Type="int" Nullable="false" />
+          <Property Name="refComuna" Type="int" Nullable="false" />
+          <Property Name="refCart" Type="int" Nullable="false" />
+          <Property Name="boolShipping" Type="bit" Nullable="false" />
+          <Property Name="boolBill" Type="bit" Nullable="false" />
+          <Property Name="boolThird" Type="bit" Nullable="false" />
+          <Property Name="intShippingPrice" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="tblAnswers">
           <Key>
@@ -59,6 +91,36 @@
           <Property Name="strName" Type="varchar" MaxLength="50" />
           <Property Name="intOrder" Type="int" />
           <Property Name="refImg" Type="int" />
+        </EntityType>
+        <EntityType Name="tblCart">
+          <Key>
+            <PropertyRef Name="IdCart" />
+          </Key>
+          <Property Name="IdCart" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="intDocument" Type="int" Nullable="false" />
+          <Property Name="strDate" Type="datetime" Nullable="false" />
+          <Property Name="intSubTotal" Type="int" Nullable="false" />
+          <Property Name="intDiscount" Type="int" Nullable="false" />
+          <Property Name="intTotalN" Type="int" Nullable="false" />
+          <Property Name="intTaxe" Type="int" Nullable="false" />
+          <Property Name="Total" Type="int" Nullable="false" />
+          <Property Name="strPayMethod" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="intOrder" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="boolPayed" Type="bit" Nullable="false" />
+          <Property Name="boolConfimed" Type="bit" Nullable="false" />
+          <Property Name="refUser" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblCartDet">
+          <Key>
+            <PropertyRef Name="IdCartDet" />
+          </Key>
+          <Property Name="IdCartDet" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="refCart" Type="int" Nullable="false" />
+          <Property Name="refProd" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="intQuantity" Type="int" Nullable="false" />
+          <Property Name="intPrice" Type="int" Nullable="false" />
+          <Property Name="intDiscount" Type="int" Nullable="false" />
+          <Property Name="intPriceDiscount" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="tblCartQue">
           <Key>
@@ -144,6 +206,7 @@
             <PropertyRef Name="idFicha" />
           </Key>
           <Property Name="idFicha" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="refCodProd" Type="int" Nullable="false" />
           <Property Name="strPotencia" Type="int" />
           <Property Name="intColorTemp" Type="int" />
           <Property Name="intLumWatts" Type="int" />
@@ -175,13 +238,12 @@
           <Property Name="intDiameter" Type="int" />
           <Property Name="strType" Type="varchar" MaxLength="50" />
           <Property Name="strCountry" Type="varchar" MaxLength="50" />
-          <Property Name="strBrand" Type="varchar" MaxLength="50" />
+          <Property Name="refBrand" Type="int" />
           <Property Name="intWorkTemp" Type="varchar" MaxLength="50" />
           <Property Name="intCircuitBreakTemp" Type="int" />
           <Property Name="strInclude" Type="varchar" MaxLength="50" />
           <Property Name="strNoInclude" Type="varchar" MaxLength="50" />
           <Property Name="intNew" Type="bit" />
-          <Property Name="refCodProd" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="strSec" Type="bit" Nullable="false" />
           <Property Name="strDs43" Type="bit" Nullable="false" />
           <Property Name="strFicha" Type="bit" Nullable="false" />
@@ -264,7 +326,6 @@
           <Property Name="refCategory" Type="int" />
           <Property Name="refModel" Type="int" />
           <Property Name="refCategoryRelation" Type="int" />
-          <Property Name="refBrand" Type="int" />
           <Property Name="refFicha" Type="int" />
           <Property Name="refOffert" Type="int" />
           <Property Name="refOfferTime" Type="int" />
@@ -348,14 +409,6 @@
           <Property Name="strNombre" Type="nvarchar" MaxLength="70" Nullable="false" />
           <Property Name="intNumber" Type="nvarchar" MaxLength="4" Nullable="false" />
         </EntityType>
-        <EntityType Name="tblRelBrand">
-          <Key>
-            <PropertyRef Name="idRelation" />
-          </Key>
-          <Property Name="idRelation" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="refBrand" Type="int" />
-          <Property Name="refProd" Type="varchar" MaxLength="50" />
-        </EntityType>
         <EntityType Name="tblRelCompanyUser">
           <Key>
             <PropertyRef Name="id" />
@@ -384,7 +437,7 @@
           <Property Name="strProvider" Type="varchar" MaxLength="50" />
         </EntityType>
         <Association Name="FK_tblAddresses_tblComunas">
-          <End Role="tblComunas" Type="Self.tblComunas" Multiplicity="0..1" />
+          <End Role="tblComunas" Type="Self.tblComunas" Multiplicity="1" />
           <End Role="tblAddresses" Type="Self.tblAddresses" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tblComunas">
@@ -396,7 +449,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_tblAddresses_tblProvincias">
-          <End Role="tblProvincias" Type="Self.tblProvincias" Multiplicity="0..1" />
+          <End Role="tblProvincias" Type="Self.tblProvincias" Multiplicity="1" />
           <End Role="tblAddresses" Type="Self.tblAddresses" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tblProvincias">
@@ -408,7 +461,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_tblAddresses_tblRegiones">
-          <End Role="tblRegiones" Type="Self.tblRegiones" Multiplicity="0..1" />
+          <End Role="tblRegiones" Type="Self.tblRegiones" Multiplicity="1" />
           <End Role="tblAddresses" Type="Self.tblAddresses" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tblRegiones">
@@ -420,7 +473,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_tblAddresses_tblUsers">
-          <End Role="tblUsers" Type="Self.tblUsers" Multiplicity="0..1" />
+          <End Role="tblUsers" Type="Self.tblUsers" Multiplicity="1" />
           <End Role="tblAddresses" Type="Self.tblAddresses" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tblUsers">
@@ -440,6 +493,70 @@
             </Principal>
             <Dependent Role="tblAddressesDet">
               <PropertyRef Name="refAddress" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblAddressesDetForCart_tblAddressesForCart">
+          <End Role="tblAddressesForCart" Type="Self.tblAddressesForCart" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="tblAddressesDetForCart" Type="Self.tblAddressesDetForCart" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblAddressesForCart">
+              <PropertyRef Name="idAddress" />
+            </Principal>
+            <Dependent Role="tblAddressesDetForCart">
+              <PropertyRef Name="refAddressForCart" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblAddressesForCart_tblCart">
+          <End Role="tblCart" Type="Self.tblCart" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="tblAddressesForCart" Type="Self.tblAddressesForCart" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblCart">
+              <PropertyRef Name="IdCart" />
+            </Principal>
+            <Dependent Role="tblAddressesForCart">
+              <PropertyRef Name="refCart" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblAddressesForCart_tblComunas">
+          <End Role="tblComunas" Type="Self.tblComunas" Multiplicity="1" />
+          <End Role="tblAddressesForCart" Type="Self.tblAddressesForCart" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblComunas">
+              <PropertyRef Name="idComuna" />
+            </Principal>
+            <Dependent Role="tblAddressesForCart">
+              <PropertyRef Name="refComuna" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblAddressesForCart_tblProvincias">
+          <End Role="tblProvincias" Type="Self.tblProvincias" Multiplicity="1" />
+          <End Role="tblAddressesForCart" Type="Self.tblAddressesForCart" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblProvincias">
+              <PropertyRef Name="idProvincia" />
+            </Principal>
+            <Dependent Role="tblAddressesForCart">
+              <PropertyRef Name="refProvince" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblAddressesForCart_tblRegiones">
+          <End Role="tblRegiones" Type="Self.tblRegiones" Multiplicity="1" />
+          <End Role="tblAddressesForCart" Type="Self.tblAddressesForCart" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblRegiones">
+              <PropertyRef Name="idRegion" />
+            </Principal>
+            <Dependent Role="tblAddressesForCart">
+              <PropertyRef Name="refRegion" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -467,7 +584,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_tblBrand_tblBrand">
+        <Association Name="FK_tblBrand_tblImg">
           <End Role="tblImg" Type="Self.tblImg" Multiplicity="0..1" />
           <End Role="tblBrand" Type="Self.tblBrand" Multiplicity="*" />
           <ReferentialConstraint>
@@ -476,6 +593,34 @@
             </Principal>
             <Dependent Role="tblBrand">
               <PropertyRef Name="refImg" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblCart_tblUsers">
+          <End Role="tblUsers" Type="Self.tblUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="tblCart" Type="Self.tblCart" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblUsers">
+              <PropertyRef Name="idUser" />
+            </Principal>
+            <Dependent Role="tblCart">
+              <PropertyRef Name="refUser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblCartDet_tblCart">
+          <End Role="tblCart" Type="Self.tblCart" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="tblCartDet" Type="Self.tblCartDet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblCart">
+              <PropertyRef Name="IdCart" />
+            </Principal>
+            <Dependent Role="tblCartDet">
+              <PropertyRef Name="refCart" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -613,6 +758,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_tblFicha_tblBrand">
+          <End Role="tblBrand" Type="Self.tblBrand" Multiplicity="0..1" />
+          <End Role="tblFicha" Type="Self.tblFicha" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblBrand">
+              <PropertyRef Name="idBrand" />
+            </Principal>
+            <Dependent Role="tblFicha">
+              <PropertyRef Name="refBrand" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblFicha_tblProducts">
+          <End Role="tblProducts" Type="Self.tblProducts" Multiplicity="1" />
+          <End Role="tblFicha" Type="Self.tblFicha" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblProducts">
+              <PropertyRef Name="idProduct" />
+            </Principal>
+            <Dependent Role="tblFicha">
+              <PropertyRef Name="refCodProd" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_tblHistory_tblUsers">
           <End Role="tblUsers" Type="Self.tblUsers" Multiplicity="0..1" />
           <End Role="tblHistory" Type="Self.tblHistory" Multiplicity="*" />
@@ -658,18 +827,6 @@
             </Principal>
             <Dependent Role="tblModelDetail">
               <PropertyRef Name="refModel" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tblProducts_tblBrand">
-          <End Role="tblBrand" Type="Self.tblBrand" Multiplicity="0..1" />
-          <End Role="tblProducts" Type="Self.tblProducts" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblBrand">
-              <PropertyRef Name="idBrand" />
-            </Principal>
-            <Dependent Role="tblProducts">
-              <PropertyRef Name="refBrand" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -805,18 +962,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_tblRelBrand_tblBrand">
-          <End Role="tblBrand" Type="Self.tblBrand" Multiplicity="0..1" />
-          <End Role="tblRelBrand" Type="Self.tblRelBrand" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblBrand">
-              <PropertyRef Name="idBrand" />
-            </Principal>
-            <Dependent Role="tblRelBrand">
-              <PropertyRef Name="refBrand" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_tblRelCompanyUser_tblCompany">
           <End Role="tblCompany" Type="Self.tblCompany" Multiplicity="1" />
           <End Role="tblRelCompanyUser" Type="Self.tblRelCompanyUser" Multiplicity="*" />
@@ -844,9 +989,13 @@
         <EntityContainer Name="webstoreModelStoreContainer">
           <EntitySet Name="tblAddresses" EntityType="Self.tblAddresses" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblAddressesDet" EntityType="Self.tblAddressesDet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblAddressesDetForCart" EntityType="Self.tblAddressesDetForCart" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblAddressesForCart" EntityType="Self.tblAddressesForCart" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblAnswers" EntityType="Self.tblAnswers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblAvatars" EntityType="Self.tblAvatars" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblBrand" EntityType="Self.tblBrand" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblCart" EntityType="Self.tblCart" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblCartDet" EntityType="Self.tblCartDet" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblCartQue" EntityType="Self.tblCartQue" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblCartQueDet" EntityType="Self.tblCartQueDet" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblCategories" EntityType="Self.tblCategories" Schema="dbo" store:Type="Tables" />
@@ -872,7 +1021,6 @@
           <EntitySet Name="tblQuotings" EntityType="Self.tblQuotings" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblQuotingsDet" EntityType="Self.tblQuotingsDet" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblRegiones" EntityType="Self.tblRegiones" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="tblRelBrand" EntityType="Self.tblRelBrand" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblRelCompanyUser" EntityType="Self.tblRelCompanyUser" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblUsers" EntityType="Self.tblUsers" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_tblAddresses_tblComunas" Association="Self.FK_tblAddresses_tblComunas">
@@ -895,6 +1043,26 @@
             <End Role="tblAddresses" EntitySet="tblAddresses" />
             <End Role="tblAddressesDet" EntitySet="tblAddressesDet" />
           </AssociationSet>
+          <AssociationSet Name="FK_tblAddressesDetForCart_tblAddressesForCart" Association="Self.FK_tblAddressesDetForCart_tblAddressesForCart">
+            <End Role="tblAddressesForCart" EntitySet="tblAddressesForCart" />
+            <End Role="tblAddressesDetForCart" EntitySet="tblAddressesDetForCart" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblAddressesForCart_tblCart" Association="Self.FK_tblAddressesForCart_tblCart">
+            <End Role="tblCart" EntitySet="tblCart" />
+            <End Role="tblAddressesForCart" EntitySet="tblAddressesForCart" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblAddressesForCart_tblComunas" Association="Self.FK_tblAddressesForCart_tblComunas">
+            <End Role="tblComunas" EntitySet="tblComunas" />
+            <End Role="tblAddressesForCart" EntitySet="tblAddressesForCart" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblAddressesForCart_tblProvincias" Association="Self.FK_tblAddressesForCart_tblProvincias">
+            <End Role="tblProvincias" EntitySet="tblProvincias" />
+            <End Role="tblAddressesForCart" EntitySet="tblAddressesForCart" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblAddressesForCart_tblRegiones" Association="Self.FK_tblAddressesForCart_tblRegiones">
+            <End Role="tblRegiones" EntitySet="tblRegiones" />
+            <End Role="tblAddressesForCart" EntitySet="tblAddressesForCart" />
+          </AssociationSet>
           <AssociationSet Name="FK_tblAnswers_tblQuestions" Association="Self.FK_tblAnswers_tblQuestions">
             <End Role="tblQuestions" EntitySet="tblQuestions" />
             <End Role="tblAnswers" EntitySet="tblAnswers" />
@@ -903,9 +1071,17 @@
             <End Role="tblUsers" EntitySet="tblUsers" />
             <End Role="tblAvatars" EntitySet="tblAvatars" />
           </AssociationSet>
-          <AssociationSet Name="FK_tblBrand_tblBrand" Association="Self.FK_tblBrand_tblBrand">
+          <AssociationSet Name="FK_tblBrand_tblImg" Association="Self.FK_tblBrand_tblImg">
             <End Role="tblImg" EntitySet="tblImg" />
             <End Role="tblBrand" EntitySet="tblBrand" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblCart_tblUsers" Association="Self.FK_tblCart_tblUsers">
+            <End Role="tblUsers" EntitySet="tblUsers" />
+            <End Role="tblCart" EntitySet="tblCart" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblCartDet_tblCart" Association="Self.FK_tblCartDet_tblCart">
+            <End Role="tblCart" EntitySet="tblCart" />
+            <End Role="tblCartDet" EntitySet="tblCartDet" />
           </AssociationSet>
           <AssociationSet Name="FK_tblCartQue_tblUsers" Association="Self.FK_tblCartQue_tblUsers">
             <End Role="tblUsers" EntitySet="tblUsers" />
@@ -951,6 +1127,14 @@
             <End Role="tblImg" EntitySet="tblImg" />
             <End Role="tblFamily" EntitySet="tblFamily" />
           </AssociationSet>
+          <AssociationSet Name="FK_tblFicha_tblBrand" Association="Self.FK_tblFicha_tblBrand">
+            <End Role="tblBrand" EntitySet="tblBrand" />
+            <End Role="tblFicha" EntitySet="tblFicha" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblFicha_tblProducts" Association="Self.FK_tblFicha_tblProducts">
+            <End Role="tblProducts" EntitySet="tblProducts" />
+            <End Role="tblFicha" EntitySet="tblFicha" />
+          </AssociationSet>
           <AssociationSet Name="FK_tblHistory_tblUsers" Association="Self.FK_tblHistory_tblUsers">
             <End Role="tblUsers" EntitySet="tblUsers" />
             <End Role="tblHistory" EntitySet="tblHistory" />
@@ -966,10 +1150,6 @@
           <AssociationSet Name="FK_tblModelDetail_tblModel" Association="Self.FK_tblModelDetail_tblModel">
             <End Role="tblModel" EntitySet="tblModel" />
             <End Role="tblModelDetail" EntitySet="tblModelDetail" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tblProducts_tblBrand" Association="Self.FK_tblProducts_tblBrand">
-            <End Role="tblBrand" EntitySet="tblBrand" />
-            <End Role="tblProducts" EntitySet="tblProducts" />
           </AssociationSet>
           <AssociationSet Name="FK_tblProducts_tblCategories" Association="Self.FK_tblProducts_tblCategories">
             <End Role="tblCategories" EntitySet="tblCategories" />
@@ -1014,10 +1194,6 @@
           <AssociationSet Name="FK_tblQuotingsDet_tblQuotings" Association="Self.FK_tblQuotingsDet_tblQuotings">
             <End Role="tblQuotings" EntitySet="tblQuotings" />
             <End Role="tblQuotingsDet" EntitySet="tblQuotingsDet" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tblRelBrand_tblBrand" Association="Self.FK_tblRelBrand_tblBrand">
-            <End Role="tblBrand" EntitySet="tblBrand" />
-            <End Role="tblRelBrand" EntitySet="tblRelBrand" />
           </AssociationSet>
           <AssociationSet Name="FK_tblRelCompanyUser_tblCompany" Association="Self.FK_tblRelCompanyUser_tblCompany">
             <End Role="tblCompany" EntitySet="tblCompany" />
@@ -1086,47 +1262,19 @@
             <End Role="tblCategories" EntitySet="tblCategories" />
             <End Role="tblCategoryRelation" EntitySet="tblCategoryRelation" />
           </AssociationSet>
-          <EntitySet Name="tblBrand" EntityType="webstoreModel.tblBrand" />
           <EntitySet Name="tblOffert" EntityType="webstoreModel.tblOffert" />
           <EntitySet Name="tblOffertTime" EntityType="webstoreModel.tblOffertTime" />
           <EntitySet Name="tblImg" EntityType="webstoreModel.tblImg" />
-          <AssociationSet Name="FK_tblBrand_tblBrand" Association="webstoreModel.FK_tblBrand_tblBrand">
-            <End Role="tblImg" EntitySet="tblImg" />
-            <End Role="tblBrand" EntitySet="tblBrand" />
-          </AssociationSet>
           <AssociationSet Name="FK_tblFamily_tblImg" Association="webstoreModel.FK_tblFamily_tblImg">
             <End Role="tblImg" EntitySet="tblImg" />
             <End Role="tblFamily" EntitySet="tblFamily" />
           </AssociationSet>
-          <EntitySet Name="tblRelBrand" EntityType="webstoreModel.tblRelBrand" />
-          <AssociationSet Name="FK_tblRelBrand_tblBrand" Association="webstoreModel.FK_tblRelBrand_tblBrand">
-            <End Role="tblBrand" EntitySet="tblBrand" />
-            <End Role="tblRelBrand" EntitySet="tblRelBrand" />
-          </AssociationSet>
-          <EntitySet Name="tblFicha" EntityType="webstoreModel.tblFicha" />
-          <EntitySet Name="tblAddresses" EntityType="webstoreModel.tblAddresses" />
           <EntitySet Name="tblAddressesDet" EntityType="webstoreModel.tblAddressesDet" />
-          <AssociationSet Name="FK_tblAddresses_tblComunas" Association="webstoreModel.FK_tblAddresses_tblComunas">
-            <End Role="tblComunas" EntitySet="tblComunas" />
-            <End Role="tblAddresses" EntitySet="tblAddresses" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tblAddresses_tblRegiones" Association="webstoreModel.FK_tblAddresses_tblRegiones">
-            <End Role="tblRegiones" EntitySet="tblRegiones" />
-            <End Role="tblAddresses" EntitySet="tblAddresses" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tblAddressesDet_tblAddresses" Association="webstoreModel.FK_tblAddressesDet_tblAddresses">
-            <End Role="tblAddresses" EntitySet="tblAddresses" />
-            <End Role="tblAddressesDet" EntitySet="tblAddressesDet" />
-          </AssociationSet>
           <EntitySet Name="tblQuotingQue" EntityType="webstoreModel.tblQuotingQue" />
           <EntitySet Name="tblQuotingQueDet" EntityType="webstoreModel.tblQuotingQueDet" />
           <AssociationSet Name="FK_tblQuotingQueDet_tblQuotingQue" Association="webstoreModel.FK_tblQuotingQueDet_tblQuotingQue">
             <End Role="tblQuotingQue" EntitySet="tblQuotingQue" />
             <End Role="tblQuotingQueDet" EntitySet="tblQuotingQueDet" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tblAddresses_tblProvincias" Association="webstoreModel.FK_tblAddresses_tblProvincias">
-            <End Role="tblProvincias" EntitySet="tblProvincias" />
-            <End Role="tblAddresses" EntitySet="tblAddresses" />
           </AssociationSet>
           <EntitySet Name="tblProjects" EntityType="webstoreModel.tblProjects" />
           <AssociationSet Name="FK_tblProjects_tblImg" Association="webstoreModel.FK_tblProjects_tblImg">
@@ -1139,39 +1287,10 @@
             <End Role="tblQuestions" EntitySet="tblQuestions" />
             <End Role="tblAnswers" EntitySet="tblAnswers" />
           </AssociationSet>
-          <EntitySet Name="tblProducts" EntityType="webstoreModel.tblProducts" />
-          <AssociationSet Name="FK_tblProducts_tblBrand" Association="webstoreModel.FK_tblProducts_tblBrand">
-            <End Role="tblBrand" EntitySet="tblBrand" />
-            <End Role="tblProducts" EntitySet="tblProducts" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tblProducts_tblCategories" Association="webstoreModel.FK_tblProducts_tblCategories">
-            <End Role="tblCategories" EntitySet="tblCategories" />
-            <End Role="tblProducts" EntitySet="tblProducts" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tblProducts_tblImg" Association="webstoreModel.FK_tblProducts_tblImg">
-            <End Role="tblImg" EntitySet="tblImg" />
-            <End Role="tblProducts" EntitySet="tblProducts" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tblProducts_tblModel" Association="webstoreModel.FK_tblProducts_tblModel">
-            <End Role="tblModel" EntitySet="tblModel" />
-            <End Role="tblProducts" EntitySet="tblProducts" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tblProducts_tblOffert" Association="webstoreModel.FK_tblProducts_tblOffert">
-            <End Role="tblOffert" EntitySet="tblOffert" />
-            <End Role="tblProducts" EntitySet="tblProducts" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tblProducts_tblOffertTime" Association="webstoreModel.FK_tblProducts_tblOffertTime">
-            <End Role="tblOffertTime" EntitySet="tblOffertTime" />
-            <End Role="tblProducts" EntitySet="tblProducts" />
-          </AssociationSet>
           <EntitySet Name="tblHistory" EntityType="webstoreModel.tblHistory" />
           <EntitySet Name="tblHistoryDet" EntityType="webstoreModel.tblHistoryDet" />
           <AssociationSet Name="FK_tblHistoryDet_tblHistory" Association="webstoreModel.FK_tblHistoryDet_tblHistory">
             <End Role="tblHistory" EntitySet="tblHistory" />
-            <End Role="tblHistoryDet" EntitySet="tblHistoryDet" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tblHistoryDet_tblProducts" Association="webstoreModel.FK_tblHistoryDet_tblProducts">
-            <End Role="tblProducts" EntitySet="tblProducts" />
             <End Role="tblHistoryDet" EntitySet="tblHistoryDet" />
           </AssociationSet>
           <EntitySet Name="tblAvatars" EntityType="webstoreModel.tblAvatars" />
@@ -1182,10 +1301,6 @@
             <End Role="tblQuotingsDet" EntitySet="tblQuotingsDet" />
           </AssociationSet>
           <EntitySet Name="tblUsers" EntityType="webstoreModel.tblUsers" />
-          <AssociationSet Name="FK_tblAddresses_tblUsers" Association="webstoreModel.FK_tblAddresses_tblUsers">
-            <End Role="tblUsers" EntitySet="tblUsers" />
-            <End Role="tblAddresses" EntitySet="tblAddresses" />
-          </AssociationSet>
           <AssociationSet Name="FK_tblAvatars_tblUsers" Association="webstoreModel.FK_tblAvatars_tblUsers">
             <End Role="tblUsers" EntitySet="tblUsers" />
             <End Role="tblAvatars" EntitySet="tblAvatars" />
@@ -1234,7 +1349,99 @@
             <End Role="tblCartQue" EntitySet="tblCartQue" />
             <End Role="tblCartQueDet" EntitySet="tblCartQueDet" />
           </AssociationSet>
-        </EntityContainer>
+          <EntitySet Name="tblCart" EntityType="webstoreModel.tblCart" />
+          <EntitySet Name="tblCartDet" EntityType="webstoreModel.tblCartDet" />
+          <AssociationSet Name="FK_tblCart_tblUsers" Association="webstoreModel.FK_tblCart_tblUsers">
+            <End Role="tblUsers" EntitySet="tblUsers" />
+            <End Role="tblCart" EntitySet="tblCart" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblCartDet_tblCart" Association="webstoreModel.FK_tblCartDet_tblCart">
+            <End Role="tblCart" EntitySet="tblCart" />
+            <End Role="tblCartDet" EntitySet="tblCartDet" />
+          </AssociationSet>
+          <EntitySet Name="tblBrand" EntityType="webstoreModel.tblBrand" />
+          <EntitySet Name="tblFicha" EntityType="webstoreModel.tblFicha" />
+          <EntitySet Name="tblProducts" EntityType="webstoreModel.tblProducts" />
+          <AssociationSet Name="FK_tblBrand_tblImg" Association="webstoreModel.FK_tblBrand_tblImg">
+            <End Role="tblImg" EntitySet="tblImg" />
+            <End Role="tblBrand" EntitySet="tblBrand" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblFicha_tblBrand" Association="webstoreModel.FK_tblFicha_tblBrand">
+            <End Role="tblBrand" EntitySet="tblBrand" />
+            <End Role="tblFicha" EntitySet="tblFicha" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblProducts_tblCategories" Association="webstoreModel.FK_tblProducts_tblCategories">
+            <End Role="tblCategories" EntitySet="tblCategories" />
+            <End Role="tblProducts" EntitySet="tblProducts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblFicha_tblProducts" Association="webstoreModel.FK_tblFicha_tblProducts">
+            <End Role="tblProducts" EntitySet="tblProducts" />
+            <End Role="tblFicha" EntitySet="tblFicha" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblHistoryDet_tblProducts" Association="webstoreModel.FK_tblHistoryDet_tblProducts">
+            <End Role="tblProducts" EntitySet="tblProducts" />
+            <End Role="tblHistoryDet" EntitySet="tblHistoryDet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblProducts_tblImg" Association="webstoreModel.FK_tblProducts_tblImg">
+            <End Role="tblImg" EntitySet="tblImg" />
+            <End Role="tblProducts" EntitySet="tblProducts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblProducts_tblModel" Association="webstoreModel.FK_tblProducts_tblModel">
+            <End Role="tblModel" EntitySet="tblModel" />
+            <End Role="tblProducts" EntitySet="tblProducts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblProducts_tblOffert" Association="webstoreModel.FK_tblProducts_tblOffert">
+            <End Role="tblOffert" EntitySet="tblOffert" />
+            <End Role="tblProducts" EntitySet="tblProducts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblProducts_tblOffertTime" Association="webstoreModel.FK_tblProducts_tblOffertTime">
+            <End Role="tblOffertTime" EntitySet="tblOffertTime" />
+            <End Role="tblProducts" EntitySet="tblProducts" />
+          </AssociationSet>
+          <EntitySet Name="tblAddresses" EntityType="webstoreModel.tblAddresses" />
+          <AssociationSet Name="FK_tblAddresses_tblComunas" Association="webstoreModel.FK_tblAddresses_tblComunas">
+            <End Role="tblComunas" EntitySet="tblComunas" />
+            <End Role="tblAddresses" EntitySet="tblAddresses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblAddresses_tblProvincias" Association="webstoreModel.FK_tblAddresses_tblProvincias">
+            <End Role="tblProvincias" EntitySet="tblProvincias" />
+            <End Role="tblAddresses" EntitySet="tblAddresses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblAddresses_tblRegiones" Association="webstoreModel.FK_tblAddresses_tblRegiones">
+            <End Role="tblRegiones" EntitySet="tblRegiones" />
+            <End Role="tblAddresses" EntitySet="tblAddresses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblAddresses_tblUsers" Association="webstoreModel.FK_tblAddresses_tblUsers">
+            <End Role="tblUsers" EntitySet="tblUsers" />
+            <End Role="tblAddresses" EntitySet="tblAddresses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblAddressesDet_tblAddresses" Association="webstoreModel.FK_tblAddressesDet_tblAddresses">
+            <End Role="tblAddresses" EntitySet="tblAddresses" />
+            <End Role="tblAddressesDet" EntitySet="tblAddressesDet" />
+          </AssociationSet>
+          <EntitySet Name="tblAddressesDetForCart" EntityType="webstoreModel.tblAddressesDetForCart" />
+          <EntitySet Name="tblAddressesForCart" EntityType="webstoreModel.tblAddressesForCart" />
+          <AssociationSet Name="FK_tblAddressesDetForCart_tblAddressesForCart" Association="webstoreModel.FK_tblAddressesDetForCart_tblAddressesForCart">
+            <End Role="tblAddressesForCart" EntitySet="tblAddressesForCart" />
+            <End Role="tblAddressesDetForCart" EntitySet="tblAddressesDetForCart" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblAddressesForCart_tblCart" Association="webstoreModel.FK_tblAddressesForCart_tblCart">
+            <End Role="tblCart" EntitySet="tblCart" />
+            <End Role="tblAddressesForCart" EntitySet="tblAddressesForCart" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblAddressesForCart_tblComunas" Association="webstoreModel.FK_tblAddressesForCart_tblComunas">
+            <End Role="tblComunas" EntitySet="tblComunas" />
+            <End Role="tblAddressesForCart" EntitySet="tblAddressesForCart" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblAddressesForCart_tblProvincias" Association="webstoreModel.FK_tblAddressesForCart_tblProvincias">
+            <End Role="tblProvincias" EntitySet="tblProvincias" />
+            <End Role="tblAddressesForCart" EntitySet="tblAddressesForCart" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblAddressesForCart_tblRegiones" Association="webstoreModel.FK_tblAddressesForCart_tblRegiones">
+            <End Role="tblRegiones" EntitySet="tblRegiones" />
+            <End Role="tblAddressesForCart" EntitySet="tblAddressesForCart" />
+          </AssociationSet>
+          </EntityContainer>
         <EntityType Name="tblCountry">
           <Key>
             <PropertyRef Name="iso" />
@@ -1253,8 +1460,9 @@
           <Property Name="strNombre" Type="String" MaxLength="70" FixedLength="false" Unicode="true" />
           <Property Name="refProvincia" Type="Int32" Nullable="false" />
           <NavigationProperty Name="tblProvincias" Relationship="webstoreModel.FK_tblComunas_tblProvincias" FromRole="tblComunas" ToRole="tblProvincias" />
-          <NavigationProperty Name="tblAddresses" Relationship="webstoreModel.FK_tblAddresses_tblComunas" FromRole="tblComunas" ToRole="tblAddresses" />
           <NavigationProperty Name="tblCompany" Relationship="webstoreModel.FK_tblCompany_tblComunas" FromRole="tblComunas" ToRole="tblCompany" />
+          <NavigationProperty Name="tblAddresses" Relationship="webstoreModel.FK_tblAddresses_tblComunas" FromRole="tblComunas" ToRole="tblAddresses" />
+          <NavigationProperty Name="tblAddressesForCart" Relationship="webstoreModel.FK_tblAddressesForCart_tblComunas" FromRole="tblComunas" ToRole="tblAddressesForCart" />
         </EntityType>
         <EntityType Name="tblProvincias">
           <Key>
@@ -1265,8 +1473,9 @@
           <Property Name="refRegion" Type="Int32" Nullable="false" />
           <NavigationProperty Name="tblComunas" Relationship="webstoreModel.FK_tblComunas_tblProvincias" FromRole="tblProvincias" ToRole="tblComunas" />
           <NavigationProperty Name="tblRegiones" Relationship="webstoreModel.FK_tblProvincias_tblRegiones" FromRole="tblProvincias" ToRole="tblRegiones" />
-          <NavigationProperty Name="tblAddresses" Relationship="webstoreModel.FK_tblAddresses_tblProvincias" FromRole="tblProvincias" ToRole="tblAddresses" />
           <NavigationProperty Name="tblCompany" Relationship="webstoreModel.FK_tblCompany_tblProvincias" FromRole="tblProvincias" ToRole="tblCompany" />
+          <NavigationProperty Name="tblAddresses" Relationship="webstoreModel.FK_tblAddresses_tblProvincias" FromRole="tblProvincias" ToRole="tblAddresses" />
+          <NavigationProperty Name="tblAddressesForCart" Relationship="webstoreModel.FK_tblAddressesForCart_tblProvincias" FromRole="tblProvincias" ToRole="tblAddressesForCart" />
         </EntityType>
         <EntityType Name="tblRegiones">
           <Key>
@@ -1276,8 +1485,9 @@
           <Property Name="strNombre" Type="String" Nullable="false" MaxLength="70" FixedLength="false" Unicode="true" />
           <Property Name="intNumber" Type="String" Nullable="false" MaxLength="4" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="tblProvincias" Relationship="webstoreModel.FK_tblProvincias_tblRegiones" FromRole="tblRegiones" ToRole="tblProvincias" />
-          <NavigationProperty Name="tblAddresses" Relationship="webstoreModel.FK_tblAddresses_tblRegiones" FromRole="tblRegiones" ToRole="tblAddresses" />
           <NavigationProperty Name="tblCompany" Relationship="webstoreModel.FK_tblCompany_tblRegiones" FromRole="tblRegiones" ToRole="tblCompany" />
+          <NavigationProperty Name="tblAddresses" Relationship="webstoreModel.FK_tblAddresses_tblRegiones" FromRole="tblRegiones" ToRole="tblAddresses" />
+          <NavigationProperty Name="tblAddressesForCart" Relationship="webstoreModel.FK_tblAddressesForCart_tblRegiones" FromRole="tblRegiones" ToRole="tblAddressesForCart" />
         </EntityType>
         <Association Name="FK_tblComunas_tblProvincias">
           <End Type="webstoreModel.tblProvincias" Role="tblProvincias" Multiplicity="1" />
@@ -1406,18 +1616,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="tblBrand">
-          <Key>
-            <PropertyRef Name="idBrand" />
-          </Key>
-          <Property Name="idBrand" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="strName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="intOrder" Type="Int32" />
-          <Property Name="refImg" Type="Int32" />
-          <NavigationProperty Name="tblImg" Relationship="webstoreModel.FK_tblBrand_tblBrand" FromRole="tblBrand" ToRole="tblImg" />
-          <NavigationProperty Name="tblRelBrand" Relationship="webstoreModel.FK_tblRelBrand_tblBrand" FromRole="tblBrand" ToRole="tblRelBrand" />
-          <NavigationProperty Name="tblProducts" Relationship="webstoreModel.FK_tblProducts_tblBrand" FromRole="tblBrand" ToRole="tblProducts" />
-        </EntityType>
         <EntityType Name="tblOffert">
           <Key>
             <PropertyRef Name="idOffert" />
@@ -1447,25 +1645,13 @@
           <Property Name="strImgTwo" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="strImgThree" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="strImgFour" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="tblBrand" Relationship="webstoreModel.FK_tblBrand_tblBrand" FromRole="tblImg" ToRole="tblBrand" />
           <NavigationProperty Name="tblFamily" Relationship="webstoreModel.FK_tblFamily_tblImg" FromRole="tblImg" ToRole="tblFamily" />
           <Property Name="strImgFive" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="strImgSix" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="tblProjects" Relationship="webstoreModel.FK_tblProjects_tblImg" FromRole="tblImg" ToRole="tblProjects" />
+          <NavigationProperty Name="tblBrand" Relationship="webstoreModel.FK_tblBrand_tblImg" FromRole="tblImg" ToRole="tblBrand" />
           <NavigationProperty Name="tblProducts" Relationship="webstoreModel.FK_tblProducts_tblImg" FromRole="tblImg" ToRole="tblProducts" />
         </EntityType>
-        <Association Name="FK_tblBrand_tblBrand">
-          <End Type="webstoreModel.tblImg" Role="tblImg" Multiplicity="0..1" />
-          <End Type="webstoreModel.tblBrand" Role="tblBrand" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblImg">
-              <PropertyRef Name="idImg" />
-            </Principal>
-            <Dependent Role="tblBrand">
-              <PropertyRef Name="refImg" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_tblFamily_tblImg">
           <End Type="webstoreModel.tblImg" Role="tblImg" Multiplicity="0..1" />
           <End Type="webstoreModel.tblFamily" Role="tblFamily" Multiplicity="*" />
@@ -1478,97 +1664,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="tblRelBrand">
-          <Key>
-            <PropertyRef Name="idRelation" />
-          </Key>
-          <Property Name="idRelation" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="refBrand" Type="Int32" />
-          <Property Name="refProd" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="tblBrand" Relationship="webstoreModel.FK_tblRelBrand_tblBrand" FromRole="tblRelBrand" ToRole="tblBrand" />
-        </EntityType>
-        <Association Name="FK_tblRelBrand_tblBrand">
-          <End Type="webstoreModel.tblBrand" Role="tblBrand" Multiplicity="0..1" />
-          <End Type="webstoreModel.tblRelBrand" Role="tblRelBrand" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblBrand">
-              <PropertyRef Name="idBrand" />
-            </Principal>
-            <Dependent Role="tblRelBrand">
-              <PropertyRef Name="refBrand" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="tblFicha">
-          <Key>
-            <PropertyRef Name="idFicha" />
-          </Key>
-          <Property Name="idFicha" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="strPotencia" Type="Int32" />
-          <Property Name="intColorTemp" Type="Int32" />
-          <Property Name="intLumWatts" Type="Int32" />
-          <Property Name="strLifespan" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="intVoltage" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="intWeight" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="strLHW" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="strCertification" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="intIp" Type="Int32" />
-          <Property Name="intIk" Type="Int32" />
-          <Property Name="intLightAngle" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="strLightType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="strSolarPanel" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="strBatery" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="intPir" Type="Boolean" />
-          <Property Name="strWarranty" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="strAutonomy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="strColor" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="strInstalation" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="intAmpers" Type="Int32" />
-          <Property Name="intPF" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="strSocket" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="intCRI" Type="Int32" />
-          <Property Name="strFrequency" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="strPoles" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="intModule" Type="Int32" />
-          <Property Name="strBody" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="strBodyCovert" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="intDiameter" Type="Int32" />
-          <Property Name="strType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="strCountry" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="strBrand" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="intWorkTemp" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="intCircuitBreakTemp" Type="Int32" />
-          <Property Name="strInclude" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="strNoInclude" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="intNew" Type="Boolean" />
-          <Property Name="refCodProd" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="strSec" Type="Boolean" Nullable="false" />
-          <Property Name="strDs43" Type="Boolean" Nullable="false" />
-          <Property Name="strFicha" Type="Boolean" Nullable="false" />
-        </EntityType>
-        <EntityType Name="tblAddresses">
-          <Key>
-            <PropertyRef Name="idAddress" />
-          </Key>
-          <Property Name="idAddress" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="strCountry" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="strCity" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="strAddress" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="strAddressTwo" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
-          <Property Name="strType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="intPostalCode" Type="Int32" />
-          <Property Name="refRegion" Type="Int32" />
-          <Property Name="refProvince" Type="Int32" />
-          <Property Name="refComuna" Type="Int32" />
-          <Property Name="refuser" Type="Int32" />
-          <Property Name="boolDefault" Type="Boolean" />
-          <Property Name="boolThird" Type="Boolean" />
-          <NavigationProperty Name="tblComunas" Relationship="webstoreModel.FK_tblAddresses_tblComunas" FromRole="tblAddresses" ToRole="tblComunas" />
-          <NavigationProperty Name="tblRegiones" Relationship="webstoreModel.FK_tblAddresses_tblRegiones" FromRole="tblAddresses" ToRole="tblRegiones" />
-          <NavigationProperty Name="tblAddressesDet" Relationship="webstoreModel.FK_tblAddressesDet_tblAddresses" FromRole="tblAddresses" ToRole="tblAddressesDet" />
-          <NavigationProperty Name="tblProvincias" Relationship="webstoreModel.FK_tblAddresses_tblProvincias" FromRole="tblAddresses" ToRole="tblProvincias" />
-          <NavigationProperty Name="tblUsers" Relationship="webstoreModel.FK_tblAddresses_tblUsers" FromRole="tblAddresses" ToRole="tblUsers" />
-        </EntityType>
         <EntityType Name="tblAddressesDet">
           <Key>
             <PropertyRef Name="idAddressDet" />
@@ -1578,44 +1673,9 @@
           <Property Name="strName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="strLastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="intPhone" Type="Int32" />
+          <Property Name="intId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="tblAddresses" Relationship="webstoreModel.FK_tblAddressesDet_tblAddresses" FromRole="tblAddressesDet" ToRole="tblAddresses" />
         </EntityType>
-        <Association Name="FK_tblAddresses_tblComunas">
-          <End Type="webstoreModel.tblComunas" Role="tblComunas" Multiplicity="0..1" />
-          <End Type="webstoreModel.tblAddresses" Role="tblAddresses" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblComunas">
-              <PropertyRef Name="idComuna" />
-            </Principal>
-            <Dependent Role="tblAddresses">
-              <PropertyRef Name="refComuna" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tblAddresses_tblRegiones">
-          <End Type="webstoreModel.tblRegiones" Role="tblRegiones" Multiplicity="0..1" />
-          <End Type="webstoreModel.tblAddresses" Role="tblAddresses" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblRegiones">
-              <PropertyRef Name="idRegion" />
-            </Principal>
-            <Dependent Role="tblAddresses">
-              <PropertyRef Name="refRegion" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tblAddressesDet_tblAddresses">
-          <End Type="webstoreModel.tblAddresses" Role="tblAddresses" Multiplicity="1" />
-          <End Type="webstoreModel.tblAddressesDet" Role="tblAddressesDet" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblAddresses">
-              <PropertyRef Name="idAddress" />
-            </Principal>
-            <Dependent Role="tblAddressesDet">
-              <PropertyRef Name="refAddress" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="tblQuotingQue">
           <Key>
             <PropertyRef Name="IdQuotingQue" />
@@ -1644,18 +1704,6 @@
             </Principal>
             <Dependent Role="tblQuotingQueDet">
               <PropertyRef Name="refQuotingQue" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tblAddresses_tblProvincias">
-          <End Type="webstoreModel.tblProvincias" Role="tblProvincias" Multiplicity="0..1" />
-          <End Type="webstoreModel.tblAddresses" Role="tblAddresses" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblProvincias">
-              <PropertyRef Name="idProvincia" />
-            </Principal>
-            <Dependent Role="tblAddresses">
-              <PropertyRef Name="refProvince" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1720,108 +1768,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="tblProducts">
-          <Key>
-            <PropertyRef Name="idProduct" />
-          </Key>
-          <Property Name="idProduct" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="strCode" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="strName" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="intPrice" Type="Int32" Nullable="false" />
-          <Property Name="intPriceTwo" Type="Int32" />
-          <Property Name="intStock" Type="Int32" />
-          <Property Name="boolNew" Type="Boolean" />
-          <Property Name="boolActive" Type="Boolean" />
-          <Property Name="refFamily" Type="Int32" />
-          <Property Name="refCategory" Type="Int32" />
-          <Property Name="refModel" Type="Int32" />
-          <Property Name="refCategoryRelation" Type="Int32" />
-          <Property Name="refBrand" Type="Int32" />
-          <Property Name="refFicha" Type="Int32" />
-          <Property Name="refOffert" Type="Int32" />
-          <Property Name="refOfferTime" Type="Int32" />
-          <Property Name="refImg" Type="Int32" />
-          <NavigationProperty Name="tblBrand" Relationship="webstoreModel.FK_tblProducts_tblBrand" FromRole="tblProducts" ToRole="tblBrand" />
-          <NavigationProperty Name="tblCategories" Relationship="webstoreModel.FK_tblProducts_tblCategories" FromRole="tblProducts" ToRole="tblCategories" />
-          <NavigationProperty Name="tblImg" Relationship="webstoreModel.FK_tblProducts_tblImg" FromRole="tblProducts" ToRole="tblImg" />
-          <NavigationProperty Name="tblModel" Relationship="webstoreModel.FK_tblProducts_tblModel" FromRole="tblProducts" ToRole="tblModel" />
-          <NavigationProperty Name="tblOffert" Relationship="webstoreModel.FK_tblProducts_tblOffert" FromRole="tblProducts" ToRole="tblOffert" />
-          <NavigationProperty Name="tblOffertTime" Relationship="webstoreModel.FK_tblProducts_tblOffertTime" FromRole="tblProducts" ToRole="tblOffertTime" />
-          <Property Name="strCodeS" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="tblHistoryDet" Relationship="webstoreModel.FK_tblHistoryDet_tblProducts" FromRole="tblProducts" ToRole="tblHistoryDet" />
-        </EntityType>
-        <Association Name="FK_tblProducts_tblBrand">
-          <End Type="webstoreModel.tblBrand" Role="tblBrand" Multiplicity="0..1" />
-          <End Type="webstoreModel.tblProducts" Role="tblProducts" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblBrand">
-              <PropertyRef Name="idBrand" />
-            </Principal>
-            <Dependent Role="tblProducts">
-              <PropertyRef Name="refBrand" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tblProducts_tblCategories">
-          <End Type="webstoreModel.tblCategories" Role="tblCategories" Multiplicity="0..1" />
-          <End Type="webstoreModel.tblProducts" Role="tblProducts" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblCategories">
-              <PropertyRef Name="idCategoria" />
-            </Principal>
-            <Dependent Role="tblProducts">
-              <PropertyRef Name="refCategory" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tblProducts_tblImg">
-          <End Type="webstoreModel.tblImg" Role="tblImg" Multiplicity="0..1" />
-          <End Type="webstoreModel.tblProducts" Role="tblProducts" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblImg">
-              <PropertyRef Name="idImg" />
-            </Principal>
-            <Dependent Role="tblProducts">
-              <PropertyRef Name="refImg" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tblProducts_tblModel">
-          <End Type="webstoreModel.tblModel" Role="tblModel" Multiplicity="0..1" />
-          <End Type="webstoreModel.tblProducts" Role="tblProducts" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblModel">
-              <PropertyRef Name="idModel" />
-            </Principal>
-            <Dependent Role="tblProducts">
-              <PropertyRef Name="refModel" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tblProducts_tblOffert">
-          <End Type="webstoreModel.tblOffert" Role="tblOffert" Multiplicity="0..1" />
-          <End Type="webstoreModel.tblProducts" Role="tblProducts" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblOffert">
-              <PropertyRef Name="idOffert" />
-            </Principal>
-            <Dependent Role="tblProducts">
-              <PropertyRef Name="refOffert" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tblProducts_tblOffertTime">
-          <End Type="webstoreModel.tblOffertTime" Role="tblOffertTime" Multiplicity="0..1" />
-          <End Type="webstoreModel.tblProducts" Role="tblProducts" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblOffertTime">
-              <PropertyRef Name="idOffertTime" />
-            </Principal>
-            <Dependent Role="tblProducts">
-              <PropertyRef Name="refOfferTime" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="tblHistory">
           <Key>
             <PropertyRef Name="IdHistory" />
@@ -1850,18 +1796,6 @@
             </Principal>
             <Dependent Role="tblHistoryDet">
               <PropertyRef Name="refHistory" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tblHistoryDet_tblProducts">
-          <End Type="webstoreModel.tblProducts" Role="tblProducts" Multiplicity="0..1" />
-          <End Type="webstoreModel.tblHistoryDet" Role="tblHistoryDet" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblProducts">
-              <PropertyRef Name="idProduct" />
-            </Principal>
-            <Dependent Role="tblHistoryDet">
-              <PropertyRef Name="refProduct" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1929,26 +1863,15 @@
           <Property Name="strRecoveryCode" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
           <Property Name="timeRecoveryCode" Type="DateTime" Precision="3" />
           <Property Name="strProvider" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="tblAddresses" Relationship="webstoreModel.FK_tblAddresses_tblUsers" FromRole="tblUsers" ToRole="tblAddresses" />
           <NavigationProperty Name="tblAvatars" Relationship="webstoreModel.FK_tblAvatars_tblUsers" FromRole="tblUsers" ToRole="tblAvatars" />
           <NavigationProperty Name="tblHistory" Relationship="webstoreModel.FK_tblHistory_tblUsers" FromRole="tblUsers" ToRole="tblHistory" />
           <NavigationProperty Name="tblQuotingQue" Relationship="webstoreModel.FK_tblQuotingQue_tblUsers" FromRole="tblUsers" ToRole="tblQuotingQue" />
           <NavigationProperty Name="tblQuotings" Relationship="webstoreModel.FK_tblQuotings_tblUsers" FromRole="tblUsers" ToRole="tblQuotings" />
           <NavigationProperty Name="tblRelCompanyUser" Relationship="webstoreModel.FK_tblRelCompanyUser_tblUsers" FromRole="tblUsers" ToRole="tblRelCompanyUser" />
           <NavigationProperty Name="tblCartQue" Relationship="webstoreModel.FK_tblCartQue_tblUsers" FromRole="tblUsers" ToRole="tblCartQue" />
+          <NavigationProperty Name="tblCart" Relationship="webstoreModel.FK_tblCart_tblUsers" FromRole="tblUsers" ToRole="tblCart" />
+          <NavigationProperty Name="tblAddresses" Relationship="webstoreModel.FK_tblAddresses_tblUsers" FromRole="tblUsers" ToRole="tblAddresses" />
         </EntityType>
-        <Association Name="FK_tblAddresses_tblUsers">
-          <End Type="webstoreModel.tblUsers" Role="tblUsers" Multiplicity="0..1" />
-          <End Type="webstoreModel.tblAddresses" Role="tblAddresses" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblUsers">
-              <PropertyRef Name="idUser" />
-            </Principal>
-            <Dependent Role="tblAddresses">
-              <PropertyRef Name="refuser" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_tblAvatars_tblUsers">
           <End Type="webstoreModel.tblUsers" Role="tblUsers" Multiplicity="1" />
           <End Type="webstoreModel.tblAvatars" Role="tblAvatars" Multiplicity="0..1" />
@@ -2131,7 +2054,450 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
+        <EntityType Name="tblCart">
+          <Key>
+            <PropertyRef Name="IdCart" />
+          </Key>
+          <Property Name="IdCart" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="strDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="intSubTotal" Type="Int32" Nullable="false" />
+          <Property Name="intDiscount" Type="Int32" Nullable="false" />
+          <Property Name="intTotalN" Type="Int32" Nullable="false" />
+          <Property Name="intTaxe" Type="Int32" Nullable="false" />
+          <Property Name="Total" Type="Int32" Nullable="false" />
+          <Property Name="strPayMethod" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="intOrder" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="boolPayed" Type="Boolean" Nullable="false" />
+          <Property Name="boolConfimed" Type="Boolean" Nullable="false" />
+          <Property Name="refUser" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="tblUsers" Relationship="webstoreModel.FK_tblCart_tblUsers" FromRole="tblCart" ToRole="tblUsers" />
+          <NavigationProperty Name="tblCartDet" Relationship="webstoreModel.FK_tblCartDet_tblCart" FromRole="tblCart" ToRole="tblCartDet" />
+          <Property Name="intDocument" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="tblAddressesForCart" Relationship="webstoreModel.FK_tblAddressesForCart_tblCart" FromRole="tblCart" ToRole="tblAddressesForCart" />
+        </EntityType>
+        <EntityType Name="tblCartDet">
+          <Key>
+            <PropertyRef Name="IdCartDet" />
+          </Key>
+          <Property Name="IdCartDet" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="refCart" Type="Int32" Nullable="false" />
+          <Property Name="refProd" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="intQuantity" Type="Int32" Nullable="false" />
+          <Property Name="intPrice" Type="Int32" Nullable="false" />
+          <Property Name="intDiscount" Type="Int32" Nullable="false" />
+          <Property Name="intPriceDiscount" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="tblCart" Relationship="webstoreModel.FK_tblCartDet_tblCart" FromRole="tblCartDet" ToRole="tblCart" />
+        </EntityType>
+        <Association Name="FK_tblCart_tblUsers">
+          <End Type="webstoreModel.tblUsers" Role="tblUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="webstoreModel.tblCart" Role="tblCart" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblUsers">
+              <PropertyRef Name="idUser" />
+            </Principal>
+            <Dependent Role="tblCart">
+              <PropertyRef Name="refUser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblCartDet_tblCart">
+          <End Type="webstoreModel.tblCart" Role="tblCart" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="webstoreModel.tblCartDet" Role="tblCartDet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblCart">
+              <PropertyRef Name="IdCart" />
+            </Principal>
+            <Dependent Role="tblCartDet">
+              <PropertyRef Name="refCart" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="tblBrand">
+          <Key>
+            <PropertyRef Name="idBrand" />
+          </Key>
+          <Property Name="idBrand" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="strName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="intOrder" Type="Int32" />
+          <Property Name="refImg" Type="Int32" />
+          <NavigationProperty Name="tblImg" Relationship="webstoreModel.FK_tblBrand_tblImg" FromRole="tblBrand" ToRole="tblImg" />
+          <NavigationProperty Name="tblFicha" Relationship="webstoreModel.FK_tblFicha_tblBrand" FromRole="tblBrand" ToRole="tblFicha" />
+        </EntityType>
+        <EntityType Name="tblFicha">
+          <Key>
+            <PropertyRef Name="idFicha" />
+          </Key>
+          <Property Name="idFicha" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="refCodProd" Type="Int32" Nullable="false" />
+          <Property Name="strPotencia" Type="Int32" />
+          <Property Name="intColorTemp" Type="Int32" />
+          <Property Name="intLumWatts" Type="Int32" />
+          <Property Name="strLifespan" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="intVoltage" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="intWeight" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="strLHW" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="strCertification" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="intIp" Type="Int32" />
+          <Property Name="intIk" Type="Int32" />
+          <Property Name="intLightAngle" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="strLightType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="strSolarPanel" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="strBatery" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="intPir" Type="Boolean" />
+          <Property Name="strWarranty" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="strAutonomy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="strColor" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="strInstalation" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="intAmpers" Type="Int32" />
+          <Property Name="intPF" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="strSocket" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="intCRI" Type="Int32" />
+          <Property Name="strFrequency" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="strPoles" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="intModule" Type="Int32" />
+          <Property Name="strBody" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="strBodyCovert" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="intDiameter" Type="Int32" />
+          <Property Name="strType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="strCountry" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="refBrand" Type="Int32" />
+          <Property Name="intWorkTemp" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="intCircuitBreakTemp" Type="Int32" />
+          <Property Name="strInclude" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="strNoInclude" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="intNew" Type="Boolean" />
+          <Property Name="strSec" Type="Boolean" Nullable="false" />
+          <Property Name="strDs43" Type="Boolean" Nullable="false" />
+          <Property Name="strFicha" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="tblBrand" Relationship="webstoreModel.FK_tblFicha_tblBrand" FromRole="tblFicha" ToRole="tblBrand" />
+          <NavigationProperty Name="tblProducts" Relationship="webstoreModel.FK_tblFicha_tblProducts" FromRole="tblFicha" ToRole="tblProducts" />
+        </EntityType>
+        <EntityType Name="tblProducts">
+          <Key>
+            <PropertyRef Name="idProduct" />
+          </Key>
+          <Property Name="idProduct" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="strCode" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="strCodeS" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="strName" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="intPrice" Type="Int32" Nullable="false" />
+          <Property Name="intPriceTwo" Type="Int32" />
+          <Property Name="intStock" Type="Int32" />
+          <Property Name="boolNew" Type="Boolean" />
+          <Property Name="boolActive" Type="Boolean" />
+          <Property Name="refFamily" Type="Int32" />
+          <Property Name="refCategory" Type="Int32" />
+          <Property Name="refModel" Type="Int32" />
+          <Property Name="refCategoryRelation" Type="Int32" />
+          <Property Name="refFicha" Type="Int32" />
+          <Property Name="refOffert" Type="Int32" />
+          <Property Name="refOfferTime" Type="Int32" />
+          <Property Name="refImg" Type="Int32" />
+          <NavigationProperty Name="tblCategories" Relationship="webstoreModel.FK_tblProducts_tblCategories" FromRole="tblProducts" ToRole="tblCategories" />
+          <NavigationProperty Name="tblFicha" Relationship="webstoreModel.FK_tblFicha_tblProducts" FromRole="tblProducts" ToRole="tblFicha" />
+          <NavigationProperty Name="tblHistoryDet" Relationship="webstoreModel.FK_tblHistoryDet_tblProducts" FromRole="tblProducts" ToRole="tblHistoryDet" />
+          <NavigationProperty Name="tblImg" Relationship="webstoreModel.FK_tblProducts_tblImg" FromRole="tblProducts" ToRole="tblImg" />
+          <NavigationProperty Name="tblModel" Relationship="webstoreModel.FK_tblProducts_tblModel" FromRole="tblProducts" ToRole="tblModel" />
+          <NavigationProperty Name="tblOffert" Relationship="webstoreModel.FK_tblProducts_tblOffert" FromRole="tblProducts" ToRole="tblOffert" />
+          <NavigationProperty Name="tblOffertTime" Relationship="webstoreModel.FK_tblProducts_tblOffertTime" FromRole="tblProducts" ToRole="tblOffertTime" />
+        </EntityType>
+        <Association Name="FK_tblBrand_tblImg">
+          <End Type="webstoreModel.tblImg" Role="tblImg" Multiplicity="0..1" />
+          <End Type="webstoreModel.tblBrand" Role="tblBrand" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblImg">
+              <PropertyRef Name="idImg" />
+            </Principal>
+            <Dependent Role="tblBrand">
+              <PropertyRef Name="refImg" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblFicha_tblBrand">
+          <End Type="webstoreModel.tblBrand" Role="tblBrand" Multiplicity="0..1" />
+          <End Type="webstoreModel.tblFicha" Role="tblFicha" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblBrand">
+              <PropertyRef Name="idBrand" />
+            </Principal>
+            <Dependent Role="tblFicha">
+              <PropertyRef Name="refBrand" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblProducts_tblCategories">
+          <End Type="webstoreModel.tblCategories" Role="tblCategories" Multiplicity="0..1" />
+          <End Type="webstoreModel.tblProducts" Role="tblProducts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblCategories">
+              <PropertyRef Name="idCategoria" />
+            </Principal>
+            <Dependent Role="tblProducts">
+              <PropertyRef Name="refCategory" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblFicha_tblProducts">
+          <End Type="webstoreModel.tblProducts" Role="tblProducts" Multiplicity="1" />
+          <End Type="webstoreModel.tblFicha" Role="tblFicha" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblProducts">
+              <PropertyRef Name="idProduct" />
+            </Principal>
+            <Dependent Role="tblFicha">
+              <PropertyRef Name="refCodProd" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblHistoryDet_tblProducts">
+          <End Type="webstoreModel.tblProducts" Role="tblProducts" Multiplicity="0..1" />
+          <End Type="webstoreModel.tblHistoryDet" Role="tblHistoryDet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblProducts">
+              <PropertyRef Name="idProduct" />
+            </Principal>
+            <Dependent Role="tblHistoryDet">
+              <PropertyRef Name="refProduct" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblProducts_tblImg">
+          <End Type="webstoreModel.tblImg" Role="tblImg" Multiplicity="0..1" />
+          <End Type="webstoreModel.tblProducts" Role="tblProducts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblImg">
+              <PropertyRef Name="idImg" />
+            </Principal>
+            <Dependent Role="tblProducts">
+              <PropertyRef Name="refImg" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblProducts_tblModel">
+          <End Type="webstoreModel.tblModel" Role="tblModel" Multiplicity="0..1" />
+          <End Type="webstoreModel.tblProducts" Role="tblProducts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblModel">
+              <PropertyRef Name="idModel" />
+            </Principal>
+            <Dependent Role="tblProducts">
+              <PropertyRef Name="refModel" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblProducts_tblOffert">
+          <End Type="webstoreModel.tblOffert" Role="tblOffert" Multiplicity="0..1" />
+          <End Type="webstoreModel.tblProducts" Role="tblProducts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblOffert">
+              <PropertyRef Name="idOffert" />
+            </Principal>
+            <Dependent Role="tblProducts">
+              <PropertyRef Name="refOffert" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblProducts_tblOffertTime">
+          <End Type="webstoreModel.tblOffertTime" Role="tblOffertTime" Multiplicity="0..1" />
+          <End Type="webstoreModel.tblProducts" Role="tblProducts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblOffertTime">
+              <PropertyRef Name="idOffertTime" />
+            </Principal>
+            <Dependent Role="tblProducts">
+              <PropertyRef Name="refOfferTime" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="tblAddresses">
+          <Key>
+            <PropertyRef Name="idAddress" />
+          </Key>
+          <Property Name="idAddress" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="strCountry" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="strCity" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="strAddress" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="strAddressTwo" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="strType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="intPostalCode" Type="Int32" />
+          <Property Name="refRegion" Type="Int32" Nullable="false" />
+          <Property Name="refProvince" Type="Int32" Nullable="false" />
+          <Property Name="refComuna" Type="Int32" Nullable="false" />
+          <Property Name="refuser" Type="Int32" Nullable="false" />
+          <Property Name="boolDefault" Type="Boolean" Nullable="false" />
+          <Property Name="boolThird" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="tblComunas" Relationship="webstoreModel.FK_tblAddresses_tblComunas" FromRole="tblAddresses" ToRole="tblComunas" />
+          <NavigationProperty Name="tblProvincias" Relationship="webstoreModel.FK_tblAddresses_tblProvincias" FromRole="tblAddresses" ToRole="tblProvincias" />
+          <NavigationProperty Name="tblRegiones" Relationship="webstoreModel.FK_tblAddresses_tblRegiones" FromRole="tblAddresses" ToRole="tblRegiones" />
+          <NavigationProperty Name="tblUsers" Relationship="webstoreModel.FK_tblAddresses_tblUsers" FromRole="tblAddresses" ToRole="tblUsers" />
+          <NavigationProperty Name="tblAddressesDet" Relationship="webstoreModel.FK_tblAddressesDet_tblAddresses" FromRole="tblAddresses" ToRole="tblAddressesDet" />
+        </EntityType>
+        <Association Name="FK_tblAddresses_tblComunas">
+          <End Type="webstoreModel.tblComunas" Role="tblComunas" Multiplicity="1" />
+          <End Type="webstoreModel.tblAddresses" Role="tblAddresses" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblComunas">
+              <PropertyRef Name="idComuna" />
+            </Principal>
+            <Dependent Role="tblAddresses">
+              <PropertyRef Name="refComuna" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblAddresses_tblProvincias">
+          <End Type="webstoreModel.tblProvincias" Role="tblProvincias" Multiplicity="1" />
+          <End Type="webstoreModel.tblAddresses" Role="tblAddresses" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblProvincias">
+              <PropertyRef Name="idProvincia" />
+            </Principal>
+            <Dependent Role="tblAddresses">
+              <PropertyRef Name="refProvince" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblAddresses_tblRegiones">
+          <End Type="webstoreModel.tblRegiones" Role="tblRegiones" Multiplicity="1" />
+          <End Type="webstoreModel.tblAddresses" Role="tblAddresses" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblRegiones">
+              <PropertyRef Name="idRegion" />
+            </Principal>
+            <Dependent Role="tblAddresses">
+              <PropertyRef Name="refRegion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblAddresses_tblUsers">
+          <End Type="webstoreModel.tblUsers" Role="tblUsers" Multiplicity="1" />
+          <End Type="webstoreModel.tblAddresses" Role="tblAddresses" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblUsers">
+              <PropertyRef Name="idUser" />
+            </Principal>
+            <Dependent Role="tblAddresses">
+              <PropertyRef Name="refuser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblAddressesDet_tblAddresses">
+          <End Type="webstoreModel.tblAddresses" Role="tblAddresses" Multiplicity="1" />
+          <End Type="webstoreModel.tblAddressesDet" Role="tblAddressesDet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblAddresses">
+              <PropertyRef Name="idAddress" />
+            </Principal>
+            <Dependent Role="tblAddressesDet">
+              <PropertyRef Name="refAddress" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="tblAddressesDetForCart">
+          <Key>
+            <PropertyRef Name="idAddressDet" />
+          </Key>
+          <Property Name="idAddressDet" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="refAddressForCart" Type="Int32" Nullable="false" />
+          <Property Name="strName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="strLastName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="intPhone" Type="Int32" Nullable="false" />
+          <Property Name="intId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tblAddressesForCart" Relationship="webstoreModel.FK_tblAddressesDetForCart_tblAddressesForCart" FromRole="tblAddressesDetForCart" ToRole="tblAddressesForCart" />
+        </EntityType>
+        <EntityType Name="tblAddressesForCart">
+          <Key>
+            <PropertyRef Name="idAddress" />
+          </Key>
+          <Property Name="idAddress" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="strCountry" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="strCity" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="strAddress" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="strAddressTwo" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="strType" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="intPostalCode" Type="Int32" />
+          <Property Name="refRegion" Type="Int32" Nullable="false" />
+          <Property Name="refProvince" Type="Int32" Nullable="false" />
+          <Property Name="refComuna" Type="Int32" Nullable="false" />
+          <Property Name="refCart" Type="Int32" Nullable="false" />
+          <Property Name="boolShipping" Type="Boolean" Nullable="false" />
+          <Property Name="boolBill" Type="Boolean" Nullable="false" />
+          <Property Name="boolThird" Type="Boolean" Nullable="false" />
+          <Property Name="intShippingPrice" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="tblAddressesDetForCart" Relationship="webstoreModel.FK_tblAddressesDetForCart_tblAddressesForCart" FromRole="tblAddressesForCart" ToRole="tblAddressesDetForCart" />
+          <NavigationProperty Name="tblCart" Relationship="webstoreModel.FK_tblAddressesForCart_tblCart" FromRole="tblAddressesForCart" ToRole="tblCart" />
+          <NavigationProperty Name="tblComunas" Relationship="webstoreModel.FK_tblAddressesForCart_tblComunas" FromRole="tblAddressesForCart" ToRole="tblComunas" />
+          <NavigationProperty Name="tblProvincias" Relationship="webstoreModel.FK_tblAddressesForCart_tblProvincias" FromRole="tblAddressesForCart" ToRole="tblProvincias" />
+          <NavigationProperty Name="tblRegiones" Relationship="webstoreModel.FK_tblAddressesForCart_tblRegiones" FromRole="tblAddressesForCart" ToRole="tblRegiones" />
+        </EntityType>
+        <Association Name="FK_tblAddressesDetForCart_tblAddressesForCart">
+          <End Type="webstoreModel.tblAddressesForCart" Role="tblAddressesForCart" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="webstoreModel.tblAddressesDetForCart" Role="tblAddressesDetForCart" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblAddressesForCart">
+              <PropertyRef Name="idAddress" />
+            </Principal>
+            <Dependent Role="tblAddressesDetForCart">
+              <PropertyRef Name="refAddressForCart" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblAddressesForCart_tblCart">
+          <End Type="webstoreModel.tblCart" Role="tblCart" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="webstoreModel.tblAddressesForCart" Role="tblAddressesForCart" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblCart">
+              <PropertyRef Name="IdCart" />
+            </Principal>
+            <Dependent Role="tblAddressesForCart">
+              <PropertyRef Name="refCart" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblAddressesForCart_tblComunas">
+          <End Type="webstoreModel.tblComunas" Role="tblComunas" Multiplicity="1" />
+          <End Type="webstoreModel.tblAddressesForCart" Role="tblAddressesForCart" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblComunas">
+              <PropertyRef Name="idComuna" />
+            </Principal>
+            <Dependent Role="tblAddressesForCart">
+              <PropertyRef Name="refComuna" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblAddressesForCart_tblProvincias">
+          <End Type="webstoreModel.tblProvincias" Role="tblProvincias" Multiplicity="1" />
+          <End Type="webstoreModel.tblAddressesForCart" Role="tblAddressesForCart" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblProvincias">
+              <PropertyRef Name="idProvincia" />
+            </Principal>
+            <Dependent Role="tblAddressesForCart">
+              <PropertyRef Name="refProvince" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblAddressesForCart_tblRegiones">
+          <End Type="webstoreModel.tblRegiones" Role="tblRegiones" Multiplicity="1" />
+          <End Type="webstoreModel.tblAddressesForCart" Role="tblAddressesForCart" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblRegiones">
+              <PropertyRef Name="idRegion" />
+            </Principal>
+            <Dependent Role="tblAddressesForCart">
+              <PropertyRef Name="refRegion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -2226,16 +2592,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="tblBrand">
-            <EntityTypeMapping TypeName="webstoreModel.tblBrand">
-              <MappingFragment StoreEntitySet="tblBrand">
-                <ScalarProperty Name="refImg" ColumnName="refImg" />
-                <ScalarProperty Name="intOrder" ColumnName="intOrder" />
-                <ScalarProperty Name="strName" ColumnName="strName" />
-                <ScalarProperty Name="idBrand" ColumnName="idBrand" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="tblOffert">
             <EntityTypeMapping TypeName="webstoreModel.tblOffert">
               <MappingFragment StoreEntitySet="tblOffert">
@@ -2269,85 +2625,10 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="tblRelBrand">
-            <EntityTypeMapping TypeName="webstoreModel.tblRelBrand">
-              <MappingFragment StoreEntitySet="tblRelBrand">
-                <ScalarProperty Name="refProd" ColumnName="refProd" />
-                <ScalarProperty Name="refBrand" ColumnName="refBrand" />
-                <ScalarProperty Name="idRelation" ColumnName="idRelation" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="tblFicha">
-            <EntityTypeMapping TypeName="webstoreModel.tblFicha">
-              <MappingFragment StoreEntitySet="tblFicha">
-                <ScalarProperty Name="strFicha" ColumnName="strFicha" />
-                <ScalarProperty Name="strDs43" ColumnName="strDs43" />
-                <ScalarProperty Name="strSec" ColumnName="strSec" />
-                <ScalarProperty Name="refCodProd" ColumnName="refCodProd" />
-                <ScalarProperty Name="intNew" ColumnName="intNew" />
-                <ScalarProperty Name="strNoInclude" ColumnName="strNoInclude" />
-                <ScalarProperty Name="strInclude" ColumnName="strInclude" />
-                <ScalarProperty Name="intCircuitBreakTemp" ColumnName="intCircuitBreakTemp" />
-                <ScalarProperty Name="intWorkTemp" ColumnName="intWorkTemp" />
-                <ScalarProperty Name="strBrand" ColumnName="strBrand" />
-                <ScalarProperty Name="strCountry" ColumnName="strCountry" />
-                <ScalarProperty Name="strType" ColumnName="strType" />
-                <ScalarProperty Name="intDiameter" ColumnName="intDiameter" />
-                <ScalarProperty Name="strBodyCovert" ColumnName="strBodyCovert" />
-                <ScalarProperty Name="strBody" ColumnName="strBody" />
-                <ScalarProperty Name="intModule" ColumnName="intModule" />
-                <ScalarProperty Name="strPoles" ColumnName="strPoles" />
-                <ScalarProperty Name="strFrequency" ColumnName="strFrequency" />
-                <ScalarProperty Name="intCRI" ColumnName="intCRI" />
-                <ScalarProperty Name="strSocket" ColumnName="strSocket" />
-                <ScalarProperty Name="intPF" ColumnName="intPF" />
-                <ScalarProperty Name="intAmpers" ColumnName="intAmpers" />
-                <ScalarProperty Name="strInstalation" ColumnName="strInstalation" />
-                <ScalarProperty Name="strColor" ColumnName="strColor" />
-                <ScalarProperty Name="strAutonomy" ColumnName="strAutonomy" />
-                <ScalarProperty Name="strWarranty" ColumnName="strWarranty" />
-                <ScalarProperty Name="intPir" ColumnName="intPir" />
-                <ScalarProperty Name="strBatery" ColumnName="strBatery" />
-                <ScalarProperty Name="strSolarPanel" ColumnName="strSolarPanel" />
-                <ScalarProperty Name="strLightType" ColumnName="strLightType" />
-                <ScalarProperty Name="intLightAngle" ColumnName="intLightAngle" />
-                <ScalarProperty Name="intIk" ColumnName="intIk" />
-                <ScalarProperty Name="intIp" ColumnName="intIp" />
-                <ScalarProperty Name="strCertification" ColumnName="strCertification" />
-                <ScalarProperty Name="strLHW" ColumnName="strLHW" />
-                <ScalarProperty Name="intWeight" ColumnName="intWeight" />
-                <ScalarProperty Name="intVoltage" ColumnName="intVoltage" />
-                <ScalarProperty Name="strLifespan" ColumnName="strLifespan" />
-                <ScalarProperty Name="intLumWatts" ColumnName="intLumWatts" />
-                <ScalarProperty Name="intColorTemp" ColumnName="intColorTemp" />
-                <ScalarProperty Name="strPotencia" ColumnName="strPotencia" />
-                <ScalarProperty Name="idFicha" ColumnName="idFicha" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="tblAddresses">
-            <EntityTypeMapping TypeName="webstoreModel.tblAddresses">
-              <MappingFragment StoreEntitySet="tblAddresses">
-                <ScalarProperty Name="boolThird" ColumnName="boolThird" />
-                <ScalarProperty Name="boolDefault" ColumnName="boolDefault" />
-                <ScalarProperty Name="refuser" ColumnName="refuser" />
-                <ScalarProperty Name="refComuna" ColumnName="refComuna" />
-                <ScalarProperty Name="refProvince" ColumnName="refProvince" />
-                <ScalarProperty Name="refRegion" ColumnName="refRegion" />
-                <ScalarProperty Name="intPostalCode" ColumnName="intPostalCode" />
-                <ScalarProperty Name="strType" ColumnName="strType" />
-                <ScalarProperty Name="strAddressTwo" ColumnName="strAddressTwo" />
-                <ScalarProperty Name="strAddress" ColumnName="strAddress" />
-                <ScalarProperty Name="strCity" ColumnName="strCity" />
-                <ScalarProperty Name="strCountry" ColumnName="strCountry" />
-                <ScalarProperty Name="idAddress" ColumnName="idAddress" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="tblAddressesDet">
             <EntityTypeMapping TypeName="webstoreModel.tblAddressesDet">
               <MappingFragment StoreEntitySet="tblAddressesDet">
+                <ScalarProperty Name="intId" ColumnName="intId" />
                 <ScalarProperty Name="intPhone" ColumnName="intPhone" />
                 <ScalarProperty Name="strLastName" ColumnName="strLastName" />
                 <ScalarProperty Name="strName" ColumnName="strName" />
@@ -2408,30 +2689,6 @@
                 <ScalarProperty Name="strDate" ColumnName="strDate" />
                 <ScalarProperty Name="strQuestion" ColumnName="strQuestion" />
                 <ScalarProperty Name="idQuestion" ColumnName="idQuestion" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="tblProducts">
-            <EntityTypeMapping TypeName="webstoreModel.tblProducts">
-              <MappingFragment StoreEntitySet="tblProducts">
-                <ScalarProperty Name="strCodeS" ColumnName="strCodeS" />
-                <ScalarProperty Name="refImg" ColumnName="refImg" />
-                <ScalarProperty Name="refOfferTime" ColumnName="refOfferTime" />
-                <ScalarProperty Name="refOffert" ColumnName="refOffert" />
-                <ScalarProperty Name="refFicha" ColumnName="refFicha" />
-                <ScalarProperty Name="refBrand" ColumnName="refBrand" />
-                <ScalarProperty Name="refCategoryRelation" ColumnName="refCategoryRelation" />
-                <ScalarProperty Name="refModel" ColumnName="refModel" />
-                <ScalarProperty Name="refCategory" ColumnName="refCategory" />
-                <ScalarProperty Name="refFamily" ColumnName="refFamily" />
-                <ScalarProperty Name="boolActive" ColumnName="boolActive" />
-                <ScalarProperty Name="boolNew" ColumnName="boolNew" />
-                <ScalarProperty Name="intStock" ColumnName="intStock" />
-                <ScalarProperty Name="intPriceTwo" ColumnName="intPriceTwo" />
-                <ScalarProperty Name="intPrice" ColumnName="intPrice" />
-                <ScalarProperty Name="strName" ColumnName="strName" />
-                <ScalarProperty Name="strCode" ColumnName="strCode" />
-                <ScalarProperty Name="idProduct" ColumnName="idProduct" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -2545,6 +2802,171 @@
                 <ScalarProperty Name="refCodProd" ColumnName="refCodProd" />
                 <ScalarProperty Name="refCartQue" ColumnName="refCartQue" />
                 <ScalarProperty Name="IdCartQueDet" ColumnName="IdCartQueDet" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblCart">
+            <EntityTypeMapping TypeName="webstoreModel.tblCart">
+              <MappingFragment StoreEntitySet="tblCart">
+                <ScalarProperty Name="intDocument" ColumnName="intDocument" />
+                <ScalarProperty Name="refUser" ColumnName="refUser" />
+                <ScalarProperty Name="boolConfimed" ColumnName="boolConfimed" />
+                <ScalarProperty Name="boolPayed" ColumnName="boolPayed" />
+                <ScalarProperty Name="intOrder" ColumnName="intOrder" />
+                <ScalarProperty Name="strPayMethod" ColumnName="strPayMethod" />
+                <ScalarProperty Name="Total" ColumnName="Total" />
+                <ScalarProperty Name="intTaxe" ColumnName="intTaxe" />
+                <ScalarProperty Name="intTotalN" ColumnName="intTotalN" />
+                <ScalarProperty Name="intDiscount" ColumnName="intDiscount" />
+                <ScalarProperty Name="intSubTotal" ColumnName="intSubTotal" />
+                <ScalarProperty Name="strDate" ColumnName="strDate" />
+                <ScalarProperty Name="IdCart" ColumnName="IdCart" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblCartDet">
+            <EntityTypeMapping TypeName="webstoreModel.tblCartDet">
+              <MappingFragment StoreEntitySet="tblCartDet">
+                <ScalarProperty Name="intPriceDiscount" ColumnName="intPriceDiscount" />
+                <ScalarProperty Name="intDiscount" ColumnName="intDiscount" />
+                <ScalarProperty Name="intPrice" ColumnName="intPrice" />
+                <ScalarProperty Name="intQuantity" ColumnName="intQuantity" />
+                <ScalarProperty Name="refProd" ColumnName="refProd" />
+                <ScalarProperty Name="refCart" ColumnName="refCart" />
+                <ScalarProperty Name="IdCartDet" ColumnName="IdCartDet" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblBrand">
+            <EntityTypeMapping TypeName="webstoreModel.tblBrand">
+              <MappingFragment StoreEntitySet="tblBrand">
+                <ScalarProperty Name="refImg" ColumnName="refImg" />
+                <ScalarProperty Name="intOrder" ColumnName="intOrder" />
+                <ScalarProperty Name="strName" ColumnName="strName" />
+                <ScalarProperty Name="idBrand" ColumnName="idBrand" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblFicha">
+            <EntityTypeMapping TypeName="webstoreModel.tblFicha">
+              <MappingFragment StoreEntitySet="tblFicha">
+                <ScalarProperty Name="strFicha" ColumnName="strFicha" />
+                <ScalarProperty Name="strDs43" ColumnName="strDs43" />
+                <ScalarProperty Name="strSec" ColumnName="strSec" />
+                <ScalarProperty Name="intNew" ColumnName="intNew" />
+                <ScalarProperty Name="strNoInclude" ColumnName="strNoInclude" />
+                <ScalarProperty Name="strInclude" ColumnName="strInclude" />
+                <ScalarProperty Name="intCircuitBreakTemp" ColumnName="intCircuitBreakTemp" />
+                <ScalarProperty Name="intWorkTemp" ColumnName="intWorkTemp" />
+                <ScalarProperty Name="refBrand" ColumnName="refBrand" />
+                <ScalarProperty Name="strCountry" ColumnName="strCountry" />
+                <ScalarProperty Name="strType" ColumnName="strType" />
+                <ScalarProperty Name="intDiameter" ColumnName="intDiameter" />
+                <ScalarProperty Name="strBodyCovert" ColumnName="strBodyCovert" />
+                <ScalarProperty Name="strBody" ColumnName="strBody" />
+                <ScalarProperty Name="intModule" ColumnName="intModule" />
+                <ScalarProperty Name="strPoles" ColumnName="strPoles" />
+                <ScalarProperty Name="strFrequency" ColumnName="strFrequency" />
+                <ScalarProperty Name="intCRI" ColumnName="intCRI" />
+                <ScalarProperty Name="strSocket" ColumnName="strSocket" />
+                <ScalarProperty Name="intPF" ColumnName="intPF" />
+                <ScalarProperty Name="intAmpers" ColumnName="intAmpers" />
+                <ScalarProperty Name="strInstalation" ColumnName="strInstalation" />
+                <ScalarProperty Name="strColor" ColumnName="strColor" />
+                <ScalarProperty Name="strAutonomy" ColumnName="strAutonomy" />
+                <ScalarProperty Name="strWarranty" ColumnName="strWarranty" />
+                <ScalarProperty Name="intPir" ColumnName="intPir" />
+                <ScalarProperty Name="strBatery" ColumnName="strBatery" />
+                <ScalarProperty Name="strSolarPanel" ColumnName="strSolarPanel" />
+                <ScalarProperty Name="strLightType" ColumnName="strLightType" />
+                <ScalarProperty Name="intLightAngle" ColumnName="intLightAngle" />
+                <ScalarProperty Name="intIk" ColumnName="intIk" />
+                <ScalarProperty Name="intIp" ColumnName="intIp" />
+                <ScalarProperty Name="strCertification" ColumnName="strCertification" />
+                <ScalarProperty Name="strLHW" ColumnName="strLHW" />
+                <ScalarProperty Name="intWeight" ColumnName="intWeight" />
+                <ScalarProperty Name="intVoltage" ColumnName="intVoltage" />
+                <ScalarProperty Name="strLifespan" ColumnName="strLifespan" />
+                <ScalarProperty Name="intLumWatts" ColumnName="intLumWatts" />
+                <ScalarProperty Name="intColorTemp" ColumnName="intColorTemp" />
+                <ScalarProperty Name="strPotencia" ColumnName="strPotencia" />
+                <ScalarProperty Name="refCodProd" ColumnName="refCodProd" />
+                <ScalarProperty Name="idFicha" ColumnName="idFicha" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblProducts">
+            <EntityTypeMapping TypeName="webstoreModel.tblProducts">
+              <MappingFragment StoreEntitySet="tblProducts">
+                <ScalarProperty Name="refImg" ColumnName="refImg" />
+                <ScalarProperty Name="refOfferTime" ColumnName="refOfferTime" />
+                <ScalarProperty Name="refOffert" ColumnName="refOffert" />
+                <ScalarProperty Name="refFicha" ColumnName="refFicha" />
+                <ScalarProperty Name="refCategoryRelation" ColumnName="refCategoryRelation" />
+                <ScalarProperty Name="refModel" ColumnName="refModel" />
+                <ScalarProperty Name="refCategory" ColumnName="refCategory" />
+                <ScalarProperty Name="refFamily" ColumnName="refFamily" />
+                <ScalarProperty Name="boolActive" ColumnName="boolActive" />
+                <ScalarProperty Name="boolNew" ColumnName="boolNew" />
+                <ScalarProperty Name="intStock" ColumnName="intStock" />
+                <ScalarProperty Name="intPriceTwo" ColumnName="intPriceTwo" />
+                <ScalarProperty Name="intPrice" ColumnName="intPrice" />
+                <ScalarProperty Name="strName" ColumnName="strName" />
+                <ScalarProperty Name="strCodeS" ColumnName="strCodeS" />
+                <ScalarProperty Name="strCode" ColumnName="strCode" />
+                <ScalarProperty Name="idProduct" ColumnName="idProduct" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblAddresses">
+            <EntityTypeMapping TypeName="webstoreModel.tblAddresses">
+              <MappingFragment StoreEntitySet="tblAddresses">
+                <ScalarProperty Name="boolThird" ColumnName="boolThird" />
+                <ScalarProperty Name="boolDefault" ColumnName="boolDefault" />
+                <ScalarProperty Name="refuser" ColumnName="refuser" />
+                <ScalarProperty Name="refComuna" ColumnName="refComuna" />
+                <ScalarProperty Name="refProvince" ColumnName="refProvince" />
+                <ScalarProperty Name="refRegion" ColumnName="refRegion" />
+                <ScalarProperty Name="intPostalCode" ColumnName="intPostalCode" />
+                <ScalarProperty Name="strType" ColumnName="strType" />
+                <ScalarProperty Name="strAddressTwo" ColumnName="strAddressTwo" />
+                <ScalarProperty Name="strAddress" ColumnName="strAddress" />
+                <ScalarProperty Name="strCity" ColumnName="strCity" />
+                <ScalarProperty Name="strCountry" ColumnName="strCountry" />
+                <ScalarProperty Name="idAddress" ColumnName="idAddress" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblAddressesDetForCart">
+            <EntityTypeMapping TypeName="webstoreModel.tblAddressesDetForCart">
+              <MappingFragment StoreEntitySet="tblAddressesDetForCart">
+                <ScalarProperty Name="intId" ColumnName="intId" />
+                <ScalarProperty Name="intPhone" ColumnName="intPhone" />
+                <ScalarProperty Name="strLastName" ColumnName="strLastName" />
+                <ScalarProperty Name="strName" ColumnName="strName" />
+                <ScalarProperty Name="refAddressForCart" ColumnName="refAddressForCart" />
+                <ScalarProperty Name="idAddressDet" ColumnName="idAddressDet" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblAddressesForCart">
+            <EntityTypeMapping TypeName="webstoreModel.tblAddressesForCart">
+              <MappingFragment StoreEntitySet="tblAddressesForCart">
+                <ScalarProperty Name="intShippingPrice" ColumnName="intShippingPrice" />
+                <ScalarProperty Name="boolThird" ColumnName="boolThird" />
+                <ScalarProperty Name="boolBill" ColumnName="boolBill" />
+                <ScalarProperty Name="boolShipping" ColumnName="boolShipping" />
+                <ScalarProperty Name="refCart" ColumnName="refCart" />
+                <ScalarProperty Name="refComuna" ColumnName="refComuna" />
+                <ScalarProperty Name="refProvince" ColumnName="refProvince" />
+                <ScalarProperty Name="refRegion" ColumnName="refRegion" />
+                <ScalarProperty Name="intPostalCode" ColumnName="intPostalCode" />
+                <ScalarProperty Name="strType" ColumnName="strType" />
+                <ScalarProperty Name="strAddressTwo" ColumnName="strAddressTwo" />
+                <ScalarProperty Name="strAddress" ColumnName="strAddress" />
+                <ScalarProperty Name="strCity" ColumnName="strCity" />
+                <ScalarProperty Name="strCountry" ColumnName="strCountry" />
+                <ScalarProperty Name="idAddress" ColumnName="idAddress" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

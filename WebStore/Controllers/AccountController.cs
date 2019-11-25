@@ -93,8 +93,8 @@ namespace WebStore.Controllers
                                        AddressTwo = a.strAddressTwo,
                                        Poste = a.intPostalCode,
                                        Type = a.strType,
-                                       Default = a.boolDefault == null ? false: (bool)a.boolDefault,
-                                       Third = a.boolThird == null ? false: (bool)a.boolThird,
+                                       Default = a.boolDefault ? (bool)a.boolDefault : false,
+                                       Third = a.boolThird ? (bool)a.boolThird : false,
                                        Tlf = e.intPhone
                                    }).ToList();
                     foreach(var i in Address)
@@ -657,7 +657,7 @@ namespace WebStore.Controllers
                  Poste = a.intPostalCode,
                  Type = a.strType,
                  Default = (bool)a.boolDefault,
-                 Third = a.boolThird == null ? false: (bool)a.boolThird
+                 Third = a.boolThird ? (bool)a.boolThird : false
              }).ToList();
         }
 

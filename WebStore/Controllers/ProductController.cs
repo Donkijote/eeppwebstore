@@ -73,7 +73,7 @@ namespace WebStore.Controllers
 
             x.Stock = Warehouse.GetStock(x.Cod);
 
-            x.Ficha = db.tblFicha.Where(w => w.refCodProd == x.strCodigo).FirstOrDefault();
+            x.Ficha = db.tblFicha.Where(w => w.refCodProd == x.IdCode).FirstOrDefault();
 
             if(Session["id"] != null)
             {

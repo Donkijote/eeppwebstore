@@ -15,6 +15,7 @@ namespace WebStore.Models
     public partial class tblFicha
     {
         public int idFicha { get; set; }
+        public int refCodProd { get; set; }
         public Nullable<int> strPotencia { get; set; }
         public Nullable<int> intColorTemp { get; set; }
         public Nullable<int> intLumWatts { get; set; }
@@ -46,15 +47,17 @@ namespace WebStore.Models
         public Nullable<int> intDiameter { get; set; }
         public string strType { get; set; }
         public string strCountry { get; set; }
-        public string strBrand { get; set; }
+        public Nullable<int> refBrand { get; set; }
         public string intWorkTemp { get; set; }
         public Nullable<int> intCircuitBreakTemp { get; set; }
         public string strInclude { get; set; }
         public string strNoInclude { get; set; }
         public Nullable<bool> intNew { get; set; }
-        public string refCodProd { get; set; }
         public bool strSec { get; set; }
         public bool strDs43 { get; set; }
         public bool strFicha { get; set; }
+    
+        public virtual tblBrand tblBrand { get; set; }
+        public virtual tblProducts tblProducts { get; set; }
     }
 }

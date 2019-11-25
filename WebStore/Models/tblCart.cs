@@ -12,25 +12,32 @@ namespace WebStore.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class tblComunas
+    public partial class tblCart
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public tblComunas()
+        public tblCart()
         {
-            this.tblCompany = new HashSet<tblCompany>();
-            this.tblAddresses = new HashSet<tblAddresses>();
+            this.tblCartDet = new HashSet<tblCartDet>();
             this.tblAddressesForCart = new HashSet<tblAddressesForCart>();
         }
     
-        public int idComuna { get; set; }
-        public string strNombre { get; set; }
-        public int refProvincia { get; set; }
+        public int IdCart { get; set; }
+        public System.DateTime strDate { get; set; }
+        public int intSubTotal { get; set; }
+        public int intDiscount { get; set; }
+        public int intTotalN { get; set; }
+        public int intTaxe { get; set; }
+        public int Total { get; set; }
+        public string strPayMethod { get; set; }
+        public string intOrder { get; set; }
+        public bool boolPayed { get; set; }
+        public bool boolConfimed { get; set; }
+        public int refUser { get; set; }
+        public int intDocument { get; set; }
     
-        public virtual tblProvincias tblProvincias { get; set; }
+        public virtual tblUsers tblUsers { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tblCompany> tblCompany { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tblAddresses> tblAddresses { get; set; }
+        public virtual ICollection<tblCartDet> tblCartDet { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblAddressesForCart> tblAddressesForCart { get; set; }
     }

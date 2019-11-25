@@ -10,6 +10,7 @@ using WebStore.Functions;
 using System.Web.Security;
 using System.Globalization;
 using WebStore.Routing;
+using System.Data.Entity.Validation;
 
 namespace WebStore.Controllers
 {
@@ -373,8 +374,263 @@ namespace WebStore.Controllers
             }
             else
             {
-                TempData["LogIn"] = "Debe iniciar sesión para continuar";
-                return RedirectToAction("LogIn", new {language = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName });
+                return View();
+            }
+        }
+        [HttpPost]
+        public ActionResult CheckOut(CheckoutForm form)
+        {
+            if(Session["id"] != null)
+            {
+                using(webstoreEntities db = new webstoreEntities())
+                {
+                    try
+                    {
+                        int UserId = (int)Session["id"];
+                        var address = db.tblAddresses.Where(x => x.refuser == UserId && x.boolDefault == true).FirstOrDefault();
+
+
+                        var cartQue = db.tblCartQue.Where(x => x.refUser == UserId).FirstOrDefault();
+                        if (cartQue == null)
+                            return Json(new { status = "warning", title = "", responseText = "No se Pudieron leer los datos de su carro" });
+
+                        var cartQueDet = db.tblCartQueDet.Where(x => x.refCartQue == cartQue.IdCartQue).ToList();
+                        if (cartQueDet == null || !cartQueDet.Any())
+                            return Json(new { status = "warning", responseText = "No se Pudieron leer los datos de su carro" });
+
+                        tblCart cart = new tblCart
+                        {
+                            refUser = UserId,
+                            intDocument = form.CheckoutInfo.CheckoutDocument,
+                            strDate = DateTime.Now,
+                            intSubTotal = form.CheckoutBill.SubTotal,
+                            intDiscount = form.CheckoutBill.Discount,
+                            intTotalN = form.CheckoutBill.TotalN,
+                            intTaxe = form.CheckoutBill.Taxes,
+                            Total = form.CheckoutBill.TotalN + form.CheckoutBill.Taxes,
+                            strPayMethod = form.CheckoutPayMethod.CheckoutPay,
+                            boolPayed = false,
+                            boolConfimed = false,
+                            intOrder = "-1"
+                        };
+
+                        db.tblCart.Add(cart);
+                        tblAddresses newBillAddress = new tblAddresses();
+                        tblAddressesForCart newBillAddressesForCart = new tblAddressesForCart();
+                        if (form.CheckoutInfo.CheckoutBill == 1)
+                        {
+                            if (form.CheckoutInfo.MainAddress.CheckoutAddressTwo != null)
+                                address.strAddressTwo = form.CheckoutInfo.MainAddress.CheckoutAddressTwo;
+                            if (form.CheckoutInfo.MainAddress.CheckoutZip != null)
+                                address.intPostalCode = form.CheckoutInfo.MainAddress.CheckoutZip;
+
+                            var addNew = form.CheckoutInfo.MainAddress;
+                            newBillAddressesForCart.refRegion = addNew.CheckoutState;
+                            newBillAddressesForCart.refProvince = addNew.CheckoutProvince;
+                            newBillAddressesForCart.refComuna = addNew.CheckoutComune;
+                            newBillAddressesForCart.strCity = addNew.CheckoutCity;
+                            newBillAddressesForCart.strAddress = addNew.CheckoutAddressOne;
+                            newBillAddressesForCart.strAddressTwo = addNew.CheckoutAddressTwo;
+                            newBillAddressesForCart.intPostalCode = addNew.CheckoutZip;
+                            newBillAddressesForCart.strType = addNew.CheckoutType;
+                            newBillAddressesForCart.refCart = cart.IdCart;
+                            newBillAddressesForCart.strCountry = "Chile";
+                            newBillAddressesForCart.boolBill = true;
+                            newBillAddressesForCart.boolShipping = false;
+                            if (form.CheckoutShipping.CheckoutSamePerson == 1 && form.CheckoutShipping.CheckoutSameAddress == 1)
+                            {
+                                newBillAddressesForCart.boolShipping = true;
+                            }
+                            else
+                            {
+                                newBillAddressesForCart.boolShipping = false;
+                            }
+
+
+                            db.tblAddressesForCart.Add(newBillAddressesForCart);
+                        }
+                        
+                        if (form.CheckoutInfo.CheckoutBill == 2)
+                        {
+                            var addNew = form.CheckoutInfo.NewAddress;
+                            newBillAddressesForCart.refRegion = newBillAddress.refRegion = addNew.CheckoutStateNewAddress;
+                            newBillAddressesForCart.refProvince = newBillAddress.refProvince = addNew.CheckoutProvinceNewAddress;
+                            newBillAddressesForCart.refComuna = newBillAddress.refComuna = addNew.CheckoutComuneNewAddress;
+                            newBillAddressesForCart.strCity = newBillAddress.strCity = addNew.CheckoutCityNewAddress;
+                            newBillAddressesForCart.strAddress = newBillAddress.strAddress = addNew.CheckoutAddressOneNewAddress;
+                            newBillAddressesForCart.strAddressTwo = newBillAddress.strAddressTwo = addNew.CheckoutAddressTwoNewAddress;
+                            newBillAddressesForCart.intPostalCode = newBillAddress.intPostalCode = addNew.CheckoutZipNewAddress;
+                            newBillAddressesForCart.strType = newBillAddress.strType = addNew.CheckoutTypeNewAddress;
+                            newBillAddress.refuser = UserId;
+                            newBillAddressesForCart.refCart = cart.IdCart;
+                            newBillAddressesForCart.strCountry = newBillAddress.strCountry = "Chile";
+                            newBillAddressesForCart.boolBill = true;
+                            newBillAddressesForCart.boolShipping = newBillAddress.boolDefault = false;
+                            newBillAddress.boolThird = false;
+
+                            if (form.CheckoutShipping.CheckoutSamePerson == 1 && form.CheckoutShipping.CheckoutSameAddress == 1)
+                            {
+                                newBillAddressesForCart.boolShipping = true;
+                            }
+                            else
+                            {
+                                newBillAddressesForCart.boolShipping = false;
+                            }
+
+                            db.tblAddresses.Add(newBillAddress);
+                            db.tblAddressesForCart.Add(newBillAddressesForCart);
+                        }
+
+                        db.SaveChanges();
+
+                        if (form.CheckoutShipping.strShippingType == 2)
+                        {
+                            var addNewAddress = form.CheckoutShipping;
+                            tblAddresses shippingAddress = new tblAddresses();
+                            tblAddressesForCart newShippingAddressesForCart = new tblAddressesForCart();
+                            if (form.CheckoutShipping.CheckoutSameAddress == 2)
+                            {
+                                newShippingAddressesForCart.refRegion = shippingAddress.refRegion = addNewAddress.CheckoutAnotherState;
+                                newShippingAddressesForCart.refProvince = shippingAddress.refProvince = addNewAddress.CheckoutAnotherProvince;
+                                newShippingAddressesForCart.refComuna = shippingAddress.refComuna = addNewAddress.CheckoutAnotherComune;
+                                newShippingAddressesForCart.strCity = shippingAddress.strCity = addNewAddress.CheckoutAnotherCity;
+                                newShippingAddressesForCart.strAddress = shippingAddress.strAddress = addNewAddress.CheckoutAnotherAddressOne;
+                                newShippingAddressesForCart.strAddressTwo = shippingAddress.strAddressTwo = addNewAddress.CheckoutAnotherAddressTwo;
+                                newShippingAddressesForCart.strType = shippingAddress.strType = addNewAddress.CheckoutAnotherType;
+                                newShippingAddressesForCart.intPostalCode = shippingAddress.intPostalCode = addNewAddress.CheckoutAnotherZip;
+                                newShippingAddressesForCart.strCountry = shippingAddress.strCountry = "Chile";
+                                newShippingAddressesForCart.boolBill = shippingAddress.boolDefault = false;
+                                newShippingAddressesForCart.boolThird = shippingAddress.boolThird = false;
+                                newShippingAddressesForCart.boolShipping = true;
+                                shippingAddress.refuser = UserId;
+                                newShippingAddressesForCart.refCart = cart.IdCart;
+
+                                db.tblAddresses.Add(shippingAddress);
+                                db.tblAddressesForCart.Add(newShippingAddressesForCart);
+
+                                if (form.CheckoutShipping.CheckoutSamePerson == 2)
+                                {
+                                    var addNewPerson = form.CheckoutShipping;
+                                    newShippingAddressesForCart.boolThird = shippingAddress.boolThird = true;
+
+                                    tblAddressesDet newThird = new tblAddressesDet
+                                    {
+                                        refAddress = shippingAddress.idAddress,
+                                        strName = addNewPerson.CheckoutAnotherPersonName,
+                                        strLastName = addNewPerson.CheckoutAnotherPersonLastName,
+                                        intId = addNewPerson.CheckoutAnotherPersonId,
+                                        intPhone = addNewPerson.CheckoutAnotherPersonPhone
+                                    };
+
+                                    tblAddressesDetForCart newThirdForCart = new tblAddressesDetForCart
+                                    {
+                                        refAddressForCart = newShippingAddressesForCart.idAddress,
+                                        strName = addNewPerson.CheckoutAnotherPersonName,
+                                        strLastName = addNewPerson.CheckoutAnotherPersonLastName,
+                                        intId = addNewPerson.CheckoutAnotherPersonId,
+                                        intPhone = addNewPerson.CheckoutAnotherPersonPhone
+                                    };
+
+                                    db.tblAddressesDet.Add(newThird);
+                                    db.tblAddressesDetForCart.Add(newThirdForCart);
+                                }
+                            }
+
+                            if (form.CheckoutShipping.CheckoutSamePerson == 2 && form.CheckoutShipping.CheckoutSameAddress == 1 && form.CheckoutInfo.CheckoutBill == 1)
+                            {
+                                var addNewPerson = form.CheckoutShipping;
+                                address.boolThird = true;
+                                newBillAddressesForCart.boolThird = true;
+
+                                tblAddressesDet newThird = new tblAddressesDet
+                                {
+                                    refAddress = address.idAddress,
+                                    strName = addNewPerson.CheckoutAnotherPersonName,
+                                    strLastName = addNewPerson.CheckoutAnotherPersonLastName,
+                                    intId = addNewPerson.CheckoutAnotherPersonId,
+                                    intPhone = addNewPerson.CheckoutAnotherPersonPhone
+                                };
+
+                                tblAddressesDetForCart newThirdForCart = new tblAddressesDetForCart
+                                {
+                                    refAddressForCart = newBillAddressesForCart.idAddress,
+                                    strName = addNewPerson.CheckoutAnotherPersonName,
+                                    strLastName = addNewPerson.CheckoutAnotherPersonLastName,
+                                    intId = addNewPerson.CheckoutAnotherPersonId,
+                                    intPhone = addNewPerson.CheckoutAnotherPersonPhone
+                                };
+
+                                db.tblAddressesDet.Add(newThird);
+                                db.tblAddressesDetForCart.Add(newThirdForCart);
+                            }
+
+                            if (form.CheckoutShipping.CheckoutSamePerson == 2 && form.CheckoutShipping.CheckoutSameAddress == 1 && form.CheckoutInfo.CheckoutBill == 2)
+                            {
+                                var addNewPerson = form.CheckoutShipping;
+                                newBillAddress.boolThird = true;
+                                newBillAddressesForCart.boolThird = true;
+
+                                tblAddressesDet newThird = new tblAddressesDet
+                                {
+                                    refAddress = newBillAddress.idAddress,
+                                    strName = addNewPerson.CheckoutAnotherPersonName,
+                                    strLastName = addNewPerson.CheckoutAnotherPersonLastName,
+                                    intId = addNewPerson.CheckoutAnotherPersonId,
+                                    intPhone = addNewPerson.CheckoutAnotherPersonPhone
+                                };
+
+                                tblAddressesDetForCart newThirdForCart = new tblAddressesDetForCart
+                                {
+                                    refAddressForCart = newBillAddressesForCart.idAddress,
+                                    strName = addNewPerson.CheckoutAnotherPersonName,
+                                    strLastName = addNewPerson.CheckoutAnotherPersonLastName,
+                                    intId = addNewPerson.CheckoutAnotherPersonId,
+                                    intPhone = addNewPerson.CheckoutAnotherPersonPhone
+                                };
+
+                                db.tblAddressesDet.Add(newThird);
+                                db.tblAddressesDetForCart.Add(newThirdForCart);
+                            }
+                        }
+
+                        var products = Function.GetCartProducts(cartQueDet, db);
+                        foreach (var i in products)
+                        {
+                            tblCartDet cartDet = new tblCartDet
+                            {
+                                refCart = cart.IdCart,
+                                refProd = i.Code,
+                                intQuantity = i.Quantity,
+                                intPrice = i.PriceInt,
+                                intPriceDiscount = i.PriceOffInt,
+                                intDiscount = i.PriceInt - i.PriceOffInt
+                            };
+
+                            db.tblCartDet.Add(cartDet);
+                        }
+
+                        db.SaveChanges();
+
+                        return Json(new { status = "OK", title = "Compra", responseText = "Su compra fue procesada con éxito" });
+                    }
+                    catch (DbEntityValidationException e)
+                    {
+                        var responses = new List<Responses>();
+                        foreach (var eve in e.EntityValidationErrors)
+                        {                           
+                            foreach (var ve in eve.ValidationErrors)
+                            {
+                                responses.Add(new Responses { title = $"Entity of type {eve.Entry.Entity.GetType().Name} in state {eve.Entry.State} has the following validation errors:", 
+                                    responseText = $"- Property: \"{ve.PropertyName}\", Error: \"{ve.ErrorMessage}\"" });
+                            }
+                        }
+                        return Json(new { status = "error", responseText = responses});
+                    }
+                }
+            }
+            else
+            {
+                return Json(new { status = "OK" });
             }
         }
 

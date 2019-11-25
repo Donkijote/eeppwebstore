@@ -12,12 +12,12 @@ namespace WebStore.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class tblAddresses
+    public partial class tblAddressesForCart
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public tblAddresses()
+        public tblAddressesForCart()
         {
-            this.tblAddressesDet = new HashSet<tblAddressesDet>();
+            this.tblAddressesDetForCart = new HashSet<tblAddressesDetForCart>();
         }
     
         public int idAddress { get; set; }
@@ -30,15 +30,17 @@ namespace WebStore.Models
         public int refRegion { get; set; }
         public int refProvince { get; set; }
         public int refComuna { get; set; }
-        public int refuser { get; set; }
-        public bool boolDefault { get; set; }
+        public int refCart { get; set; }
+        public bool boolShipping { get; set; }
+        public bool boolBill { get; set; }
         public bool boolThird { get; set; }
+        public int intShippingPrice { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tblAddressesDetForCart> tblAddressesDetForCart { get; set; }
+        public virtual tblCart tblCart { get; set; }
         public virtual tblComunas tblComunas { get; set; }
         public virtual tblProvincias tblProvincias { get; set; }
         public virtual tblRegiones tblRegiones { get; set; }
-        public virtual tblUsers tblUsers { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tblAddressesDet> tblAddressesDet { get; set; }
     }
 }
