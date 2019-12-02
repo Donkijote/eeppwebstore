@@ -11,6 +11,7 @@ using System.Web.Security;
 using System.Globalization;
 using WebStore.Routing;
 using System.Data.Entity.Validation;
+using System.Web.Script.Serialization;
 
 namespace WebStore.Controllers
 {
@@ -44,7 +45,67 @@ namespace WebStore.Controllers
             }
         }
         [HttpPost]
-        public JsonResult AddProductToCart(CartProductList CartProduct)
+        public ActionResult Cart(string CodedString)
+        {
+            if (Session["id"] != null)
+            {
+                using (webstoreEntities db = new webstoreEntities())
+                {
+                    int UserId = (int)Session["id"];
+
+                    List<tblCartQueDet> products = (from a in db.tblCartQue
+                                                    join b in db.tblCartQueDet
+                                                    on a.IdCartQue equals b.refCartQue
+                                                    where a.refUser == UserId
+                                                    select b).ToList();
+
+                    List<CartProductList> productsToReturn = Function.GetCartProducts(products, db);
+
+
+                    return View(productsToReturn);
+                }
+            }
+            else
+            {
+                var DecodedString = Crypto.DecodedString(CodedString);
+
+                var UnStringed = new JavaScriptSerializer().Deserialize<List<CartProductList>>(DecodedString);
+                List<CartProductList> productLists = Session["CartList"] as List<CartProductList>;
+
+                return PartialView("cartItems",UnStringed);
+            }
+        }
+        [HttpPost]
+        public ActionResult CartCount(string CodedString)
+        {
+            if (Session["id"] != null)
+            {
+                using (webstoreEntities db = new webstoreEntities())
+                {
+                    int UserId = (int)Session["id"];
+
+                    List<tblCartQueDet> products = (from a in db.tblCartQue
+                                                    join b in db.tblCartQueDet
+                                                    on a.IdCartQue equals b.refCartQue
+                                                    where a.refUser == UserId
+                                                    select b).ToList();
+
+                    List<CartProductList> productsToReturn = Function.GetCartProducts(products, db);
+
+
+                    return View(productsToReturn);
+                }
+            }
+            else
+            {
+                var DecodedString = Crypto.DecodedString(CodedString);
+
+                var UnStringed = new JavaScriptSerializer().Deserialize<List<CartProductList>>(DecodedString);
+                return Json(new { status = "OK", responseText = new { Cart = UnStringed, Count = UnStringed.Count() } });
+            }
+        }
+        [HttpPost]
+        public JsonResult AddProductToCart(DataCartStorage Data)
         {
             try
             {
@@ -58,13 +119,13 @@ namespace WebStore.Controllers
 
                         if(cartQue != null)
                         {
-                            tblCartQueDet cartQueDet = db.tblCartQueDet.Where(x => x.refCartQue == cartQue.IdCartQue && x.refCodProd == CartProduct.Code).SingleOrDefault();
+                            tblCartQueDet cartQueDet = db.tblCartQueDet.Where(x => x.refCartQue == cartQue.IdCartQue && x.refCodProd == Data.CartProduct.Code).SingleOrDefault();
 
                             if(cartQueDet != null)
                             {
                                 try
                                 {
-                                    cartQueDet.Quantity += CartProduct.Quantity;
+                                    cartQueDet.Quantity += Data.CartProduct.Quantity;
                                     db.SaveChanges();
                                     return Json(new { status = "OK" });
                                 }
@@ -79,8 +140,8 @@ namespace WebStore.Controllers
                                 tblCartQueDet newCartQueDet = new tblCartQueDet
                                 {
                                     refCartQue = cartQue.IdCartQue,
-                                    refCodProd = CartProduct.Code,
-                                    Quantity = CartProduct.Quantity
+                                    refCodProd = Data.CartProduct.Code,
+                                    Quantity = Data.CartProduct.Quantity
                                 };
                                 try
                                 {
@@ -108,8 +169,8 @@ namespace WebStore.Controllers
                                 tblCartQueDet newCartQueDet = new tblCartQueDet
                                 {
                                     refCartQue = newCartQue.IdCartQue,
-                                    refCodProd = CartProduct.Code,
-                                    Quantity = CartProduct.Quantity
+                                    refCodProd = Data.CartProduct.Code,
+                                    Quantity = Data.CartProduct.Quantity
                                 };
 
                                 db.tblCartQueDet.Add(newCartQueDet);
@@ -125,6 +186,7 @@ namespace WebStore.Controllers
                 }
                 else
                 {
+                    /*
                     List<CartProductList> productLists = Session["CartList"] as List<CartProductList>;
 
 
@@ -175,6 +237,50 @@ namespace WebStore.Controllers
                         Session["CartList"] = Products;
                         return Json(new { status = "OK" });
                     }
+
+                    */
+
+                    if (string.IsNullOrEmpty(Data.CodedString))
+                    {
+                        List<CartProductList> products = new List<CartProductList>();
+
+                        Data.CartProduct.SubtotalInt = Data.CartProduct.PriceOffInt > 0 ? Data.CartProduct.PriceOffInt : Data.CartProduct.PriceInt;
+                        Data.CartProduct.TotalInt = Data.CartProduct.PriceOffInt > 0 ? Data.CartProduct.PriceOffInt * Data.CartProduct.Quantity : Data.CartProduct.PriceInt * Data.CartProduct.Quantity;
+
+                        products.Add(Data.CartProduct);
+                        var Stringed = new JavaScriptSerializer().Serialize(products);
+
+                        var CodedString = Crypto.CodedString(Stringed);
+
+                        return Json(new { status = "OK", responseText = new { String = CodedString } });
+                    }
+                    else
+                    {
+                        var DecodedString = Crypto.DecodedString(Data.CodedString);
+
+                        var UnStringed = new JavaScriptSerializer().Deserialize<List<CartProductList>>(DecodedString);
+
+                        Data.CartProduct.SubtotalInt = Data.CartProduct.PriceOffInt > 0 ? Data.CartProduct.PriceOffInt : Data.CartProduct.PriceInt;
+                        Data.CartProduct.TotalInt = Data.CartProduct.PriceOffInt > 0 ? Data.CartProduct.PriceOffInt * Data.CartProduct.Quantity : Data.CartProduct.PriceInt * Data.CartProduct.Quantity;
+
+                        if(UnStringed.Any(x => x.Code == Data.CartProduct.Code))
+                        {
+                            UnStringed.SingleOrDefault(x => x.Code == Data.CartProduct.Code).Quantity += Data.CartProduct.Quantity;
+                        }
+                        else
+                        {
+                            UnStringed.Add(Data.CartProduct);
+                        }
+
+
+                        var Stringed = new JavaScriptSerializer().Serialize(UnStringed);
+
+                        var CodedString = Crypto.CodedString(Stringed);
+
+                        return Json(new { status = "OK", responseText = new { String = CodedString } });
+
+                    }
+
                 }
             }
             catch (Exception ex)
@@ -183,7 +289,7 @@ namespace WebStore.Controllers
             }
         }
         [HttpPost]
-        public JsonResult RemoveItemFromCartList(string id)
+        public JsonResult RemoveItemFromCartList(string id, string CodedString)
         {
             if (Session["id"] != null)
             {
@@ -218,18 +324,25 @@ namespace WebStore.Controllers
             }
             else
             {
-                List<CartProductList> productLists = Session["CartList"] as List<CartProductList>;
-                var toRemove = productLists.Single(x => x.Code == id);
-                productLists.Remove(toRemove);
+                var DecodedString = Crypto.DecodedString(CodedString);
 
-                if (productLists.Count() > 0)
+                var UnStringed = new JavaScriptSerializer().Deserialize<List<CartProductList>>(DecodedString);
+
+                var toRemove = UnStringed.Single(x => x.Code == id);
+                UnStringed.Remove(toRemove);
+
+                var Stringed = new JavaScriptSerializer().Serialize(UnStringed);
+
+                var CodedStringed = Crypto.CodedString(Stringed);
+
+                if (UnStringed.Count() > 0)
                 {
-                    return Json(new { status = "OK", reload = false });
+                    return Json(new { status = "OK", reload = false, responseText = new { String = CodedStringed } });
                 }
                 else
                 {
                     Session.Remove("CartList");
-                    return Json(new { status = "OK", reload = true });
+                    return Json(new { status = "OK", reload = true, responseText = new { String = CodedStringed } });
                 }
             }
         }
@@ -278,7 +391,7 @@ namespace WebStore.Controllers
             }
         }
         [HttpPost]
-        public JsonResult UpdateItemQuantityFromCartList(string code, int quantity)
+        public JsonResult UpdateItemQuantityFromCartList(string code, int quantity, string CodedString)
         {
             if (Session["id"] != null)
             {
@@ -314,8 +427,11 @@ namespace WebStore.Controllers
             {
                 try
                 {
-                    List<CartProductList> productLists = Session["CartList"] as List<CartProductList>;
-                    foreach (var i in productLists)
+                    var DecodedString = Crypto.DecodedString(CodedString);
+
+                    var UnStringed = new JavaScriptSerializer().Deserialize<List<CartProductList>>(DecodedString);
+
+                    foreach (var i in UnStringed)
                     {
                         if (i.Code == code)
                         {
@@ -327,8 +443,11 @@ namespace WebStore.Controllers
                         }
                     }
 
-                    Session["CartList"] = productLists;
-                    return Json(new { status = "OK" });
+                    var Stringed = new JavaScriptSerializer().Serialize(UnStringed);
+
+                    var CodedStringed = Crypto.CodedString(Stringed);
+
+                    return Json(new { status = "OK", responseText = new { String = CodedStringed } });
                 }
                 catch (Exception ex)
                 {
@@ -675,9 +794,11 @@ namespace WebStore.Controllers
                 if (logging == "OK")
                 {
                     int UserId = (int)Session["id"];
-                    CheckHistory(UserId);
+                    if(!string.IsNullOrWhiteSpace(logIn.HistoryString))
+                        CheckHistory(UserId, logIn.CartString);
                     CheckQuotingQue(UserId);
-                    CheckCartQue(UserId);
+                    if(!string.IsNullOrWhiteSpace(logIn.CartString))
+                        CheckCartQue(UserId, logIn.CartString);
                     return Json(new { status = "OK" });
                 }
                 else if(logging == "invalid")
@@ -716,8 +837,9 @@ namespace WebStore.Controllers
                         string logging = FacebookLogOn(facebook);
                         if (logging == "OK")
                         {
-                            CheckHistory(Int32.Parse(Session["id"].ToString()));
+                            CheckHistory(Int32.Parse(Session["id"].ToString()), facebook.HistoryString);
                             CheckQuotingQue(Int32.Parse(Session["id"].ToString()));
+                            CheckCartQue(Int32.Parse(Session["id"].ToString()), facebook.CartString);
                             return Json(new { status = "OK" });
                         }
                         else
@@ -734,7 +856,9 @@ namespace WebStore.Controllers
                         string logging = FacebookLogOn(facebook);
                         if (logging == "OK")
                         {
-                            CheckHistory(Int32.Parse(Session["id"].ToString()));
+                            CheckHistory(Int32.Parse(Session["id"].ToString()), facebook.HistoryString);
+                            CheckQuotingQue(Int32.Parse(Session["id"].ToString()));
+                            CheckCartQue(Int32.Parse(Session["id"].ToString()), facebook.CartString);
                             return Json(new { status = "OK" });
                         }
                         else
@@ -768,8 +892,9 @@ namespace WebStore.Controllers
                         string logging = GoogleLogOn(google);
                         if (logging == "OK")
                         {
-                            CheckHistory(Int32.Parse(Session["id"].ToString()));
+                            CheckHistory(Int32.Parse(Session["id"].ToString()), google.HistoryString);
                             CheckQuotingQue(Int32.Parse(Session["id"].ToString()));
+                            CheckCartQue(Int32.Parse(Session["id"].ToString()), google.CartString);
                             return Json(new { status = "OK" });
                         }
                         else
@@ -786,7 +911,9 @@ namespace WebStore.Controllers
                         string logging = GoogleLogOn(google);
                         if (logging == "OK")
                         {
-                            CheckHistory(Int32.Parse(Session["id"].ToString()));
+                            CheckHistory(Int32.Parse(Session["id"].ToString()), google.HistoryString);
+                            CheckQuotingQue(Int32.Parse(Session["id"].ToString()));
+                            CheckCartQue(Int32.Parse(Session["id"].ToString()), google.CartString);
                             return Json(new { status = "OK" });
                         }
                         else
@@ -1955,9 +2082,9 @@ namespace WebStore.Controllers
             }
         }
 
-        private void CheckHistory(int UserId)
+        private void CheckHistory(int UserId, string CodedString)
         {
-            if(Request.Cookies["History"] != null)
+            if(!string.IsNullOrEmpty(CodedString))
             {
                 using (webstoreEntities db = new webstoreEntities())
                 {
@@ -2058,17 +2185,19 @@ namespace WebStore.Controllers
                 }
             }
         }
-        private void CheckCartQue(int UserId)
+        private void CheckCartQue(int UserId, string CodedString)
         {
-            if(Session["CartList"] != null)
+            if(CodedString != null && CodedString != "")
             {
                 using (webstoreEntities db = new webstoreEntities())
                 {
-                    List<CartProductList> productLists = Session["CartList"] as List<CartProductList>;
+                    var DecodedString = Crypto.DecodedString(CodedString);
+
+                    var UnStringed = new JavaScriptSerializer().Deserialize<List<CartProductList>>(DecodedString);
                     tblCartQue cartQue = db.tblCartQue.Where(x => x.refUser == UserId).SingleOrDefault();
                     if (cartQue != null)
                     {
-                        foreach(var i in productLists)
+                        foreach(var i in UnStringed)
                         {
                             string addToCart = Function.SetCartQueDet(db, cartQue, i);
                         }
@@ -2082,13 +2211,11 @@ namespace WebStore.Controllers
                         db.tblCartQue.Add(newCartQue);
                         db.SaveChanges();
 
-                        foreach(var i in productLists)
+                        foreach(var i in UnStringed)
                         {
                             string addToCart = Function.SetCartQueDet(db, newCartQue, i);
                         }
                     }
-
-                    Session.Remove("CartList");
                 }
             }
         }

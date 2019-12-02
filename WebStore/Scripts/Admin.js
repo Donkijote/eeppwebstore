@@ -51,16 +51,21 @@ $.AdminJs.Test = {
 $.AdminJs.LogInUp = {
     activate: function () {
         var _this = this;
+        var cart = window.localStorage.getItem('_cpi');
+        var history = window.localStorage.getItem('_hpi');
         $.AdminJs.reveal.activate();
         $('#LogIn').on('submit', function (e) {
             e.preventDefault();
+            console.log($(this).serialize() + "&CarString=" + cart + "&HistoryString=" + history)
             if ($(this).valid()) {
                 $.AdminJs.Ajax.init({
                     type: 'POST',
                     url: '/en/User/LogIn',
-                    data: $(this).serialize(),
+                    data: $(this).serialize() + "&CarString=" + cart + "&HistoryString=" + history,
                     action: function (e) {
                         if (e.status == "OK") {
+                            window.localStorage.removeItem('_cpi');
+                            window.localStorage.removeItem('_hpi');
                             window.location.reload()
                         }
                     }
@@ -304,13 +309,15 @@ $.AdminJs.LogInUp = {
         });
         return resp;
     },
-    sendFacebookLogIn: () =>{
+    sendFacebookLogIn: () => {
+        var cart = window.localStorage.getItem('_cpi');
+        var history = window.localStorage.getItem('_hpi');
         FB.api('/me', { fields: 'id,name,email' }, function (response) {
             console.log(response)
             $.AdminJs.Ajax.init({
                 type: 'POST',
                 url: '/en/User/FacebookLogIn/',
-                data: { Id: response.id, Name: response.name, Email: response.email, Photo: response.picture },
+                data: { Id: response.id, Name: response.name, Email: response.email, Photo: response.picture, CartString: cart, HistoryString: history},
                 action: (x) => {
                     if (x.status == "info") {
                         FB.logout(function (response) {
@@ -381,12 +388,14 @@ $.AdminJs.LogInUp = {
     },
     onGoogleLoginSuccess: function (user) {
         var _this = this;
+        var cart = window.localStorage.getItem('_cpi');
+        var history = window.localStorage.getItem('_hpi');
         googleUser = user.getBasicProfile();
         console.log('Image URL: ' + googleUser.getImageUrl());
         $.AdminJs.Ajax.init({
             type: 'POST',
             url: '/en/User/GoogleLogIn/',
-            data: { Id: googleUser.getId(), Name: googleUser.getName(), Email: googleUser.getEmail(), Photo: googleUser.getImageUrl() },
+            data: { Id: googleUser.getId(), Name: googleUser.getName(), Email: googleUser.getEmail(), Photo: googleUser.getImageUrl(), CartString: cart, HistoryString: history },
             action: (x) => {
                 if (x.status == "info") {
                     var auth2 = gapi.auth2.getAuthInstance();
@@ -883,6 +892,11 @@ $.AdminJs.cart = {
     active: function () {
         var _this = this;
 
+        var cart = window.localStorage.getItem('_cpi');
+
+        if (cart != null)
+            _this.GetCartProducts(cart);
+
         $('#EmptyQuotingList').on('click', function (e) {
             e.preventDefault();
             $.AdminJs.Ajax.init({
@@ -891,7 +905,7 @@ $.AdminJs.cart = {
                 data: "",
                 action: (resp) => {
                     if (resp.status == "OK") {
-                        window.location.reload();
+                       window.location.reload();
                     }
                 }
             })
@@ -905,7 +919,7 @@ $.AdminJs.cart = {
                 $(this).hide();
                 $(this).parent().find(".form-group").removeClass("d-none");
             } else {
-                _this.updateCartItemQuantity(id, quantity);
+                _this.updateCartItemQuantity(id, quantity, window.localStorage.getItem('_cpi'));
             }
         });
 
@@ -928,9 +942,9 @@ $.AdminJs.cart = {
                 })
 
                 select.show();
-                _this.updateCartItemQuantity(id, quantity);
+                _this.updateCartItemQuantity(id, quantity, window.localStorage.getItem('_cpi'));
             } else {
-                _this.updateCartItemQuantity(id, quantity);
+                _this.updateCartItemQuantity(id, quantity, window.localStorage.getItem('_cpi'));
             }
         });
 
@@ -939,7 +953,7 @@ $.AdminJs.cart = {
     addProductToCart: function() {
         var _this = this;
         $('#addProductToCart').on('click', function () {
-            var data = {
+            var info = {
                 Code: $(this).data('code'),
                 Name: $(this).data('name'),
                 Price: $(this).data('price'),
@@ -950,14 +964,32 @@ $.AdminJs.cart = {
                 Quantity: $(this).data('quantity') == "" || $(this).data('quantity') == undefined ? $('select[name="Quantity"]').val() : $(this).data('quantity'),
                 Category: $(this).data('category')
             }
-            _this.sendAddProductToCart($.param(data));
-        })
+
+            var data = [];
+
+            data.push(info);
+
+            var _cart = window.localStorage.getItem('_cpi');
+
+            /*if (_cart != null) {
+                var cart = JSON.parse(_cart);
+
+                $.each(cart, (i, el) => {
+                    data.push(el);
+                });
+            }*/
+
+            _this.sendAddProductToCart(info, _cart);
+        });
     },
-    sendAddProductToCart: (x) => {
+    sendAddProductToCart: function(x, z) {
+        var _this = this;
         $.AdminJs.Ajax.init({
             type: 'POST',
             url: '/en/User/AddProductToCart/',
-            data: x,
+            data: {
+                CartProduct: x, CodedString: z
+            },
             action: (resp) => {
                 if (resp.status == "OK") {
                     $(this).addClass('active');
@@ -973,23 +1005,28 @@ $.AdminJs.cart = {
                         exit: 'animated fadeOutRight',
                         url: '/es/Usuario/Carrito'
                     }
-                    myAlert(data)
-                } else {
+                    myAlert(data);
+                    window.localStorage.setItem('_cpi', resp.responseText.String);
+
+                    _this.GetCartProductsCount(window.localStorage.getItem('_cpi'));
                 }
             }
         })
     },
-    updateCartItemQuantity: (x, y) => {
+    updateCartItemQuantity: function (x, y, z){
         $.AdminJs.Ajax.init({
             type: 'POST',
             url: '/en/User/UpdateItemQuantityFromCartList/',
-            data: { code: x, quantity: y },
+            data: { code: x, quantity: y, CodedString: z },
             action: (resp) => {
-                window.location.reload();
+                if (resp.status == "OK") {
+                    window.localStorage.setItem('_cpi', resp.responseText.String)
+                }
+                //window.location.reload();
             }
-        })
+        }, true)
     },
-    removeFromCart: () => {
+    removeFromCart: function () {
         $('.remove-from-cart').on('click', function () {
             var id = $(this).data('id');
             $.AdminJs.Ajax.init({
@@ -1035,8 +1072,156 @@ $.AdminJs.cart = {
                         }
                     }
                 }
-            })
+            });
         });
+    },
+    GetCartProducts: function(x) {
+        var _this = this;
+        $.AdminJs.Ajax.init({
+            type: 'POST',
+            url: '/en/User/Cart',
+            data: { CodedString: x },
+            action: (resp) => {
+                $('#CartContainer').html(resp);
+                $('#EmptyCartList').on('click', function (e) {
+                    e.preventDefault();
+                    console.log('clicked')
+                    window.localStorage.removeItem('_cpi');
+                    window.location.reload();
+                });
+                $('.selectQuantity').on('change', function (e) {
+                    var id = $(this).data("id");
+                    var quantity = $(this).val();
+                    if (quantity == 7) {
+                        $(this).parent().find("input").attr("disabled", false);
+                        $(this).hide();
+                        $(this).parent().find(".form-group").removeClass("d-none");
+                    } else {
+                        _this.updateCartItemQuantity(id, quantity, window.localStorage.getItem('_cpi'));
+                    }
+                });
+
+                $('input[name="quantityBox"]').on('focusout', function () {
+                    var quantity = $(this).val();
+                    var id = $(this).data('id');
+                    if (quantity < 7) {
+                        var select = $(this).parents('.count-input').find('select');
+                        $(this).parent().addClass("d-none");
+                        $(this).attr("disabled", true);
+                        select.val(quantity);
+                        select.find('option').each(function (i, val) {
+                            if ($(this).val() != quantity) {
+                                if ($(this).attr('selected')) {
+                                    $(this).attr("selected", false);
+                                }
+                            } else {
+                                $(this).attr("selected", true);
+                            }
+                        })
+
+                        select.show();
+                        _this.updateCartItemQuantity(id, quantity, window.localStorage.getItem('_cpi'));
+                    } else {
+                        _this.updateCartItemQuantity(id, quantity, window.localStorage.getItem('_cpi'));
+                    }
+                });
+
+                $('.remove-from-cart').on('click', function () {
+                    var id = $(this).data('id');
+                    var string = window.localStorage.getItem('_cpi');
+                    $.AdminJs.Ajax.init({
+                        type: 'POST',
+                        url: '/en/User/RemoveItemFromCartList/',
+                        data: { id: id, CodedString: string },
+                        action: (resp) => {
+                            if (resp.status == "OK") {
+                                if (resp.reload == true) {
+                                    window.localStorage.removeItem('_cpi');
+                                    window.location.reload();
+                                } else {
+                                    window.localStorage.setItem('_cpi',resp.responseText.String);
+                                    $(this).parents('tr')
+                                        .children('td, th')
+                                        .animate({
+                                            padding: 0
+                                        })
+                                        .wrapInner('<div />')
+                                        .children()
+                                        .slideUp(function () {
+                                            $(this).closest('tr').remove();
+                                        });
+                                }
+                            }
+                        }
+                    })
+                });
+            }
+        }, false, true);
+    },
+    GetCartProductsCount: function (x) {
+        console.log('activated')
+        $.AdminJs.Ajax.init({
+            type: 'POST',
+            url: '/en/User/CartCount',
+            data: { CodedString: x },
+            action: (resp) => {
+                if (resp.status == "OK") {
+                    var cartHtml = "";
+                    var total = 0;
+                    var markUp = `<span class="mg-navbar-cart">
+                                        <span class="mg-count-label">`+resp.responseText.Count + `</span>
+                                    </span>`;
+                    $('#CartCount').append(markUp);
+                    $.each(resp.responseText.Cart, (i, el) => {
+                        cartHtml += `
+                            <div class="entry">
+                                <div class="entry-thumb">
+                                    <a href="/es/Producto/Categoria/`+ el.Category + `/` + el.Code + `">
+                                        <img src="/Content/img/products/`+ el.Code + `-1.jpg" alt="` + el.Name + `">
+                                    </a>
+                                </div>
+                                <div class="entry-content">
+                                    <h4 class="entry-title">
+                                        <a href="/es/Producto/Categoria/`+ el.Category + `/` + el.Code + `">` + el.Name + `</a>
+                                    </h4>`;
+                                        if (el.PriceOffInt > 0)
+                                        {
+                                            cartHtml += `<span class="entry-meta"><del>` + el.Price + `</del> <span class="text-success">` + el.PercentageOff + ` DCTO</span></span><span class="entry-meta">` + el.Quantity + ` x $` + el.PriceOff + `</span>`;
+                                        }
+                                        else
+                                        {
+                                            cartHtml += `<span class="entry-meta">` + el.Quantity + ` x $` + el.Price + `</span>`;
+                                        }
+                        cartHtml += `</div>
+                                <a class="entry-delete removeItemFromCart" data-id="`+ el.Code +`" href="javascript:void(0);">
+                                    <i class="fas fa-times"></i>
+                                </a>
+                            </div>`;
+                        total += el.TotalInt;
+                    });
+
+                    cartHtml += `<div class="text-right">
+                                        <p class="text-gray-dark py-2 mb-0">
+                                            <span class="text-muted">Total Neto (sin IVA):</span> &nbsp;$`+ total +`
+                                        </p>
+                                    </div>
+                                    <div class="d-flex">
+                                        <div class="pr-2 w-50">
+                                            <a href="/es/Usuario/Carrito" style="text-decoration:none;">
+                                                <div class="btn btn-secondary btn-sm btn-block mb-0">Carrito</div>
+                                            </a>
+                                        </div>
+                                        <div class="pl-2 w-50">
+                                            <a href="/es/Usuario/Pagar" style="text-decoration:none;">
+                                                <div class="btn btn-orangered btn-sm btn-block mb-0">Pagar</div>
+                                            </a>
+                                        </div>
+                                    </div>`;
+
+                    $('#CartItems').html(cartHtml);
+                }
+            }
+        }, false);
     }
 }
 
@@ -1604,7 +1789,19 @@ $.AdminJs.question = {
 }
 
 $.AdminJs.history = {
-    activate: function () {
+    activate: function (x) {
+        $.AdminJs.Ajax.init({
+            type: 'POST',
+            url: '/en/Product/AddProductToHistory',
+            data: { Code: x },
+            action: (resp) => {
+                if (resp.status == "OK") {
+                    window.localStorage.setItem('_hpi', resp.responseText.String);
+                }
+            }
+        });
+    },
+    getHistory: () => {
 
     }
 }
@@ -1618,6 +1815,10 @@ $(function () {
 	$.AdminJs.compare.activate();
     $.AdminJs.animateLinks.activate();
     $.AdminJs.Search.activate();
+    var cart = window.localStorage.getItem('_cpi');
+
+    if(cart != null)
+        $.AdminJs.cart.GetCartProductsCount(cart);
     
     $('[data-toggle="tooltip"]').tooltip();
     $('[data-toggle="popover"]').popover();

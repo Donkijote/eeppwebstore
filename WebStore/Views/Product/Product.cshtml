@@ -74,7 +74,7 @@
                             {
                                 <li class="owl-thumb-item">
                                     <a id="carousel-selector-4">
-                                        <img src="~/Content/img/qr/@(item.Ficha.strBrand)-sec.jpg" alt="@item.strNombre">
+                                        <img src="~/Content/img/qr/@(item.Ficha.refBrand)-sec.jpg" alt="@item.strNombre">
                                     </a>
                                 </li>
                             }
@@ -107,7 +107,7 @@
                                         @if (item.Ficha != null && item.Ficha.strSec)
                                         {
                                             <div class="owl-item" data-hash="five">
-                                                <img class="img-fluid" src="~/Content/img/qr/@(item.Ficha.strBrand)-sec.jpg" alt="@item.strNombre">
+                                                <img class="img-fluid" src="~/Content/img/qr/@(item.Ficha.refBrand)-sec.jpg" alt="@item.strNombre">
                                             </div>
                                         }
                                     </div>
@@ -135,7 +135,7 @@
                             @if (item.intPrecioOff != null)
                             {
                                 <del class="text-muted" style="font-size:18px;">$@item.intPrecio</del><br />
-                                <span>$ @item.intPrecioOff</span>
+                                <span>$ @item.intPrecioOffNum</span>
                                 <span class="text-muted" style="font-size:18px;">+iva</span>
                                 <label class="off text-success" style="font-size:24px;">@item.intPrecentOff OFF</label>
                             }
@@ -213,7 +213,7 @@
                         <div class="pt-4 hidden-sm-up"></div>
                         <button class="btn btn-orangered btn-block m-0" id="addProductToCart" data-code="@item.strCodigo" data-name="@item.strNombre" data-price="@item.intPrecio"
                                 data-priceint="@item.intPrecioNum" data-off-priceint="@(item.intPrecioOffNum != 0 ? item.intPrecioOffNum:0)"
-                                data-off-percentage="@(item.intPrecioOff != "0" ? item.intPrecentOff:"")" data-off-price="@(item.intPrecioOff != "0" ? item.intPrecioOff:"")"
+                                data-off-percentage="@(item.intPrecioOff != "0" ? item.intPercent:"")" data-off-price="@(item.intPrecioOff != "0" ? item.intPrecioOff:"")"
                                 data-quantity="" data-category="@item.categorySeo">
                             <i class="fas fa-shopping-bag pr-2" style="font-size:18px;"></i> Añadir al carro
                         </button>
@@ -305,7 +305,7 @@
                             @if (f.strSec)
                             {
                                 <div class="col-md-4">
-                                    <a class="text-orangered text-sm" href="@Url.Action("ProductSecCertificationPDF", "Downloads", new { filename = f.strBrand})" target="_blank">@WebStore.Resources.Ficha.Sec</a>
+                                    <a class="text-orangered text-sm" href="@Url.Action("ProductSecCertificationPDF", "Downloads", new { filename = f.refBrand})" target="_blank">@WebStore.Resources.Ficha.Sec</a>
                                 </div>
                             }
                             @if (f.strFicha)
@@ -318,7 +318,7 @@
                         <div class="block-separator"></div>
                         <h3 class="h4">@WebStore.Resources.Titles.Warranty</h3>
                         <ul class="list-icon mb-4">
-                            <li><i class="fas fa-check text-success"></i>@WebStore.Resources.Ficha.Brand: @f.strBrand</li>
+                            <li><i class="fas fa-check text-success"></i>@WebStore.Resources.Ficha.Brand: @f.refBrand</li>
                             <li><i class="fas fa-check text-success"></i>@WebStore.Resources.Ficha.Country: @f.strCountry</li>
                             <li><i class="fas fa-check text-success"></i>@WebStore.Resources.Ficha.Warranty: @f.strWarranty @(Int32.Parse(f.strWarranty) > 1 ? WebStore.Resources.Ficha.Years : WebStore.Resources.Ficha.Year)</li>
                             <li><i class="fas fa-check text-success"></i>@WebStore.Resources.Ficha.Certification: <span class="text-uppercase">@f.strCertification</span></li>
@@ -835,6 +835,7 @@
             $.AdminJs.Countdown.activate();
             $.AdminJs.cart.addProductToCart();
             $.AdminJs.question.activate();
+            $.AdminJs.history.activate(@Model.Products.strCodigo);
         })
     </script>
     @if (ViewBag.addQuestionFromRedirect != null && ViewBag.addQuestionFromRedirect != "")

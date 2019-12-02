@@ -22,4 +22,16 @@ namespace WebStore.Models
         public string SubtotalStr { get; set; }
         public string TotalStr { get; set; }
     }
+
+    public class StorageCart
+    {
+        List<CartProductList> Carts { get; set; }
+    }
+
+    public class DataCartStorage
+    {
+        public CartProductList CartProduct { get; set; }
+        public List<CartProductList> Cart { get; set; }
+        public string CodedString { get; set; }
+    }
 }

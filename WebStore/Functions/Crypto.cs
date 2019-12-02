@@ -12,5 +12,15 @@ namespace WebStore.Functions
                 .ComputeHash(Encoding.UTF8.GetBytes(value))
                 );
         }
+
+        public static string CodedString(string value)
+        {
+            return Convert.ToBase64String(Encoding.UTF8.GetBytes(value));
+        }
+
+        public static string DecodedString(string value)
+        {
+            return Encoding.UTF8.GetString(Convert.FromBase64String(value));
+        }
     }
 }

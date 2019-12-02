@@ -157,7 +157,7 @@
                     </li>
 
                     <li class="nav-item mg-li-social mg-shopping-cart dropdown">
-                        <a class="nav-link" href="@Url.Action("Cart", "User", new { language = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName }, null)">
+                        <a id="CartCount" class="nav-link" href="@Url.Action("Cart", "User", new { language = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName }, null)">
                             <i class="fas fa-shopping-cart"></i>
                             @{
                                 if (Model.Notification.Cart > 0)
@@ -169,7 +169,7 @@
                             }
 
                         </a>
-                        <div class="mg-toolbar-dropdown mg-cart-dropdown mg-widget-cart mg-hidden-on-mobile">
+                        <div class="mg-toolbar-dropdown mg-cart-dropdown mg-widget-cart mg-hidden-on-mobile" id="CartItems">
                             @{ if (Model.ProductList != null)
                                 {
                                     foreach (var i in Model.ProductList)
@@ -214,7 +214,7 @@
                                     <div class="d-flex">
                                         <div class="pr-2 w-50">
                                             <a href="@Url.Action("Cart", "User", new { language = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName })" style="text-decoration:none;">
-                                                <div class="btn btn-secondary btn-sm btn-block mb-0" href="cart.html">@WebStore.Resources.Buttons.ShowCart</div>
+                                                <div class="btn btn-secondary btn-sm btn-block mb-0">@WebStore.Resources.Buttons.ShowCart</div>
                                             </a>
                                         </div>
                                         <div class="pl-2 w-50">

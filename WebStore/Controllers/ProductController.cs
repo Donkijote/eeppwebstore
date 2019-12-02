@@ -8,6 +8,7 @@ using WebStore.Functions;
 using WebStore.Routing;
 using System.Threading;
 using System.Globalization;
+using System.Web.Script.Serialization;
 
 namespace WebStore.Controllers
 {
@@ -45,6 +46,7 @@ namespace WebStore.Controllers
                     int percet = (int)oList.Where(o => o.idOffert == x.Offert).Select(r => r.intPercentage).FirstOrDefault();
                     x.intPercent = percet + "%";
                     x.intPrecioOff = Function.FormatNumber(x.intPrecioNum - (x.intPrecioNum * percet / 100));
+                    x.intPrecioOffNum = x.intPrecioNum - (x.intPrecioNum * percet / 100);
                 }
             }
 
@@ -117,7 +119,7 @@ namespace WebStore.Controllers
             }
             else
             {
-                if (Request.Cookies["History"] != null)
+                /*if (Request.Cookies["History"] != null)
                 {
                     var History = Request.Cookies["History"];
                     var items = History.Values.AllKeys.SelectMany(History.Values.GetValues, (k, v) => new { key = k, value = v });
@@ -141,7 +143,7 @@ namespace WebStore.Controllers
                     History["Object-1"] = x.strCodigo;
 
                     Response.Cookies.Add(History);
-                }
+                }*/
             }
 
             if(Session["Question"] != null && Session["Question"].ToString() != "")
@@ -222,6 +224,41 @@ namespace WebStore.Controllers
             {
                 Session["Question"] = Question;
                 return Json(new { status = "OK", title = "Pregunta", responseText = "", isLoggedIn = false, redirectToAction = Url.Action("LogIn", "User", new { ReturnUrl = Request.UrlReferrer.AbsoluteUri }) });
+            }
+        }
+
+        [HttpPost]
+        public ActionResult AddProductToHistory(ProductsHistory prod)
+        {
+            if (string.IsNullOrWhiteSpace(prod.CodedString))
+            {
+                List<ProductsHistory> products = new List<ProductsHistory>
+                {
+                    new ProductsHistory { Code = prod.Code }
+                };
+
+                var Stringed = new JavaScriptSerializer().Serialize(products);
+
+                var CodedString = Crypto.CodedString(Stringed);
+
+                return Json(new { status = "OK", responseText = new { String = CodedString } });
+            }
+            else
+            {
+                var DecodedString = Crypto.DecodedString(prod.CodedString);
+
+                var UnStringed = new JavaScriptSerializer().Deserialize<List<CartProductList>>(DecodedString);
+
+                if (!UnStringed.Any(x => x.Code == prod.Code))
+                {
+                    UnStringed.Add(new CartProductList { Code = prod.Code});
+                }
+
+                var Stringed = new JavaScriptSerializer().Serialize(UnStringed);
+
+                var CodedString = Crypto.CodedString(Stringed);
+
+                return Json(new { status = "OK", responseText = new { String = CodedString } });
             }
         }
 

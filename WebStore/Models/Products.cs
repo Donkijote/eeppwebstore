@@ -71,4 +71,10 @@ namespace WebStore.Models
         public List<Questions> UserQuestions { get; set; }
         public List<Questions> OthersQuestions { get; set; }
     }
+
+    public class ProductsHistory
+    {
+        public string Code { get; set; }
+        public string CodedString { get; set; }
+    }
 }

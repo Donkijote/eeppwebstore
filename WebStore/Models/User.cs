@@ -83,6 +83,8 @@ namespace WebStore.Models
         [DataType(DataType.Password)]
         public string Pass { get; set; }
         public bool RememberMe { get; set; }
+        public string CartString { get; set; }
+        public string HistoryString { get; set; }
     }
     public class ExternalLogin
     {
@@ -90,6 +92,8 @@ namespace WebStore.Models
         public string Email { get; set; }
         public string Name { get; set; }
         public string Photo { get; set; }
+        public string CartString { get; set; }
+        public string HistoryString { get; set; }
     }
     public class RecoveryPassword
     {
